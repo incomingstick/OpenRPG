@@ -27,3 +27,17 @@
 *.exe
 *.out
 *.app
+
+# Folders and other files
+[Dd]ebug/
+.settings/
+.project
+.cproject
+*.out
+[Bb]in/
+*.cbp
+*.depend
+[Bb]uild/
+[Bb]uild32/
+[Bb]uild64/
+.vscode
