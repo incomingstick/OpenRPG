@@ -25,11 +25,12 @@ if(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 		add_definitions(-DGIT_COMMIT_STR="${GIT_COMMIT_HASH}")
 endif(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 
-include_directories("src")
+include_directories("src" "src/modules" "src/modules/lib")
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
 set(TC_SOURCES 
 		${CMAKE_SOURCE_DIR}/src/main.cpp
+		${CMAKE_SOURCE_DIR}/src/modules/lib/utils.cpp
 )
 
 add_executable(OpenRPG ${TC_SOURCES})
