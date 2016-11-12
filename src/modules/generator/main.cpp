@@ -4,7 +4,7 @@
  *  Created on: Nov 10, 2016
  */
 #include <iostream>
-#include <generator.h>
+#include "generator.h"
 
 using namespace std;
 

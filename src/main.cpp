@@ -27,12 +27,12 @@ int main(int argc, char* argv[]) {
         exit(0);
     }
 
-    print_file("welcome_mat1");
+    print_file("banners/welcome_mat1");
     
     string in = "";
 
     while(in != "exit") {
-        cout << "morpg > ";
+        cout << "\33[4morpg\33[0m > ";
         cin >> in;
     }
 
