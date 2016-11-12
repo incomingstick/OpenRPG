@@ -5,6 +5,7 @@
  */
 #include <iostream>
 #include <limits.h>
+#include <stdlib.h>
 #include "utils.h"
 
 using namespace std;
@@ -18,7 +19,11 @@ int main(int argc, char* argv[]) {
                 string race(argv[i + 1]);
                 string gender(argv[i + 2]);
 
-                cout << "TODO Print " << gender << " " << race << " name here" << endl;
+                string cmd("./bin/modules/generator "+race+" "+gender);
+
+                int status = system(cmd.c_str());
+
+                exit(status);
             }
         } catch(...) {
             cerr << "invalid arg/use print" << endl;

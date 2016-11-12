@@ -68,11 +68,11 @@ string get_display_screen(string type) {
  */
 string load_file(string file) { 
 	// Open the assets file for the current screen
-    ifstream screen_file("../src/assets/"+file);
-    string  ret = "";
+    ifstream screen_file("assets/"+file);
+    string ret = "";
     
     if (screen_file.is_open()) {
-        string  buffer;
+        string buffer;
         
         while (getline(screen_file, buffer)) {
             ret = ret + buffer + '\n';
@@ -82,7 +82,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cout << "FILE COULD NOT BE OPENED" << endl;
+        cerr << "FILE COULD NOT BE OPENED" << endl;
     }
     
     return ret;

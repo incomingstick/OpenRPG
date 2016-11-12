@@ -9,13 +9,20 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    if(argc > 1) {
+    string race("dwarf");
+    string gender("female");
+
+    if(argc > 2) {
         // TODO we should have cla's for testing purposes
         // This will also parse commands like the race
         // and gender of the desired character
+        race = argv[1];
+        gender = argv[2];
     }
 
-    NameGenerator jenny;
+    NameGenerator gen(race, gender);
+
+    cout << gen.get_name() << endl;
 
 	return 0;
 }
