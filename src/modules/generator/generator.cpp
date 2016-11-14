@@ -9,11 +9,14 @@
 #include <cstdlib>
 #include <algorithm>
 #include <vector>
+#include <ctime>
 #include "generator.h"
 
 using namespace std;
 
 NameGenerator::NameGenerator(string race, string gender) {
+    srand(time(NULL));  
+
     this->race = race;
     this->gender = gender;
 }
@@ -23,14 +26,17 @@ NameGenerator::~NameGenerator() {
 }
 
 string NameGenerator::get_name() {
+    string ret;
+
     string first = get_first();
     string last = get_last();
 
-    return first + " " + last;
+    ret = first + " " + last;
+
+    return ret;
 }
 
 string NameGenerator::get_first() {
-    string ret = "";
     string loc("assets/names/"+race+"/"+gender);
     
     ifstream file(loc.c_str());
@@ -43,22 +49,19 @@ string NameGenerator::get_first() {
 
         int select = rand() % lines.size();
 
-        cout << "CALLED GET_FIRST()" << endl;
-
-        ret = lines[select];
-
         file.close();
+
+        return lines[select];
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
         cerr << loc << " COULD NOT BE OPENED" << endl;
     }
-    
-    return ret;
+
+    return "NULL";
 }
 
 string NameGenerator::get_last() {
-    string ret = "";
     string loc("assets/names/"+race+"/last");
     
     ifstream file(loc.c_str());
@@ -71,16 +74,14 @@ string NameGenerator::get_last() {
 
         int select = rand() % lines.size();
 
-        cout << "CALLED GET_LAST()" << endl;
-
-        ret = lines[select];
-
         file.close();
+
+        return lines[select];
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
         cerr << loc << " COULD NOT BE OPENED" << endl;
     }
-    
-    return ret;
+
+    return "NULL";
 }
