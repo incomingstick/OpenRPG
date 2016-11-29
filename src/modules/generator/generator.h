@@ -9,17 +9,19 @@
 #define SRC_GENERATOR_H_
 
 #include <string>
+#include <random>
 
 class NameGenerator {
     private:
         std::string race;
         std::string gender;
+        std::default_random_engine generator;
     public:
         NameGenerator(std::string race, std::string gender);
         ~NameGenerator();
-        std::string get_name();
-        std::string get_first();
-        std::string get_last();
+        std::string make_name();
+        std::string make_first();
+        std::string make_last();
 };
 
 #endif /* SRC_GENERATOR_H_ */

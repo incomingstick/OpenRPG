@@ -6,7 +6,6 @@
  */
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include <algorithm>
 #include <vector>
 #include <ctime>
@@ -14,29 +13,27 @@
 
 using namespace std;
 
-NameGenerator::NameGenerator(string race, string gender) {
-    srand(time(NULL));  
-
-    this->race = race;
-    this->gender = gender;
+NameGenerator::NameGenerator(string race, string gender)
+    :race(race),
+     gender(gender) {
 }
 
 NameGenerator::~NameGenerator() {
     // TODO nothing yet. May never be anything TODO.
 }
 
-string NameGenerator::get_name() {
+string NameGenerator::make_name() {
     string ret;
 
-    string first = get_first();
-    string last = get_last();
+    string first = make_first();
+    string last = make_last();
 
     ret = first + " " + last;
 
     return ret;
 }
 
-string NameGenerator::get_first() {
+string NameGenerator::make_first() {
     string loc("assets/names/"+race+"/"+gender);
     
     ifstream file(loc.c_str());
@@ -47,7 +44,8 @@ string NameGenerator::get_first() {
 
         while(getline(file, line)) lines.push_back(line);
 
-        int select = rand() % lines.size();
+        uniform_int_distribution<int> dist(0, lines.size());
+        int select = dist(generator);
 
         file.close();
 
@@ -61,7 +59,7 @@ string NameGenerator::get_first() {
     return "NULL";
 }
 
-string NameGenerator::get_last() {
+string NameGenerator::make_last() {
     string loc("assets/names/"+race+"/last");
     
     ifstream file(loc.c_str());
@@ -72,7 +70,8 @@ string NameGenerator::get_last() {
 
         while(getline(file, line)) lines.push_back(line);
 
-        int select = rand() % lines.size();
+        uniform_int_distribution<int> dist(0, lines.size());
+        int select = dist(generator);
 
         file.close();
 

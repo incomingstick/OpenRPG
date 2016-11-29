@@ -22,9 +22,9 @@ int main(int argc, char* argv[]) {
 
     NameGenerator gen(race, gender);
 
-    cout << "Random first name: " << gen.get_first() << endl;
-    cout << "Random last name: " << gen.get_last() << endl;
-    cout << "Random full name: " << gen.get_name() << endl;
+    cout << "Random first name: " << gen.make_first() << endl;
+    cout << "Random last name: " << gen.make_last() << endl;
+    cout << "Random full name: " << gen.make_name() << endl;
 
 	return 0;
 }
