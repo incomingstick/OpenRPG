@@ -4,11 +4,13 @@
  *  Created on: Nov 10, 2016
  *      Author: Tumblr
  */
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <vector>
 #include <ctime>
+#include "utils.h"
 #include "generator.h"
 
 using namespace std;
@@ -16,6 +18,8 @@ using namespace std;
 NameGenerator::NameGenerator(string race, string gender)
     :race(race),
      gender(gender) {
+    
+    generator.seed(time(NULL));
 }
 
 NameGenerator::~NameGenerator() {
@@ -23,12 +27,7 @@ NameGenerator::~NameGenerator() {
 }
 
 string NameGenerator::make_name() {
-    string ret;
-
-    string first = make_first();
-    string last = make_last();
-
-    ret = first + " " + last;
+    string ret(make_first() + " " + make_last());
 
     return ret;
 }
@@ -42,7 +41,7 @@ string NameGenerator::make_first() {
         string line;
         vector<string> lines;
 
-        while(getline(file, line)) lines.push_back(line);
+        while(safeGetline(file, line)) lines.push_back(line);
 
         uniform_int_distribution<int> dist(0, lines.size());
         int select = dist(generator);
@@ -68,7 +67,7 @@ string NameGenerator::make_last() {
         string line;
         vector<string> lines;
 
-        while(getline(file, line)) lines.push_back(line);
+        while(safeGetline(file, line)) lines.push_back(line);
 
         uniform_int_distribution<int> dist(0, lines.size());
         int select = dist(generator);

@@ -8,7 +8,6 @@
 #ifndef SRC_GENERATOR_H_
 #define SRC_GENERATOR_H_
 
-#include <string>
 #include <random>
 
 class NameGenerator {
