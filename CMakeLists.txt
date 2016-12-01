@@ -28,31 +28,55 @@ if(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 		add_definitions(-DGIT_COMMIT_STR="${GIT_COMMIT_HASH}")
 endif(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 
+set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  "${PROJECT_SOURCE_DIR}/Config.h.in"
-  "${PROJECT_BINARY_DIR}/Config.h"
+  "${PROJECT_SOURCE_DIR}/config.h.in"
+  "${CMAKE_SOURCE_DIR}/config.h"
 )
 
 # source directories
-include_directories("src" "src/modules" "src/util" "${PROJECT_BINARY_DIR}")
+include_directories("src" "src/util")
 
-# module directorie
+# module directory with CMakeLists.txt
 add_subdirectory("src/modules")
 
-set(TC_SOURCES 
-		${CMAKE_SOURCE_DIR}/src/main.cpp
-		${CMAKE_SOURCE_DIR}/src/util/utils.cpp
+set(SOURCES 
+		${CMAKE_SOURCE_DIR}/main.cpp
+		${CMAKE_SOURCE_DIR}/util/utils.cpp
+)
+
+set(INCLUDE
+		${CMAKE_SOURCE_DIR}/util/utils.cpp
+		${CMAKE_SOURCE_DIR}/config.h
+)
+
+set(ASSETS
+		${CMAKE_SOURCE_DIR}/assets/banners/welcome_mat1
+		${CMAKE_SOURCE_DIR}/assets/names/dwarf/male
+		${CMAKE_SOURCE_DIR}/assets/names/dwarf/female
+		${CMAKE_SOURCE_DIR}/assets/names/dwarf/last
 )
 
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
-add_executable(OpenRPG ${TC_SOURCES})
+add_executable(openrpg ${SOURCES})
 
-add_custom_command(TARGET OpenRPG POST_BUILD
+add_custom_command(TARGET openrpg POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:OpenRPG>/assets
+                   ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:openrpg>/assets
 )
 
-install (TARGETS OpenRPG DESTINATION bin)
+install (TARGETS openrpg DESTINATION bin)
+install (FILES ${INCLUDE} DESTINATION include)
+install (FILES ${ASSETS} DESTINATION assets)
+
+set(CMAKE_CTEST_COMMAND ctest -V)
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+
+enable_testing()
+
+# tests directory
+add_subdirectory("src/tests" EXCLUDE_FROM_ALL)

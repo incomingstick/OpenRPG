@@ -4,7 +4,7 @@ A handy dandy helper program for playing D&amp;D! (This is just a concept and wi
 # Building
 Currently we require `cmake` (at least v3.0) and `make`
 
-Create a build directory `mkdir build`
+Create a build directory `mkdir build &&  cd build`
 Run cmake `cmake ..`
 run make `make`
 run make install `make install`

@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
                 string race(argv[i + 1]);
                 string gender(argv[i + 2]);
 
-                string cmd("./modules/generator "+race+" "+gender);
+                string cmd("name-generator "+race+" "+gender);
 
                 int status = system(cmd.c_str());
 

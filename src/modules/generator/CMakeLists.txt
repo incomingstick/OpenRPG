@@ -4,8 +4,14 @@ set(TC_SOURCES
 		${CMAKE_SOURCE_DIR}/src/util/utils.cpp
 )
 
+set(TC_INCLUDES
+		${CMAKE_CURRENT_SOURCE_DIR}/generator.h
+)
+
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
 add_executable(name-generator ${TC_SOURCES})
 
 install(TARGETS name-generator DESTINATION bin)
+install (FILES ${TC_INCLUDE} DESTINATION include)
+install (FILES ${TC_ASSETS} DESTINATION assets)
