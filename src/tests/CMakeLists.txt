@@ -20,5 +20,10 @@ set(CUR_TEST generator-test)
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST}.cpp)
 
+add_custom_command(TARGET ${CUR_TEST} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${CUR_TEST}>/assets
+)
+
 do_test(${CUR_TEST} dwarf male)
 do_test(${CUR_TEST} dwarf female)
