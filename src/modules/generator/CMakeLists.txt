@@ -6,4 +6,6 @@ set(TC_SOURCES
 
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
-add_executable(generator ${TC_SOURCES})
+add_executable(name-generator ${TC_SOURCES})
+
+install(TARGETS name-generator DESTINATION bin)

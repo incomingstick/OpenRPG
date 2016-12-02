@@ -28,12 +28,18 @@ if(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 		add_definitions(-DGIT_COMMIT_STR="${GIT_COMMIT_HASH}")
 endif(${GIT_FOUND} AND ${USE_GIT_VERSIONING})
 
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/Config.h.in"
+  "${PROJECT_BINARY_DIR}/Config.h"
+)
+
 # source directories
-include_directories("src" "src/modules" "src/util")
+include_directories("src" "src/modules" "src/util" "${PROJECT_BINARY_DIR}")
 
 # module directorie
 add_subdirectory("src/modules")
-
 
 set(TC_SOURCES 
 		${CMAKE_SOURCE_DIR}/src/main.cpp
@@ -48,3 +54,5 @@ add_custom_command(TARGET OpenRPG POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                    ${CMAKE_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:OpenRPG>/assets
 )
+
+install (TARGETS OpenRPG DESTINATION bin)

@@ -7,5 +7,6 @@ Currently we require `cmake` (at least v3.0) and `make`
 Create a build directory `mkdir build`
 Run cmake `cmake ..`
 run make `make`
+run make install `make install`
 
 This will give you an executable OpenRPG file, as well as create executables for each module located in `build/bin/modules/`

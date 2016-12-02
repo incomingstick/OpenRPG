@@ -1,0 +1,5 @@
+// the configured options and settings for Tutorial
+#define OpenRPG_VERSION_MAJOR @OpenRPG_VERSION_MAJOR@
+#define OpenRPG_VERSION_MINOR @OpenRPG_VERSION_MINOR@
+#define OpenRPG_VERSION_TWEAK @OpenRPG_VERSION_TWEAK@
+#define OpenRPG_VERSION_SUFFIX "@OpenRPG_VERSION_SUFFIX@"
