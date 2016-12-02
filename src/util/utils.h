@@ -2,7 +2,7 @@
  * utils.h
  *
  *  Created on: Mar 23, 2016
- *      Author: Tumblr
+ *      Author: Nick Gaulke
  */
 
 #ifndef SRC_UTILS_H_

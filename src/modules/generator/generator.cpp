@@ -2,7 +2,7 @@
  * generator.cpp
  *
  *  Created on: Nov 10, 2016
- *      Author: Tumblr
+ *      Author: Nick Gaulke
  */
 #include <string>
 #include <iostream>
@@ -42,11 +42,14 @@ string NameGenerator::make_first() {
         vector<string> lines;
 
         while(safeGetline(file, line)) lines.push_back(line);
+        while(lines[lines.size()-1].empty()) lines.pop_back();
 
         uniform_int_distribution<int> dist(0, lines.size());
         int select = dist(generator);
 
         file.close();
+
+        cout << select << endl;
 
         return lines[select];
     } else {
@@ -68,11 +71,14 @@ string NameGenerator::make_last() {
         vector<string> lines;
 
         while(safeGetline(file, line)) lines.push_back(line);
+        while(lines[lines.size()-1].empty()) lines.pop_back();
 
         uniform_int_distribution<int> dist(0, lines.size());
-        int select = dist(generator);
+        int select = dist(generator); // TODO (fix) only generating '4'
 
         file.close();
+
+        cout << select << endl;
 
         return lines[select];
     } else {

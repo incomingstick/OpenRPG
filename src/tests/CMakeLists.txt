@@ -1,5 +1,5 @@
 macro(do_test test arg1 arg2)
-  add_test(${test}-${arg2} ${test} ${arg1} ${arg2})
+  add_test(${test}-${arg1}-${arg2} ${test} ${arg1} ${arg2})
   add_dependencies(check ${test})
 endmacro(do_test)
 

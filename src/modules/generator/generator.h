@@ -2,7 +2,7 @@
  * generator.h
  *
  *  Created on: Nov 10, 2016
- *      Author: Tumblr
+ *      Author: Nick Gaulke
  */
 
 #ifndef SRC_GENERATOR_H_
