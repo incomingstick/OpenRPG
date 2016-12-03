@@ -44,12 +44,10 @@ string NameGenerator::make_first() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        uniform_int_distribution<int> dist(0, lines.size());
+        uniform_int_distribution<int> dist(0, lines.size() - 1);
         int select = dist(generator);
 
         file.close();
-
-        cout << select << endl;
 
         return lines[select];
     } else {
@@ -63,7 +61,7 @@ string NameGenerator::make_first() {
 
 string NameGenerator::make_last() {
     string loc("assets/names/"+race+"/last");
-    
+
     ifstream file(loc.c_str());
     
     if(file.is_open()) {
@@ -73,12 +71,10 @@ string NameGenerator::make_last() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        uniform_int_distribution<int> dist(0, lines.size());
-        int select = dist(generator); // TODO (fix) only generating '4'
-
+        uniform_int_distribution<int> dist(0, lines.size() - 1);
+        int select = dist(generator); // TODO (fix) only generating a static number
+                                      // it appears to be system specific
         file.close();
-
-        cout << select << endl;
 
         return lines[select];
     } else {
