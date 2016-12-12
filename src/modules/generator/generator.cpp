@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <vector>
 #include <ctime>
+#include <functional>
+#include <random>
 #include "utils.h"
 #include "generator.h"
 
@@ -19,7 +21,6 @@ NameGenerator::NameGenerator(string race, string gender)
     :race(race),
      gender(gender) {
     
-    generator.seed(time(NULL));
 }
 
 NameGenerator::~NameGenerator() {
@@ -44,8 +45,7 @@ string NameGenerator::make_first() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        uniform_int_distribution<int> dist(0, lines.size() - 1);
-        int select = dist(generator);
+        int select = random(0, lines.size() - 1);
 
         file.close();
 
@@ -71,9 +71,9 @@ string NameGenerator::make_last() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        uniform_int_distribution<int> dist(0, lines.size() - 1);
-        int select = dist(generator); // TODO (fix) only generating a static number
-                                      // it appears to be system specific
+        int select = random(0, lines.size() - 1);   // TODO (fix) only generating a static number
+                                                    // it appears to be system specific
+
         file.close();
 
         return lines[select];
@@ -84,4 +84,17 @@ string NameGenerator::make_last() {
     }
 
     return "NULL";
+}
+
+int NameGenerator::random(int min, int max) {
+    default_random_engine generator;
+
+    generator.seed(time(NULL));
+
+    uniform_int_distribution<int> dist(min, max);
+    auto fn_rand = std::bind(dist, generator);
+
+    for(int i = 0; i < fn_rand(); i++) fn_rand();
+
+    return fn_rand();
 }

@@ -8,13 +8,11 @@
 #ifndef SRC_GENERATOR_H_
 #define SRC_GENERATOR_H_
 
-#include <random>
-
 class NameGenerator {
     private:
         std::string race;
         std::string gender;
-        std::default_random_engine generator;
+        int random(int min, int max);
     public:
         NameGenerator(std::string race, std::string gender);
         ~NameGenerator();
