@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.0)
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
 set(OpenRPG_VERSION_MINOR 0)
-set(OpenRPG_VERSION_TWEAK 1)
+set(OpenRPG_VERSION_TWEAK 2)
 set(OpenRPG_VERSION_SUFFIX "dev")
 add_definitions(-DVERSION_STR="v${OpenRPG_VERSION_MAJOR}.${OpenRPG_VERSION_MINOR}.${OpenRPG_VERSION_TWEAK}-${OpenRPG_VERSION_SUFFIX}")
 
@@ -53,12 +53,7 @@ set(INCLUDE
 		${CMAKE_SOURCE_DIR}/config.h
 )
 
-set(ASSETS
-		${CMAKE_SOURCE_DIR}/assets/banners/welcome_mat1
-		${CMAKE_SOURCE_DIR}/assets/names/dwarf/male
-		${CMAKE_SOURCE_DIR}/assets/names/dwarf/female
-		${CMAKE_SOURCE_DIR}/assets/names/dwarf/last
-)
+set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
 
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
@@ -70,8 +65,8 @@ add_custom_command(TARGET openrpg POST_BUILD
 )
 
 install (TARGETS openrpg DESTINATION bin)
-install (FILES ${INCLUDE} DESTINATION include)
-install (FILES ${ASSETS} DESTINATION assets)
+install (FILES ${INCLUDE} DESTINATION lib)
+install (DIRECTORY ${ASSETS} DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 set(CMAKE_CTEST_COMMAND ctest -V)
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})

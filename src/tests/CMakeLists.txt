@@ -3,17 +3,17 @@ macro(do_test test arg1 arg2)
   add_dependencies(check ${test})
 endmacro(do_test)
 
-set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
+set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 
 # source directories
 include_directories("${CMAKE_SOURCE_DIR}"
-                    "${CMAKE_SOURCE_DIR}/util"
-                    "${CMAKE_SOURCE_DIR}/modules/generator"
+                    "${CMAKE_SOURCE_DIR}/src/util"
+                    "${CMAKE_SOURCE_DIR}/src/modules/generator"
 )
 
 set(TEST_COMMON_SRC
-        ${CMAKE_SOURCE_DIR}/util/utils.cpp
-        ${CMAKE_SOURCE_DIR}/modules/generator/generator.cpp
+        ${CMAKE_SOURCE_DIR}/src/util/utils.cpp
+        ${CMAKE_SOURCE_DIR}/src/modules/generator/generator.cpp
 )
 
 set(CUR_TEST generator-test)

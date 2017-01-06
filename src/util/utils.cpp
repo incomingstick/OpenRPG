@@ -12,9 +12,12 @@
 #include <cstdlib>
 #include <fstream>
 #include <vector>
+#include "config.h"
 #include "utils.h"
 
 using namespace std;
+
+string asset_loc = ASSET_LOC;
 
 /*
  * Returns the width of the console
@@ -40,7 +43,7 @@ size_t get_console_height() {
  */
 string get_display_screen(string type) {
     // Open the assets file for the current screen
-    ifstream screen_file("assets/"+ type);
+    ifstream screen_file(asset_loc+"/"+type);
     string ret = "";
     
     if (screen_file.is_open()) {
@@ -57,7 +60,7 @@ string get_display_screen(string type) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cout << "FILE COULD NOT BE OPENED" << endl;
+        cout << "[1] FILE " << asset_loc << "/" << type << " COULD NOT BE OPENED" << endl;
     }
     
     return ret;
@@ -69,7 +72,7 @@ string get_display_screen(string type) {
  */
 string load_file(string file) { 
 	// Open the assets file for the current screen
-    ifstream screen_file("assets/"+file);
+    ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
     if (screen_file.is_open()) {
@@ -83,7 +86,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cerr << "FILE COULD NOT BE OPENED" << endl;
+         cout << "[2] FILE " << asset_loc << "/" << file << " COULD NOT BE OPENED" << endl;
     }
     
     return ret;

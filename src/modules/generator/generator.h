@@ -10,6 +10,7 @@
 
 class NameGenerator {
     private:
+        std::string location;
         std::string race;
         std::string gender;
         int random(int min, int max);

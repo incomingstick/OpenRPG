@@ -12,6 +12,7 @@
 #include <ctime>
 #include <functional>
 #include <random>
+#include "config.h"
 #include "utils.h"
 #include "generator.h"
 
@@ -20,7 +21,8 @@ using namespace std;
 NameGenerator::NameGenerator(string race, string gender)
     :race(race),
      gender(gender) {
-    
+    location = ASSET_LOC;
+    location += "/names";
 }
 
 NameGenerator::~NameGenerator() {
@@ -34,7 +36,7 @@ string NameGenerator::make_name() {
 }
 
 string NameGenerator::make_first() {
-    string loc("assets/names/"+race+"/"+gender);
+    string loc(location+"/"+race+"/"+gender);
     
     ifstream file(loc.c_str());
     
@@ -60,7 +62,7 @@ string NameGenerator::make_first() {
 }
 
 string NameGenerator::make_last() {
-    string loc("assets/names/"+race+"/last");
+    string loc(location+"/"+race+"/last");
 
     ifstream file(loc.c_str());
     
