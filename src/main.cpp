@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
                 string race(argv[++i]);
                 string gender(argv[++i]);
 
-                string cmd("name-generator "+race+" "+gender);
+                string cmd("name-generator "+race+" "+gender); // NOT HOW THIS SHOULD BE DONE
 
                 status = system(cmd.c_str());
             } else if(arg == "-v" || arg == "--verbose") {
