@@ -12,6 +12,17 @@
 
 using namespace std;
 
+/*
+ * Input parser - parse(in)
+ *      This function may become its own class if it grows
+ *      large enough. For now it is simply a placeholder.
+ */
+int parse(string in) {
+    cout << "parsing..." << endl;
+    string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
+    return system(cmd.c_str());;
+}
+
 int main(int argc, char* argv[]) {
     int status = 0;
 
@@ -24,8 +35,9 @@ int main(int argc, char* argv[]) {
                 string race(argv[++i]);
                 string gender(argv[++i]);
 
-                string cmd("name-generator "+race+" "+gender); // NOT HOW THIS SHOULD BE DONE
-
+                string cmd("name-generator "+race+" "+gender);
+                
+                // NOT HOW THIS SHOULD BE DONE
                 status = system(cmd.c_str());
             } else if(arg == "-v" || arg == "--verbose") {
                 fprintf(stdout,"%s v%d.%d.%d-%s\n",
@@ -46,9 +58,14 @@ int main(int argc, char* argv[]) {
     
         string in("");
 
-        while(in != "exit") {
+        // get user input
+        while(true) {
             cout << "\33[4morpg\33[0m > ";
             cin >> in;
+            if(in == "exit" || in == "quit" || in == "q") break;
+            else if((status = parse(in)) != 0) {
+                return status;
+            }
         }
     }
 

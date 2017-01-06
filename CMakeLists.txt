@@ -38,18 +38,18 @@ configure_file (
 )
 
 # source directories
-include_directories("src" "src/util")
+include_directories("src" "src/lib")
 
 # module directory with CMakeLists.txt
 add_subdirectory("src/modules")
 
 set(SOURCES 
 		${CMAKE_SOURCE_DIR}/main.cpp
-		${CMAKE_SOURCE_DIR}/util/utils.cpp
+		${CMAKE_SOURCE_DIR}/lib/utils.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/util/utils.cpp
+		${CMAKE_SOURCE_DIR}/lib/utils.cpp
 		${CMAKE_SOURCE_DIR}/config.h
 )
 

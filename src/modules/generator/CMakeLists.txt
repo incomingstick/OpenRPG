@@ -1,7 +1,7 @@
 set(TC_SOURCES 
 		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/generator.cpp
-		${CMAKE_SOURCE_DIR}/src/util/utils.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 set(TC_INCLUDES
