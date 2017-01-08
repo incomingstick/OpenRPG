@@ -10,14 +10,13 @@
 
 class Die {
     private:
-        int min = 1;
-        int max = 6;
+        int MAX = 6;
     public:
         Die();
-        Die(int min, int max);
+        Die(int max);
         ~Die();
         int roll();
-        int roll(int min, int max);
+        int roll(int max);
 };
 
 #endif /* SRC_DIE_H_ */
