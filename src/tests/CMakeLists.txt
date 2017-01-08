@@ -8,12 +8,12 @@ set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 # source directories
 include_directories("${CMAKE_SOURCE_DIR}"
                     "${CMAKE_SOURCE_DIR}/src/lib"
-                    "${CMAKE_SOURCE_DIR}/src/modules/generator"
+                    "${CMAKE_SOURCE_DIR}/src/lib/modules/generator"
 )
 
 set(TEST_COMMON_SRC
         ${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
-        ${CMAKE_SOURCE_DIR}/src/modules/generator/generator.cpp
+        ${CMAKE_SOURCE_DIR}/src/lib/modules/generator/generator.cpp
 )
 
 set(CUR_TEST generator-test)
