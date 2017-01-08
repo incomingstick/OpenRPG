@@ -41,7 +41,7 @@ configure_file (
 include_directories("src" "src/lib")
 
 # module directory with CMakeLists.txt
-add_subdirectory("src/lib")
+add_subdirectory("src/lib/modules")
 
 set(SOURCES 
 		${CMAKE_SOURCE_DIR}/main.cpp
