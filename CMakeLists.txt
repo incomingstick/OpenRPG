@@ -34,14 +34,14 @@ set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 # to the source code
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_SOURCE_DIR}/config.h"
+  "${CMAKE_SOURCE_DIR}/lib/config.h"
 )
 
 # source directories
 include_directories("src" "src/lib")
 
 # module directory with CMakeLists.txt
-add_subdirectory("src/modules")
+add_subdirectory("src/lib/modules")
 
 set(SOURCES 
 		${CMAKE_SOURCE_DIR}/main.cpp
@@ -50,7 +50,7 @@ set(SOURCES
 
 set(INCLUDE
 		${CMAKE_SOURCE_DIR}/lib/utils.cpp
-		${CMAKE_SOURCE_DIR}/config.h
+		${CMAKE_SOURCE_DIR}/lib/config.h
 )
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
