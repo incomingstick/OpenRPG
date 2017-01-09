@@ -168,3 +168,13 @@ std::istream& safeGetline(std::istream& is, std::string& t)
         }
     }
 }
+
+void verbose(string log, int status) {
+    if(status == -1)    cerr << "[VERBOSE]\t";
+    if(status == 0)     cerr << "[DEBUG]\t";
+    if(status == 1)     cerr << "[ERROR]\t";
+    
+    cerr << log << "\tstatus " << status << endl;
+    
+    if(status > 0) exit(status);
+}

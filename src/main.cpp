@@ -18,9 +18,12 @@ using namespace std;
  *      large enough. For now it is simply a placeholder.
  */
 int parse(string in) {
-    cout << "parsing..." << endl;
+    verbose("parsing...", -1);
     string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-    return system(cmd.c_str());;
+    verbose("calling "+cmd, -1);
+    int status = system(cmd.c_str());
+    verbose("called "+cmd, status);
+    return status;
 }
 
 int main(int argc, char* argv[]) {
@@ -38,7 +41,7 @@ int main(int argc, char* argv[]) {
                 string cmd("name-generator "+race+" "+gender);
                 
                 // NOT HOW THIS SHOULD BE DONE
-                status = system(cmd.c_str());
+                verbose("calling "+cmd, system(cmd.c_str()));
             } else if(arg == "-v" || arg == "--verbose") {
                 fprintf(stdout,"%s v%d.%d.%d-%s\n",
                     argv[0],
@@ -50,7 +53,7 @@ int main(int argc, char* argv[]) {
                 status = 0;
             }
 
-            if(status != 0) exit(status);
+            if(status != 0) verbose("Something went wrong parsing args", status);
         }
     } else {
         // TODO - cli-gui for program
@@ -63,9 +66,7 @@ int main(int argc, char* argv[]) {
             cout << "\33[4morpg\33[0m > ";
             cin >> in;
             if(in == "exit" || in == "quit" || in == "q") break;
-            else if((status = parse(in)) != 0) {
-                return status;
-            }
+            else verbose("calling parse(in)", parse(in));
         }
     }
 
