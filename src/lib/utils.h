@@ -16,6 +16,9 @@ std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string type);
-void verbose(std::string log, int status);
+
+extern bool QUIET_FLAG;
+extern bool VB_FLAG;
+int verbose(std::string log = "", int status = -1);
 
 #endif /* SRC_UTILS_H_ */

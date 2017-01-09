@@ -19,6 +19,9 @@ using namespace std;
 
 string asset_loc = ASSET_LOC;
 
+bool QUIET_FLAG = false;
+bool VB_FLAG = false;
+
 /*
  * Returns the width of the console
  */
@@ -130,14 +133,14 @@ string rightpad(string str, int len, char ch) {
  * Prints the menu of the given string type to cout
  */
 bool print_file(string type) {
+    if(QUIET_FLAG) return false;
     string screen_disp = get_display_screen(type);
     cout << screen_disp << endl;
     return true;
 }
 
 // Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
-std::istream& safeGetline(std::istream& is, std::string& t)
-{
+std::istream& safeGetline(std::istream& is, std::string& t) {
     t.clear();
 
     // The characters in the stream are read one-by-one using a std::streambuf.
@@ -169,12 +172,14 @@ std::istream& safeGetline(std::istream& is, std::string& t)
     }
 }
 
-void verbose(string log, int status) {
-    if(status == -1)    cerr << "[VERBOSE]\t";
-    if(status == 0)     cerr << "[DEBUG]\t";
-    if(status == 1)     cerr << "[ERROR]\t";
+int verbose(string log, int status) {
+    if(VB_FLAG) {
+        if(status == -1)    cerr << "[VERBOSE]";
+        if(status == 0)     cerr << "[DEBUG]\t";
+        if(status == 1)     cerr << "[ERROR]";
+
+        cerr << "\t" << log << endl;
+    }
     
-    cerr << log << "\tstatus " << status << endl;
-    
-    if(status > 0) exit(status);
+    return status;
 }
