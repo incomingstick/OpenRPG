@@ -39,7 +39,7 @@ static void print_help_flag() {
                 "\t-V                          Verbose program output\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
-          "Report bugs to: incomingstick@gmail.com\n"
+          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
