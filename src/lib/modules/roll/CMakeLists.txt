@@ -1,5 +1,5 @@
 set(R_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
 		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )

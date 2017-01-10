@@ -1,5 +1,5 @@
 set(NG_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/generator.cpp
 		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )

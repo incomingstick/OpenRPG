@@ -45,7 +45,7 @@ include_directories("src" "src/lib")
 add_subdirectory("src/lib/modules")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/main.cpp
+		${CMAKE_SOURCE_DIR}/openrpg.cpp
 		${CMAKE_SOURCE_DIR}/lib/utils.cpp
 )
 
