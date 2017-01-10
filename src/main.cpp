@@ -13,6 +13,33 @@
 
 using namespace std;
 
+static void print_version_flag() {
+    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
+          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "This is free software: you are free to change and redistribute it.\n"
+          "There is NO WARRANTY, to the extent permitted by law.\n\n",
+          stdout);
+    exit(0);
+}
+
+static void print_help_flag() {
+    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
+          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "This is free software: you are free to change and redistribute it.\n"
+          "There is NO WARRANTY, to the extent permitted by law.\n\n"
+          "Usage: openrpg [options]\n"
+                "\t-h --help                   Print this help screen\n"
+                "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
+                "\t-q --quiet                  Do not print the banner on startup\n"
+                "\t-v --version                Print version info\n"
+                "\t-V                          Verbose program output\n"
+          "\n"
+          "Long options may not be passed with a single dash.\n"
+          "See 'man openrpg' for more information [TODO add man pages].\n",
+          stdout);
+    exit(0);
+}
+
 /*
  * Input parser - parse_input(in)
  *      This function may become its own class if it grows
@@ -25,7 +52,6 @@ int parse_input(string in) {
     return verbose("called "+cmd, system(cmd.c_str()));
 }
 
-
 /*
  * Option parser - parse_option(in)
  *      This function parses all cla's passed to argv. When a bad arg
@@ -35,56 +61,74 @@ int parse_opt(int argc, char* argv[]) {
     int status = 0;
     int c;
 
-    while (1) {
-        static struct option long_options[] = {
-            {"name",    required_argument, 0, 'n'},
-            {"quiet",   no_argument,       0, 'q'},
-            {"verbose", no_argument,       0, 'v'},
-            {0,         0,                 0,  0}
-        };
-        /* getopt_long stores the option index here. */
-        int option_index = 0;
+    /* getopt_long stores the option index here. */
+    int option_index = 0;
 
-        c = getopt_long (argc, argv, "n:qv",
-                         long_options, &option_index);
-        /* Detect the end of the options. */
-        if (c == -1)
-            break;
+    /* disables getopt printing to now be handled in '?' case */
+    opterr = 0;
+
+    /* these are the long cla's and their corresponding chars */
+    static struct option long_options[] = {
+        {"help",    no_argument,        0,  'h'},
+        {"name",    required_argument,  0,  'n'},
+        {"quiet",   no_argument,        0,  'q'},
+        {"verbose", no_argument,        0,  'V'},
+        {"version", no_argument,        0,  'v'},
+        /* NULL row to terminate struct */
+        {0,         0,                 0,  0}
+    };
+
+    while ((c = getopt_long (argc, argv, "hn:qv",
+                             long_options, &option_index)) != -1) {
+        string cmd("");
 
         switch (c) {
-        case 'n':
-            string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-            verbose("calling "+cmd, 0);
-            verbose("called "+cmd, system(cmd.c_str()));
-            status = 1;
+        /* -h --help */
+        case 'h':
+            print_help_flag();
             break;
+        
+        /* -n --name */
+        case 'n':
+            if(optind < argc) {
+                cmd = "name-generator "+ (string)optarg +" "+ (string)argv[optind++];
+                verbose("calling "+cmd, 0);
+                verbose("called "+cmd, system(cmd.c_str()));
+            }
+            exit(0);
+            break;
+        
+        /* -q --quiet */
         case 'q':
             QUIET_FLAG = true;
             verbose("turning verbose flag off");
             VB_FLAG = false;
             break;
+
+        /* -v --version */
         case 'v':
+            print_version_flag();
+            break;
+
+        /* -V --verbose */
+        case 'V':
             VB_FLAG = true;
             verbose("verbose flag is set");
             QUIET_FLAG = false;
             break;
+        
+        /* parsing error */
         case '?':
             /* getopt_long already printed an error message. */
             break;
+        
+        /* if we get here something very bad happened */
         default:
             verbose("Aborting...", 0);
             abort();
         }
     }
 
-    /* Print any remaining command line arguments (not options). */
-    if (optind < argc) {
-        printf ("non-option ARGV-elements: ");
-
-        while (optind < argc) printf ("%s ", argv[optind++]);
-
-        putchar ('\n');
-    }
     return status;
 }
 

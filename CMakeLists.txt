@@ -7,7 +7,8 @@ set(OpenRPG_VERSION_MAJOR 0)
 set(OpenRPG_VERSION_MINOR 0)
 set(OpenRPG_VERSION_TWEAK 3)
 set(OpenRPG_VERSION_SUFFIX "dev")
-add_definitions(-DVERSION_STR="v${OpenRPG_VERSION_MAJOR}.${OpenRPG_VERSION_MINOR}.${OpenRPG_VERSION_TWEAK}-${OpenRPG_VERSION_SUFFIX}")
+set(OpenRPG_AUTHOR "Nicholas Gaulke")
+string(TIMESTAMP YEAR %Y UTC)
 
 # Git build options
 set(USE_GIT_VERSIONING true CACHE BOOL "Determines whether to use git versioning if available.")
