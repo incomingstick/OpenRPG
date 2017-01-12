@@ -49,7 +49,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[]) {
+int parse_args(int argc, char* argv[], string* race, string* gender) {
     int status = 0;
 
     /* getopt_long stores the option and option index here */
@@ -67,7 +67,7 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,  0}
     };
 
-    while ((opt = getopt_long (argc, argv, "hn:qvV",
+    while ((opt = getopt_long(argc, argv, "hvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
@@ -92,8 +92,8 @@ int parse_args(int argc, char* argv[]) {
         /* parsing error */
         case '?':
             /* getopt_long already printed an error message. */
-            fprintf(stderr, "Error: not enough arguements\n");
-            exit(0);
+            printf("Error: unknown arguement %s\n", argv[optind]);
+            print_help_flag();
             break;
         
         /* if we get here something very bad happened */
@@ -103,18 +103,26 @@ int parse_args(int argc, char* argv[]) {
         }
     }
 
+    // checks at least two "unknown" options
+    while (optind + 1 < argc) {
+        string opt_str = argv[optind++];
+        printf("%s\n", opt_str.c_str());
+    }
+
     return status;
 }
 
 int main(int argc, char* argv[]) {
-    int status = verbose("parse_args completed", parse_args(argc, argv)); // may exit
-    
-    string race("dwarf");
-    string gender("female");
+    string race = "dwarf", gender = "female";
+    int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
+
+    verbose("found "+race+" "+gender);
 
     NameGenerator gen(race, gender);
 
     cout << gen.make_name() << endl;
+
+    verbose("exiting with status "+to_string(status), status);
 
 	return status;
 }

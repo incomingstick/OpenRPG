@@ -9,6 +9,7 @@ set(OpenRPG_VERSION_TWEAK 3)
 set(OpenRPG_VERSION_SUFFIX "dev")
 set(OpenRPG_AUTHOR "Nicholas Gaulke")
 string(TIMESTAMP YEAR %Y UTC)
+string(TIMESTAMP DATE UTC)
 
 # Git build options
 set(USE_GIT_VERSIONING true CACHE BOOL "Determines whether to use git versioning if available.")

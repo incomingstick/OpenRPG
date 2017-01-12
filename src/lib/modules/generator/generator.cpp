@@ -1,9 +1,11 @@
 /*
- * generator.cpp
- *
- *  Created on: Nov 10, 2016
- *      Author: Nick Gaulke
- */
+name-generator - generator.cpp
+Created on: Nov 10, 2016
+
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -12,6 +14,7 @@
 #include <ctime>
 #include <functional>
 #include <random>
+
 #include "config.h"
 #include "utils.h"
 #include "generator.h"
@@ -23,6 +26,8 @@ NameGenerator::NameGenerator(string race, string gender)
      gender(gender) {
     location = ASSET_LOC;
     location += "/names";
+    verbose("top location: "+location);
+    verbose("NameGenerator with "+race+" "+gender+" created");
 }
 
 NameGenerator::~NameGenerator() {
@@ -38,6 +43,8 @@ string NameGenerator::make_name() {
 string NameGenerator::make_first() {
     string loc(location+"/"+race+"/"+gender);
     
+    verbose("opening location: "+loc);
+
     ifstream file(loc.c_str());
     
     if(file.is_open()) {
@@ -55,7 +62,7 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cerr << loc << " COULD NOT BE OPENED" << endl;
+        verbose(loc + " COULD NOT BE OPENED");
     }
 
     return "NULL";
@@ -82,7 +89,7 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cerr << loc << " COULD NOT BE OPENED" << endl;
+        verbose(loc + " COULD NOT BE OPENED");
     }
 
     return "NULL";

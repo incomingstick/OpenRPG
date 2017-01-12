@@ -79,7 +79,7 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,  0}
     };
 
-    while ((opt = getopt_long (argc, argv, "hn:qvV",
+    while ((opt = getopt_long(argc, argv, "hn:qvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
@@ -92,10 +92,13 @@ int parse_args(int argc, char* argv[]) {
         /* -n --name */
         case 'n':
             if(optind < argc) {
-                cmd = "name-generator "+ (string)optarg +" "+ (string)argv[optind++];
+                cmd = "name-generator";
+                if(VB_FLAG) cmd += " -V";
+                cmd += " "+(string)optarg +" "+ (string)argv[optind++];
                 verbose("calling "+cmd, 0);
                 verbose("called "+cmd, system(cmd.c_str()));
-                exit(0);
+                verbose("exiting with status "+to_string(status), status);
+                exit(status);
             } else {
                 fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
                 status = 1;
@@ -124,8 +127,8 @@ int parse_args(int argc, char* argv[]) {
         /* parsing error */
         case '?':
             /* getopt_long already printed an error message. */
-            fprintf(stderr, "Error: not enough arguements\n");
-            exit(0);
+            fprintf(stderr, "Error: unknown arguement\n");
+            print_help_flag();
             break;
         
         /* if we get here something very bad happened */
@@ -152,12 +155,12 @@ int main(int argc, char* argv[]) {
             cout << "\33[4morpg\33[0m > ";
             cin >> in;
             if(in == "exit" || in == "quit" || in == "q") {
-                status = verbose("exiting program", 0);
+                status = verbose("quit command read", 0);
                 break;
             }
             else status = verbose("called parse("+in+")", parse_input(in));
         }
     }
-
+    verbose("exiting with status "+to_string(status), status);
 	return status;
 }
