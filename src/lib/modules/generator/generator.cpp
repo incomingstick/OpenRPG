@@ -62,7 +62,7 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " COULD NOT BE OPENED");
+        verbose(loc + " COULD NOT BE OPENED", 1);
     }
 
     return "NULL";
@@ -70,6 +70,8 @@ string NameGenerator::make_first() {
 
 string NameGenerator::make_last() {
     string loc(location+"/"+race+"/last");
+
+    verbose("opening location: "+loc);
 
     ifstream file(loc.c_str());
     
@@ -89,7 +91,7 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " COULD NOT BE OPENED");
+        verbose(loc + " COULD NOT BE OPENED", 1);
     }
 
     return "NULL";

@@ -177,7 +177,7 @@ int verbose(string log, int status) {
     if(VB_FLAG) {
         if(status == -1)    cerr << "[VERBOSE]";
         if(status == 0)     cerr << "[DEBUG]\t";
-        if(status == 1)     cerr << "[ERROR]";
+        if(status == 1)     cerr << "[ERROR]\t";
 
         cerr << "\t" << log << endl;
     }

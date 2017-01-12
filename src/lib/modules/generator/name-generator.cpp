@@ -31,7 +31,7 @@ static void print_help_flag() {
           "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: openrpg [options]\n"
+          "Usage: name-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
                 "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
                 "\t-q --quiet                  Do not print the banner on startup\n"
@@ -64,7 +64,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
-        {0,         0,                  0,  0}
+        {0,         0,                  0,   0}
     };
 
     while ((opt = getopt_long(argc, argv, "hvV",
@@ -91,29 +91,30 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* parsing error */
         case '?':
-            /* getopt_long already printed an error message. */
-            printf("Error: unknown arguement %s\n", argv[optind]);
+            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
             break;
         
         /* if we get here something very bad happened */
         default:
-            verbose("Aborting...", 0);
-            status = 1;
+            status = verbose("Aborting...", 1);
         }
     }
 
     // checks at least two "unknown" options
     while (optind + 1 < argc) {
         string opt_str = argv[optind++];
-        printf("%s\n", opt_str.c_str());
+        if(opt_str == "male" || opt_str == "female") {
+            *gender = opt_str;
+            *race = argv[optind];
+        }
     }
 
     return status;
 }
 
 int main(int argc, char* argv[]) {
-    string race = "dwarf", gender = "female";
+    string race, gender;
     int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
 
     verbose("found "+race+" "+gender);

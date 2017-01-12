@@ -76,7 +76,7 @@ int parse_args(int argc, char* argv[]) {
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
-        {0,         0,                  0,  0}
+        {0,         0,                  0,   0}
     };
 
     while ((opt = getopt_long(argc, argv, "hn:qvV",
@@ -126,15 +126,13 @@ int parse_args(int argc, char* argv[]) {
         
         /* parsing error */
         case '?':
-            /* getopt_long already printed an error message. */
-            fprintf(stderr, "Error: unknown arguement\n");
+            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
             break;
         
         /* if we get here something very bad happened */
         default:
-            verbose("Aborting...", 0);
-            status = 1;
+            status = verbose("Aborting...", 1);
         }
     }
 
