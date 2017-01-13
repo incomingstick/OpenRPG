@@ -4,11 +4,13 @@
  *  Created on: Nov 7, 2016
  */
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <cstdio>
 #include <limits.h>
 #include <stdlib.h>
-#include "config.h"
-#include "utils.h"
+#include "lib/config.h"
+#include "lib/utils.h"
 
 using namespace std;
 
@@ -21,6 +23,20 @@ int parse(string in) {
     cout << "parsing..." << endl;
     string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
     return system(cmd.c_str());;
+}
+
+bool print_file(string file){
+    ifstream fileToPrint;
+    fileToPrint.open(file);
+    if(fileToPrint.is_open()){
+        string line;
+        while(getline(fileToPrint,line)){
+            cout << line << "\n";
+        }
+        fileToPrint.close();
+    }else{
+        cout << "Error! Failed to load file.\n";
+    }
 }
 
 int main(int argc, char* argv[]) {
@@ -54,7 +70,7 @@ int main(int argc, char* argv[]) {
         }
     } else {
         // TODO - cli-gui for program
-        print_file("banners/welcome_mat1");
+        print_file("assets/banners/welcome_mat1");
     
         string in("");
 
