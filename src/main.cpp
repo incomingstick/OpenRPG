@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 #include <cstdio>
+#include <stdio.h>
+#include <ctype.h>
 #include <limits.h>
 #include <stdlib.h>
 #include "lib/config.h"
@@ -20,9 +22,23 @@ using namespace std;
  *      large enough. For now it is simply a placeholder.
  */
 int parse(string in) {
-    cout << "parsing..." << endl;
-    string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-    return system(cmd.c_str());;
+    cout << "parsing..." << endl;//message to user that program is working to fulfill request
+    for(int i = 0; i < in.size();i++){//standardizes inputs to ignore case
+        in[i] = toupper(in[i]);
+    }
+    
+    if(in == "EXIT" || in == "QUIT" || in == "Q"){//quit program
+        cout << "Quitting program...\n";
+        return 0;
+    }else if(in == "CMD1"){//placeholder command
+        cout << "Running placeholder function 1!\n";
+    }else if(in == "CMD2"){//placeholder command
+        cout << "Running placeholder function 2!\n";
+    }else{//default case
+        cout << "Command not recognized!\n";
+    }
+    //string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
+    //return system(cmd.c_str());;
 }
 
 bool print_file(string file){
@@ -72,16 +88,21 @@ int main(int argc, char* argv[]) {
         // TODO - cli-gui for program
         print_file("assets/banners/welcome_mat1");
     
-        string in("");
+        string in;
+        
+        cout << "Commands:\n1.) CMD1\n2.) CMD2\n3.) Quit\n\n";
 
         // get user input
         while(true) {
             cout << "\33[4morpg\33[0m > ";
-            cin >> in;
-            if(in == "exit" || in == "quit" || in == "q") break;
+            getline(cin, in);
+            if(parse(in) == 0){
+                break;
+            }
+            /*if(in == "exit" || in == "quit" || in == "q") break;
             else if((status = parse(in)) != 0) {
                 return status;
-            }
+            }*/
         }
     }
 
