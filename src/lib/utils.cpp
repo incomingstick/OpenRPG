@@ -129,11 +129,11 @@ string rightpad(string str, int len, char ch) {
 /*
  * Prints the menu of the given string type to cout
  */
-bool print_file(string type) {
+/*bool print_file(string type) {
     string screen_disp = get_display_screen(type);
     cout << screen_disp << endl;
     return true;
-}
+}*/
 
 // Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
 std::istream& safeGetline(std::istream& is, std::string& t)

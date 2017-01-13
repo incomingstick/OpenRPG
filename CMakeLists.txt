@@ -1,5 +1,5 @@
 # require cmake v3.0
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8)
 
 # Project info
 project(OpenRPG)
@@ -55,7 +55,7 @@ set(INCLUDE
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
 
