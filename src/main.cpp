@@ -12,8 +12,8 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stdlib.h>
-#include "lib/config.h"
-#include "lib/utils.h"
+#include "config.h"
+#include "utils.h"
 
 using namespace std;
 
