@@ -31,7 +31,6 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: roll [options] XdY [+|-] AdC [+|-] N [...]\n"
                 "\t-h --help                   Print this help screen\n"
-                "\t-q --quiet                  Do not print the banner on startup\n"
                 "\t-v --version                Print version info\n"
                 "\t-V                          Verbose program output\n"
           "\n"
@@ -100,8 +99,12 @@ int parse_args(int argc, char* argv[], int* out) {
     }
 
     /* TEMP statement, to be improved */
-    Die die(6);
-    *out = die.roll();
+    int max = 6, total = 0;
+
+    while (optind++ + 1 < argc);
+
+    Die die(max);
+    *out = total;
 
     return status;
 }
