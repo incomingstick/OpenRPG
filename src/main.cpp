@@ -25,7 +25,7 @@ int roll(){
     if(roll == 20){
         cout << "You have rolled a nat20!" << endl;
     }else{
-        cout << "You have rolled a " << roll << "." << endl;
+        cout << "You have rolled a(n) " << roll << "." << endl;
     }
 }
 
@@ -197,7 +197,7 @@ int main(int argc, char* argv[]) {
                 code = 0;//resets code
             }else{
                 code = parse(in);
-                cout << "\33[4morpg\33[0m > ";
+                if(code != 404){cout << "\33[4morpg\33[0m > ";}
             }
             /*if(in == "exit" || in == "quit" || in == "q") break;
             else if((status == parse(in)) != 0) {
