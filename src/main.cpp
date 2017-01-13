@@ -36,25 +36,20 @@ int nameGenerator(string gender, string race){
     if(genderLoad.is_open() && lastLoad.is_open()){
         string line;
         while(getline(genderLoad,line)){
-            firstNames.push_back(line);
+            firstNames.push_back(line.substr(0,line.size()-1));
         }
         line = {};
         genderLoad.close();
         while(getline(lastLoad,line)){
-            lastNames.push_back(line);
+            lastNames.push_back(line.substr(0,line.size()-1));
         }
         lastLoad.close();
         
-        int one = rand() % (firstNames.size() - 1);
-        int two = rand() % (lastNames.size() - 1);
-        
-        cout << firstNames[one] << "\n" << lastNames[two] << endl;//bug-> cannot print both names on same line. First name gets overwritten.
+        cout << "Your character's name is " << firstNames[rand() % (firstNames.size() - 1)] << " " << lastNames[rand() % (lastNames.size() - 1)] << ".\n";
 
     }else{
         cout << "Error! Failed to load files.\n";
     }
-    
-   
 }
  
 //Parses text input into the console and determines the appropriate response/action
