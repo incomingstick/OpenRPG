@@ -17,11 +17,47 @@
 
 using namespace std;
 
-/*
- * Input parser - parse(in)
- *      This function may become its own class if it grows
- *      large enough. For now it is simply a placeholder.
- */
+int nameGenerator(string gender, string race){
+    cout << "Running name generation function for a " << gender << " " << race << "...\n";
+    
+    if(!(gender == "male" || gender == "female")){
+        //cout << "Not a valid gender, sorry!\n";//idk about this; need a case to handle nonbinary genders
+    }
+    
+    string raceFile = "assets/names/" + race + "/";
+    
+    vector<string> firstNames = {};
+    vector<string> lastNames = {};
+    
+    ifstream genderLoad;
+    ifstream lastLoad;
+    genderLoad.open(raceFile + gender);
+    lastLoad.open(raceFile + "last");
+    if(genderLoad.is_open() && lastLoad.is_open()){
+        string line;
+        while(getline(genderLoad,line)){
+            firstNames.push_back(line);
+        }
+        line = {};
+        genderLoad.close();
+        while(getline(lastLoad,line)){
+            lastNames.push_back(line);
+        }
+        lastLoad.close();
+        
+        int one = rand() % (firstNames.size() - 1);
+        int two = rand() % (lastNames.size() - 1);
+        
+        cout << firstNames[one] << "\n" << lastNames[two] << endl;//bug-> cannot print both names on same line. First name gets overwritten.
+
+    }else{
+        cout << "Error! Failed to load files.\n";
+    }
+    
+   
+}
+ 
+//Parses text input into the console and determines the appropriate response/action
 int parse(string in) {
     cout << "parsing..." << endl;//message to user that program is working to fulfill request
     
@@ -30,9 +66,9 @@ int parse(string in) {
         string word; //temporary container for word being built
     
         for(int i = 0; i < in.size();i++){//standardizes inputs to ignore case
-            in[i] = toupper(in[i]);
+            in[i] = tolower(in[i]);
             
-            if(in[i] < 91 && in[i] > 64){//letters only, implement numbers later
+            if(in[i] < 123 && in[i] > 96){//letters only, implement numbers later
                 word += in[i];//pushes character to word
             }else if(word.size() > 0){
                 words.push_back(word);//end of word
@@ -45,51 +81,45 @@ int parse(string in) {
             word = {};//resets word
         }
         
-        cout << "Words (" << words.size() << "):\n";
-        for(int i = 0; i < words.size();i++){
-            cout << words[i];
-            if(i != words.size() - 1){
-                cout << ", ";
-            }
-        }
-        
-        cout << endl;
-        
-        //simple commands, must be expanded on based on command content
-        if(in == "EXIT" || in == "QUIT" || in == "Q"){//quit program
-            cout << "Quitting program...\n";
-            return 0;
-        }else if(words[0] == "GEN" || words[0] == "GENERATE"){
-            if(words[1] == "MALE" || words[1] == "M"){
-                if(words[2] == "NAME"){
-                    cout << "Running name generation function for " << words[1] << " ...\n";
-                }else{
-                    cout << "Generate " << words[1] << " what?\n";
+        if (words.size() > 0){
+            cout << "Words (" << words.size() << "):\n";
+            for(int i = 0; i < words.size();i++){
+                cout << words[i];
+                if(i != words.size() - 1){
+                    cout << ", ";
                 }
-            }else if(words[1] == "FEMALE" || words[1] == "F"){
-                if(words[2] == "NAME"){
-                    cout << "Running name generation function for " << words[1] << " ...\n";
-                }else{
-                    cout << "Generate " << words[1] << " what?\n";
-                }
-            }else{
-                cout << "No gender selected!\n";
             }
-        }else if(in == "CMD1"){//placeholder command
-            cout << "Running placeholder function 1!\n";
-        }else if(in == "CMD2"){//placeholder command
-            cout << "Running placeholder function 2!\n";
-        }else{//default case
-            cout << "Command not recognized!\n";
+            
+            cout << endl;
+            
+            //simple commands, must be expanded on based on command content
+            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
+                cout << "Quitting program...\n";
+                return 0;
+            }else if(words[0] == "gen" || words[0] == "generate"){
+                if(words.size() > 1){
+                    nameGenerator(words[1],"dwarf");
+                }else{
+                    cout << "Missing arguments!\n";
+                }
+                
+            }else if(in == "CMD1"){//placeholder command
+                cout << "Running placeholder function 1!\n";
+            }else if(in == "CMD2"){//placeholder command
+                cout << "Running placeholder function 2!\n";
+            }else{//default case
+                cout << "Command not recognized!\n";
+            }
+            
+            words = {};
+            
+            //string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
+            //return system(cmd.c_str());;
+        }else{
+            cout << "No command!\n";
         }
-        
-        words = {};
-        
-        //string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-        //return system(cmd.c_str());;
-    }else{
-        cout << "No command!\n";
     }
+        
 }
 
 bool print_file(string file){
@@ -108,6 +138,8 @@ bool print_file(string file){
 
 int main(int argc, char* argv[]) {
     int status = 0;
+
+    srand (time(NULL));
 
     if(argc > 1) {
         for(int i = 1; i < argc; i++) {
