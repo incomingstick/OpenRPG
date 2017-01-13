@@ -47,7 +47,7 @@ int parse(string in) {
         
         cout << "Words (" << words.size() << "):\n";
         for(int i = 0; i < words.size();i++){
-            cout << words[0];
+            cout << words[i];
             if(i != words.size() - 1){
                 cout << ", ";
             }
@@ -59,6 +59,22 @@ int parse(string in) {
         if(in == "EXIT" || in == "QUIT" || in == "Q"){//quit program
             cout << "Quitting program...\n";
             return 0;
+        }else if(words[0] == "GEN" || words[0] == "GENERATE"){
+            if(words[1] == "MALE" || words[1] == "M"){
+                if(words[2] == "NAME"){
+                    cout << "Running name generation function for " << words[1] << " ...\n";
+                }else{
+                    cout << "Generate " << words[1] << " what?\n";
+                }
+            }else if(words[1] == "FEMALE" || words[1] == "F"){
+                if(words[2] == "NAME"){
+                    cout << "Running name generation function for " << words[1] << " ...\n";
+                }else{
+                    cout << "Generate " << words[1] << " what?\n";
+                }
+            }else{
+                cout << "No gender selected!\n";
+            }
         }else if(in == "CMD1"){//placeholder command
             cout << "Running placeholder function 1!\n";
         }else if(in == "CMD2"){//placeholder command
@@ -125,7 +141,7 @@ int main(int argc, char* argv[]) {
     
         string in;
         
-        cout << "Current commands:\n1.) CMD1\n2.) CMD2\n3.) Quit\n\n";
+        cout << "Current commands:\n1.) CMD1\n2.) CMD2\n3.) GENERATE NAME\n4.) Quit\n\n";
 
         // get user input
         while(true) {
