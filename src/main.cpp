@@ -17,6 +17,18 @@
 
 using namespace std;
 
+int roll(){
+    cout << "How many sides?\n";
+    int sides = 0;
+    cin >> sides;
+    int roll = rand() % sides + 1;
+    if(roll == 20){
+        cout << "You have rolled a nat20!" << endl;
+    }else{
+        cout << "You have rolled a " << roll << "." << endl;
+    }
+}
+
 int nameGenerator(string gender, string race){
     cout << "Running name generation function for a " << gender << " " << race << "...\n";
     
@@ -54,9 +66,8 @@ int nameGenerator(string gender, string race){
  
 //Parses text input into the console and determines the appropriate response/action
 int parse(string in) {
-    cout << "parsing..." << endl;//message to user that program is working to fulfill request
-    
     if (in.size() > 0){
+        cout << "parsing..." << endl;//message to user that program is working to fulfill request
         vector<string> words; //parsed individual words
         string word; //temporary container for word being built
     
@@ -90,7 +101,7 @@ int parse(string in) {
             //simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
                 cout << "Quitting program...\n";
-                return 0;
+                return 404;
             }else if(words[0] == "gen" || words[0] == "generate"){
                 if(words.size() > 1){
                     nameGenerator(words[1],"dwarf");
@@ -100,8 +111,10 @@ int parse(string in) {
                 
             }else if(in == "CMD1"){//placeholder command
                 cout << "Running placeholder function 1!\n";
-            }else if(in == "CMD2"){//placeholder command
-                cout << "Running placeholder function 2!\n";
+            }else if(in == "roll"){//placeholder command
+                cout << "Preparing to roll some dice...\n";
+                roll();
+                return 20;
             }else{//default case
                 cout << "Command not recognized!\n";
             }
@@ -113,8 +126,9 @@ int parse(string in) {
         }else{
             cout << "No command!\n";
         }
+    }else{
+        cout << "No command!\n";
     }
-        
 }
 
 bool print_file(string file){
@@ -168,14 +182,22 @@ int main(int argc, char* argv[]) {
     
         string in;
         
-        cout << "Current commands:\n1.) CMD1\n2.) CMD2\n3.) GENERATE NAME\n4.) Quit\n\n";
-
+        cout << "Current commands:\n1.) CMD1\n2.) ROLL\n3.) GENERATE NAME\n4.) Quit\n\n";
+        cout << "\33[4morpg\33[0m > ";
+        
+        int code = 0;
+        
         // get user input
         while(true) {
-            cout << "\33[4morpg\33[0m > ";
-            getline(cin, in);
-            if(parse(in) == 0){
+            if(code != 404){getline(cin, in);}//asks for input as long as the program is not shutting down
+            
+            if(code == 404){//exit
                 break;
+            }else if(code == 20){//rolled
+                code = 0;//resets code
+            }else{
+                code = parse(in);
+                cout << "\33[4morpg\33[0m > ";
             }
             /*if(in == "exit" || in == "quit" || in == "q") break;
             else if((status == parse(in)) != 0) {
@@ -183,6 +205,5 @@ int main(int argc, char* argv[]) {
             }*/
         }
     }
-
 	return status;
 }
