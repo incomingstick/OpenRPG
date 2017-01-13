@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <cstdio>
 #include <stdio.h>
 #include <ctype.h>
@@ -23,22 +24,56 @@ using namespace std;
  */
 int parse(string in) {
     cout << "parsing..." << endl;//message to user that program is working to fulfill request
-    for(int i = 0; i < in.size();i++){//standardizes inputs to ignore case
-        in[i] = toupper(in[i]);
-    }
     
-    if(in == "EXIT" || in == "QUIT" || in == "Q"){//quit program
-        cout << "Quitting program...\n";
-        return 0;
-    }else if(in == "CMD1"){//placeholder command
-        cout << "Running placeholder function 1!\n";
-    }else if(in == "CMD2"){//placeholder command
-        cout << "Running placeholder function 2!\n";
-    }else{//default case
-        cout << "Command not recognized!\n";
+    if (in.size() > 0){
+        vector<string> words; //parsed individual words
+        string word; //temporary container for word being built
+    
+        for(int i = 0; i < in.size();i++){//standardizes inputs to ignore case
+            in[i] = toupper(in[i]);
+            
+            if(in[i] < 91 && in[i] > 64){//letters only, implement numbers later
+                word += in[i];//pushes character to word
+            }else if(word.size() > 0){
+                words.push_back(word);//end of word
+                word = {};//resets word
+            }
+        }
+        
+        if(word.size() > 0){//end of command
+            words.push_back(word);//end of word
+            word = {};//resets word
+        }
+        
+        cout << "Words (" << words.size() << "):\n";
+        for(int i = 0; i < words.size();i++){
+            cout << words[0];
+            if(i != words.size() - 1){
+                cout << ", ";
+            }
+        }
+        
+        cout << endl;
+        
+        //simple commands, must be expanded on based on command content
+        if(in == "EXIT" || in == "QUIT" || in == "Q"){//quit program
+            cout << "Quitting program...\n";
+            return 0;
+        }else if(in == "CMD1"){//placeholder command
+            cout << "Running placeholder function 1!\n";
+        }else if(in == "CMD2"){//placeholder command
+            cout << "Running placeholder function 2!\n";
+        }else{//default case
+            cout << "Command not recognized!\n";
+        }
+        
+        words = {};
+        
+        //string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
+        //return system(cmd.c_str());;
+    }else{
+        cout << "No command!\n";
     }
-    //string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-    //return system(cmd.c_str());;
 }
 
 bool print_file(string file){
@@ -90,7 +125,7 @@ int main(int argc, char* argv[]) {
     
         string in;
         
-        cout << "Commands:\n1.) CMD1\n2.) CMD2\n3.) Quit\n\n";
+        cout << "Current commands:\n1.) CMD1\n2.) CMD2\n3.) Quit\n\n";
 
         // get user input
         while(true) {
@@ -100,7 +135,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
             /*if(in == "exit" || in == "quit" || in == "q") break;
-            else if((status = parse(in)) != 0) {
+            else if((status == parse(in)) != 0) {
                 return status;
             }*/
         }
