@@ -98,12 +98,19 @@ int parse_args(int argc, char* argv[], int* out) {
         }
     }
 
-    /* TEMP statement, to be improved */
+    /* TEMP statement, to parse input in the following form
+         XdY [+|-] AdC [+|-] N [...] */
     int max = 6, total = 0;
 
-    while (optind++ + 1 < argc);
+    while (optind < argc) {
+        Die die(max);
+        string opt_str(argv[optind++]);
+        int roll = die.roll();
+        verbose(opt_str + " " + to_string(roll), 0);
+        total += roll;
+    }
 
-    Die die(max);
+
     *out = total;
 
     return status;
