@@ -46,7 +46,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[]) {
+int parse_args(int argc, char* argv[], int* out) {
     int status = 0;
 
     /* getopt_long stores the option and option index here */
@@ -60,6 +60,7 @@ int parse_args(int argc, char* argv[]) {
         {"help",    no_argument,        0,  'h'},
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
+        {0,         required_argument,  0,   0},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -98,18 +99,21 @@ int parse_args(int argc, char* argv[]) {
         }
     }
 
+    /* TEMP statement, to be improved */
+    Die die(6);
+    *out = die.roll();
+
     return status;
 }
 
 
 int main(int argc, char* argv[]) {
-    int max = 6, out = 0;
+    int out = 0;
 
-    int status = parse_args(argc, argv);
+    int status = verbose("parse_args completed", parse_args(argc, argv, &out));
 
-    Die die(max);
-    out = die.roll();
     cout << out << endl;
 
+    verbose("exiting with status "+to_string(status), status);
 	return status;
 }

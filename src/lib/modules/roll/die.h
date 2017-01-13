@@ -10,13 +10,12 @@
 
 class Die {
     private:
-        int MAX = 6;
+        const int MAX;
     public:
         Die();
         Die(int max);
         ~Die();
         int roll();
-        int roll(int max);
 };
 
 #endif /* SRC_DIE_H_ */
