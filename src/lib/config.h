@@ -3,4 +3,4 @@
 #define OpenRPG_VERSION_MINOR 0
 #define OpenRPG_VERSION_TWEAK 2
 #define OpenRPG_VERSION_SUFFIX "dev"
-#define ASSET_LOC "/usr/local/assets"
+#define ASSET_LOC "../assets"

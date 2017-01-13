@@ -1,0 +1,3 @@
+generator-test-dwarf-male 2 0.383177
+generator-test-dwarf-female 2 0.368417
+---

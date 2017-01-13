@@ -17,16 +17,23 @@
 
 using namespace std;
 
-int roll(){
-    cout << "How many sides?\n";
-    int sides = 0;
-    cin >> sides;
+int roll(int faces){
+    
+    int sides;
+    if(faces > 0){
+        sides = faces;
+    }else{
+        cout << "How many sides?\n";
+        cin >> sides;
+    }
+    
     int roll = rand() % sides + 1;
     if(roll == 20){
         cout << "You have rolled a nat20!" << endl;
     }else{
         cout << "You have rolled a(n) " << roll << "." << endl;
     }
+    return 0;
 }
 
 int nameGenerator(string gender, string race){
@@ -62,6 +69,7 @@ int nameGenerator(string gender, string race){
     }else{
         cout << "Error! Failed to load files.\n";
     }
+    return 0;
 }
  
 //Parses text input into the console and determines the appropriate response/action
@@ -71,7 +79,7 @@ int parse(string in) {
         vector<string> words; //parsed individual words
         string word; //temporary container for word being built
     
-        for(int i = 0; i < in.size();i++){//standardizes inputs to ignore case
+        for(int i = 0; (unsigned) i < in.size();i++){//standardizes inputs to ignore case
             in[i] = tolower(in[i]);
             
             if(in[i] < 123 && in[i] > 96){//letters only, implement numbers later
@@ -89,9 +97,9 @@ int parse(string in) {
         
         if (words.size() > 0){
             cout << "Words (" << words.size() << "):\n";
-            for(int i = 0; i < words.size();i++){
+            for(int i = 0; (unsigned) i < words.size();i++){
                 cout << words[i];
-                if(i != words.size() - 1){
+                if((unsigned) i != words.size() - 1){
                     cout << ", ";
                 }
             }
@@ -113,7 +121,7 @@ int parse(string in) {
                 cout << "Running placeholder function 1!\n";
             }else if(in == "roll"){//placeholder command
                 cout << "Preparing to roll some dice...\n";
-                roll();
+                roll(0);
                 return 20;
             }else{//default case
                 cout << "Command not recognized!\n";
@@ -129,6 +137,7 @@ int parse(string in) {
     }else{
         cout << "No command!\n";
     }
+    return 0;
 }
 
 bool print_file(string file){
@@ -143,6 +152,7 @@ bool print_file(string file){
     }else{
         cout << "Error! Failed to load file.\n";
     }
+    return 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -158,12 +168,13 @@ int main(int argc, char* argv[]) {
                 // TODO DANGEROUS - check integrity of array first
                 string race(argv[++i]);
                 string gender(argv[++i]);
-
-                string cmd("name-generator "+race+" "+gender);
                 
-                // NOT HOW THIS SHOULD BE DONE
-                status = system(cmd.c_str());
-            } else if(arg == "-v" || arg == "--verbose") {
+                nameGenerator(gender,race);
+
+            } else if(arg == "-r" || arg =="--roll"){
+                int faces = atoi(argv[++i]);
+                roll(faces);
+            }else if(arg == "-v" || arg == "--verbose") {
                 fprintf(stdout,"%s v%d.%d.%d-%s\n",
                     argv[0],
                     OpenRPG_VERSION_MAJOR,
