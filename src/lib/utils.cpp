@@ -14,6 +14,8 @@
 #include <vector>
 #include "config.h"
 #include "utils.h"
+#include "generator.h"
+#include "roll.h"
 
 using namespace std;
 
@@ -127,13 +129,22 @@ string rightpad(string str, int len, char ch) {
 }
 
 /*
- * Prints the menu of the given string type to cout
+ * Prints the text contents of the given file
  */
-/*bool print_file(string type) {
-    string screen_disp = get_display_screen(type);
-    cout << screen_disp << endl;
-    return true;
-}*/
+bool print_file(string file){
+    ifstream fileToPrint;
+    fileToPrint.open(file);
+    if(fileToPrint.is_open()){
+        string line;
+        while(getline(fileToPrint,line)){
+            cout << line << "\n";
+        }
+        fileToPrint.close();
+    }else{
+        cout << "Error! Failed to load file.\n";
+    }
+    return 0;
+}
 
 // Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
 std::istream& safeGetline(std::istream& is, std::string& t)
@@ -167,4 +178,67 @@ std::istream& safeGetline(std::istream& is, std::string& t)
             t += (char)c;
         }
     }
+}
+
+//Parses text input into the console and determines the appropriate response/action
+int parse(string in) {
+    if (in.size() > 0){
+        cout << "parsing..." << endl;//message to user that program is working to fulfill request
+        vector<string> words; //parsed individual words
+        string word; //temporary container for word being built
+    
+        for(int i = 0; (unsigned) i < in.size();i++){//standardizes inputs to ignore case
+            in[i] = tolower(in[i]);
+            
+            if(in[i] < 123 && in[i] > 96){//letters only, implement numbers later
+                word += in[i];//pushes character to word
+            }else if(word.size() > 0){
+                words.push_back(word);//end of word
+                word = {};//resets word
+            }
+        }
+        
+        if(word.size() > 0){//end of command
+            words.push_back(word);//end of word
+            word = {};//resets word
+        }
+        
+        if (words.size() > 0){
+            cout << "Words (" << words.size() << "):\n";
+            for(int i = 0; (unsigned) i < words.size();i++){
+                cout << words[i];
+                if((unsigned) i != words.size() - 1){
+                    cout << ", ";
+                }
+            }
+            
+            cout << endl;
+            
+            //simple commands, must be expanded on based on command content
+            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
+                cout << "Quitting program...\n";
+                return 404;
+            }else if(words[0] == "gen" || words[0] == "generate"){
+                if(words.size() > 1){
+                    nameGenerator(words[1],"dwarf");
+                }else{
+                    cout << "Missing arguments!\n";
+                }
+            }else if(in == "roll"){//placeholder command
+                cout << "Preparing to roll some dice...\n";
+                roll(0);
+                return 20;
+            }else{//default case
+                cout << "Command not recognized!\n";
+            }
+            
+            words = {};
+            
+        }else{
+            cout << "No command!\n";
+        }
+    }else{
+        cout << "No command!\n";
+    }
+    return 0;
 }

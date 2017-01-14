@@ -14,23 +14,18 @@
 #include <stdlib.h>
 #include "config.h"
 #include "utils.h"
-#include "generator.h"
+#include "roll.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
     for(int i = 0; i < argc; i++) {
-        srand (time(NULL));//need a much better random number generator
-        string race, gender;
-        
         if(argv[++i]){
-            gender = argv[i];
-            if(argv[++i]){
-                race = argv[i];
-                nameGenerator(gender,race);
-            }
+            srand (time(NULL));//need a much better random number generator
+            int faces = atoi(argv[i]);
+            roll(faces);
         }else{
-            return -1;
+            cout << "missing sides\n";
         }
     }
 	return 0;
