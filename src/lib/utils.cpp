@@ -5,11 +5,9 @@
  *      Author: Nick Gaulke
  */
 
-#include <string>
 #include <sys/ioctl.h>
 #include <iostream>
 #include <unistd.h>
-#include <cstdlib>
 #include <fstream>
 #include <vector>
 #include "config.h"

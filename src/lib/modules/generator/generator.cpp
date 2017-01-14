@@ -2,11 +2,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <cstdio>
-#include <stdio.h>
-#include <ctype.h>
-#include <limits.h>
-#include <stdlib.h>
 #include "config.h"
 #include "utils.h"
 #include "generator.h"
