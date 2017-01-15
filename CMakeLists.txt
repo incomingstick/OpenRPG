@@ -11,13 +11,11 @@ set(OpenRPG_AUTHOR "Nicholas Gaulke")
 string(TIMESTAMP YEAR %Y UTC)
 string(TIMESTAMP DATE UTC)
 
-set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_SOURCE_DIR}/lib/config.h"
+  "${CMAKE_SOURCE_DIR}/src/lib/config.h"
 )
 
 # source directories
@@ -27,24 +25,24 @@ include_directories("src" "src/lib")
 add_subdirectory("src/lib/modules")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/openrpg.cpp
-		${CMAKE_SOURCE_DIR}/lib/utils.cpp
+		${CMAKE_SOURCE_DIR}/src/main.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/lib/utils.cpp
-		${CMAKE_SOURCE_DIR}/lib/config.h
+		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 
-set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
+set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
 
 add_custom_command(TARGET openrpg POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:openrpg>/assets
+                   ${CMAKE_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:openrpg>/assets
 )
 
 install (TARGETS openrpg DESTINATION bin)
