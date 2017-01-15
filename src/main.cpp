@@ -21,15 +21,30 @@ int main(int argc, char* argv[]) {
             string arg(argv[i]);
 
             if(arg == "-n" || arg == "--name") {
-                // TODO DANGEROUS - check integrity of array first
-                string race(argv[++i]);
-                string gender(argv[++i]);
+                string race, gender;
                 
-                nameGenerator(gender,race);
+                if(argv[++i]){
+                    gender = argv[i];
+                    if(argv[++i]){
+                        race = argv[i];
+                        nameGenerator(gender,race);
+                        status = 0;
+                    }else{
+                        status = 1;
+                    }
+                }else{
+                    status = 1;
+                }
 
             } else if(arg == "-r" || arg =="--roll"){
-                int faces = atoi(argv[++i]);
-                roll(faces);
+                if(argv[++i]){
+                    int faces = atoi(argv[1]);
+                    roll(faces);
+                }else{
+                    cout << "Missing sides!\n";
+                    status = 1;
+                }
+                
             }else if(arg == "-v" || arg == "--verbose") {
                 fprintf(stdout,"%s v%d.%d.%d-%s\n",
                     argv[0],
@@ -45,7 +60,7 @@ int main(int argc, char* argv[]) {
         }
     } else {
         // TODO - cli-gui for program
-        print_file("assets/banners/welcome_mat1");
+        print_file("../assets/banners/welcome_mat1");
     
         string in;
         
@@ -66,10 +81,6 @@ int main(int argc, char* argv[]) {
                 code = parse(in);
                 if(code != 404){cout << "\33[4morpg\33[0m > ";}
             }
-            /*if(in == "exit" || in == "quit" || in == "q") break;
-            else if((status == parse(in)) != 0) {
-                return status;
-            }*/
         }
     }
 	return status;

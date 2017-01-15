@@ -15,7 +15,7 @@ int nameGenerator(string gender, string race){
         //cout << "Not a valid gender, sorry!\n";//idk about this; need a case to handle nonbinary genders
     }
     
-    string raceFile = "assets/names/" + race + "/";
+    string raceFile = "../assets/names/" + race + "/";
     
     vector<string> firstNames = {};
     vector<string> lastNames = {};

@@ -3,4 +3,4 @@
 #define OpenRPG_VERSION_MINOR 0
 #define OpenRPG_VERSION_TWEAK 3
 #define OpenRPG_VERSION_SUFFIX "shiny"
-#define ASSET_LOC "../assets"
+#define ASSET_LOC "/home/ubuntu/workspace/install/assets"
