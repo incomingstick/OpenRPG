@@ -36,7 +36,7 @@ set(INCLUDE
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
 
