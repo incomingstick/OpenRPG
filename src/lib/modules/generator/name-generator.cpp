@@ -33,10 +33,8 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: name-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
-                "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
-                "\t-q --quiet                  Do not print the banner on startup\n"
                 "\t-v --version                Print version info\n"
-                "\t-V                          Verbose program output\n"
+                "\t-V --verbose                Verbose program output\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -101,12 +99,20 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         }
     }
 
-    // checks at least two "unknown" options
+    /* check to make sure there are at least 
+        two "unknown" args to parse throug*/
     while (optind + 1 < argc) {
         string opt_str = argv[optind++];
+
+        /* allows gender to be passed first */
         if(opt_str == "male" || opt_str == "female") {
             *gender = opt_str;
             *race = argv[optind];
+            break;
+        } else {
+            *race = opt_str;
+            *gender = argv[optind];
+            break;
         }
     }
 
@@ -117,13 +123,16 @@ int main(int argc, char* argv[]) {
     string race, gender;
     int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
 
-    verbose("found "+race+" "+gender);
+    if(race.empty()) status =  verbose("race cannot be empty", 1);
+    if(gender.empty()) status = verbose("gender cannot be empty", 1);
 
-    NameGenerator gen(race, gender);
+    if(status == 0) {
+        verbose("found "+race+" "+gender);
 
-    cout << gen.make_name() << endl;
+        NameGenerator gen(race, gender);
 
-    verbose("exiting with status "+to_string(status), status);
+        cout << gen.make_name() << endl;
+    }
 
-	return status;
+	return verbose("exiting with status "+to_string(status), status);
 }

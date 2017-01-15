@@ -36,7 +36,7 @@ static void print_help_flag() {
                 "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
                 "\t-q --quiet                  Do not print the banner on startup\n"
                 "\t-v --version                Print version info\n"
-                "\t-V                          Verbose program output\n"
+                "\t-V --verbose                Verbose program output\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -153,12 +153,12 @@ int main(int argc, char* argv[]) {
             cout << "\33[4morpg\33[0m > ";
             cin >> in;
             if(in == "exit" || in == "quit" || in == "q") {
-                status = verbose("quit command read", 0);
+                status = verbose(in+" command read", 0);
                 break;
             }
             else status = verbose("called parse("+in+")", parse_input(in));
         }
     }
-    verbose("exiting with status "+to_string(status), status);
-	return status;
+
+	return verbose("exiting with status "+to_string(status), status);
 }

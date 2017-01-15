@@ -62,7 +62,7 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " COULD NOT BE OPENED", 1);
+        verbose(loc + " could not be opened", 1);
     }
 
     return "NULL";
@@ -91,7 +91,7 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " COULD NOT BE OPENED", 1);
+        verbose(loc + " could not be opened", 1);
     }
 
     return "NULL";

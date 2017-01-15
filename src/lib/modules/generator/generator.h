@@ -16,7 +16,7 @@ class NameGenerator {
         std::string gender;
         int random(int min, int max);
     public:
-        NameGenerator(std::string race, std::string gender);
+        NameGenerator(std::string race = "dwarf", std::string gender = "male");
         ~NameGenerator();
         std::string make_name();
         std::string make_first();
