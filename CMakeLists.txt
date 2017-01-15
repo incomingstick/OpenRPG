@@ -20,8 +20,7 @@ configure_file (
 )
 
 # source directories
-set(MOD ${CMAKE_SOURCE_DIR}/lib/modules)
-include_directories("src" "src/lib" "${MOD}/generator" "${MOD}/roll")
+include_directories("src" "src/lib")
 
 # module directory with CMakeLists.txt
 add_subdirectory("src/lib/modules")
@@ -30,12 +29,9 @@ add_subdirectory("src/lib/modules")
 set(SOURCES 
 		${CMAKE_SOURCE_DIR}/main.cpp
 		${CMAKE_SOURCE_DIR}/lib/utils.cpp
-	    ${CMAKE_SOURCE_DIR}/lib/modules/generator/generator.cpp
-	    ${CMAKE_SOURCE_DIR}/lib/modules/roll/roll.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/lib/utils.cpp
 		${CMAKE_SOURCE_DIR}/lib/config.h
 )
 

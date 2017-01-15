@@ -1,5 +1,5 @@
-#ifndef GENERATE_H
-#define GENERATE_H
+#ifndef ROLL_H
+#define ROLL_H
 
 int nameGenerator(std::string gender, std::string race);
 

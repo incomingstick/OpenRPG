@@ -6,15 +6,11 @@
 #include <iostream>
 #include "config.h"
 #include "utils.h"
-#include "generator.h"
-#include "roll.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
     int status = 0;
-
-    srand (time(NULL));
 
     if(argc > 1) {
         for(int i = 1; i < argc; i++) {
@@ -27,8 +23,9 @@ int main(int argc, char* argv[]) {
                     gender = argv[i];
                     if(argv[++i]){
                         race = argv[i];
-                        nameGenerator(gender,race);
-                        status = 0;
+                        //nameGenerator(gender,race);
+                        string cmd = "./generator " + gender + " " + race;
+                        status = system(cmd.c_str());
                     }else{
                         status = 1;
                     }
@@ -38,8 +35,10 @@ int main(int argc, char* argv[]) {
 
             } else if(arg == "-r" || arg =="--roll"){
                 if(argv[++i]){
-                    int faces = atoi(argv[1]);
-                    roll(faces);
+                    //int faces = argv[i];
+                    //roll(faces);
+                    string cmd = "./roll " + (string)argv[i];
+                    status = system(cmd.c_str());
                 }else{
                     cout << "Missing sides!\n";
                     status = 1;
@@ -60,11 +59,11 @@ int main(int argc, char* argv[]) {
         }
     } else {
         // TODO - cli-gui for program
-        print_file("../assets/banners/welcome_mat1");
+        cout << load_file("../assets/banners/welcome_mat1");
     
         string in;
         
-        cout << "Current commands:\n1.) CMD1\n2.) ROLL\n3.) GENERATE NAME\n4.) Quit\n\n";
+        cout << "Current commands:\n1.) ROLL\n2.) GENERATE NAME\n3.) Quit\n\n";
         cout << "\33[4morpg\33[0m > ";
         
         int code = 0;
@@ -75,8 +74,8 @@ int main(int argc, char* argv[]) {
             
             if(code == 404){//exit
                 break;
-            }else if(code == 20){//rolled
-                code = 0;//resets code
+            //}else if(code == 20){//rolled
+                //code = 0;//resets code
             }else{
                 code = parse(in);
                 if(code != 404){cout << "\33[4morpg\33[0m > ";}

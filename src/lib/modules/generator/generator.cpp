@@ -2,8 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "config.h"
-#include "utils.h"
+//#include "config.h"
+//#include "utils.h"
 #include "generator.h"
 
 using namespace std;

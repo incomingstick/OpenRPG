@@ -5,7 +5,6 @@
  */
 #include <iostream>
 #include "config.h"
-#include "utils.h"
 #include "roll.h"
 
 using namespace std;

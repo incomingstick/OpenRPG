@@ -1,14 +1,12 @@
 #include <iostream>
 #include "config.h"
-#include "utils.h"
-#include "generator.h"
 
 using namespace std;
 
 int roll(int faces){
     
     int sides;
-    if(faces > 0){
+    if(faces){
         sides = faces;
     }else{
         cout << "How many sides?\n";

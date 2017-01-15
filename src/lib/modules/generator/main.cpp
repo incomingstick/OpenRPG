@@ -4,8 +4,8 @@
  *  Created on: Nov 10, 2016
  */
 #include <iostream>
-#include "config.h"
-#include "utils.h"
+//#include "config.h"
+//#include "utils.h"
 #include "generator.h"
 
 using namespace std;
