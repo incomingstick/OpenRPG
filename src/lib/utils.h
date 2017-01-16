@@ -16,5 +16,7 @@ std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string type);
+int parse(std::string in);
+int roll();
 
 #endif /* SRC_UTILS_H_ */
