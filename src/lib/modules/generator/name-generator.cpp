@@ -23,7 +23,7 @@ static void print_version_flag() {
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 static void print_help_flag() {
@@ -38,17 +38,17 @@ static void print_help_flag() {
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
+          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man name-generator' for more information [TODO add man pages].\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[], string* race, string* gender) {
-    int status = 0;
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -95,7 +95,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", 1);
+            status = verbose("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -123,8 +123,8 @@ int main(int argc, char* argv[]) {
     string race, gender;
     int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
 
-    if(race.empty()) status =  verbose("race cannot be empty", 1);
-    if(gender.empty()) status = verbose("gender cannot be empty", 1);
+if(race.empty()) status =  verbose("race cannot be empty", EXIT_FAILURE);
+    if(gender.empty()) status = verbose("gender cannot be empty", EXIT_FAILURE);
 
     if(status == 0) {
         verbose("found "+race+" "+gender);

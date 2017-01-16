@@ -1,11 +1,21 @@
 /*
- * die.cpp
- *
- *  Created on: Jan 8, 2017
- *      Author: Nick Gaulke
- */
+roll - die.cpp
+Created on: Jan 8, 2017
+
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
 #include <functional>
 #include <random>
+
+#ifdef HAVE_GETPID
+
+#include <sys/types.h>
+#include <unistd.h>
+
+#endif
+
 #include "utils.h"
 #include "die.h"
 
@@ -28,7 +38,17 @@ Die::~Die() {
 int Die::roll() {
     default_random_engine generator;
 
+/* sets generator.seed() usig the current
+    time bitwise anded with the PID*/
+#ifdef HAVE_GETPID
+
+    generator.seed(time(NULL) & getpid());
+
+#else
+
     generator.seed(time(NULL));
+
+#endif
 
     uniform_int_distribution<int> dist(1, MAX);
     auto fn_rand = std::bind(dist, generator);
