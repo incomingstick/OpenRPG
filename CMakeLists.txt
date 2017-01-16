@@ -1,4 +1,4 @@
-# require cmake v3.0
+# require cmake v2.8.4
 cmake_minimum_required(VERSION 2.8.4)
 
 # Project info
@@ -25,7 +25,7 @@ include_directories("src" "src/lib")
 add_subdirectory("src/lib/modules")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/src/main.cpp
+		${CMAKE_SOURCE_DIR}/src/openrpg.cpp
 		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
@@ -39,11 +39,6 @@ set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
-
-add_custom_command(TARGET openrpg POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:openrpg>/assets
-)
 
 install (TARGETS openrpg DESTINATION bin)
 install (FILES ${INCLUDE} DESTINATION lib)
