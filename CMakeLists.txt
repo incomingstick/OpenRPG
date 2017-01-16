@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
 set(OpenRPG_VERSION_MINOR 0)
-set(OpenRPG_VERSION_TWEAK 3)
+set(OpenRPG_VERSION_TWEAK 4)
 set(OpenRPG_VERSION_SUFFIX "shiny")
 add_definitions(-DVERSION_STR="v${OpenRPG_VERSION_MAJOR}.${OpenRPG_VERSION_MINOR}.${OpenRPG_VERSION_TWEAK}-${OpenRPG_VERSION_SUFFIX}")
 
