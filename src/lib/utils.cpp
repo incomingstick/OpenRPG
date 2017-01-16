@@ -186,7 +186,7 @@ int parse(string in) {
         for(int i = 0; (unsigned) i < in.size();i++){//standardizes inputs to ignore case
             in[i] = tolower(in[i]);
             
-            if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47)){//letters only, implement numbers later
+            if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47) || in[i] == '+' || in[i] == '-'){
                 word += in[i];//pushes character to word
             }else if(word.size() > 0){
                 words.push_back(word);//end of word
@@ -221,14 +221,18 @@ int parse(string in) {
                 }else{
                     cout << "Missing arguments!\n";
                 }
-            }else if(words[0] == "roll"){//placeholder command
+            }else if(words[0] == "roll"){
                 cout << "Preparing to roll some dice...\n";
                 //roll(0);
                 if(words.size() > 1){
-                    string cmd = "./roll " + (string)words[1];
+                    string cmd = "./roll ";
+                    for (int i = 1; (unsigned) i < words.size(); i++) {
+                        cmd += words[i] + " ";
+                    }
+                    //string cmd = "./roll " + (string)words[1];
                     return system(cmd.c_str());
                 }else{
-                    cout << "missing sides\n";
+                    cout << "missing arguments\n";
                 }
                 //return 20;
             }else{//default case
