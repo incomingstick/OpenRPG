@@ -1,3 +1,9 @@
+/*
+ * roll.cpp
+ *
+ *  Created on: Jan 14, 2017
+ *  Author: Devon Shustarich
+ */
 #include <iostream>
 #include <math.h>
 #include "config.h"

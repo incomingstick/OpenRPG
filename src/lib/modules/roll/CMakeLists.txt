@@ -1,5 +1,5 @@
 set(TC_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/roll-main.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
 )
 

@@ -1,10 +1,11 @@
 /*
- * utils.cpp
- *
- *  Created on: Mar 23, 2016
- *      Author: Nick Gaulke
- */
+openrpg - utils.h
+Created on: Mar 23, 2016
 
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+ */
 #include <sys/ioctl.h>
 #include <iostream>
 #include <unistd.h>
@@ -15,7 +16,15 @@
 
 using namespace std;
 
+#ifdef TESTING_FLAG
+#undef ASSET_LOC
+#define ASSET_LOC TESTING_ASSET_LOC
+#endif
+
 string asset_loc = ASSET_LOC;
+
+bool QUIET_FLAG = false;
+bool VB_FLAG = false;
 
 /*
  * Returns the width of the console
@@ -125,8 +134,7 @@ string rightpad(string str, int len, char ch) {
 }
 
 // Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
-std::istream& safeGetline(std::istream& is, std::string& t)
-{
+std::istream& safeGetline(std::istream& is, std::string& t) {
     t.clear();
 
     // The characters in the stream are read one-by-one using a std::streambuf.
