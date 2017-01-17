@@ -169,23 +169,28 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
 /*
  * Prints the text contents of the given file
  */
-bool print_file(string file){
-    ifstream fileToPrint;
-    fileToPrint.open(file);
-    if(fileToPrint.is_open()){
-        string line;
-        while(getline(fileToPrint,line)){
-            cout << line << "\n";
-        }
-        fileToPrint.close();
-    }else{
-        cout << "Error! Failed to load file.\n";
+bool print_file(string type) {
+    if(QUIET_FLAG) return false;
+    string screen_disp = get_display_screen(type);
+    cout << screen_disp << endl;
+    return true;
+}
+
+
+int verbose(string log, int status) {
+    if(VB_FLAG) {
+        if(status == -1)    cerr << "[VERBOSE]";
+        if(status == 0)     cerr << "[DEBUG]\t";
+        if(status == 1)     cerr << "[ERROR]\t";
+
+        cerr << "\t" << log << endl;
     }
-    return 0;
+    
+    return status;
 }
 
 //Parses text input into the console and determines the appropriate response/action
-int parse(string in) {
+int parse_input(string in) {
     if (in.size() > 0){
         cout << "parsing..." << endl;//message to user that program is working to fulfill request
         vector<string> words; //parsed individual words

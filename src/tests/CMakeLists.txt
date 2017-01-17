@@ -4,7 +4,7 @@ include_directories("${CMAKE_SOURCE_DIR}/src/lib"
 )
 
 set(TEST_COMMON_SRC
-        ${CMAKE_SOURCE_DIR}/lib/utils.cpp
+        ${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 # this flag allows mdoules to understand we are in a testing mode
@@ -17,7 +17,8 @@ add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/src/assets")
 set(CUR_TEST generator-test)
 
 set(CUR_TEST_SRC
-        ${CMAKE_SOURCE_DIR}/lib/modules/generator/generator.cpp
+        ${CUR_TEST}.cpp
+        ${CMAKE_SOURCE_DIR}/src/lib/modules/generator/generator.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})

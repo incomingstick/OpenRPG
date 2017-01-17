@@ -1,14 +1,16 @@
-set(TC_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/gen-main.cpp
+set(NG_SOURCES 
+		${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/generator.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
-set(TC_INCLUDES
+set(NG_INCLUDES
 		${CMAKE_CURRENT_SOURCE_DIR}/generator.h
 )
 
-set(CMAKE_CXX_FLAGS "-Wall --std=c++11")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
-add_executable(generator ${TC_SOURCES})
+add_executable(name-generator ${NG_SOURCES})
 
-install(TARGETS generator DESTINATION bin)
+install(TARGETS name-generator DESTINATION bin)
+install(FILES ${NG_INCLUDE} DESTINATION lib)

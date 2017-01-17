@@ -1,14 +1,16 @@
-set(TC_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/roll-main.cpp
+set(R_SOURCES 
 		${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
-set(TC_INCLUDES
-		${CMAKE_CURRENT_SOURCE_DIR}/roll.h
+set(R_INCLUDES
+		${CMAKE_CURRENT_SOURCE_DIR}/die.h
 )
 
-set(CMAKE_CXX_FLAGS "-Wall --std=c++11")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
 
-add_executable(roll ${TC_SOURCES})
+add_executable(roll ${R_SOURCES})
 
 install(TARGETS roll DESTINATION bin)
+install(FILES ${R_INCLUDE} DESTINATION lib)
