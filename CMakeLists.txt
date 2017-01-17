@@ -30,7 +30,7 @@ set(SOURCES
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.h
 		${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 

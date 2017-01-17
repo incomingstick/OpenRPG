@@ -7,9 +7,6 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
-#include <cstdio>
-#include <climits>
-#include <cstdlib>
 #include <getopt.h>
 
 #include "config.h"
@@ -35,6 +32,7 @@ static void print_help_flag() {
                 "\t-h --help                   Print this help screen\n"
                 "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
                 "\t-q --quiet                  Do not print the banner on startup\n"
+                "\t-r --roll=XdY               Simulates rolling dice\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
           "\n"
@@ -45,16 +43,6 @@ static void print_help_flag() {
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
     exit(0);
-}
-
-/* Input parser - parse_input(in)
-    This function may become its own class if it grows
-    large enough. For now it is simply a placeholder. */
-int parse_input(string in) {
-    verbose("parsing... "+in, 0);
-    string cmd("name-generator dwarf male"); // PLACEHOLDER VARIABLE
-    verbose("calling "+cmd, 0);
-    return verbose("called "+cmd, system(cmd.c_str()));
 }
 
 /* Option parser - parse_args(argc, argv)
@@ -73,13 +61,14 @@ int parse_args(int argc, char* argv[]) {
         {"help",    no_argument,        0,  'h'},
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
+        {"roll",    required_argument,  0,  'r'},
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hn:qvV",
+    while ((opt = getopt_long(argc, argv, "hn:qr:vV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
@@ -110,6 +99,22 @@ int parse_args(int argc, char* argv[]) {
             QUIET_FLAG = true;
             verbose("turning verbose flag off");
             VB_FLAG = false;
+            break;
+
+        /* -r --roll */
+        case 'r':
+            if(optind <= argc) {
+                cmd = "roll";
+                if(VB_FLAG) cmd += " -V";
+                cmd += " "+(string)optarg;
+                verbose("calling "+cmd, 0);
+                verbose("called "+cmd, system(cmd.c_str()));
+                verbose("exiting with status "+to_string(status), status);
+                exit(status);
+            } else {
+                fprintf(stderr, "Error: invalid number of args\n");
+                status = 1;
+            }
             break;
 
         /* -v --version */

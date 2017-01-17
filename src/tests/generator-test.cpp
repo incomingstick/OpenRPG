@@ -1,9 +1,11 @@
 /*
- * generator-test.cpp
- * Test program for name-generator
- *  Created on: Dec 1, 2016
- *      Author: Nick Gaulke
- */
+generator-test.cpp - Test program for name-generator
+Created on: Dec 1, 2016
+
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
 #include <string>
 #include "generator.h"
 

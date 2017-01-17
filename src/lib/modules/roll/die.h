@@ -4,7 +4,6 @@
  *  Created on: Jan 8, 2017
  *      Author: Nick Gaulke
  */
-
 #ifndef SRC_DIE_H_
 #define SRC_GENERATOR_H_
 
