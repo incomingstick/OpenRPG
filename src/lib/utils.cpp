@@ -67,7 +67,7 @@ string get_display_screen(string type) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cout << "[1] FILE " << asset_loc << "/" << type << " COULD NOT BE OPENED" << endl;
+        verbose("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -93,7 +93,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-         cout << "[2] FILE " << asset_loc << "/" << file << " COULD NOT BE OPENED" << endl;
+        verbose("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -176,7 +176,7 @@ bool print_file(string type) {
     return true;
 }
 
-
+/* Outputs the log string to stderr if VB_FLAG is set */
 int verbose(string log, int status) {
     if(VB_FLAG) {
         if(status == -1)    cerr << "[VERBOSE]";
@@ -189,14 +189,20 @@ int verbose(string log, int status) {
     return status;
 }
 
-//Parses text input into the console and determines the appropriate response/action
+/* Parses text input into the console and determines the appropriate response/action */
 int parse_input(string in) {
     if (in.size() > 0){
-        cout << "parsing..." << endl;//message to user that program is working to fulfill request
-        vector<string> words; //parsed individual words
-        string word; //temporary container for word being built
+        // message to user that program is working to fulfill request
+        verbose("parsing...");
+
+        // parsed individual words
+        vector<string> words;
+
+        // temporary container for word being built
+        string word;
     
-        for(int i = 0; (unsigned) i < in.size();i++){//standardizes inputs to ignore case
+        //standardizes inputs to ignore case
+        for(int i = 0; (unsigned) i < in.size();i++){
             in[i] = tolower(in[i]);
             
             if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47) || in[i] == '+' || in[i] == '-'){
@@ -212,7 +218,7 @@ int parse_input(string in) {
         }
         
         if (words.size() > 0){
-            cout << "Words (" << words.size() << "):\n";
+            verbose("Words (" + to_string(words.size()) + "):\n");
             for(int i = 0; (unsigned) i < words.size();i++){
                 cout << words[i];
                 if((unsigned) i != words.size() - 1){
@@ -258,7 +264,7 @@ int parse_input(string in) {
             cout << "No command!\n";
         }
     }else{
-        cout << "No command!\n";
+        verbose("No command!\n");
     }
     return 0;
 }

@@ -1,9 +1,11 @@
 /*
- * main.cpp
- *
- *  Created on: Jan 14, 2017
- *  Author: Devon Shustarich
- */
+roll - die.cpp
+Created on: Nov 10, 2016
+
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
 #include <iostream>
 #include <string>
 
