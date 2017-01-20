@@ -6,7 +6,7 @@ Currently we require `cmake` (at least v2.8.4) and `make`
 
 Create a build directory `$ mkdir build && cd build`  
 Run cmake `$ cmake -DCMAKE_INSTALL_PREFIX=/desired/install/location ..`  
-Run make `$ make`
+Run make `$ make`  
 Run make check `$ make check` 
 
 # Installing
