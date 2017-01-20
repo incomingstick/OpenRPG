@@ -48,9 +48,9 @@ size_t get_console_height() {
  * Loads the menu file of the given type to be used
  * for printing the UI
  */
-string get_display_screen(string type) {
+string get_display_screen(string file) {
     // Open the assets file for the current screen
-    ifstream screen_file(asset_loc+"/"+type);
+    ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
     if (screen_file.is_open()) {
