@@ -1,10 +1,11 @@
 /*
- * generator.h
- *
- *  Created on: Nov 10, 2016
- *      Author: Nick Gaulke
- */
+name-generator - generator.h
+Created on: Nov 10, 2016
 
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
 #ifndef SRC_GENERATOR_H_
 #define SRC_GENERATOR_H_
 
@@ -15,7 +16,7 @@ class NameGenerator {
         std::string gender;
         int random(int min, int max);
     public:
-        NameGenerator(std::string race, std::string gender);
+        NameGenerator(std::string race = "dwarf", std::string gender = "male");
         ~NameGenerator();
         std::string make_name();
         std::string make_first();

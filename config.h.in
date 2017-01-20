@@ -1,6 +1,16 @@
-// the configured options and settings for Tutorial
-#define OpenRPG_VERSION_MAJOR @OpenRPG_VERSION_MAJOR@
-#define OpenRPG_VERSION_MINOR @OpenRPG_VERSION_MINOR@
-#define OpenRPG_VERSION_TWEAK @OpenRPG_VERSION_TWEAK@
-#define OpenRPG_VERSION_SUFFIX "@OpenRPG_VERSION_SUFFIX@"
+/*
+openrpg - config.h
+Created on: Dec 1, 2016
+
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+ */
+#define VERSION_MAJOR @OpenRPG_VERSION_MAJOR@
+#define VERSION_MINOR @OpenRPG_VERSION_MINOR@
+#define VERSION_TWEAK @OpenRPG_VERSION_TWEAK@
+#define VERSION_SUFFIX "@OpenRPG_VERSION_SUFFIX@"
+#define VERSION "v@OpenRPG_VERSION_MAJOR@.@OpenRPG_VERSION_MINOR@.@OpenRPG_VERSION_TWEAK@-@OpenRPG_VERSION_SUFFIX@"
+#define AUTHOR "@OpenRPG_AUTHOR@"
+#define COPYRIGHT "(C) 2016-@YEAR@ @OpenRPG_AUTHOR@"
 #define ASSET_LOC "@CMAKE_INSTALL_PREFIX@/assets"

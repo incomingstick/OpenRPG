@@ -1,13 +1,15 @@
-# require cmake v3.0
+# require cmake v2.8.4
 cmake_minimum_required(VERSION 2.8.4)
 
 # Project info
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
 set(OpenRPG_VERSION_MINOR 0)
-set(OpenRPG_VERSION_TWEAK 2)
+set(OpenRPG_VERSION_TWEAK 3)
 set(OpenRPG_VERSION_SUFFIX "dev")
-add_definitions(-DVERSION_STR="v${OpenRPG_VERSION_MAJOR}.${OpenRPG_VERSION_MINOR}.${OpenRPG_VERSION_TWEAK}-${OpenRPG_VERSION_SUFFIX}")
+set(OpenRPG_AUTHOR "Nicholas Gaulke")
+string(TIMESTAMP YEAR %Y UTC)
+string(TIMESTAMP DATE UTC)
 
 # configure a header file to pass some of the CMake settings
 # to the source code
@@ -23,12 +25,12 @@ include_directories("src" "src/lib")
 add_subdirectory("src/lib/modules")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/src/main.cpp
+		${CMAKE_SOURCE_DIR}/src/openrpg.cpp
 		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
+		${CMAKE_SOURCE_DIR}/src/lib/utils.h
 		${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 
@@ -37,11 +39,6 @@ set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
-
-add_custom_command(TARGET openrpg POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${CMAKE_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:openrpg>/assets
-)
 
 install (TARGETS openrpg DESTINATION bin)
 install (FILES ${INCLUDE} DESTINATION lib)
