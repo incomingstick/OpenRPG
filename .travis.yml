@@ -7,6 +7,19 @@ os:
 notifications:
   email: false
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - gcc-4.9-multilib
+      - g++-4.9-multilib
+      - zip
+      - cmake-2.8.4
+      - cmake-2.8.4-multilib
+
 before_install:
   - mkdir build
   - cd build
