@@ -34,9 +34,9 @@ by someone that understand the language.
 ### TODO's
 
 #### v0.1.0-dev
-- [X] dice simulation program (began implementation in v0.0.3-dev (75ec04fff2262a4201daf7d14f5cdc6e694a2ef9))
+- [X] dice simulation program (began implementation in v0.0.3-dev (incomingstick@75ec04fff2262a4201daf7d14f5cdc6e694a2ef9))
 	- [ ] allows full math using dice (current development branch - roll-module)
-- [X] name generator (began implementation in  v0.0.2-dev (a308e423f0a54987adb821b145a7ebb15a83789f))
+- [X] name generator (began implementation in  v0.0.2-dev (incomingstick@a308e423f0a54987adb821b145a7ebb15a83789f))
 	- [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
 	- [ ] Aasimar: Protector, Scourge, Fallen (DMG (base only), VOLO)
 	- [ ] Anthropomorphic Mice (DMG)
