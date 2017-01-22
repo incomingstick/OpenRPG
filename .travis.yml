@@ -1,6 +1,10 @@
 sudo: false
 language: cpp
 
+compiler:
+  - clang
+  - gcc
+
 os:
   - linux
 
@@ -11,14 +15,14 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
     packages:
       - gcc-4.9
       - g++-4.9
       - gcc-4.9-multilib
       - g++-4.9-multilib
       - zip
-      - cmake-2.8.4
-      - cmake-2.8.4-multilib
+      - cmake-2.8
 
 before_install:
   - mkdir build
