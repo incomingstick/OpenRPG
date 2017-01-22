@@ -8,6 +8,8 @@ compiler:
 os:
   - linux
 
+dist: trusty
+
 notifications:
   email: false
 
@@ -22,7 +24,7 @@ addons:
       - gcc-4.9-multilib
       - g++-4.9-multilib
       - zip
-      - cmake-2.8
+      - cmake
 
 before_install:
   - mkdir build
