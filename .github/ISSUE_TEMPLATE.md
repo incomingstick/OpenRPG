@@ -1,6 +1,6 @@
-- [ ] I have reviewed the [Contributing](.github/CONTRIBUTING.md) guidelines. (Put an X between the brackets to confirm)
-Please delete the section that does not pertain to this request.
+- [ ] I have reviewed the [Contributing](.github/CONTRIBUTING.md) guidelines. (Put an X between the brackets to confirm and delete this text)
 
+Please delete the section [Bug or Issue | Feature Request] that does not pertain to this request and this message.
 ## Bug or Issue
 - OpenRPG Version:
 - OS Version:

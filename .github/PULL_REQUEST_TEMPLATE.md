@@ -8,7 +8,7 @@ If it's a bug fix, please link the issue that it fixes or describe the bug in as
 Please list the specific changes involved in this pull request.
 
 ## Requirements Checklist
-- [ ] Feature implemented / Bug fixed
+- [ ] Feature implemented | Bug fixed
 - [ ] Reviewed by a Core Contributor
   - [ ] Reviewed by: @
 
