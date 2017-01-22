@@ -34,9 +34,9 @@ by someone that understand the language.
 ### TODO's
 
 #### v0.1.0-dev
-- [X] dice simulation program (began implementation in [v0.0.3-dev](75ec04fff2262a4201daf7d14f5cdc6e694a2ef9)
+- [X] dice simulation program (began implementation in [v0.0.3-dev](75ec04fff2262a4201daf7d14f5cdc6e694a2ef9))
 	- [ ] allows full math using dice (current development branch - roll-module)
-- [X] name generator (began implementation in [v0.0.2-dev](a308e423f0a54987adb821b145a7ebb15a83789f)
+- [X] name generator (began implementation in [v0.0.2-dev](a308e423f0a54987adb821b145a7ebb15a83789f))
 	- [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
 	- [ ] Aasimar: Protector, Scourge, Fallen (DMG (base only), VOLO)
 	- [ ] Anthropomorphic Mice (DMG)
@@ -79,7 +79,7 @@ by someone that understand the language.
 	- [ ] automatically determines if the character is legal in Adventurers League
 	- [ ] can pass any number of stats and autofill the rest (blank for completely generated)
 
-#### V1.0.0
+#### v1.0.0
 - [ ] fully portable GUI front-end for the CLI tools
 - [ ] city/town generator - fully generate a city/town with business names, NPC's, and a population
 	- [ ] passed basic info about town (name, size [exact diameter in meters OR small | medium |large | etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
