@@ -33,30 +33,69 @@ by someone that understand the language.
 
 ### TODO's
 
-#### BEGINNER
-None at the moment. To be updated.
+#### v0.1.0-dev
+- [X] dice simulation program (began implementation in [v0.0.3-dev](75ec04fff2262a4201daf7d14f5cdc6e694a2ef9)
+	- [ ] allows full math using dice (current development branch - roll-module)
+- [X] name generator (began implementation in [v0.0.2-dev](a308e423f0a54987adb821b145a7ebb15a83789f)
+	- [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
+	- [ ] Aasimar: Protector, Scourge, Fallen (DMG (base only), VOLO)
+	- [ ] Anthropomorphic Mice (DMG)
+	- [ ] Changeling: ([UA: "Eberron"](https://media.wizards.com/2015/downloads/dnd/UA_Eberron_v1.pdf))
+	- [ ] Deep Gnome/Svirfneblin ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion), SCAG)
+	- [ ] Dragonborn ([SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd), PHB)
+	- [ ] Dwarf: Mountain or Hill ([PBR](http://dnd.wizards.com/articles/features/basicrules), [SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd) only Hill, PHB)
+	- [ ] Dwarf: Duergar (SCAG)
+	- [ ] Elf: High, Wood, or Drow ([PBR](http://dnd.wizards.com/articles/features/basicrules), [SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd) only High, PHB)
+	- [ ] Elf: Eladrin (DMG)
+	- [ ] Elf: Tajuru, Joraga, Mul daya ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
+	- [ ] Firbolg (VOLO)
+	- [ ] Genasi (PotA, [EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
+	- [ ] Gnome ([SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd), PHB)
+	- [ ] Goblin ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
+	- [ ] Goliath ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion), VOLO)
+	- [ ] Halfling: Lightfoot or Stout ([PBR](http://dnd.wizards.com/articles/features/basicrules), [SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd) only Lightfoot, PHB)
+	- [ ] Halfling: Ghostwise (SCAG)
+	- [ ] Half-Elf ([SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd), PHB)
+	- [ ] Half-Elf: Variant (SCAG)
+	- [ ] Half-Orc ([SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd), PHB)
+	- [ ] Human: standard or variant ([PBR](http://dnd.wizards.com/articles/features/basicrules), [SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd) only standard, PHB, ZEN)
+	- [ ] Kenku (VOLO)
+	- [ ] Kor ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
+	- [ ] Lizardfolk (VOLO)
+	- [ ] Merfolk ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
+	- [ ] Minotaur ([UA: "Waterborne Adventures"](https://media.wizards.com/2015/downloads/dnd/UA_Waterborne_v3.pdf))
+	- [ ] Revenant ([UA: "Gothic Heroes"](https://dnd.wizards.com/sites/default/files/media/upload/articles/UA%20Gothic%20Characters.pdf))
+	- [ ] Shifter: ([UA: "Eberron"](https://media.wizards.com/2015/downloads/dnd/UA_Eberron_v1.pdf))
+	- [ ] Tabaxi (VOLO)
+	- [ ] Tiefling ([SRD](https://dnd.wizards.com/articles/features/systems-reference-document-srd), PHB)
+	- [ ] Tiefling: Variant (other than Winged) (SCAG)
+	- [ ] Tiefling: Winged Variant (SCAG)
+	- [ ] Tiefling: Infernal and Abyssal variants ([UA: "That Old Black Magic"](https://media.wizards.com/2015/downloads/dnd/07_UA_That_Old_Black_Magic.pdf))
+	- [ ] Triton (VOLO)
+	- [ ] Vampire ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
+	- [ ] Warforged: ([UA: "Eberron"](https://media.wizards.com/2015/downloads/dnd/UA_Eberron_v1.pdf))
+- [ ] character generator
+	- [ ] populates a PDF character sheet with the generated information
+	- [ ] automatically determines if the character is legal in Adventurers League
+	- [ ] can pass any number of stats and autofill the rest (blank for completely generated)
 
-#### INTERMEDIATE
-None at the moment. To be updated.
+#### V1.0.0
+- [ ] fully portable GUI front-end for the CLI tools
+- [ ] city/town generator - fully generate a city/town with business names, NPC's, and a population
+	- [ ] passed basic info about town (name, size [exact diameter in meters OR small | medium |large | etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
+- [ ] encounter/combat generator
+	- [ ] passed basic info about encounter/combat (combat rating, average group level, etc.) and generates the rest (blank for completely generated)
+- [ ] world generator - fully generate a world with city/towns, roads, and geography
+- [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
 
-#### ADVANCED
-None at the moment. To be updated.
-
-
-These TODO's are very broad and this list will grow as new ideas are brought to the table and more people begin to contribute.
-
-Message me with questions or visit me on Tumblr at import-os.tumblr.com
+Message me with questions or visit me on Tumblr at [import-os](mkesec.io).
 
 ### Pull Request
 
 For something to be considered for merging into master it must be 
-submitted as a Pull Request to development first. All Pull Requests 
-will be given at least 24 hours before being merged into the 
-development branch. Pull requests may take longer to be merged if more 
-needs to change. On every Monday the development branch will have a pull 
-request made to be merged into the master repository. This pull request 
-will sit for one week to be reviewed until it is merged in on Sunday. 
-The weekly pull request may be delayed if more changes need to be made.
+submitted as a Pull Request to the current developement branch first.
+Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
+file. 
 
 ### Programming Standards
 
