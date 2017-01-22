@@ -1,0 +1,22 @@
+sudo: false
+language: cpp
+
+os:
+  - linux
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - gcc-4.9-multilib
+      - g++-4.9-multilib
+      - zip
+      - make
+      - cmake
+
+install:
+  - cmake && make install
