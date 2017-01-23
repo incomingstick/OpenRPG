@@ -14,12 +14,13 @@ extern bool VB_FLAG;
 
 size_t get_console_width();
 size_t get_console_height();
-std::string get_display_screen(std::string type);
+std::string get_display_screen(std::string file);
 std::string load_file(std::string fileName);
 std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
-bool print_file(std::string type);
+bool print_file(std::string file);
 int verbose(std::string log = "", int status = -1);
+int parse_input(std::string in);
 
 #endif /* SRC_UTILS_H_ */

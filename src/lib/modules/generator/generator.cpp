@@ -9,7 +9,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <algorithm>
 #include <vector>
 #include <ctime>
 #include <functional>

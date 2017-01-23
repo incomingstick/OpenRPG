@@ -1,14 +1,12 @@
 /*
 roll - roll.cpp
-Created on: Jan 8, 2017
+Created on: Nov 10, 2016
 
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
-#include <cstdio>
-#include <cstdlib>
 #include <getopt.h>
 
 #include "config.h"
@@ -50,6 +48,7 @@ static void print_help_flag() {
     This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[], int* out) {
     int status = EXIT_SUCCESS;
+
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -134,7 +133,6 @@ int parse_args(int argc, char* argv[], int* out) {
 
     return status;
 }
-
 
 int main(int argc, char* argv[]) {
     int out = 0;

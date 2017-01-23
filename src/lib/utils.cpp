@@ -6,11 +6,9 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
-#include <string>
 #include <sys/ioctl.h>
 #include <iostream>
 #include <unistd.h>
-#include <cstdlib>
 #include <fstream>
 #include <vector>
 #include "config.h"
@@ -50,9 +48,9 @@ size_t get_console_height() {
  * Loads the menu file of the given type to be used
  * for printing the UI
  */
-string get_display_screen(string type) {
+string get_display_screen(string file) {
     // Open the assets file for the current screen
-    ifstream screen_file(asset_loc+"/"+type);
+    ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
     if (screen_file.is_open()) {
@@ -69,7 +67,7 @@ string get_display_screen(string type) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        cout << "[1] FILE " << asset_loc << "/" << type << " COULD NOT BE OPENED" << endl;
+        verbose("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -95,7 +93,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-         cout << "[2] FILE " << asset_loc << "/" << file << " COULD NOT BE OPENED" << endl;
+        verbose("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -135,16 +133,6 @@ string rightpad(string str, int len, char ch) {
     return str;
 }
 
-/*
- * Prints the menu of the given string type to cout
- */
-bool print_file(string type) {
-    if(QUIET_FLAG) return false;
-    string screen_disp = get_display_screen(type);
-    cout << screen_disp << endl;
-    return true;
-}
-
 // Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
 std::istream& safeGetline(std::istream& is, std::string& t) {
     t.clear();
@@ -178,6 +166,17 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
     }
 }
 
+/*
+ * Prints the text contents of the given file
+ */
+bool print_file(string type) {
+    if(QUIET_FLAG) return false;
+    string screen_disp = get_display_screen(type);
+    cout << screen_disp << endl;
+    return true;
+}
+
+/* Outputs the log string to stderr if VB_FLAG is set */
 int verbose(string log, int status) {
     if(VB_FLAG) {
         if(status == -1)    cerr << "[VERBOSE]";
@@ -188,4 +187,84 @@ int verbose(string log, int status) {
     }
     
     return status;
+}
+
+/* Parses text input into the console and determines the appropriate response/action */
+int parse_input(string in) {
+    if (in.size() > 0){
+        // message to user that program is working to fulfill request
+        verbose("parsing...");
+
+        // parsed individual words
+        vector<string> words;
+
+        // temporary container for word being built
+        string word;
+    
+        //standardizes inputs to ignore case
+        for(int i = 0; (unsigned) i < in.size();i++){
+            in[i] = tolower(in[i]);
+            
+            if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47) || in[i] == '+' || in[i] == '-'){
+                word += in[i];//pushes character to word
+            }else if(word.size() > 0){
+                words.push_back(word);//end of word
+                word = {};//resets word
+            }
+        }
+        
+        if(word.size() > 0){//end of command
+            words.push_back(word);//end of word
+        }
+        
+        if (words.size() > 0){
+            verbose("Words (" + to_string(words.size()) + "):\n");
+            for(int i = 0; (unsigned) i < words.size();i++){
+                cout << words[i];
+                if((unsigned) i != words.size() - 1){
+                    cout << ", ";
+                }
+            }
+            
+            cout << endl;
+            
+            //simple commands, must be expanded on based on command content
+            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
+                cout << "Quitting program...\n";
+                return 404;
+            }else if(words[0] == "gen" || words[0] == "generate"){
+                if(words.size() > 2){
+                    //nameGenerator(words[1],"dwarf");
+                    string cmd = "./generator " + words[1] + " " + words[2];
+                    return system(cmd.c_str());
+                }else{
+                    cout << "Missing arguments!\n";
+                }
+            }else if(words[0] == "roll"){
+                cout << "Preparing to roll some dice...\n";
+                //roll(0);
+                if(words.size() > 1){
+                    string cmd = "./roll ";
+                    for (int i = 1; (unsigned) i < words.size(); i++) {
+                        cmd += words[i] + " ";
+                    }
+                    //string cmd = "./roll " + (string)words[1];
+                    return system(cmd.c_str());
+                }else{
+                    cout << "missing arguments\n";
+                }
+                //return 20;
+            }else{//default case
+                cout << "Command not recognized!\n";
+            }
+            
+            words = {};
+            
+        }else{
+            cout << "No command!\n";
+        }
+    }else{
+        verbose("No command!\n");
+    }
+    return 0;
 }
