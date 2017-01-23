@@ -1,4 +1,5 @@
 # OpenRPG
+[![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)  
 OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!  
 What OpenRPG aims to accomplish two fold.  
 
