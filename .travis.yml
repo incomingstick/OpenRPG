@@ -32,5 +32,5 @@ before_install:
   - cmake -DCMAKE_INSTALL_PREFIX=/home/travis/build/incomingstick/local/bin ..
   - make check
 
-install:
+script:
   - make install
