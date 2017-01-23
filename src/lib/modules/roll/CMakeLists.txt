@@ -8,7 +8,7 @@ set(R_INCLUDES
 		${CMAKE_CURRENT_SOURCE_DIR}/die.h
 )
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 add_executable(roll ${R_SOURCES})
 
