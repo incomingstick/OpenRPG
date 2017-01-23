@@ -458,7 +458,14 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <climits>
 #include "roll-parser.hpp"
 
-#line 462 "roll-scanner.cpp"
+extern int read_string(char* buff, int *numBytesRead, int maxBytesToRead);
+
+#undef YY_INPUT
+#define YY_INPUT(b,r,s) read_string(b, &r, s)
+
+int yylex(void);
+
+#line 469 "roll-scanner.cpp"
 
 #define INITIAL 0
 
@@ -590,10 +597,10 @@ YY_DECL
 		}
 
 	{
-#line 19 "roll-scanner.l"
+#line 26 "roll-scanner.l"
 
 
-#line 597 "roll-scanner.cpp"
+#line 604 "roll-scanner.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -662,7 +669,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 21 "roll-scanner.l"
+#line 28 "roll-scanner.l"
 {
     errno = 0;
     long number =  strtol(yytext, NULL, 10);
@@ -686,112 +693,112 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 41 "roll-scanner.l"
+#line 48 "roll-scanner.l"
 { return PLUS;    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 42 "roll-scanner.l"
+#line 49 "roll-scanner.l"
 { return MINUS;   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 43 "roll-scanner.l"
+#line 50 "roll-scanner.l"
 { return TIMES;   }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 44 "roll-scanner.l"
+#line 51 "roll-scanner.l"
 { return DIV;     }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 45 "roll-scanner.l"
+#line 52 "roll-scanner.l"
 { return DICE;    }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 46 "roll-scanner.l"
+#line 53 "roll-scanner.l"
 { return FUDGE;   }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 47 "roll-scanner.l"
+#line 54 "roll-scanner.l"
 { return HIGH;    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 48 "roll-scanner.l"
+#line 55 "roll-scanner.l"
 { return LOW;     }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 49 "roll-scanner.l"
+#line 56 "roll-scanner.l"
 { return LPAREN;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 50 "roll-scanner.l"
+#line 57 "roll-scanner.l"
 { return RPAREN;  }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 51 "roll-scanner.l"
+#line 58 "roll-scanner.l"
 { return LCURLY;  }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 52 "roll-scanner.l"
+#line 59 "roll-scanner.l"
 { return RCURLY;  }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 53 "roll-scanner.l"
+#line 60 "roll-scanner.l"
 { return GT; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 54 "roll-scanner.l"
+#line 61 "roll-scanner.l"
 { return GE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 55 "roll-scanner.l"
+#line 62 "roll-scanner.l"
 { return LT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 56 "roll-scanner.l"
+#line 63 "roll-scanner.l"
 { return LE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 57 "roll-scanner.l"
+#line 64 "roll-scanner.l"
 { return NE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 58 "roll-scanner.l"
+#line 65 "roll-scanner.l"
 { return NE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 59 "roll-scanner.l"
+#line 66 "roll-scanner.l"
 { return PERCENT; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 60 "roll-scanner.l"
+#line 67 "roll-scanner.l"
 { return COMMA;   }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 61 "roll-scanner.l"
+#line 68 "roll-scanner.l"
 /* ignore spaces */
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 62 "roll-scanner.l"
+#line 69 "roll-scanner.l"
 { 
     printf("Error: unknown symbol '%s'\n", yytext);
     exit(EXIT_FAILURE);
@@ -799,10 +806,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 67 "roll-scanner.l"
+#line 74 "roll-scanner.l"
 ECHO;
 	YY_BREAK
-#line 806 "roll-scanner.cpp"
+#line 813 "roll-scanner.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1766,7 +1773,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 67 "roll-scanner.l"
+#line 74 "roll-scanner.l"
 
 
 

@@ -72,17 +72,19 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-
-#include <stdio.h>
-#include "die.h"
+#include "roll.h"
 
 bool POS_FLAG = false;
-  
-int  yylex(void);
-void yyerror(char const*);
-  
+bool SUM_FLAG = false;
 
-#line 86 "roll-parser.cpp" /* yacc.c:339  */
+extern "C" int yylex(void);
+void yyerror(char const*);
+
+
+extern int read_string(char* buff, int *numBytesRead, int maxBytesToRead);
+
+
+#line 88 "roll-parser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -145,12 +147,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 21 "roll-parser.y" /* yacc.c:355  */
+#line 23 "roll-parser.y" /* yacc.c:355  */
 
-  struct ir_node * node;
-  int              int_type;
+    struct parse_node* node;
+    int int_type;
 
-#line 154 "roll-parser.cpp" /* yacc.c:355  */
+#line 156 "roll-parser.cpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -167,7 +169,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 171 "roll-parser.cpp" /* yacc.c:358  */
+#line 173 "roll-parser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -466,10 +468,10 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    60,    60,    65,    72,    77,    85,    93,   120,   123,
-     129,   132,   135,   140,   145,   154,   163,   169,   172,   175,
-     178,   181,   184,   187,   192,   195,   199,   202,   205,   208,
-     213,   216,   219,   222
+       0,    62,    62,    67,    74,    79,    85,    93,   118,   121,
+     127,   130,   133,   138,   143,   152,   161,   167,   170,   173,
+     176,   179,   182,   185,   190,   193,   197,   200,   203,   206,
+     211,   214,   217,   220
 };
 #endif
 
@@ -1274,42 +1276,40 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 60 "roll-parser.y" /* yacc.c:1646  */
+#line 62 "roll-parser.y" /* yacc.c:1646  */
     {      
     printf("sum: %i\n", (yyvsp[0].int_type));
 }
-#line 1282 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1284 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 65 "roll-parser.y" /* yacc.c:1646  */
+#line 67 "roll-parser.y" /* yacc.c:1646  */
     {
-  if (! POS_FLAG || (yyvsp[0].int_type) > 0) {
-    (yyval.int_type) = (yyvsp[0].int_type);
-  } else {
-    (yyval.int_type) = 0;
-  }
+    if (!POS_FLAG || (yyvsp[0].int_type) > 0) {
+        (yyval.int_type) = (yyvsp[0].int_type);
+    } else {
+        (yyval.int_type) = 0;
+    }
 }
-#line 1294 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1296 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 72 "roll-parser.y" /* yacc.c:1646  */
+#line 74 "roll-parser.y" /* yacc.c:1646  */
     {
-  (yyval.int_type) = (yyvsp[-2].int_type) + (yyvsp[0].int_type);
+    (yyval.int_type) = (yyvsp[-2].int_type) + (yyvsp[0].int_type);
 }
-#line 1302 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1304 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 77 "roll-parser.y" /* yacc.c:1646  */
+#line 79 "roll-parser.y" /* yacc.c:1646  */
     {
-#ifdef DEBUG
-  if (debug_flag > 0) {
-    print_tree("tree", (yyvsp[0].node), 0);
-  }
-#endif
-  (yyval.int_type) = roll_expression((yyvsp[0].node), TRUE);
+    if(VB_FLAG)
+        print_tree("tree", (yyvsp[0].node), 0);
+
+    (yyval.int_type) = roll_expression((yyvsp[0].node), true);
 }
 #line 1315 "roll-parser.cpp" /* yacc.c:1646  */
     break;
@@ -1318,11 +1318,11 @@ yyreduce:
 #line 85 "roll-parser.y" /* yacc.c:1646  */
     {
 #ifdef DEBUG
-  if (debug_flag > 0) {
-    print_tree("tree", (yyvsp[-1].node), 0);
-  }
+    if (debug_flag > 0) {
+        print_tree("tree", (yyvsp[-1].node), 0);
+    }
 #endif
-  (yyval.int_type) = roll_expression((yyvsp[-1].node), TRUE);
+    (yyval.int_type) = roll_expression((yyvsp[-1].node), true);
 }
 #line 1328 "roll-parser.cpp" /* yacc.c:1646  */
     break;
@@ -1330,21 +1330,19 @@ yyreduce:
   case 7:
 #line 93 "roll-parser.y" /* yacc.c:1646  */
     {
-  
-  int repetitions = (yyvsp[-3].int_type);
-  int i;
-  int res;
-  int sum = 0;
+    int repetitions = (yyvsp[-3].int_type);
+    int i;
+    int res;
+    int sum = 0;
 
 #ifdef DEBUG
-  if (debug_flag > 0) {
-    print_tree("tree", (yyvsp[-1].node), 0);
-  }
+    if (debug_flag > 0) {
+        print_tree("tree", (yyvsp[-1].node), 0);
+    }
 #endif
-  
   for (i = 0; i < repetitions; i++) {
-    res = roll_expression((yyvsp[-1].node), TRUE);
-    if (sum_flag == TRUE) {
+    res = roll_expression((yyvsp[-1].node), true);
+    if (SUM_FLAG == true) {
       printf("sum: %i\n", res);
       sum += res;
     }
@@ -1354,235 +1352,235 @@ yyreduce:
   (yyval.int_type) = sum;
   
 }
-#line 1358 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1356 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 120 "roll-parser.y" /* yacc.c:1646  */
+#line 118 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[0].node);
 }
-#line 1366 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1364 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 123 "roll-parser.y" /* yacc.c:1646  */
+#line 121 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyvsp[-2].node)->next = (yyvsp[0].node);
   (yyval.node) = (yyvsp[-2].node);
 }
-#line 1375 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1373 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 129 "roll-parser.y" /* yacc.c:1646  */
+#line 127 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[0].node);
 }
-#line 1383 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1381 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 132 "roll-parser.y" /* yacc.c:1646  */
+#line 130 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_PLUS, (yyvsp[-2].node), (yyvsp[0].node));
 }
-#line 1391 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1389 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 135 "roll-parser.y" /* yacc.c:1646  */
+#line 133 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_MINUS, (yyvsp[-2].node), (yyvsp[0].node));
 }
-#line 1399 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1397 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 140 "roll-parser.y" /* yacc.c:1646  */
+#line 138 "roll-parser.y" /* yacc.c:1646  */
     {
 
   (yyval.node) = new_op(OP_REP, new_number((yyvsp[-1].int_type)), (yyvsp[0].node));
   
 }
-#line 1409 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1407 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 145 "roll-parser.y" /* yacc.c:1646  */
+#line 143 "roll-parser.y" /* yacc.c:1646  */
     {
 
   if ((yyvsp[0].int_type) > (yyvsp[-3].int_type)) {
-    error("the number of kept dices must be lower than the actual dices");
+    verbose("the number of kept dices must be lower than the actual dices", 1);
   }
 
   (yyval.node) = new_op(OP_HIGH, new_number((yyvsp[0].int_type)), new_op(OP_REP, new_number((yyvsp[-3].int_type)), (yyvsp[-2].node)));
 
 }
-#line 1423 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1421 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 154 "roll-parser.y" /* yacc.c:1646  */
+#line 152 "roll-parser.y" /* yacc.c:1646  */
     {
 
   if ((yyvsp[0].int_type) > (yyvsp[-3].int_type)) {
-    error("the number of kept dices must be lower than the actual dices");
+    verbose("the number of kept dices must be lower than the actual dices", 1);
   }
 
   (yyval.node) = new_op(OP_LOW, new_number((yyvsp[0].int_type)), new_op(OP_REP, new_number((yyvsp[-3].int_type)), (yyvsp[-2].node)));
 
 }
-#line 1437 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1435 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 163 "roll-parser.y" /* yacc.c:1646  */
+#line 161 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[0].node);
 }
-#line 1445 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1443 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 169 "roll-parser.y" /* yacc.c:1646  */
+#line 167 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_number((yyvsp[0].int_type));
 }
-#line 1453 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1451 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 172 "roll-parser.y" /* yacc.c:1646  */
+#line 170 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[0].node);
 }
-#line 1461 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1459 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 175 "roll-parser.y" /* yacc.c:1646  */
+#line 173 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_TIMES, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1469 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1467 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 178 "roll-parser.y" /* yacc.c:1646  */
+#line 176 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_DIV, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1477 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1475 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 181 "roll-parser.y" /* yacc.c:1646  */
+#line 179 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_TIMES, new_number((yyvsp[-2].int_type)), (yyvsp[0].node));
 }
-#line 1485 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1483 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 184 "roll-parser.y" /* yacc.c:1646  */
+#line 182 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_DIV, new_number((yyvsp[-2].int_type)), (yyvsp[0].node));
 }
-#line 1493 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1491 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 187 "roll-parser.y" /* yacc.c:1646  */
+#line 185 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[-1].node);
 }
-#line 1501 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1499 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 192 "roll-parser.y" /* yacc.c:1646  */
+#line 190 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = (yyvsp[0].node);
 }
-#line 1509 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1507 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 195 "roll-parser.y" /* yacc.c:1646  */
+#line 193 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_GT, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
   
 }
-#line 1518 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1516 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 199 "roll-parser.y" /* yacc.c:1646  */
+#line 197 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_GE, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1526 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1524 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 202 "roll-parser.y" /* yacc.c:1646  */
+#line 200 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_LT, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1534 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1532 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 205 "roll-parser.y" /* yacc.c:1646  */
+#line 203 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_LE, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1542 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1540 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 208 "roll-parser.y" /* yacc.c:1646  */
+#line 206 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_op(OP_NE, (yyvsp[-2].node), new_number((yyvsp[0].int_type)));
 }
-#line 1550 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1548 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 213 "roll-parser.y" /* yacc.c:1646  */
+#line 211 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_dice(new_number((yyvsp[0].int_type)));
 }
-#line 1558 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1556 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 216 "roll-parser.y" /* yacc.c:1646  */
+#line 214 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_dice(new_number(6));
 }
-#line 1566 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1564 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 219 "roll-parser.y" /* yacc.c:1646  */
+#line 217 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_dice(new_number(HUNDRED));
 }
-#line 1574 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1572 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 222 "roll-parser.y" /* yacc.c:1646  */
+#line 220 "roll-parser.y" /* yacc.c:1646  */
     {
   (yyval.node) = new_dice(new_number(FUDGE_DICE));
 }
-#line 1582 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1580 "roll-parser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1586 "roll-parser.cpp" /* yacc.c:1646  */
+#line 1584 "roll-parser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1810,7 +1808,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 227 "roll-parser.y" /* yacc.c:1906  */
+#line 225 "roll-parser.y" /* yacc.c:1906  */
 
 
 void yyerror (char const * message) {

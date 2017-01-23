@@ -73,10 +73,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 21 "roll-parser.y" /* yacc.c:1909  */
+#line 23 "roll-parser.y" /* yacc.c:1909  */
 
-  struct ir_node * node;
-  int              int_type;
+    struct parse_node* node;
+    int int_type;
 
 #line 82 "roll-parser.hpp" /* yacc.c:1909  */
 };

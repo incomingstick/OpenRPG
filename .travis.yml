@@ -7,6 +7,7 @@ compiler:
 
 os:
   - linux
+  - osx
 
 dist: trusty
 
@@ -23,14 +24,13 @@ addons:
       - g++-4.9
       - gcc-4.9-multilib
       - g++-4.9-multilib
-      - zip
       - cmake
 
 before_install:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/home/travis/build/incomingstick/local/bin ..
-  - make check
 
 script:
+  - cmake -DCMAKE_INSTALL_PREFIX=/home/travis/build/incomingstick/local/bin ..
+  - make check
   - make install

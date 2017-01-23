@@ -13,4 +13,4 @@ set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 add_executable(name-generator ${NG_SOURCES})
 
 install(TARGETS name-generator DESTINATION bin)
-install(FILES ${NG_INCLUDE} DESTINATION lib)
+install(FILES ${NG_INCLUDE} DESTINATION lib/openrpg)

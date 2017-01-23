@@ -54,7 +54,12 @@ int Die::roll() {
     uniform_int_distribution<int> dist(1, MAX);
     auto fn_rand = std::bind(dist, generator);
 
-    for(int i = 0; i < fn_rand(); i++) fn_rand();
+    for(int i = 0; i < fn_rand() * MAX; i++) fn_rand();
 
-    return fn_rand();
+    int ret = fn_rand();
+
+    /* prints die rolls in the form "dX -> N" */
+    verbose("d"+ to_string(MAX) +" -> "+ to_string(ret));
+
+    return ret;
 }

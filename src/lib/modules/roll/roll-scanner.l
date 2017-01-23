@@ -14,6 +14,13 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <climits>
 #include "roll-parser.hpp"
 
+extern int read_string(char* buff, int *numBytesRead, int maxBytesToRead);
+
+#undef YY_INPUT
+#define YY_INPUT(b,r,s) read_string(b, &r, s)
+
+int yylex(void);
+
 %} 
 
 %%
