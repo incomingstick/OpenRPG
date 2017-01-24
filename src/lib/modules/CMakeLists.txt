@@ -3,5 +3,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/modules)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/modules)
 
 # module directories
-add_subdirectory("generator")
+add_subdirectory("names")
 add_subdirectory("roll")
+add_subdirectory("character")

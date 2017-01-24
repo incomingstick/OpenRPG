@@ -1,6 +1,6 @@
 # source directories
 include_directories("${CMAKE_SOURCE_DIR}/src/lib"
-                    "${CMAKE_SOURCE_DIR}/src/lib/modules/generator"
+                    "${CMAKE_SOURCE_DIR}/src/lib/modules/names"
 )
 
 set(TEST_COMMON_SRC
@@ -18,7 +18,7 @@ set(CUR_TEST generator-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
-        ${CMAKE_SOURCE_DIR}/src/lib/modules/generator/generator.cpp
+        ${CMAKE_SOURCE_DIR}/src/lib/modules/names/generator.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
