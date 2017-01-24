@@ -8,6 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
 #include <getopt.h>
+#include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
@@ -21,7 +22,7 @@ static void print_version_flag() {
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 static void print_help_flag() {
@@ -40,13 +41,13 @@ static void print_help_flag() {
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man name-generator' for more information [TODO add man pages].\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[], string* race, string* gender) {
-    int status = 0;
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -93,7 +94,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", 1);
+            status = verbose("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -124,7 +125,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) status =  verbose("race cannot be empty", 1);
     if(gender.empty()) status = verbose("gender cannot be empty", 1);
 
-    if(status == 0) {
+    if(status == EXIT_SUCCESS) {
         verbose("found "+race+" "+gender);
 
         NameGenerator gen(race, gender);
