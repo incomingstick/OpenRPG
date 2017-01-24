@@ -7,24 +7,12 @@ compiler:
 
 os:
   - linux
+  - osx
 
 dist: trusty
 
 notifications:
   email: false
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.6
-    packages:
-      - gcc-4.9
-      - g++-4.9
-      - gcc-4.9-multilib
-      - g++-4.9-multilib
-      - zip
-      - cmake
 
 before_install:
   - mkdir build
