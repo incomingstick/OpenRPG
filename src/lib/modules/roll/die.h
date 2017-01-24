@@ -7,7 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef SRC_DIE_H_
-#define SRC_GENERATOR_H_
+#define SRC_DIE_H_
 
 class Die {
     private:
