@@ -1,6 +1,5 @@
 # source directories
 include_directories("${CMAKE_SOURCE_DIR}/src/lib"
-                    "${CMAKE_SOURCE_DIR}/src/lib/modules/generator"
 )
 
 set(TEST_COMMON_SRC
