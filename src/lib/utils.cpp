@@ -10,9 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
-#include <ctime>
-#include <functional>
-#include <random>
 
 #include "config.h"
 #include "utils.h"
