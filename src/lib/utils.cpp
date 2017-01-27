@@ -10,6 +10,10 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
+#include <ctime>
+#include <functional>
+#include <random>
+
 #include "config.h"
 #include "utils.h"
 
@@ -186,4 +190,17 @@ int verbose(string log, int status) {
     }
     
     return status;
+}
+
+int random(int min, int max) {
+    default_random_engine generator;
+
+    generator.seed(time(NULL));
+
+    uniform_int_distribution<int> dist(min, max);
+    auto fn_rand = std::bind(dist, generator);
+
+    for(int i = 0; i < fn_rand(); i++) fn_rand();
+
+    return fn_rand();
 }
