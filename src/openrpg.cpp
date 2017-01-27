@@ -8,6 +8,8 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
 #include <getopt.h>
+#include <vector>
+#include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
@@ -20,7 +22,7 @@ static void print_version_flag() {
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 static void print_help_flag() {
@@ -42,13 +44,13 @@ static void print_help_flag() {
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[]) {
-    int status = 0;
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -84,13 +86,15 @@ int parse_args(int argc, char* argv[]) {
                 cmd = "name-generator";
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg +" "+ (string)argv[optind++];
-                verbose("calling "+cmd, 0);
+                
+                verbose("calling "+cmd, EXIT_SUCCESS);
                 verbose("called "+cmd, system(cmd.c_str()));
                 verbose("exiting with status "+to_string(status), status);
+                
                 exit(status);
             } else {
                 fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
-                status = 1;
+                print_help_flag();
             }
             break;
         
@@ -107,13 +111,15 @@ int parse_args(int argc, char* argv[]) {
                 cmd = "roll";
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg;
-                verbose("calling "+cmd, 0);
+                
+                verbose("calling "+cmd, EXIT_SUCCESS);
                 verbose("called "+cmd, system(cmd.c_str()));
                 verbose("exiting with status "+to_string(status), status);
+                
                 exit(status);
             } else {
                 fprintf(stderr, "Error: invalid number of args\n");
-                status = 1;
+                print_help_flag();
             }
             break;
 
@@ -137,11 +143,97 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", 1);
+            status = verbose("Aborting...", EXIT_FAILURE);
         }
     }
 
     return status;
+}
+
+/* Parses text input into the console and determines the appropriate response/action */
+int parse_input(string in) {
+    int status = EXIT_SUCCESS;
+
+    if (in.size() > 0) {
+        // message to user that program is working to fulfill request
+        verbose("parsing...");
+
+        // parsed individual words
+        vector<string> words;
+
+        // temporary container for word being built
+        string word;
+    
+        //standardizes inputs to ignore case
+        for(int i = 0; (unsigned) i < in.size(); i++) {
+            in[i] = tolower(in[i]);
+            
+            if((in[i] < '{' && in[i] > '`') || (in[i] < ':' && in[i] > '/') || in[i] == '+' || in[i] == '-') {
+                word += in[i]; //pushes character to word
+            } else if(word.size() > 0) {
+                words.push_back(word); //end of word
+                word = {}; //resets word
+            }
+        }
+        
+        if(word.size() > 0) words.push_back(word); //end of command word
+        
+        if (words.size() > 0) {
+            verbose("Words (" + to_string(words.size()) + "): ");
+            
+            for(int i = 0; (unsigned) i < words.size();i++){
+                cout << words[i];
+                if((unsigned) i != words.size() - 1){
+                    cout << ", ";
+                }
+            }
+            
+            cout << endl;
+            
+            //simple commands, must be expanded on based on command content
+            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {//quit program
+                verbose("leaving input_parse("+ in +")");
+                return EXIT_SUCCESS;
+            } else if(words[0] == "gen" || words[0] == "generate") {
+                if(words.size() > 2) {
+                    string cmd = "./generator " + words[1] + " " + words[2];
+
+                    verbose("calling "+cmd, EXIT_SUCCESS);
+                    verbose("called "+cmd, system(cmd.c_str()));
+
+                    return verbose("exiting with status "+to_string(status), status);
+                } else {
+                    cout << "Missing arguments!\n";
+                }
+            } else if(words[0] == "roll") {
+                cout << "Preparing to roll some dice...\n";
+                //roll(0);
+                if(words.size() > 1) {
+                    string cmd = "./roll ";
+                    for (int i = 1; (unsigned) i < words.size(); i++) {
+                        cmd += words[i] + " ";
+                    }
+                    
+                    //string cmd = "./roll " + (string)words[1];
+                    verbose("calling "+cmd, EXIT_SUCCESS);
+                    verbose("called "+cmd, system(cmd.c_str()));
+
+                    return verbose("exiting with status "+to_string(status), status);
+                } else {
+                    cout << "missing arguments\n";
+                }
+            } else { //default case
+                cout << "Command not recognized!\n";
+            }
+            
+            words = {};
+        } else {
+            cout << "No command!\n";
+        }
+    } else {
+        verbose("No command!\n");
+    }
+    return EXIT_SUCCESS;
 }
 
 int main(int argc, char* argv[]) {

@@ -33,10 +33,17 @@ by someone that understand the language.
 
 ### TODO's
 
+### General TODO's
+- [ ] documentation and man pages
+- [ ] spelling and grammar updates
+- [ ] roll module test suite
+
+### Release Requirement TODO's
+
 #### v0.1.0-dev
 - [X] dice simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
 	- [ ] allows full math using dice (current development branch - roll-module)
-- [X] name generator (began implementation in [v0.0.2-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.2-dev))
+- [X] name generator (began implementation in [v0.0.2-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.2-dev), current development branch - names-module)
 	- [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
 	- [ ] Aasimar: Protector, Scourge, Fallen (DMG (base only), VOLO)
 	- [ ] Anthropomorphic Mice (DMG)
@@ -93,7 +100,7 @@ Message me with questions or visit me on Tumblr at [import-os](mkesec.io).
 ### Pull Request
 
 For something to be considered for merging into master it must be 
-submitted as a Pull Request to the current developement branch first.
+submitted as a Pull Request to a current developement branch first.
 Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
 file. 
 

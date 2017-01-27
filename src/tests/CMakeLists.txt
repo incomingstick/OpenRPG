@@ -1,7 +1,5 @@
 # source directories
-include_directories("${CMAKE_SOURCE_DIR}/src/lib"
-                    "${CMAKE_SOURCE_DIR}/src/lib/modules/names"
-)
+include_directories("${CMAKE_SOURCE_DIR}/src/lib")
 
 set(TEST_COMMON_SRC
         ${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
