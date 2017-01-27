@@ -87,13 +87,15 @@ by someone that understand the language.
 	- [ ] passed basic info about encounter/combat (combat rating, average group level, etc.) and generates the rest (blank for completely generated)
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
 - [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
+- [ ] documentation and man pages
+- [ ] spelling and grammar updates
 
 Message me with questions or visit me on Tumblr at [import-os](mkesec.io).
 
 ### Pull Request
 
 For something to be considered for merging into master it must be 
-submitted as a Pull Request to the current developement branch first.
+submitted as a Pull Request to a current developement branch first.
 Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
 file. 
 
