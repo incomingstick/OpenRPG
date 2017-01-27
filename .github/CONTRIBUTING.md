@@ -33,6 +33,13 @@ by someone that understand the language.
 
 ### TODO's
 
+### General TODO's
+- [ ] documentation and man pages
+- [ ] spelling and grammar updates
+- [ ] roll module test suite
+
+### Release Requirement TODO's
+
 #### v0.1.0-dev
 - [X] dice simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
 	- [ ] allows full math using dice (current development branch - roll-module)
@@ -87,8 +94,6 @@ by someone that understand the language.
 	- [ ] passed basic info about encounter/combat (combat rating, average group level, etc.) and generates the rest (blank for completely generated)
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
 - [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
-- [ ] documentation and man pages
-- [ ] spelling and grammar updates
 
 Message me with questions or visit me on Tumblr at [import-os](mkesec.io).
 
