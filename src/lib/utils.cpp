@@ -10,7 +10,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
-#include <vector>
+
 #include "config.h"
 #include "utils.h"
 
@@ -187,84 +187,4 @@ int verbose(string log, int status) {
     }
     
     return status;
-}
-
-/* Parses text input into the console and determines the appropriate response/action */
-int parse_input(string in) {
-    if (in.size() > 0){
-        // message to user that program is working to fulfill request
-        verbose("parsing...");
-
-        // parsed individual words
-        vector<string> words;
-
-        // temporary container for word being built
-        string word;
-    
-        //standardizes inputs to ignore case
-        for(int i = 0; (unsigned) i < in.size();i++){
-            in[i] = tolower(in[i]);
-            
-            if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47) || in[i] == '+' || in[i] == '-'){
-                word += in[i];//pushes character to word
-            }else if(word.size() > 0){
-                words.push_back(word);//end of word
-                word = {};//resets word
-            }
-        }
-        
-        if(word.size() > 0){//end of command
-            words.push_back(word);//end of word
-        }
-        
-        if (words.size() > 0){
-            verbose("Words (" + to_string(words.size()) + "):\n");
-            for(int i = 0; (unsigned) i < words.size();i++){
-                cout << words[i];
-                if((unsigned) i != words.size() - 1){
-                    cout << ", ";
-                }
-            }
-            
-            cout << endl;
-            
-            //simple commands, must be expanded on based on command content
-            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
-                cout << "Quitting program...\n";
-                return 404;
-            }else if(words[0] == "gen" || words[0] == "generate"){
-                if(words.size() > 2){
-                    //nameGenerator(words[1],"dwarf");
-                    string cmd = "./generator " + words[1] + " " + words[2];
-                    return system(cmd.c_str());
-                }else{
-                    cout << "Missing arguments!\n";
-                }
-            }else if(words[0] == "roll"){
-                cout << "Preparing to roll some dice...\n";
-                //roll(0);
-                if(words.size() > 1){
-                    string cmd = "./roll ";
-                    for (int i = 1; (unsigned) i < words.size(); i++) {
-                        cmd += words[i] + " ";
-                    }
-                    //string cmd = "./roll " + (string)words[1];
-                    return system(cmd.c_str());
-                }else{
-                    cout << "missing arguments\n";
-                }
-                //return 20;
-            }else{//default case
-                cout << "Command not recognized!\n";
-            }
-            
-            words = {};
-            
-        }else{
-            cout << "No command!\n";
-        }
-    }else{
-        verbose("No command!\n");
-    }
-    return 0;
 }

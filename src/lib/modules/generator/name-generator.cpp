@@ -8,6 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
 #include <getopt.h>
+#include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
@@ -124,7 +125,7 @@ int main(int argc, char* argv[]) {
 if(race.empty()) status =  verbose("race cannot be empty", EXIT_FAILURE);
     if(gender.empty()) status = verbose("gender cannot be empty", EXIT_FAILURE);
 
-    if(status == 0) {
+    if(status == EXIT_SUCCESS) {
         verbose("found "+race+" "+gender);
 
         NameGenerator gen(race, gender);

@@ -49,9 +49,8 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], int* out) {
+int parse_args(int argc, char* argv[], int* total) {
     int status = EXIT_SUCCESS;
-
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;

@@ -1,5 +1,6 @@
 # require cmake v2.8.4
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 
 # Project info
 project(OpenRPG)
@@ -19,29 +20,28 @@ configure_file (
 )
 
 # source directories
-include_directories("src" "src/lib")
+include_directories("src/lib")
 
 # module directory with CMakeLists.txt
-add_subdirectory("src/lib/modules")
+add_subdirectory("src/lib")
 
 set(SOURCES 
 		${CMAKE_SOURCE_DIR}/src/openrpg.cpp
-		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/utils.h
 		${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
+target_link_libraries(openrpg utils)
 
 install (TARGETS openrpg DESTINATION bin)
-install (FILES ${INCLUDE} DESTINATION lib/openrpg)
+install (FILES ${INCLUDE} DESTINATION include/openrpg)
 install (DIRECTORY ${ASSETS} DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 set(CMAKE_CTEST_COMMAND ctest -V)
