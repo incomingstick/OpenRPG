@@ -1,5 +1,4 @@
 set(R_SOURCES
-		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/roll-scanner.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/roll-parser.cpp

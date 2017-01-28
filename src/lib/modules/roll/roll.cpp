@@ -443,7 +443,7 @@ int roll_expression(struct parse_node* node, bool print) {
             return return_value;
         }
 
-        return_value = checked_sum( return_value, sum);
+        return_value = checked_sum(return_value, sum);
     
         if (print == true) {
             printf("%i\n", sum);
