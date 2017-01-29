@@ -49,7 +49,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], int* total) {
+int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -139,11 +139,7 @@ int parse_args(int argc, char* argv[], int* total) {
 }
 
 int main(int argc, char* argv[]) {
-    int out = 0;
-
-    int status = verbose("parse_args completed", parse_args(argc, argv, &out));
-
-    cout << out << endl;
+    int status = verbose("parse_args completed", parse_args(argc, argv));
 
 	return verbose("exiting with status "+to_string(status), status);
 }
@@ -260,10 +256,10 @@ void print_node(struct parse_node* node) {
 void print_tree(std::string prefix, struct parse_node* node, int indent) {
     int i;
   
-    printf("[%s] ", prefix.c_str());
+    printf("[%s]\t\t", prefix.c_str());
 
     for(i = 0; i < indent; i++) {
-        printf("  ");
+        printf(" ");
     }
 
     print_node(node);

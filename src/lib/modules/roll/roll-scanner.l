@@ -1,5 +1,4 @@
 %option noyywrap
-%option yylineno
 
 %{
 /*
@@ -47,7 +46,7 @@ int yylex(void);
 }
 \+          { return PLUS;    }
 \-          { return MINUS;   }
-["*"x]      { return TIMES;   }
+['*'|x]      { return TIMES;   }
 \/          { return DIV;     }
 d|D         { return DICE;    }
 f|F         { return FUDGE;   }
