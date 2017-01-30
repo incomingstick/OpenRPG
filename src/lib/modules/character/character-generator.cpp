@@ -80,7 +80,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            verbose("verbose flag is set");
+            output("verbose flag is set");
             QUIET_FLAG = false;
             break;
         
@@ -92,7 +92,7 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", 1);
+            status = output("Aborting...", 1);
         }
     }
 
@@ -100,9 +100,9 @@ int parse_args(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    int status = verbose("parse_args completed", parse_args(argc, argv)); // may exit
+    int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
     cout << "name generator output!" << endl;
 
-	return verbose("exiting with status "+to_string(status), status);
+	return output("exiting with status "+to_string(status), status);
 }
