@@ -7,7 +7,6 @@ compiler:
 
 os:
   - linux
-  - osx
 
 dist: trusty
 

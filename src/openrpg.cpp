@@ -87,9 +87,9 @@ int parse_args(int argc, char* argv[]) {
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg +" "+ (string)argv[optind++];
                 
-                verbose("calling "+cmd, EXIT_SUCCESS);
-                verbose("called "+cmd, system(cmd.c_str()));
-                verbose("exiting with status "+to_string(status), status);
+                output("calling "+cmd, EXIT_SUCCESS);
+                output("called "+cmd, system(cmd.c_str()));
+                output("exiting with status "+to_string(status), status);
                 
                 exit(status);
             } else {
@@ -101,7 +101,7 @@ int parse_args(int argc, char* argv[]) {
         /* -q --quiet */
         case 'q':
             QUIET_FLAG = true;
-            verbose("turning verbose flag off");
+            output("turning output flag off");
             VB_FLAG = false;
             break;
 
@@ -112,9 +112,9 @@ int parse_args(int argc, char* argv[]) {
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg;
                 
-                verbose("calling "+cmd, EXIT_SUCCESS);
-                verbose("called "+cmd, system(cmd.c_str()));
-                verbose("exiting with status "+to_string(status), status);
+                output("calling "+cmd, EXIT_SUCCESS);
+                output("called "+cmd, system(cmd.c_str()));
+                output("exiting with status "+to_string(status), status);
                 
                 exit(status);
             } else {
@@ -131,7 +131,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            verbose("verbose flag is set");
+            output("verbose flag is set");
             QUIET_FLAG = false;
             break;
         
@@ -143,7 +143,7 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -156,7 +156,7 @@ int parse_input(string in) {
 
     if (in.size() > 0) {
         // message to user that program is working to fulfill request
-        verbose("parsing...");
+        output("parsing...");
 
         // parsed individual words
         vector<string> words;
@@ -179,7 +179,7 @@ int parse_input(string in) {
         if(word.size() > 0) words.push_back(word); //end of command word
         
         if (words.size() > 0) {
-            verbose("Words (" + to_string(words.size()) + "): ");
+            output("Words (" + to_string(words.size()) + "): ");
             
             for(int i = 0; (unsigned) i < words.size();i++){
                 cout << words[i];
@@ -192,16 +192,16 @@ int parse_input(string in) {
             
             //simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {//quit program
-                verbose("leaving input_parse("+ in +")");
+                output("leaving input_parse("+ in +")");
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
                 if(words.size() > 2) {
                     string cmd = "./generator " + words[1] + " " + words[2];
 
-                    verbose("calling "+cmd, EXIT_SUCCESS);
-                    verbose("called "+cmd, system(cmd.c_str()));
+                    output("calling "+cmd, EXIT_SUCCESS);
+                    output("called "+cmd, system(cmd.c_str()));
 
-                    return verbose("exiting with status "+to_string(status), status);
+                    return output("exiting with status "+to_string(status), status);
                 } else {
                     cout << "Missing arguments!\n";
                 }
@@ -215,10 +215,10 @@ int parse_input(string in) {
                     }
                     
                     //string cmd = "./roll " + (string)words[1];
-                    verbose("calling "+cmd, EXIT_SUCCESS);
-                    verbose("called "+cmd, system(cmd.c_str()));
+                    output("calling "+cmd, EXIT_SUCCESS);
+                    output("called "+cmd, system(cmd.c_str()));
 
-                    return verbose("exiting with status "+to_string(status), status);
+                    return output("exiting with status "+to_string(status), status);
                 } else {
                     cout << "missing arguments\n";
                 }
@@ -231,13 +231,13 @@ int parse_input(string in) {
             cout << "No command!\n";
         }
     } else {
-        verbose("No command!\n");
+        output("No command!\n");
     }
     return EXIT_SUCCESS;
 }
 
 int main(int argc, char* argv[]) {
-    int status = verbose("parse_args completed", parse_args(argc, argv)); // may exit
+    int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
     if(status == 0) {
         // TODO - clgui for program
@@ -250,12 +250,12 @@ int main(int argc, char* argv[]) {
             cout << "\33[4morpg\33[0m > ";
             cin >> in;
             if(in == "exit" || in == "quit" || in == "q") {
-                status = verbose(in+" command read", 0);
+                status = output(in+" command read", 0);
                 break;
             }
-            else status = verbose("called parse("+in+")", parse_input(in));
+            else status = output("called parse("+in+")", parse_input(in));
         }
     }
 
-	return verbose("exiting with status "+to_string(status), status);
+	return output("exiting with status "+to_string(status), status);
 }
