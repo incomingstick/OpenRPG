@@ -1,5 +1,5 @@
 /*
-name-generator - names.cpp
+name-generator - generator.cpp
 Created on: Nov 10, 2016
 
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
@@ -10,10 +10,13 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <ctime>
+#include <functional>
+#include <random>
 
 #include "config.h"
 #include "utils.h"
-#include "names.h"
+#include "generator.h"
 
 using namespace std;
 
@@ -27,8 +30,8 @@ NameGenerator::NameGenerator(string race, string gender)
      gender(gender) {
     location = ASSET_LOC;
     location += "/names";
-    verbose("top location: "+location);
-    verbose("NameGenerator with "+race+" "+gender+" created");
+    output("top location: "+location);
+    output("NameGenerator with "+race+" "+gender+" created");
 }
 
 NameGenerator::~NameGenerator() {
@@ -44,7 +47,7 @@ string NameGenerator::make_name() {
 string NameGenerator::make_first() {
     string loc(location+"/"+race+"/"+gender);
     
-    verbose("opening location: "+loc);
+    output("opening location: "+loc);
 
     ifstream file(loc.c_str());
     
@@ -63,7 +66,7 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " could not be opened", 1);
+        output(loc + " could not be opened", 1);
     }
 
     return "NULL";
@@ -72,7 +75,7 @@ string NameGenerator::make_first() {
 string NameGenerator::make_last() {
     string loc(location+"/"+race+"/last");
 
-    verbose("opening location: "+loc);
+    output("opening location: "+loc);
 
     ifstream file(loc.c_str());
     
@@ -83,7 +86,8 @@ string NameGenerator::make_last() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        int select = random(0, lines.size() - 1);
+        int select = random(0, lines.size() - 1);   // TODO (fix) only generating a static number
+                                                    // it appears to be system specific
 
         file.close();
 
@@ -91,8 +95,21 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose(loc + " could not be opened", 1);
+        output(loc + " could not be opened", 1);
     }
 
     return "NULL";
+}
+
+int NameGenerator::random(int min, int max) {
+    default_random_engine generator;
+
+    generator.seed(time(NULL));
+
+    uniform_int_distribution<int> dist(min, max);
+    auto fn_rand = std::bind(dist, generator);
+
+    for(int i = 0; i < fn_rand(); i++) fn_rand();
+
+    return fn_rand();
 }

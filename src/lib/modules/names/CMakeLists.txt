@@ -1,6 +1,6 @@
 set(NG_SOURCES 
 		${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/generator.cpp
 )
 
 set(NG_INCLUDES

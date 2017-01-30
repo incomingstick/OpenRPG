@@ -12,7 +12,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "config.h"
 #include "utils.h"
-#include "names.h"
+#include "generator.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ static void print_help_flag() {
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
+          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man name-generator' for more information [TODO add man pages].\n",
           stdout);
@@ -82,7 +82,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            verbose("verbose flag is set");
+            output("verbose flag is set");
             QUIET_FLAG = false;
             break;
         
@@ -94,7 +94,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -120,18 +120,18 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
 int main(int argc, char* argv[]) {
     string race, gender;
-    int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
+    int status = output("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
 
-    if(race.empty())    status = verbose("race cannot be empty", 1);
-    if(gender.empty())  status = verbose("gender cannot be empty", 1);
+if(race.empty()) status =  output("race cannot be empty", EXIT_FAILURE);
+    if(gender.empty()) status = output("gender cannot be empty", EXIT_FAILURE);
 
     if(status == EXIT_SUCCESS) {
-        verbose("found "+race+" "+gender);
+        output("found "+race+" "+gender);
 
         NameGenerator gen(race, gender);
 
         cout << gen.make_name() << endl;
     }
 
-	return verbose("exiting with status "+to_string(status), status);
+	return output("exiting with status "+to_string(status), status);
 }
