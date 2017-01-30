@@ -69,7 +69,7 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hpvV",
+    while ((opt = getopt_long(argc, argv, "hpsvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
