@@ -131,8 +131,7 @@ int parse_args(int argc, char* argv[]) {
 
         yyparse();
     } else {
-        printf("Error: No expression provided\n");
-        print_help_flag();
+        yyparse();
     }
 
     return status;
@@ -440,7 +439,11 @@ int roll_expression(struct parse_node* node, bool print) {
         }
 
         return_value = checked_sum(return_value, sum);
-    
+
+        if (print) {
+            printf("%i\n", sum);
+        }
+
         cur = cur->next;
     }
 

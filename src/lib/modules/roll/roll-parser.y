@@ -9,6 +9,8 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include "roll.h"
 
+using namespace std;
+
 bool POS_FLAG = false;
 bool SUM_FLAG = false;
 
@@ -59,8 +61,8 @@ extern int read_string(char* buff, int *numBytesRead, int maxBytesToRead);
 
 %%
 
-roll : top_level_expression_list {      
-    printf("%i\n", $1);
+roll : top_level_expression_list {
+	if(SUM_FLAG) printf("%i\n", $1);
 }
 ;
 
@@ -219,9 +221,9 @@ dice       : DICE NUMBER {
 
 %%
 
-void yyerror (char const * message) {
+void yyerror (char const* message) {
   fprintf(stderr, "%s\n", message);
-  exit(EXIT_FAILURE);
+  exit(output("exiting with status "+ to_string(EXIT_FAILURE), EXIT_FAILURE));
 }
 
 
