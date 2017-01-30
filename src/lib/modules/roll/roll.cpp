@@ -97,7 +97,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            verbose("verbose flag is set");
+            output("verbose flag is set");
             QUIET_FLAG = false;
             break;
         
@@ -109,7 +109,7 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -139,9 +139,9 @@ int parse_args(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    int status = verbose("parse_args completed", parse_args(argc, argv));
+    int status = output("parse_args completed", parse_args(argc, argv));
 
-	return verbose("exiting with status "+to_string(status), status);
+	return output("exiting with status "+to_string(status), status);
 }
 
 int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
@@ -163,7 +163,7 @@ struct parse_node* allocate_node(void) {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
     if(node == NULL) {
-        verbose("out of memory", 1);
+        output("out of memory", 1);
         exit(EXIT_FAILURE);
     }
 
@@ -219,7 +219,7 @@ struct parse_node* new_dice (struct parse_node* sides) {
 
 int checked_sum(int op1, int op2) {
     if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
-        verbose("overflow", 1);
+        output("overflow", 1);
     
     return op1+op2;
 }
@@ -227,7 +227,7 @@ int checked_sum(int op1, int op2) {
 int checked_multiplication(int op1, int op2) {
     int result = op1 * op2;
     if(op1 != 0 && result / op1 != op2 ) {
-        verbose("overflow", 1);
+        output("overflow", 1);
     }
     
     return result;
@@ -336,7 +336,7 @@ int roll_expression(struct parse_node* node, bool print) {
 
             /* array to store the results to sort */
             if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                verbose("out of memory", 1);
+                output("out of memory", 1);
             }
       
             for(i=0; i<repetitions; i++) {
@@ -364,7 +364,7 @@ int roll_expression(struct parse_node* node, bool print) {
                   
             /* array to store the results to sort */
             if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                verbose("out of memory", 1);
+                output("out of memory", 1);
             }
       
             for(i=0; i<repetitions; i++) {

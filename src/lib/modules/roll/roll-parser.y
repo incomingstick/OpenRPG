@@ -138,7 +138,7 @@ factor   :   NUMBER filtered_dice {
 | NUMBER filtered_dice HIGH NUMBER {
 
   if ($4 > $1) {
-    	verbose("the number of kept dices must be lower than the actual dices", 1);
+    	output("the number of kept dices must be lower than the actual dices", 1);
   }
 
   $$ = new_op(OP_HIGH, new_number($4), new_op(OP_REP, new_number($1), $2));
@@ -147,7 +147,7 @@ factor   :   NUMBER filtered_dice {
 | NUMBER filtered_dice LOW NUMBER {
 
   if ($4 > $1) {
-    verbose("the number of kept dices must be lower than the actual dices", 1);
+    output("the number of kept dices must be lower than the actual dices", 1);
   }
 
   $$ = new_op(OP_LOW, new_number($4), new_op(OP_REP, new_number($1), $2));

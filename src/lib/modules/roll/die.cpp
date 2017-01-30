@@ -17,12 +17,12 @@ using namespace std;
 
 Die::Die()
     :MAX(6) {
-    verbose("created 1d"+to_string(MAX));
+    output("created 1d"+to_string(MAX));
 }
 
 Die::Die(int max)
     :MAX(max) {
-    verbose("created 1d"+to_string(MAX));
+    output("created 1d"+to_string(MAX));
 }
 
 Die::~Die() {
@@ -37,7 +37,7 @@ int Die::roll() {
     int ret = dist(mt);
 
     /* prints die rolls in the form "dX -> N" */
-    verbose("d"+ to_string(MAX) +" -> "+ to_string(ret));
+    output("d"+ to_string(MAX) +" -> "+ to_string(ret));
 
     return ret;
 }

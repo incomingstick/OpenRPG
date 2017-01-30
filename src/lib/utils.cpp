@@ -67,7 +67,7 @@ string get_display_screen(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -93,7 +93,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -177,7 +177,7 @@ bool print_file(string type) {
 }
 
 /* Outputs the log string to stderr if VB_FLAG is set */
-int verbose(string log, int status) {
+int output(string log, int status) {
     if(VB_FLAG) {
         if(status == -1)    cerr << "[VERBOSE]";
         if(status == 0)     cerr << "[DEBUG]\t";
