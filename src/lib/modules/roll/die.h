@@ -1,5 +1,5 @@
 /*
-roll - die.cpp
+roll - die.h
 Created on: Nov 10, 2016
 
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
@@ -11,13 +11,12 @@ There is NO WARRANTY, to the extent permitted by law.
 
 class Die {
     private:
-        int MAX = 6;
+        const int MAX;
     public:
         Die();
         Die(int max);
         ~Die();
         int roll();
-        int roll(int max);
 };
 
 #endif /* SRC_DIE_H_ */
