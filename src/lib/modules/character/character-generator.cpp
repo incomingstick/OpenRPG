@@ -11,6 +11,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "config.h"
 #include "utils.h"
+#include "character.h"
 
 using namespace std;
 
@@ -80,7 +81,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            output("verbose flag is set");
+            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
             break;
         
@@ -92,7 +93,7 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default:
-            status = output("Aborting...", 1);
+            status = output("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -102,7 +103,7 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
-    cout << "name generator output!" << endl;
+    output("characrer generator output!\n", OUTPUT_CODE);
 
 	return output("exiting with status "+to_string(status), status);
 }
