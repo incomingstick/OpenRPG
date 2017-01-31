@@ -101,7 +101,7 @@ int parse_args(int argc, char* argv[]) {
         /* -q --quiet */
         case 'q':
             QUIET_FLAG = true;
-            output("turning output flag off");
+            output("turning output flag off", VB_CODE);
             VB_FLAG = false;
             break;
 
@@ -131,7 +131,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            output("verbose flag is set");
+            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
             break;
         
@@ -156,7 +156,7 @@ int parse_input(string in) {
 
     if (in.size() > 0) {
         // message to user that program is working to fulfill request
-        output("parsing...");
+        output("parsing...", VB_CODE);
 
         // parsed individual words
         vector<string> words;
@@ -179,35 +179,30 @@ int parse_input(string in) {
         if(word.size() > 0) words.push_back(word); //end of command word
         
         if (words.size() > 0) {
-            output("Words (" + to_string(words.size()) + "): ");
+            output("Words (" + to_string(words.size()) + "): ", VB_CODE);
             
-            for(int i = 0; (unsigned) i < words.size();i++){
-                cout << words[i];
-                if((unsigned) i != words.size() - 1){
-                    cout << ", ";
-                }
-            }
+            for(string wrd : words) output(wrd, VB_CODE);
             
-            cout << endl;
             
             //simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {//quit program
-                output("leaving input_parse("+ in +")");
+                output("leaving input_parse("+ in +")", VB_CODE);
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
                 if(words.size() > 2) {
                     string cmd = "./generator " + words[1] + " " + words[2];
 
-                    output("calling "+cmd, EXIT_SUCCESS);
+                    output("calling "+cmd, VB_CODE);
                     output("called "+cmd, system(cmd.c_str()));
 
-                    return output("exiting with status "+to_string(status), status);
+                    if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
+
+                    return output("getting next in with status "+to_string(status), status);
                 } else {
-                    cout << "Missing arguments!\n";
+                    output("Missing arguments!\n");
                 }
             } else if(words[0] == "roll") {
-                cout << "Preparing to roll some dice...\n";
-                //roll(0);
+                output("Preparing to roll some dice...\n");
                 if(words.size() > 1) {
                     string cmd = "./roll ";
                     for (int i = 1; (unsigned) i < words.size(); i++) {
@@ -215,47 +210,44 @@ int parse_input(string in) {
                     }
                     
                     //string cmd = "./roll " + (string)words[1];
-                    output("calling "+cmd, EXIT_SUCCESS);
+                    output("calling "+cmd, VB_CODE);
                     output("called "+cmd, system(cmd.c_str()));
 
-                    return output("exiting with status "+to_string(status), status);
+                    if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
+
+                    return output("getting next in with status "+to_string(status), status);
                 } else {
-                    cout << "missing arguments\n";
+                    output("Missing arguments\n");
                 }
             } else { //default case
-                cout << "Command not recognized!\n";
+                output("Command not recognized!\n");
             }
-            
             words = {};
         } else {
-            cout << "No command!\n";
+            output("No command given!\n");
         }
     } else {
-        output("No command!\n");
+        output("No command given!\n");
     }
-    return EXIT_SUCCESS;
+    return CONTINUE_CODE;
 }
 
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
-    if(status == 0) {
+    if(status == EXIT_SUCCESS) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
     
         string in("");
 
         // get user input
-        while(status == 0) {
-            cout << "\33[4morpg\33[0m > ";
+        while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
+            output("\33[4morpg\33[0m > ");
             cin >> in;
-            if(in == "exit" || in == "quit" || in == "q") {
-                status = output(in+" command read", 0);
-                break;
-            }
-            else status = output("called parse("+in+")", parse_input(in));
+            if((status = parse_input(in)) != CONTINUE_CODE) break;
         }
     }
 
-	return output("exiting with status "+to_string(status), status);
+	return output("exiting with status "+ to_string(status), status);
 }

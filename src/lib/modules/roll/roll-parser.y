@@ -62,7 +62,7 @@ extern int read_string(char* buff, int *numBytesRead, int maxBytesToRead);
 %%
 
 roll : top_level_expression_list {
-	if(SUM_FLAG) printf("%i\n", $1);
+  if(SUM_FLAG) output("Sum: "+ to_string($1) +"\n");
 }
 ;
 
@@ -103,7 +103,7 @@ top_level_expression : expression {
     	res = roll_expression($3, true);
     	
 		if (SUM_FLAG == true) {
-        	printf("sum: %i\n", res);
+          output("Sum: "+ to_string(res) +"\n");
         	sum += res;
       	}
     }
