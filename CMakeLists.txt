@@ -40,9 +40,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
 add_executable(openrpg ${SOURCES})
 target_link_libraries(openrpg utils)
 
-install (TARGETS openrpg DESTINATION bin)
-install (FILES ${INCLUDE} DESTINATION include/openrpg)
-install (DIRECTORY ${ASSETS} DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS openrpg DESTINATION bin)
+install(FILES ${INCLUDE} DESTINATION include/openrpg)
+install(DIRECTORY ${ASSETS} DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 set(CMAKE_CTEST_COMMAND ctest -V)
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})

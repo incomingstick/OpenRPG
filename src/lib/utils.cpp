@@ -7,7 +7,6 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
 #include <sys/ioctl.h>
-#include <iostream>
 #include <unistd.h>
 #include <fstream>
 #include <string>

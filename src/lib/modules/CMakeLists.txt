@@ -1,3 +1,4 @@
 # module directories
-add_subdirectory("generator")
+add_subdirectory("names")
 add_subdirectory("roll")
+add_subdirectory("character")
