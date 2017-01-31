@@ -9,6 +9,8 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_UTILS_H_
 #define SRC_UTILS_H_
 
+#include <iostream>
+
 #define CONTINUE_CODE  -2
 #define OUTPUT_CODE    -1
 #define VB_CODE         0

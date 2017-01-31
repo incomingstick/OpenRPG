@@ -6,7 +6,6 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <iostream>
 #include <getopt.h>
 
 #include "config.h"
@@ -21,7 +20,7 @@ static void print_version_flag() {
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 static void print_help_flag() {
@@ -40,13 +39,13 @@ static void print_help_flag() {
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man character-generator' for more information [TODO add man pages].\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[]) {
-    int status = 0;
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -103,7 +102,14 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
-    output("characrer generator output!\n", OUTPUT_CODE);
+    Character player;
+
+    output("STR: "+ to_string(player.STR()) +"\n");
+    output("DEX: "+ to_string(player.DEX()) +"\n");
+    output("CON: "+ to_string(player.CON()) +"\n");
+    output("INT: "+ to_string(player.INT()) +"\n");
+    output("WIS: "+ to_string(player.WIS()) +"\n");
+    output("CHA: "+ to_string(player.CHA()) +"\n");
 
 	return output("exiting with status "+to_string(status), status);
 }

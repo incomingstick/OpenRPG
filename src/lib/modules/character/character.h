@@ -19,7 +19,7 @@ struct Stats {
 };
 
 // TODO better way??
-// TODO 5E Skills
+// These are just the 5E Skills
 struct Skills {
     int ACR = 0;    // Acrobatics       (DEX)
     int ANM = 0;    // Animal Handling  (WIS)
@@ -43,10 +43,21 @@ struct Skills {
 
 // TODO take an in depth look at what should and should not be public here
 class Character {
-    public:
+    private:
         Stats stats;
         Skills skills;
-    private:
+        int gen_stat();
+    public:
+        Character();
+        ~Character();
+        Stats get_stats_copy() { return stats; };
+        Skills get_skills_copy() { return skills; };
+        int STR() { return stats.STR; };
+        int DEX() { return stats.DEX; };
+        int CON() { return stats.CON; };
+        int INT() { return stats.INT; };
+        int WIS() { return stats.WIS; };
+        int CHA() { return stats.CHA; };
 };
 
 #endif /* SRC_CHARACTER_H_ */
