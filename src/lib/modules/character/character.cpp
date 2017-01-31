@@ -29,7 +29,7 @@ Character::~Character() {
     // TODO nothing yet
 }
 
-Character::gen_stat() {
+int Character::gen_stat() {
     Die d6(6);
 
     return d6.roll() + d6.roll() + 6;;
