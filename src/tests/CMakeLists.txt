@@ -21,7 +21,7 @@ set(CUR_TEST generator-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
-        ${MODULE_DIR}/names/generator.cpp
+        ${MODULE_DIR}/names/names.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
