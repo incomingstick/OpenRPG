@@ -9,8 +9,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <unistd.h>
 #include <sys/ioctl.h>
 
-#include <iostream>
+#include <unistd.h>
 #include <fstream>
+#include <string>
 #include <functional>
 #include <random>
 
@@ -80,7 +81,7 @@ string get_display_screen(string file) {
  * Converts the given file to an exact string copy
  * used to create images and other printed files.
  */
-string load_file(string file) { 
+string file_to_string(string file) { 
 	// Open the assets file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
@@ -175,32 +176,56 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
 bool print_file(string type) {
     if(QUIET_FLAG) return false;
     string screen_disp = get_display_screen(type);
-    cout << screen_disp << endl;
+    output(screen_disp + '\n');
     return true;
 }
 
 /* Outputs the log string to stderr if VB_FLAG is set */
-int output(string log, int status) {
-    if(VB_FLAG) {
-        if(status == -1)    cerr << "[VERBOSE]";
-        if(status == 0)     cerr << "[DEBUG]\t";
-        if(status == 1)     cerr << "[ERROR]\t";
+/* TODO improve output string for diff between verbose and debug output
+    output should not print line tags (i.e [VERBOSE]) unless debug flag
+    is set*/
+int output(string log, int status_code) {
+    switch(status_code) {
+        case OUTPUT_CODE: {
+            if(VB_FLAG)
+                cout << "[OUTPUT]\t";
+            
+            for (auto it = log.begin(); it != log.end(); ++it) {
+                // if the current index is needed:
+                auto c = *it;
 
-        cerr << "\t" << log << endl;
+                cout << c;
+
+                // access element as *it
+                if(c == '\n' && VB_FLAG) {
+                    if(it + 1 == log.end()) break;
+                    else cout << "[OUTPUT]\t";
+                }
+            }
+        } break;
+
+        case VB_CODE: {
+            if(VB_FLAG)
+                cout << "[VERBOSE]\t" << log << endl;
+        } break;
+
+        case ERROR_CODE: {
+            if(VB_FLAG)
+                cerr << "[ERROR]\t" << log << endl;
+        } break;
+
+        default: {
+            cout << log << endl;
+        }
     }
-    
-    return status;
+
+    return status_code;
 }
 
 int random(int min, int max) {
-    default_random_engine generator;
-
-    generator.seed(time(NULL));
-
+    random_device rd;
+    mt19937 mt(rd());
     uniform_int_distribution<int> dist(min, max);
-    auto fn_rand = std::bind(dist, generator);
 
-    for(int i = 0; i < fn_rand(); i++) fn_rand();
-
-    return fn_rand();
+    return dist(mt);
 }

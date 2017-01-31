@@ -1,3 +1,14 @@
+set(DIE_SOURCE
+	${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
+)
+
+set(DIE_INCLUDE
+	${CMAKE_CURRENT_SOURCE_DIR}/die.h
+)
+
+add_library(die ${DIE_SOURCE})
+install(FILES ${DIE_INCLUDE} DESTINATION include/openrpg)
+
 find_package(BISON)
 find_package(FLEX)
 
@@ -6,17 +17,15 @@ FLEX_TARGET(R_SCANNER roll-scanner.l  ${CMAKE_CURRENT_BINARY_DIR}/roll-scanner.c
 ADD_FLEX_BISON_DEPENDENCY(R_SCANNER R_PARSER)
 
 set(R_SOURCES
-		${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
 		${BISON_R_PARSER_OUTPUTS}
     	${FLEX_R_SCANNER_OUTPUTS}
 		${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
 )
 
 set(R_INCLUDES
-		${CMAKE_CURRENT_SOURCE_DIR}/die.h
-		${CMAKE_CURRENT_SOURCE_DIR}/roll.h
 		${BISON_R_PARSER_OUTPUTS}
     	${FLEX_R_SCANNER_OUTPUTS}
+		${CMAKE_CURRENT_SOURCE_DIR}/roll.h
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
@@ -24,7 +33,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=gnu++11")
 
 add_executable(roll ${R_SOURCES})
-target_link_libraries(roll utils)
+target_link_libraries(roll utils die)
 
 install(TARGETS roll DESTINATION bin)
 install(FILES ${R_INCLUDE} DESTINATION include/openrpg)
