@@ -6,11 +6,15 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
+#include <unistd.h>
 #include <sys/ioctl.h>
-#include <iostream>
+
 #include <unistd.h>
 #include <fstream>
-#include <vector>
+#include <string>
+#include <functional>
+#include <random>
+
 #include "config.h"
 #include "utils.h"
 
@@ -67,7 +71,7 @@ string get_display_screen(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -77,7 +81,7 @@ string get_display_screen(string file) {
  * Converts the given file to an exact string copy
  * used to create images and other printed files.
  */
-string load_file(string file) { 
+string file_to_string(string file) { 
 	// Open the assets file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
@@ -93,7 +97,7 @@ string load_file(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        verbose("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened");
     }
     
     return ret;
@@ -172,99 +176,56 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
 bool print_file(string type) {
     if(QUIET_FLAG) return false;
     string screen_disp = get_display_screen(type);
-    cout << screen_disp << endl;
+    output(screen_disp + '\n');
     return true;
 }
 
 /* Outputs the log string to stderr if VB_FLAG is set */
-int verbose(string log, int status) {
-    if(VB_FLAG) {
-        if(status == -1)    cerr << "[VERBOSE]";
-        if(status == 0)     cerr << "[DEBUG]\t";
-        if(status == 1)     cerr << "[ERROR]\t";
+/* TODO improve output string for diff between verbose and debug output
+    output should not print line tags (i.e [VERBOSE]) unless debug flag
+    is set*/
+int output(string log, int status_code) {
+    switch(status_code) {
+        case OUTPUT_CODE: {
+            if(VB_FLAG)
+                cout << "[OUTPUT]\t";
+            
+            for (auto it = log.begin(); it != log.end(); ++it) {
+                // if the current index is needed:
+                auto c = *it;
 
-        cerr << "\t" << log << endl;
+                cout << c;
+
+                // access element as *it
+                if(c == '\n' && VB_FLAG) {
+                    if(it + 1 == log.end()) break;
+                    else cout << "[OUTPUT]\t";
+                }
+            }
+        } break;
+
+        case VB_CODE: {
+            if(VB_FLAG)
+                cout << "[VERBOSE]\t" << log << endl;
+        } break;
+
+        case ERROR_CODE: {
+            if(VB_FLAG)
+                cerr << "[ERROR]\t" << log << endl;
+        } break;
+
+        default: {
+            cout << log << endl;
+        }
     }
-    
-    return status;
+
+    return status_code;
 }
 
-/* Parses text input into the console and determines the appropriate response/action */
-int parse_input(string in) {
-    if (in.size() > 0){
-        // message to user that program is working to fulfill request
-        verbose("parsing...");
+int random(int min, int max) {
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_int_distribution<int> dist(min, max);
 
-        // parsed individual words
-        vector<string> words;
-
-        // temporary container for word being built
-        string word;
-    
-        //standardizes inputs to ignore case
-        for(int i = 0; (unsigned) i < in.size();i++){
-            in[i] = tolower(in[i]);
-            
-            if((in[i] < 123 && in[i] > 96) || (in[i] < 58 && in[i] > 47) || in[i] == '+' || in[i] == '-'){
-                word += in[i];//pushes character to word
-            }else if(word.size() > 0){
-                words.push_back(word);//end of word
-                word = {};//resets word
-            }
-        }
-        
-        if(word.size() > 0){//end of command
-            words.push_back(word);//end of word
-        }
-        
-        if (words.size() > 0){
-            verbose("Words (" + to_string(words.size()) + "):\n");
-            for(int i = 0; (unsigned) i < words.size();i++){
-                cout << words[i];
-                if((unsigned) i != words.size() - 1){
-                    cout << ", ";
-                }
-            }
-            
-            cout << endl;
-            
-            //simple commands, must be expanded on based on command content
-            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q"){//quit program
-                cout << "Quitting program...\n";
-                return 404;
-            }else if(words[0] == "gen" || words[0] == "generate"){
-                if(words.size() > 2){
-                    //nameGenerator(words[1],"dwarf");
-                    string cmd = "./generator " + words[1] + " " + words[2];
-                    return system(cmd.c_str());
-                }else{
-                    cout << "Missing arguments!\n";
-                }
-            }else if(words[0] == "roll"){
-                cout << "Preparing to roll some dice...\n";
-                //roll(0);
-                if(words.size() > 1){
-                    string cmd = "./roll ";
-                    for (int i = 1; (unsigned) i < words.size(); i++) {
-                        cmd += words[i] + " ";
-                    }
-                    //string cmd = "./roll " + (string)words[1];
-                    return system(cmd.c_str());
-                }else{
-                    cout << "missing arguments\n";
-                }
-                //return 20;
-            }else{//default case
-                cout << "Command not recognized!\n";
-            }
-            
-            words = {};
-            
-        }else{
-            cout << "No command!\n";
-        }
-    }else{
-        verbose("No command!\n");
-    }
-    return 0;
+    return dist(mt);
 }

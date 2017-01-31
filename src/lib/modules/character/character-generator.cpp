@@ -1,35 +1,34 @@
 /*
-name-generator - name-generator.cpp
-Created on: Nov 10, 2016
+character-generator - character-generator.cpp
+Created on: Jan 24, 2017
 
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <iostream>
 #include <getopt.h>
 
 #include "config.h"
 #include "utils.h"
-#include "generator.h"
+#include "character.h"
 
 using namespace std;
 
 static void print_version_flag() {
-    fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
+    fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
           "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 static void print_help_flag() {
-    fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
+    fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
           "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: name-generator [options] RACE GENDER\n"
+          "Usage: character-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
@@ -38,15 +37,15 @@ static void print_help_flag() {
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
-          "See 'man name-generator' for more information [TODO add man pages].\n",
+          "See 'man character-generator' for more information [TODO add man pages].\n",
           stdout);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], string* race, string* gender) {
-    int status = 0;
+int parse_args(int argc, char* argv[]) {
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -81,7 +80,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            verbose("verbose flag is set");
+            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
             break;
         
@@ -93,24 +92,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* if we get here something very bad happened */
         default:
-            status = verbose("Aborting...", 1);
-        }
-    }
-
-    /* check to make sure there are at least 
-        two "unknown" args to parse throug*/
-    while (optind + 1 < argc) {
-        string opt_str = argv[optind++];
-
-        /* allows gender to be passed first */
-        if(opt_str == "male" || opt_str == "female") {
-            *gender = opt_str;
-            *race = argv[optind];
-            break;
-        } else {
-            *race = opt_str;
-            *gender = argv[optind];
-            break;
+            status = output("Aborting...", EXIT_FAILURE);
         }
     }
 
@@ -118,19 +100,16 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 }
 
 int main(int argc, char* argv[]) {
-    string race, gender;
-    int status = verbose("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
+    int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
-    if(race.empty()) status =  verbose("race cannot be empty", 1);
-    if(gender.empty()) status = verbose("gender cannot be empty", 1);
+    Character player;
 
-    if(status == 0) {
-        verbose("found "+race+" "+gender);
+    output("STR: "+ to_string(player.STR()) +"\n");
+    output("DEX: "+ to_string(player.DEX()) +"\n");
+    output("CON: "+ to_string(player.CON()) +"\n");
+    output("INT: "+ to_string(player.INT()) +"\n");
+    output("WIS: "+ to_string(player.WIS()) +"\n");
+    output("CHA: "+ to_string(player.CHA()) +"\n");
 
-        NameGenerator gen(race, gender);
-
-        cout << gen.make_name() << endl;
-    }
-
-	return verbose("exiting with status "+to_string(status), status);
+	return output("exiting with status "+to_string(status), status);
 }
