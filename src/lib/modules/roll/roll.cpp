@@ -97,7 +97,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V':
             VB_FLAG = true;
-            output("verbose flag is set");
+            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
             break;
         
@@ -162,8 +162,8 @@ struct parse_node* allocate_node(void) {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
     if(node == NULL) {
-        output("out of memory", 1);
-        exit(EXIT_FAILURE);
+        output("out of memory", VB_CODE);
+        exit(output("exiting with status "+to_string(EXIT_FAILURE), EXIT_FAILURE));
     }
 
     /* initialize default values */
@@ -218,7 +218,7 @@ struct parse_node* new_dice (struct parse_node* sides) {
 
 int checked_sum(int op1, int op2) {
     if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
-        output("overflow", 1);
+    output("overflow", ERROR_CODE);
     
     return op1+op2;
 }
@@ -226,7 +226,7 @@ int checked_sum(int op1, int op2) {
 int checked_multiplication(int op1, int op2) {
     int result = op1 * op2;
     if(op1 != 0 && result / op1 != op2 ) {
-        output("overflow", 1);
+        output("overflow", ERROR_CODE);
     }
     
     return result;
@@ -335,7 +335,7 @@ int roll_expression(struct parse_node* node, bool print) {
 
             /* array to store the results to sort */
             if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", 1);
+                output("out of memory", ERROR_CODE);
             }
       
             for(i=0; i<repetitions; i++) {
@@ -363,7 +363,7 @@ int roll_expression(struct parse_node* node, bool print) {
                   
             /* array to store the results to sort */
             if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", 1);
+                output("out of memory", ERROR_CODE);
             }
       
             for(i=0; i<repetitions; i++) {
