@@ -6,10 +6,14 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
+#include <unistd.h>
 #include <sys/ioctl.h>
+
 #include <unistd.h>
 #include <fstream>
 #include <string>
+#include <functional>
+#include <random>
 
 #include "config.h"
 #include "utils.h"
@@ -214,6 +218,14 @@ int output(string log, int status_code) {
             cout << log << endl;
         }
     }
-    
+
     return status_code;
+}
+
+int random(int min, int max) {
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_int_distribution<int> dist(min, max);
+
+    return dist(mt);
 }

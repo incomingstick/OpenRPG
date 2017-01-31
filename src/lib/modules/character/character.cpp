@@ -15,8 +15,6 @@ using namespace std;
 Character::Character() {
     output("character created", VB_CODE);
 
-    Die d6(6);
-
     stats.STR = gen_stat();
     stats.DEX = gen_stat();
     stats.CON = gen_stat();

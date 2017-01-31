@@ -441,7 +441,7 @@ int roll_expression(struct parse_node* node, bool print) {
         return_value = checked_sum(return_value, sum);
 
         if (print) {
-            printf("%i\n", sum);
+            output(to_string(sum)+"\n");
         }
 
         cur = cur->next;
