@@ -36,8 +36,8 @@ int Die::roll() {
 
     int ret = dist(mt);
 
-    /* prints die rolls in the form "dX -> N" */
-    output("d"+ to_string(MAX) +" -> "+ to_string(ret));
+    /* verbosely prints die rolls in the form "dX -> N" */
+    output("d"+ to_string(MAX) +" -> "+ to_string(ret), VB_CODE);
 
     return ret;
 }

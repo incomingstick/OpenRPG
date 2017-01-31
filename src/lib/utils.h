@@ -9,17 +9,22 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_UTILS_H_
 #define SRC_UTILS_H_
 
-extern bool QUIET_FLAG;
+#define CONTINUE_CODE  -2
+#define OUTPUT_CODE    -1
+#define VB_CODE         0
+#define ERROR_CODE      1
+
 extern bool VB_FLAG;
+extern bool QUIET_FLAG;
 
 size_t get_console_width();
 size_t get_console_height();
 std::string get_display_screen(std::string file);
-std::string load_file(std::string fileName);
+std::string file_to_string(std::string fileName);
 std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string file);
-int output(std::string log = "", int status = -1);
+int output(std::string log = "", int code = OUTPUT_CODE);
 
 #endif /* SRC_UTILS_H_ */

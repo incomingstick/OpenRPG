@@ -30,8 +30,8 @@ NameGenerator::NameGenerator(string race, string gender)
      gender(gender) {
     location = ASSET_LOC;
     location += "/names";
-    output("top location: "+location);
-    output("NameGenerator with "+race+" "+gender+" created");
+    output("top location: "+location, VB_CODE);
+    output("NameGenerator with "+race+" "+gender+" created", VB_CODE);
 }
 
 NameGenerator::~NameGenerator() {
@@ -47,7 +47,7 @@ string NameGenerator::make_name() {
 string NameGenerator::make_first() {
     string loc(location+"/"+race+"/"+gender);
     
-    output("opening location: "+loc);
+    output("opening location: "+loc, VB_CODE);
 
     ifstream file(loc.c_str());
     
@@ -66,7 +66,7 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output(loc + " could not be opened", 1);
+        output(loc + " could not be opened", EXIT_FAILURE);
     }
 
     return "NULL";
@@ -75,7 +75,7 @@ string NameGenerator::make_first() {
 string NameGenerator::make_last() {
     string loc(location+"/"+race+"/last");
 
-    output("opening location: "+loc);
+    output("opening location: "+ loc, VB_CODE);
 
     ifstream file(loc.c_str());
     
@@ -95,7 +95,7 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output(loc + " could not be opened", 1);
+        output(loc + " could not be opened", EXIT_FAILURE);
     }
 
     return "NULL";
