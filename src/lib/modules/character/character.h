@@ -9,7 +9,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
 
-struct Stats {
+struct Ability {
     int STR = 10;   // Strength
     int DEX = 10;   // Dexterity
     int CON = 10;   // Constitution
@@ -44,20 +44,20 @@ struct Skills {
 // TODO take an in depth look at what should and should not be public here
 class Character {
     private:
-        Stats stats;
+        Ability abil;
         Skills skills;
         int gen_stat();
     public:
         Character();
         ~Character();
-        Stats get_stats_copy() { return stats; };
+        Ability get_ability_copy() { return abil; };
         Skills get_skills_copy() { return skills; };
-        int STR() { return stats.STR; };
-        int DEX() { return stats.DEX; };
-        int CON() { return stats.CON; };
-        int INT() { return stats.INT; };
-        int WIS() { return stats.WIS; };
-        int CHA() { return stats.CHA; };
+        int STR() { return abil.STR; };
+        int DEX() { return abil.DEX; };
+        int CON() { return abil.CON; };
+        int INT() { return abil.INT; };
+        int WIS() { return abil.WIS; };
+        int CHA() { return abil.CHA; };
 };
 
 #endif /* SRC_CHARACTER_H_ */

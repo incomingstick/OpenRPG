@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
 
 int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
     int numBytesToRead = maxBytesToRead;
-    int bytesRemaining = strlen(globalInputString)-globalReadOffset;
+    int bytesRemaining = strlen(globalInputString) - globalReadOffset;
     
     if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
     
