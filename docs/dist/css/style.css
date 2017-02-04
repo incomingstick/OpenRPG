@@ -1,9 +1,11 @@
 /* page structure */
 body {
-	padding-top: 0px;
-	padding-bottom: 0px;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #292b2c;
+    background-color: #fff;
 }
 
 #bodyTag {
@@ -25,6 +27,17 @@ h1, h2, h3 {
 	display: inline-block;
 	font-size: 47px;
 	color: #ED154F;
+}
+
+.hidden {
+	position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
 }
 
 /*Subcategory xmlpackage mobile styles*/
