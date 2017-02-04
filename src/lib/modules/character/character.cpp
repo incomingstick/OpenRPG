@@ -15,12 +15,12 @@ using namespace std;
 Character::Character() {
     output("character created", VB_CODE);
 
-    stats.STR = gen_stat();
-    stats.DEX = gen_stat();
-    stats.CON = gen_stat();
-    stats.INT = gen_stat();
-    stats.WIS = gen_stat();
-    stats.CHA = gen_stat();
+    abil.STR = gen_stat();
+    abil.DEX = gen_stat();
+    abil.CON = gen_stat();
+    abil.INT = gen_stat();
+    abil.WIS = gen_stat();
+    abil.CHA = gen_stat();
 }
 
 Character::~Character() {

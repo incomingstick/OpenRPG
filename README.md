@@ -1,5 +1,6 @@
 # OpenRPG
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
+![Version Number](https://img.shields.io/badge/version-v0.2.0--dev-orange.svg)
 [![Discord Chat](https://img.shields.io/badge/chat-on%20discord-blue.svg)](https://discord.gg/vdwKeZg)  
 OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!  
 What OpenRPG aims to accomplish two fold.  
@@ -25,7 +26,7 @@ Some of the features this tool will include by v1.0.0 are:
 
 ... And more (hopefully)!
 
-v0.1.0 will be a basis for the CLI/developer version, but v1.0.0 will contain a
+v0.1.0 is a basis for the CLI/developer version, but v1.0.0 will contain a
 portable GUI that works on Windows, Linux, and macOS.
 
 # Building
