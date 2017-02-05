@@ -1,4 +1,4 @@
-/* page structure */
+/* page structure*/
 body {
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     font-size: 14px;
@@ -9,11 +9,6 @@ body {
 
 #bodyTag {
 	background: #fff;
-}
-
-h1, h2, h3 {
-	color: #666;
-	font-weight: 100;
 }
 
 .main-content-wrapper {
@@ -44,7 +39,7 @@ footer {
     margin-top: 4rem;
     font-size: 85%;
     text-align: center;
-    background-color: #122b56;
+    background-color: #8b747a;
 }
 
 .footer-links {
@@ -57,6 +52,16 @@ footer {
     border-top: 1px solid #fff;
     padding-top: 20px;
     margin-top: 20px;
+}
+
+/* Custom styles */
+a, a:hover, a:active, a:visited {
+	color: white;
+}
+
+h1, h2, h3 {
+	color: #666;
+	font-weight: 100;
 }
 
 /*Subcategory xmlpackage mobile styles*/
