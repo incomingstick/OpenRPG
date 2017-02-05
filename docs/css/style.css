@@ -1,10 +1,9 @@
 /* page structure */
 body {
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #292b2c;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
     background-color: #fff;
 }
 
@@ -41,11 +40,9 @@ h1, h2, h3 {
 }
 
 /*Subcategory xmlpackage mobile styles*/
-
 .sub-entity-list-item .glyphicon
 {
-    display:inline-block;
-    float:right;
+    display: inline-block;
 }
 .sub-entity-list-row
 {
