@@ -64,6 +64,11 @@ h1, h2, h3 {
 	font-weight: 100;
 }
 
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #328b7f;
+}
+
 /*Subcategory xmlpackage mobile styles*/
 .sub-entity-list-item .glyphicon
 {
@@ -1286,9 +1291,7 @@ a.brand-links {
 	}
 
 	.navbar-static-top {
-        background-image: -webkit-linear-gradient(#fff 0%, #fff 100%);
-        background-image: -o-linear-gradient(#fff 0%, #fff 100%);
-        background-image: linear-gradient(#fff 0%, #fff 100%);
+        background-color: #579ca8;
         width: 100%;
     }
 
