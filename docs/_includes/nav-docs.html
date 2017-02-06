@@ -15,8 +15,8 @@
     {% assign active = 'active' %}
   {% endif %}
 
-  <div class="{{ active }}">
-      <a href="{{ site.baseurl }}/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+  <div class="doc-nav-item {{ active }}">
+      <a class="doc-nav-link" href="{{ site.baseurl }}/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
         {{ group.title }}
       </a>
 
@@ -30,7 +30,7 @@
           {% endif %}
 
           <li class="{{ active }}">
-            <a href="{{ site.baseurl }}/{{ group_slug }}/{{ doc_slug }}/">
+            <a class="doc-nav-link" href="{{ site.baseurl }}/{{ group_slug }}/{{ doc_slug }}/">
               {{ doc.title }}
             </a>
 
