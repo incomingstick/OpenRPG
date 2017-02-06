@@ -13,8 +13,8 @@ source:           docs
 destination:      _gh_pages
 host:             0.0.0.0
 port:             9001
-baseurl:          https://www.openrpg.io
-url:              https://www.openrpg.io
+baseurl:          http://www.openrpg.io
+url:              http://www.openrpg.io
 encoding:         UTF-8
 
 gems:
