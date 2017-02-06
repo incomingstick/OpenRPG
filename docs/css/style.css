@@ -55,6 +55,13 @@ footer {
 }
 
 /* Custom styles */
+.navbar-fixed-bottom,
+.navbar-fixed-top,
+.navbar-static-top {
+	background-color: #579ca8;
+    border-radius: 0;
+}
+
 h1, h2, h3 {
 	color: #666;
 	font-weight: 100;
@@ -122,9 +129,6 @@ a, a:hover, a:active, a:visited {
 .sub-entity-main-wrapper
 {
     padding-top:12px;
-}
-.sub-entity-list-item:hover
-{
 }
 .sub-entity-list-item:hover > a
 {
