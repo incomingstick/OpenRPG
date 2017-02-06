@@ -38,7 +38,7 @@ footer {
     padding: 4rem 0;
     margin-top: 4rem;
     font-size: 85%;
-    text-align: center;
+    text-align: left;
     background-color: #8b747a;
 }
 
@@ -55,18 +55,28 @@ footer {
 }
 
 /* Custom styles */
-a, a:hover, a:active, a:visited {
-	color: white;
-}
-
 h1, h2, h3 {
 	color: #666;
 	font-weight: 100;
 }
 
+footer li {
+    display: inline-block;
+}
+
+a, a:hover, a:active, a:visited {
+	color: white;
+}
+
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
     background-color: #328b7f;
+}
+
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #328b7f;
+    border-color: #328b70;
 }
 
 /*Subcategory xmlpackage mobile styles*/
