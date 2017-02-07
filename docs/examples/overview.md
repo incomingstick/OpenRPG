@@ -6,4 +6,4 @@ group: examples
 redirect_from: "/examples/"
 ---
 
-# TODO Tool examples and gifs and such
+# TODO Tool examples overview and gifs and such
