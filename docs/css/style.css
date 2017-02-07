@@ -57,13 +57,11 @@ footer {
 /* Custom styles */
 .navbar-default,
 .navbar-toggle {
-    border-color: #ddd;
+    border-color: #555
 }
 
-.navbar-default,
-.navbar-toggle,
 .icon-bar {
-    background-color: #888;
+    background-color: #444;
 }
 
 .navbar-fixed-bottom,
@@ -98,12 +96,12 @@ a, a:hover, a:active, a:visited {
     border-color: #328b7f;
 }
 
-.active>.doc-sidenav {
-    display: block;
-}
-
 .doc-sidenav {
     display: none;
+}
+
+.active>.doc-sidenav {
+    display: block;
 }
 
 .doc-nav-item:first-child {
