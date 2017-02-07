@@ -6,4 +6,4 @@ group: about
 ---
 
 # {{ page.title }}
-## { {page.description }}
+## {{page.description }}
