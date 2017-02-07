@@ -1,16 +1,16 @@
 - title: Documentation
   pages:
     - title: Introduction
+    - title: Character Generator
     - title: Dice
     - title: Name Generator
-    - title: Character Generator
 
 - title: Examples
   pages:
     - title: Overview
+    - title: Character Generator
     - title: Dice
     - title: Name Generator
-    - title: Character Generator
 
 - title: Download
 

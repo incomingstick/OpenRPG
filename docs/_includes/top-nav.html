@@ -14,14 +14,14 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="{{ site.baseurl }}/contributing/">Contributing</a></li>
+        <li><a {% if page.group == "contributing" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/contributing/">Contributing</a></li>
         <li><a href="https://discord.gg/vdwKeZg">Chat</a></li>
-        <li><a {% if page.group == "documentation" %}class="highlight"{% endif %} href="{{ site.baseurl }}/documentation/introduction">Documentation</a></li>
-        <li><a {% if page.group == "examples" %}class="highlight"{% endif %} href="{{ site.baseurl }}/examples/overview">Examples</a></li>
+        <li><a {% if page.group == "documentation" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/documentation/introduction">Documentation</a></li>
+        <li><a {% if page.group == "examples" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/examples/overview">Examples</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">About<span class="caret"></span></a>
+          <a href="" class="dropdown-toggle {% if page.group == "about" %}nav-active{% endif %}" data-toggle="dropdown" role="button" aria-expanded="true">About<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li class="divider"></li>
             <li><a href="{{ site.baseurl }}/about/history/">History</a></li>
@@ -32,8 +32,8 @@
           </ul>
         </li>
         <li><a href="{{ site.baseurl }}">Forums</a></li>
-        <li><a href="{{ site.baseurl }}">FAQ</a></li>
-        <li><a href="{{ site.baseurl }}/download/">Download</a></li>
+        <li><a {% if page.group == "faq" %}class="nav-active"{% endif %} href="{{ site.baseurl }}">FAQ</a></li>
+        <li><a {% if page.group == "download" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/download/">Download</a></li>
       </ul>
     </div>
   </div>
