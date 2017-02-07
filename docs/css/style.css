@@ -85,6 +85,7 @@ a, a:hover, a:active, a:visited {
 }
 
 .nav>li>a:focus, .nav>li>a:hover {
+	color: #fff;
     text-decoration: none;
     background-color: #328b7f;
 }
