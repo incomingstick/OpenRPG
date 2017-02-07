@@ -93,11 +93,11 @@ a, a:hover, a:active, a:visited {
     border-color: #328b70;
 }
 
-.active>.bd-sidenav {
+.active>.doc-sidenav {
     display: block;
 }
 
-.bd-sidenav {
+.doc-sidenav {
     display: none;
 }
 

@@ -20,17 +20,17 @@
         {{ group.title }}
       </a>
 
-      <ul class="nav">
+      <ul class="nav doc-sidenav">
         {% for doc in group.pages %}
           {% assign doc_slug = doc.title | slugify %}
           {% assign active = nil %}
 
           {% if page.group == group_slug and page_slug == doc_slug %}
-            {% assign active = 'active' %}
+            {% assign active = 'active doc-sidenav-active' %}
           {% endif %}
 
           <li class="{{ active }}">
-            <a class="doc-nav-link" href="{{ site.baseurl }}/{{ group_slug }}/{{ doc_slug }}/">
+            <a href="{{ site.baseurl }}/{{ group_slug }}/{{ doc_slug }}/">
               {{ doc.title }}
             </a>
 
