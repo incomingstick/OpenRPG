@@ -55,11 +55,14 @@ footer {
 }
 
 /* Custom styles */
-.navbar-default .navbar-toggle {
+.navbar-default,
+.navbar-toggle {
     border-color: #ddd;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-default,
+.navbar-toggle,
+.icon-bar {
     background-color: #888;
 }
 
@@ -88,9 +91,11 @@ a, a:hover, a:active, a:visited {
     background-color: #328b7f;
 }
 
-.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
     background-color: #328b7f;
-    border-color: #328b70;
+    border-color: #328b7f;
 }
 
 .active>.doc-sidenav {
@@ -116,9 +121,28 @@ a, a:hover, a:active, a:visited {
     color: #464a4c;
 }
 
+.doc-nav-link:hover {
+    color: #292b2c;
+    background-color: #328b7f;
+    text-decoration: none;
+}
+
 .active>.doc-nav-link {
     font-weight: 500;
     color: #292b2c;
+}
+
+.doc-sidenav>li>a {
+	color: #333;
+}
+
+.doc-sidenav-active>a {
+	color: #fff;
+	background-color: #328b7f;
+}
+
+.hidden-sm-down {
+	margin-top: 25px;
 }
 
 /*Subcategory xmlpackage mobile styles*/
