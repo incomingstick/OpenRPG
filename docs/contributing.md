@@ -2,6 +2,7 @@
 layout: default
 title: Contributing
 description: Learn how you can contribute to OpenRPG too
+group: contributing
 ---
 <h1>{{ page.title }}</h1>
 <p class="lead">

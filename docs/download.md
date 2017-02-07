@@ -2,7 +2,7 @@
 layout: docs
 title: Download
 description: Download OpenRPG to create exciting new worlds!
-group: documentation
+group: download
 ---
 **OpenRPG v{{ site.current_version}}** is available for download.
 
