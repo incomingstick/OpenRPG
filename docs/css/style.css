@@ -135,12 +135,16 @@ a, a:hover, a:active, a:visited {
 }
 
 .doc-sidenav-active>a {
-	color: #fff;
+	color: #fff !important;
 	background-color: #328b7f;
 }
 
 .hidden-sm-down {
 	margin-top: 25px;
+}
+
+.highlight {
+	background-color: #328b7f;
 }
 
 /*Subcategory xmlpackage mobile styles*/

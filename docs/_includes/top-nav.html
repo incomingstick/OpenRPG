@@ -16,8 +16,8 @@
       <ul class="nav navbar-nav">
         <li><a href="https://github.com/incomingstick/OpenRPG/blob/master/.github/CONTRIBUTING.md">Contributing</a></li>
         <li><a href="https://discord.gg/vdwKeZg">Chat</a></li>
-        <li><a href="{{ site.baseurl }}/documentation/introduction">Documentation</a></li>
-        <li><a href="{{ site.baseurl }}/examples/">Examples</a></li>
+        <li><a {% if page.group == "documentation" %}class="highlight"{% endif %} href="{{ site.baseurl }}/documentation/introduction">Documentation</a></li>
+        <li><a {% if page.group == "examples" %}class="highlight"{% endif %} href="{{ site.baseurl }}/examples/">Examples</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
