@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: docs
 title: License
 description: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 group: about
