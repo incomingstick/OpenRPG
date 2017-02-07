@@ -1,13 +1,9 @@
 ---
-layout: default
+layout: docs
 title: Download
 description: Download OpenRPG to create exciting new worlds!
+group: documentation
 ---
-<h1>{{ page.title }}</h1>
-<p class="lead">
-    {{ page.description }}
-</p>
-
 **OpenRPG v{{ site.current_version}}** is available for download.
 
 ## Contents

@@ -1,9 +1,12 @@
 ---
 layout: default
-title: Download
-description: Download OpenRPG to create exciting new worlds!
+title: Contributing
+description: Learn how you can contribute to OpenRPG too
 ---
-
+<h1>{{ page.title }}</h1>
+<p class="lead">
+    {{ page.description }}
+</p>
 <!-- Copied from CONTRIBUTING.md -->
 
 # Contributing to the project
