@@ -5,7 +5,7 @@ description: Download OpenRPG to create exciting new worlds!
 ---
 <h1>{{ page.title }}</h1>
 <p class="lead">
-    { page.description }}
+    {{ page.description }}
 </p>
 
 **OpenRPG v{{ site.current_version}}** is available for download.
