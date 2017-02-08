@@ -97,13 +97,6 @@ a, a:hover, a:active, a:visited {
     border-color: #328b7f;
 }
 
-.nav > .doc-nav-item > a:focus,
-.nav > .doc-nav-item > a:hover {
-    color: #fff;
-    background-color: #328b7f;
-    text-decoration: none;
-}
-
 .doc-sidenav {
     display: none;
 }
@@ -128,7 +121,6 @@ a, a:hover, a:active, a:visited {
 }
 
 .doc-nav-link:hover {
-    color: #292b2c;
     background-color: #328b7f;
     text-decoration: none;
 }
