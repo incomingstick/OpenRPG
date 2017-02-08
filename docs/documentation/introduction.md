@@ -11,8 +11,8 @@ redirect_from: "/documentation/"
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
 <!-- not needed on website [![Discord Chat](https://img.shields.io/badge/chat-on%20discord-blue.svg)](https://discord.gg/vdwKeZg) -->
 <br>
-OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!  
-What OpenRPG aims to accomplish two fold.  
+OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!
+What OpenRPG aims to accomplish two fold.
 
 First, it will be a tool for someone to use to quickly create content
 for a tabletop RPG world. v1.0.0 will focus specifically on the

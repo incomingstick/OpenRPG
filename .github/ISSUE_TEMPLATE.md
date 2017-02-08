@@ -9,9 +9,9 @@ Please delete the section [Bug or Issue | Feature Request] that does not pertain
 
 Steps to Reproduce:
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Feature Request
 Please list the feature(s) you would like added in as much detail as possible.

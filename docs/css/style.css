@@ -1218,7 +1218,7 @@ a.brand-links {
    {
        padding-top:32px;
    }
-   
+
 .footer-wrapper a {
     color: #fff;
 }
@@ -1244,7 +1244,7 @@ a.brand-links {
     }
     .variant-description-wrap {
         margin-bottom: 15px;
-        padding: 32px 50px; 
+        padding: 32px 50px;
         margin:0px;
     }
    .variant-list-page .product-image-wrap
@@ -1271,7 +1271,7 @@ a.brand-links {
 }
 .subcat-grid-image-wrapper .sub-entity-list-item
 {
-    padding-top:0px;    
+    padding-top:0px;
 }
 .sub-entity-list-row
 {
@@ -1378,11 +1378,11 @@ a.brand-links {
         width: auto;
         white-space: nowrap;
     }
-    
+
     .col-sm-12 {
         width: calc(100% - 30px);
     }
-    
+
     .navbar-right .dropdown-menu {
         right: inherit;
         left: auto;
@@ -1395,7 +1395,7 @@ a.brand-links {
     .welcome-text-wrapper, .retail-info-box {
         padding: 50px;
     }
-    
+
     .retail-info-box
     {
         padding-top:24px;
