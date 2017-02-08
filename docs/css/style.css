@@ -130,6 +130,10 @@ a, a:hover, a:active, a:visited {
     color: #292b2c;
 }
 
+.active>.doc-nav-link:hover {
+    color: #fff;
+}
+
 .doc-sidenav>li>a {
     color: #333;
 }
