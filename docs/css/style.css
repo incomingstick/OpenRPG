@@ -117,11 +117,12 @@ a, a:hover, a:active, a:visited {
 .doc-nav-link {
     display: block;
     padding: .25rem .75rem;
-    color: #464a4c;
+    color: #333;
 }
 
 .doc-nav-link:hover {
     background-color: #328b7f;
+    color:  #fff;
     text-decoration: none;
 }
 
