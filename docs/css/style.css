@@ -80,9 +80,9 @@ footer li {
     display: inline-block;
 }
 
-a, a:hover, a:active, a:visited {
+/* a, a:hover, a:active, a:visited {
     color: white;
-}
+} */
 
 .nav>li>a:focus, .nav>li>a:hover {
     color: #fff;
@@ -95,10 +95,6 @@ a, a:hover, a:active, a:visited {
 .nav .open > a:hover {
     background-color: #328b7f;
     border-color: #328b7f;
-}
-
-.nav > .doc-nav-item > a {
-    color: #333;
 }
 
 .doc-sidenav {
