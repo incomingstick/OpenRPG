@@ -97,6 +97,10 @@ a, a:hover, a:active, a:visited {
     border-color: #328b7f;
 }
 
+.nav > .doc-nav-item > a {
+    color: #333;
+}
+
 .doc-sidenav {
     display: none;
 }

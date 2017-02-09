@@ -190,6 +190,7 @@ int output(string log, int status_code) {
             if(VB_FLAG)
                 cout << "[OUTPUT]\t";
             
+            // begin each new line with [OUTPUT] to align all debugging output
             for (auto it = log.begin(); it != log.end(); ++it) {
                 // if the current index is needed:
                 auto c = *it;
