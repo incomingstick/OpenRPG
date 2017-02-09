@@ -140,12 +140,13 @@ a, a:hover, a:active, a:visited {
 }
 
 .doc-sidenav-active>a {
-    color: #fff !important;
+    color: #fff;
     background-color: #328b7f;
 }
 
 .hidden-sm-down {
     margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .nav-active {
