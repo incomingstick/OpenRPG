@@ -146,8 +146,7 @@ a, a:hover, a:active, a:visited {
 }
 
 .hidden-sm-down {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin: 25px 0;
 }
 
 .nav-active {
@@ -173,6 +172,7 @@ a, a:hover, a:active, a:visited {
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem;
+    margin: 0 15px;
 }
 
 .dropdown-item {
@@ -206,6 +206,10 @@ a, a:hover, a:active, a:visited {
     padding: 0;
     overflow: hidden;
     font-size: .9rem;
+}
+
+.search-results:empty {
+    display: none;
 }
 
 .search-results .dropdown-item:last-child {
