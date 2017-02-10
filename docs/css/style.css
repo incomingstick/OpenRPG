@@ -110,7 +110,7 @@ a, a:hover, a:active, a:visited {
     margin-top: 0;
 }
 
-.doc-nav-item:active {
+.doc-nav-item.active {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -195,6 +195,7 @@ a, a:hover, a:active, a:visited {
 }
 
 .search-box {
+    margin-top: 25px;
     position: relative;
     margin-bottom: 1.5rem;
 }
