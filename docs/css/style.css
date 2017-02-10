@@ -153,6 +153,29 @@ a, a:hover, a:active, a:visited {
     background-color: #328b7f;
 }
 
+.search-results {
+    right: 0;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    font-size: .9rem;
+}
+
+.search-results .dropdown-item:last-child {
+    margin-bottom: .25rem;
+}
+
+.search-results .dropdown-item:first-child {
+    margin-top: .25rem;
+}
+
+.search-results .no-results {
+    padding: .75rem 1rem;
+    color: #7a7a7a;
+    text-align: center;
+    white-space: normal;
+}
+
 /*Subcategory xmlpackage mobile styles*/
 .sub-entity-list-item .glyphicon
 {
