@@ -169,6 +169,11 @@ a, a:hover, a:active, a:visited {
     margin-top: .25rem;
 }
 
+.search-results .dropdown-item {
+    padding-right: .75rem;
+    padding-left: .75rem;
+}
+
 .search-results .no-results {
     padding: .75rem 1rem;
     color: #7a7a7a;
@@ -179,4 +184,25 @@ a, a:hover, a:active, a:visited {
 .search-box {
     position: relative;
     margin-bottom: 1.5rem;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #292b2c;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
 }
