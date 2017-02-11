@@ -129,7 +129,7 @@ footer li {
     background-color: #328b7f;
 }
 
-.bd-masthead .version {
+.masthead .version {
     margin-top: -1rem;
     margin-bottom: 2rem;
 }
@@ -365,6 +365,11 @@ a, a:hover, a:active, a:visited {
     color: #328b7f;
     background-color: #110628;
     border-color: #110628;
+}
+
+.feature .btn {
+    color: #328b7f;
+    border-color: #328b7f;
 }
 
 footer a {
