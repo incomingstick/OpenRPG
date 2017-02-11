@@ -96,6 +96,12 @@ footer li {
 
 .pageheader h1 {
     color: #fff;
+    font-size: 4rem;
+}
+
+.pageheader p {
+    color: #fff;
+    font-size: 2rem;
 }
 
 .lead {
@@ -271,7 +277,7 @@ a, a:hover, a:active, a:visited {
 
 .btn {
     display: inline-block;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.25;
     text-align: center;
     white-space: nowrap;
@@ -287,6 +293,21 @@ a, a:hover, a:active, a:visited {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+    color: #328b7f;
+    border-color: #328b7f;
+}
+
+.btn.active, .btn:focus, .btn:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #328b7f;
+    border-color: #328b7f;
+}
+
+.btn-lg {
+    padding: .75rem 1.5rem;
+    font-size: 1.25rem;
+    border-radius: .3rem;
 }
 
 footer a {
