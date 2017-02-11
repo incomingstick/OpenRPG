@@ -64,13 +64,6 @@ footer li {
     margin-bottom: 1rem;
 }
 
-.copyright {
-    color: #fff;
-    border-top: 1px solid #fff;
-    padding-top: 20px;
-    margin-top: 20px;
-}
-
 .navbar-static-top {
     border-width: 0px;
 }
@@ -116,7 +109,7 @@ h1, h2, h3 {
 }
 
 a, a:hover, a:active, a:visited {
-    color: white;
+    color: #333;
 }
 
 .nav > li > a:focus,
@@ -190,6 +183,7 @@ a, a:hover, a:active, a:visited {
 
 .nav-active {
     background-color: #328b7f;
+    color: #fff !important; /* TODO never use !important EVER */
 }
 
 .dropdown-menu {
@@ -293,6 +287,15 @@ a, a:hover, a:active, a:visited {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+}
+
+footer a {
+    font-weight: 500;
+}
+
+footer a:hover {
+    color: #0275d8;
+    text-decoration: underline;
 }
 
 /* @media styles */
