@@ -2,7 +2,7 @@
 character-generator - character-generator.cpp
 Created on: Jan 24, 2017
 
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -16,7 +16,7 @@ using namespace std;
 
 static void print_version_flag() {
     fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -25,7 +25,7 @@ static void print_version_flag() {
 
 static void print_help_flag() {
     fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: character-generator [options] RACE GENDER\n"
