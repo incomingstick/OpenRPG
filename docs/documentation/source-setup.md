@@ -5,6 +5,8 @@ description: Here is how to build from source
 group: documentation
 ---
 
+/* copied from README.md */
+
 # Building
 Currently we require `cmake` (at least v2.8.4) and `make`
 
