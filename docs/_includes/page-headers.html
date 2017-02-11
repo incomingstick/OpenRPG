@@ -1,0 +1,41 @@
+<div class="pageheader">
+  <div class="container">
+    <!-- Keep it alphabetical -->
+    {% if page.group == "about" %}
+      <h1>About</h1>
+      <p class="lead">
+        Learn more about OpenRPG and whose involved!
+      </p>
+    {% elsif page.group == "blog" %}
+      <h1>Blog</h1>
+      <p class="lead">
+        Learn whats going on with OpenRPG
+      </p>
+    {% elsif page.group == "contributing" %}
+      <h1>Contributing</h1>
+      <p class="lead">
+        Here's how you can help
+      </p>
+    {% elsif page.group == "documentation" %}
+      <h1>OpenRPG Documentation</h1>
+      <p class="lead">
+        An overview of OpenRPG, including how to download and use it, some basic templates, and more.
+      </p>
+    {% elsif page.group == "download" %}
+      <h1>Download</h1>
+      <p class="lead">
+        Start building in minutes!
+      </p>
+    {% elsif page.group == "examples" %}
+      <h1>Examples</h1>
+      <p class="lead">
+        Examples and demonstration on how to use all of OpenRPG's tools.
+      </p>
+    {% elsif page.group == "faq" %}
+      <h1>FAQ</h1>
+      <p class="lead">
+        Frequently Asked Questions
+      </p>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<form class="search-box">
+  <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+  <div class="dropdown-menu search-results" id="search-results"></div>
+</form>
+
+<nav id="docsNavbarContent">
+  {% assign page_slug = page.url | split: '/' | last %}
+  {% for group in site.data.nav %}
+  {% assign link = group.pages | first %}
+  {% assign link_slug = link.title | slugify %}
+  {% assign group_slug = group.title | slugify %}
+  {% assign active = nil %}
+
+  {% if page.group == group_slug %}
+    {% assign active = 'active' %}
+  {% endif %}
+
+  <div class="doc-nav-item {{ active }}">
+      <a class="doc-nav-link" href="{{ site.baseurl }}/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+        {{ group.title }}
+      </a>
+
+      <ul class="nav doc-sidenav">
+        {% for doc in group.pages %}
+          {% assign doc_slug = doc.title | slugify %}
+          {% assign active = nil %}
+
+          {% if page.group == group_slug and page_slug == doc_slug %}
+            {% assign active = 'active doc-sidenav-active' %}
+          {% endif %}
+
+          <li class="{{ active }}">
+            <a href="{{ site.baseurl }}/{{ group_slug }}/{{ doc_slug }}/">
+              {{ doc.title }}
+            </a>
+
+            {% comment %}
+            {% unless doc.sections == nil %}
+              <ul class="nav">
+                {% for section in doc.sections %}
+                  <li>
+                    <a href="#{{ section.title | downcase | replace: ' ', '-' }}">
+                      {{ section.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endunless %}
+            {% endcomment %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</nav>

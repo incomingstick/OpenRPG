@@ -42,4 +42,4 @@ Run make check `$ make check`
 After building run make install `$ make install`
 
 # License
-GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007 (GPL-3.0)
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
