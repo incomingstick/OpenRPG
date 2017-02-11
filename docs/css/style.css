@@ -51,7 +51,7 @@ footer {
     margin-top: 4rem;
     font-size: .85rem;
     text-align: left;
-    background-color: #8b747a;
+    background-color: #f5f5f5;
 }
 
 
@@ -81,7 +81,7 @@ footer li {
 .navbar-fixed-bottom,
 .navbar-fixed-top,
 .navbar-static-top {
-    background-color: #579ca8;
+    background-color: #f5f5f5;
     border-radius: 0;
     margin-bottom: 0px;
 }
