@@ -117,6 +117,24 @@ footer li {
     font-weight: 300;
 }
 
+.logo {
+    margin: 0 auto 2rem;
+    display: block;
+    width: 9rem;
+    height: 9rem;
+    font-size: 6.5rem;
+    line-height: 9rem;
+    color: #fff;
+    text-align: center;
+    cursor: default;
+    background-color: #328b7f;
+}
+
+.bd-masthead .version {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
 h1, h2, h3 {
     color: #666;
     font-weight: 400;
