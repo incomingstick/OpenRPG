@@ -31,7 +31,7 @@ body {
 .simple {
     font-family: 'Sacramento', Georgia, serif;
     display: inline-block;
-    font-size: 47px;
+    font-size: 3.357142857142857rem;
     color: #ED154F;
 }
 
@@ -49,7 +49,7 @@ body {
 footer {
     padding: 4rem 0;
     margin-top: 4rem;
-    font-size: 85%;
+    font-size: .85rem;
     text-align: left;
     background-color: #8b747a;
 }
@@ -101,6 +101,10 @@ footer li {
     background-color: #328b7f;
 }
 
+.pageheader h1 {
+    color: #fff;
+}
+
 .lead {
     font-size: 1.25rem;
     font-weight: 300;
@@ -108,7 +112,7 @@ footer li {
 
 h1, h2, h3 {
     color: #666;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 a, a:hover, a:active, a:visited {
@@ -293,7 +297,7 @@ a, a:hover, a:active, a:visited {
 
 /* @media styles */
 @media (min-width: 576px) {
-    .bd-pageheader {
+    .pageheader {
         padding-top: 4rem;
         padding-bottom: 4rem;
         margin-bottom: 3rem;
