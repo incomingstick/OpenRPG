@@ -319,16 +319,16 @@ a, a:hover, a:active, a:visited {
     border-radius: .3rem;
 }
 
-.masthead-btn {
-    color: #678998;
-    border-color: #678998;
+.masthead .btn {
+    color: #110628;
+    border-color: #110628;
 }
 
 .masthead-btn.active, .masthead-btn:focus, .masthead-btn:hover {
     text-decoration: none;
     color: #328b7f;
-    background-color: #678998;
-    border-color: #678998;
+    background-color: #110628;
+    border-color: #110628;
 }
 
 footer a {
