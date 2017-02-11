@@ -127,6 +127,10 @@ a, a:hover, a:active, a:visited {
     margin-bottom: 1rem;
 }
 
+.doc-nav-item > a {
+    color: #333
+}
+
 .doc-nav-link {
     display: block;
     padding: .25rem .75rem;
@@ -144,7 +148,7 @@ a, a:hover, a:active, a:visited {
     color: #292b2c;
 }
 
-.active>.doc-nav-link:hover {
+.active > .doc-nav-link:hover {
     color: #fff;
 }
 
