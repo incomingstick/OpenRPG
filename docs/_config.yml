@@ -13,8 +13,8 @@ source:           docs
 destination:      _gh_pages
 host:             0.0.0.0
 port:             9001
-baseurl:          https://www.openrpg.io
-url:              https://www.openrpg.io
+baseurl:          http://www.openrpg.io
+url:              http://www.openrpg.io
 encoding:         UTF-8
 
 gems:
@@ -33,15 +33,4 @@ discord:          https://discord.gg/vdwKeZg
 
 download:
   source:         https://github.com/incomingstick/OpenRPG/archive/v0.1.0-dev.zip
-  dist:           https://github.com/twbs/bootstrap/releases/download/v4.0.0-alpha.6/bootstrap-4.0.0-alpha.6-dist.zip
-
-cdn:
-  # See https://www.srihash.org for info on how to generate the hashes
-  css:            https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css
-  css_hash:       "sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-  js:             https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js
-  js_hash:        "sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-  jquery:         https://code.jquery.com/jquery-3.1.1.slim.min.js
-  jquery_hash:    "sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-  tether:         https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js
-  tether_hash:    "sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+  dist:           https://github.com/incomingstick/OpenRPG/archive/v0.1.0-dev.zip

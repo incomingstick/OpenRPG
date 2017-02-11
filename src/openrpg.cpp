@@ -2,7 +2,7 @@
 openrpg - openrpg.cpp
 Created on: Nov 7, 2016
 
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -18,7 +18,7 @@ using namespace std;
 
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -27,7 +27,7 @@ static void print_version_flag() {
 
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: openrpg [options]\n"
@@ -79,25 +79,25 @@ int parse_args(int argc, char* argv[]) {
         case 'h':
             print_help_flag();
             break;
-        
+
         /* -n --name */
         case 'n':
             if(optind < argc) {
                 cmd = "name-generator";
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg +" "+ (string)argv[optind++];
-                
+
                 output("calling "+cmd, EXIT_SUCCESS);
                 output("called "+cmd, system(cmd.c_str()));
                 output("exiting with status "+to_string(status), status);
-                
+
                 exit(status);
             } else {
                 fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
                 print_help_flag();
             }
             break;
-        
+
         /* -q --quiet */
         case 'q':
             QUIET_FLAG = true;
@@ -111,11 +111,11 @@ int parse_args(int argc, char* argv[]) {
                 cmd = "roll";
                 if(VB_FLAG) cmd += " -V";
                 cmd += " "+(string)optarg;
-                
+
                 output("calling "+cmd, EXIT_SUCCESS);
                 output("called "+cmd, system(cmd.c_str()));
                 output("exiting with status "+to_string(status), status);
-                
+
                 exit(status);
             } else {
                 fprintf(stderr, "Error: invalid number of args\n");
@@ -134,13 +134,13 @@ int parse_args(int argc, char* argv[]) {
             output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
             break;
-        
+
         /* parsing error */
         case '?':
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
             break;
-        
+
         /* if we get here something very bad happened */
         default:
             status = output("Aborting...", EXIT_FAILURE);
@@ -163,11 +163,11 @@ int parse_input(string in) {
 
         // temporary container for word being built
         string word;
-    
+
         //standardizes inputs to ignore case
         for(int i = 0; (unsigned) i < in.size(); i++) {
             in[i] = tolower(in[i]);
-            
+
             if((in[i] < '{' && in[i] > '`') || (in[i] < ':' && in[i] > '/') || in[i] == '+' || in[i] == '-') {
                 word += in[i]; //pushes character to word
             } else if(word.size() > 0) {
@@ -175,15 +175,15 @@ int parse_input(string in) {
                 word = {}; //resets word
             }
         }
-        
+
         if(word.size() > 0) words.push_back(word); //end of command word
-        
+
         if (words.size() > 0) {
             output("Words (" + to_string(words.size()) + "): ", VB_CODE);
-            
+
             for(string wrd : words) output(wrd, VB_CODE);
-            
-            
+
+
             //simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {//quit program
                 output("leaving input_parse("+ in +")", VB_CODE);
@@ -208,7 +208,7 @@ int parse_input(string in) {
                     for (int i = 1; (unsigned) i < words.size(); i++) {
                         cmd += words[i] + " ";
                     }
-                    
+
                     //string cmd = "./roll " + (string)words[1];
                     output("calling "+cmd, VB_CODE);
                     output("called "+cmd, system(cmd.c_str()));
@@ -238,7 +238,7 @@ int main(int argc, char* argv[]) {
     if(status == EXIT_SUCCESS) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
-    
+
         string in("");
 
         // get user input
@@ -249,5 +249,5 @@ int main(int argc, char* argv[]) {
         }
     }
 
-	return output("exiting with status "+ to_string(status), status);
+    return output("exiting with status "+ to_string(status), status);
 }

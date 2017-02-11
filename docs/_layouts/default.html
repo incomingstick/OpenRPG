@@ -3,17 +3,15 @@
   <head>
     {% include header.html %}
   </head>
-  <body class="bd-docs" data-spy="scroll" data-target=".bd-sidenav-active">
-    <a id="skippy" class="sr-only sr-only-focusable" href="#content">
-      <div class="container">
-        <span class="skiplink-text">Skip to main content</span>
-      </div>
-    </a>
+  <body class="home">
+    {% include top-nav.html %}
 
-    {% include nav-home.html %}
+    {% include page-headers.html %}
 
-    <div id="content">
+    <div class="container">
+      <div class="row">
         {{ content }}
+      </div>
     </div>
 
     {% include footer.html %}
