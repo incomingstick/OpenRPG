@@ -8,9 +8,9 @@ group: download
 
 ## Contents
 
-* Will be replaced with the ToC, excluding the "Contents" header
 <div class="toc-download">
-    {:toc}
+* Will be replaced with the ToC, excluding the "Contents" header
+{:toc}
 </div>
 
 <!-- ## OpenRPG installer
