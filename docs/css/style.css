@@ -144,6 +144,25 @@ a, a:hover, a:active, a:visited {
     font-weight: 500;
 }
 
+.feature {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+}
+
+.feature > h2 {
+    margin-bottom: .5rem;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
 .nav > li > a:focus,
 .nav > li > a:hover {
     color: #fff;
@@ -362,6 +381,15 @@ footer a:hover {
     .masthead {
         padding-bottom: 4rem;
     }
+
+    .feature {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+
+    .feature > h2 {
+        font-size: 2.5rem;
+    }
 }
 
 @media (min-width: 576px) {
@@ -379,5 +407,9 @@ footer a:hover {
 
     .masthead .btn {
         width: auto;
+    }
+
+    .feature {
+        text-align: left;
     }
 }
