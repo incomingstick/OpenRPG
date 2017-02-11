@@ -5,7 +5,7 @@ description: OpenRPG Software License - Version 1.0 - February 10th, 2017
 group: about
 ---
 <!-- Copied from LICENSE -->
-<pre>
+<pre style="display: inline-block;">
 OpenRPG Software License - Version 1.0 - February 10th, 2017
 
 Permission is hereby granted, free of charge, to any person or organization
