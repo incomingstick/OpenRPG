@@ -2,7 +2,7 @@
 layout: default
 title: Blog
 description: Whats new
-group: download
+group: blog
 ---
 <h1>{{ page.title }}</h1>
 <p class="lead">

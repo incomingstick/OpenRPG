@@ -71,6 +71,10 @@ footer li {
     margin-top: 20px;
 }
 
+.navbar-static-top {
+    border-width: 0px;
+}
+
 /* Custom styles */
 .navbar-default,
 .navbar-toggle {
