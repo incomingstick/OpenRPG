@@ -104,6 +104,14 @@ footer li {
     font-size: 2rem;
 }
 
+.masthead {
+    position: relative;
+    padding: 3rem 15px 2rem;
+    color: #fff;
+    text-align: center;
+    background-color: #328b7f;
+}
+
 .lead {
     font-size: 1.25rem;
     font-weight: 300;
@@ -116,6 +124,7 @@ h1, h2, h3 {
 
 a, a:hover, a:active, a:visited {
     color: #333;
+    font-weight: 500;
 }
 
 .nav > li > a:focus,
@@ -310,6 +319,18 @@ a, a:hover, a:active, a:visited {
     border-radius: .3rem;
 }
 
+.masthead-btn {
+    color: #678998;
+    border-color: #678998;
+}
+
+.masthead-btn.active, .masthead-btn:focus, .masthead-btn:hover {
+    text-decoration: none;
+    color: #328b7f;
+    background-color: #678998;
+    border-color: #678998;
+}
+
 footer a {
     font-weight: 500;
 }
@@ -320,11 +341,26 @@ footer a:hover {
 }
 
 /* @media styles */
+@media (min-width: 768px) {
+    .masthead {
+        padding-bottom: 4rem;
+    }
+}
+
 @media (min-width: 576px) {
     .pageheader {
         padding-top: 4rem;
         padding-bottom: 4rem;
         margin-bottom: 3rem;
         text-align: left;
+    }
+
+    .masthead {
+        padding-top: 8rem;
+        padding-bottom: 2rem;
+    }
+
+    .masthead .btn {
+        width: auto;
     }
 }
