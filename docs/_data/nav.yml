@@ -1,0 +1,24 @@
+- title: Documentation
+  pages:
+    - title: Introduction
+    - title: Source Setup
+    - title: Character Generator
+    - title: Dice
+    - title: Name Generator
+
+- title: Examples
+  pages:
+    - title: Overview
+    - title: Character Generator
+    - title: Dice
+    - title: Name Generator
+
+- title: Download
+
+- title: About
+  pages:
+    - title: History
+    - title: Team
+    - title: Brand
+    - title: License
+    - title: Translations
