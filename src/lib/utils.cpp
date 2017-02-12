@@ -34,18 +34,18 @@ bool VB_FLAG = false;
  * Returns the width of the console
  */
 size_t get_console_width() {
-	struct winsize size;
-	ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-	return size.ws_col;
+    struct winsize size;
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
+    return size.ws_col;
 }
 
 /*
  * Returns the height of terminal
  */
 size_t get_console_height() {
-	struct winsize size;
-	ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-	return size.ws_row;
+    struct winsize size;
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
+    return size.ws_row;
 }
 
 /*
@@ -63,7 +63,7 @@ string get_display_screen(string file) {
         while (getline(screen_file, buffer)) {
             // Append the formatted line to the cumulative string
             if(screen_file.peek() != EOF)
-            	ret = ret + buffer + '\n';
+                ret = ret + buffer + '\n';
             else ret = ret + buffer;
         }
         screen_file.close();
@@ -82,7 +82,7 @@ string get_display_screen(string file) {
  * used to create images and other printed files.
  */
 string file_to_string(string file) { 
-	// Open the assets file for the current screen
+    // Open the assets file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
@@ -153,19 +153,25 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
     for(;;) {
         int c = sb->sbumpc();
         switch (c) {
-        case '\n':
+        case '\n': {
             return is;
-        case '\r':
+        } break;
+
+        case '\r': {
             if(sb->sgetc() == '\n')
                 sb->sbumpc();
             return is;
-        case EOF:
+        } break;
+
+        case EOF: {
             // Also handle the case when the last line has no line ending
             if(t.empty())
                 is.setstate(std::ios::eofbit);
             return is;
-        default:
+        } break;
+        default: {
             t += (char)c;
+        }
         }
     }
 }

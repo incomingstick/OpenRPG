@@ -76,12 +76,12 @@ int parse_args(int argc, char* argv[]) {
 
         switch (opt) {
         /* -h --help */
-        case 'h':
+        case 'h': {
             print_help_flag();
-            break;
+        } break;
 
         /* -n --name */
-        case 'n':
+        case 'n': {
             if(optind < argc) {
                 cmd = "name-generator";
                 if(VB_FLAG) cmd += " -V";
@@ -96,17 +96,17 @@ int parse_args(int argc, char* argv[]) {
                 fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
                 print_help_flag();
             }
-            break;
+        } break;
 
         /* -q --quiet */
-        case 'q':
+        case 'q': {
             QUIET_FLAG = true;
             output("turning output flag off", VB_CODE);
             VB_FLAG = false;
-            break;
+        } break;
 
         /* -r --roll */
-        case 'r':
+        case 'r': {
             if(optind <= argc) {
                 cmd = "roll";
                 if(VB_FLAG) cmd += " -V";
@@ -121,36 +121,37 @@ int parse_args(int argc, char* argv[]) {
                 fprintf(stderr, "Error: invalid number of args\n");
                 print_help_flag();
             }
-            break;
+        } break;
 
         /* -v --version */
-        case 'v':
+        case 'v': {
             print_version_flag();
-            break;
+        } break;
 
         /* -V --verbose */
-        case 'V':
+        case 'V': {
             VB_FLAG = true;
             output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
-            break;
+        } break;
 
         /* parsing error */
-        case '?':
+        case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
-            break;
+        } break;
 
         /* if we get here something very bad happened */
-        default:
+        default: {
             status = output("Aborting...", EXIT_FAILURE);
+        }
         }
     }
 
     return status;
 }
 
-/* Parses text input into the console and determines the appropriate response/action */
+/* TODO Parses text input into the console and determines the appropriate response/action */
 int parse_input(string in) {
     int status = EXIT_SUCCESS;
 
@@ -184,8 +185,8 @@ int parse_input(string in) {
             for(string wrd : words) output(wrd, VB_CODE);
 
 
-            //simple commands, must be expanded on based on command content
-            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {//quit program
+            // TODO simple commands, must be expanded on based on command content
+            if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 output("leaving input_parse("+ in +")", VB_CODE);
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
