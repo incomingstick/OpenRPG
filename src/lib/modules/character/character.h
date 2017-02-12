@@ -57,22 +57,26 @@ inline int modifier(int abil) { return (abil - 10) / 2; };
 // TODO take an in depth look at what should and should not be public here
 class Character {
     private:
-        Ability abils;
-        Skills skills;
-        int curr_hp;
-        int temp_hp;
-        int max_hp;
-        int prof;
-        int level;
-        int exp;
-        int max_exp;
-        std::string name;
+        std::string name;       // the characters name
+        Ability abils;          // collection of ability scores
+        Skills skills;          // collection of skill checks
+        int curr_hp;            // current hit points
+        int temp_hp;            // temporary hit points
+        int max_hp;             // maximum hit points
+        int prof;               // proficiency bonus
+        int level;              // character level total
+        int exp;                // current experience
+        int max_exp;            // experience needed for next level
     public:
         Character();
         Character(Ability ab);
         Character(Ability ab, Skills sk);
         ~Character();
+
+        // Returns a copy of our Ability abils struct   
         Ability get_ability_copy() { return abils; };
+
+        // Returns a copy of our Skills skills struct
         Skills get_skills_copy() { return skills; };
 
         /* accessor functions for ability score modifiers */
@@ -91,7 +95,9 @@ class Character {
         int WIS_MOD() { return modifier(abils.WIS); };
         int CHA_MOD() { return modifier(abils.CHA); };
 
+        // allows quick conversion of a skill for its passive check
         int passive_stat(int stat) { return 8 + prof + stat; };
+
         std::string to_string();
 };
 
