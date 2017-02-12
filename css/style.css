@@ -407,6 +407,10 @@ pre {
         font-size: 6.5rem;
         line-height: 9rem;
     }
+
+    pre {
+        font-size: 1.4rem;
+    }
 }
 
 @media (min-width: 576px) {
@@ -443,6 +447,6 @@ pre {
     }
 
     pre {
-        font-size: 1rem;
+        font-size: 1.25rem;
     }
 }
