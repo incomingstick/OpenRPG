@@ -111,5 +111,5 @@ int main(int argc, char* argv[]) {
     output("WIS: "+ to_string(player.WIS()) +"\n");
     output("CHA: "+ to_string(player.CHA()) +"\n");
 
-	return output("exiting with status "+to_string(status), status);
+    return output("exiting with status "+to_string(status), status);
 }

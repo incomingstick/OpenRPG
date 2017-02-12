@@ -26,11 +26,11 @@ include_directories("src/lib")
 add_subdirectory("src/lib")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/src/openrpg.cpp
+    ${CMAKE_SOURCE_DIR}/src/openrpg.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/config.h
+    ${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)

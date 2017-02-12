@@ -133,5 +133,5 @@ if(race.empty()) status =  output("race cannot be empty", EXIT_FAILURE);
         output(gen.make_name() +'\n');
     }
 
-	return output("exiting with status "+ to_string(status), status);
+    return output("exiting with status "+ to_string(status), status);
 }

@@ -140,7 +140,7 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv));
 
-	return output("exiting with status "+to_string(status), status);
+    return output("exiting with status "+to_string(status), status);
 }
 
 int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
