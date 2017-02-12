@@ -149,3 +149,26 @@ public:
 cppFile.cpp
 headerFile.h
 ````
+
+#### Switch Statements
+````c++
+/* this should be the standard method for
+    writing a switch statement unless switch
+    scoping is required */
+switch(c) {
+case 'a': {
+    // case a code here
+} break;
+
+case 'b': {
+    // case b code here
+} break;
+
+case 'c': {
+    // case c code here
+} break;
+
+default: {
+    // catch all code here
+}
+}
