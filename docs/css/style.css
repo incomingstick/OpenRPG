@@ -91,7 +91,7 @@ footer li {
     margin-bottom: 1.5rem;
     color: #ddd;
     text-align: center;
-    background-color: #328b7f;
+    background-color: #2196F3;
 }
 
 .pageheader h1 {
@@ -109,7 +109,7 @@ footer li {
     padding: 3rem 15px 2rem;
     color: #fff;
     text-align: center;
-    background-color: #328b7f;
+    background-color: #2196F3;
 }
 
 .lead {
@@ -126,7 +126,7 @@ footer li {
     color: #fff;
     text-align: center;
     cursor: default;
-    background-color: #328b7f;
+    background-color: #2196F3;
 }
 
 .masthead .version {
@@ -167,14 +167,14 @@ footer a, .navbar a {
 .nav > li > a:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #328b7f;
+    background-color: #2196F3;
 }
 
 .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
-    background-color: #328b7f;
-    border-color: #328b7f;
+    background-color: #2196F3;
+    border-color: #2196F3;
 }
 
 .doc-sidenav {
@@ -205,7 +205,7 @@ footer a, .navbar a {
 }
 
 .doc-nav-link:hover {
-    background-color: #328b7f;
+    background-color: #2196F3;
     color:  #fff;
     text-decoration: none;
 }
@@ -225,7 +225,7 @@ footer a, .navbar a {
 
 .doc-sidenav-active > a {
     color: #fff !important; /* TODO never use !important EVER */
-    background-color: #328b7f;
+    background-color: #2196F3;
 }
 
 .hidden-sm-down {
@@ -233,7 +233,7 @@ footer a, .navbar a {
 }
 
 .nav-active {
-    background-color: #328b7f;
+    background-color: #2196F3;
     color: #fff !important; /* TODO never use !important EVER */
 }
 
@@ -338,15 +338,15 @@ footer a, .navbar a {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-    color: #328b7f;
-    border-color: #328b7f;
+    color: #2196F3;
+    border-color: #2196F3;
 }
 
 .btn.active, .btn:focus, .btn:hover {
     text-decoration: none;
     color: #fff;
-    background-color: #328b7f;
-    border-color: #328b7f;
+    background-color: #2196F3;
+    border-color: #2196F3;
 }
 
 .btn-lg {
@@ -362,7 +362,7 @@ footer a, .navbar a {
 
 .masthead-btn.active, .masthead-btn:focus, .masthead-btn:hover {
     text-decoration: none;
-    color: #328b7f;
+    color: #2196F3;
     background-color: #110628;
     border-color: #110628;
 }
