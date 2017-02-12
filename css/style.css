@@ -119,10 +119,10 @@ footer li {
 
 .logo {
     margin: 0 auto 2rem;
-    width: 9rem;
-    height: 9rem;
-    font-size: 6.5rem;
-    line-height: 9rem;
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.5rem;
+    line-height: 6rem;
     color: #fff;
     text-align: center;
     cursor: default;
@@ -390,6 +390,14 @@ footer a:hover {
     .feature > h2 {
         font-size: 2.5rem;
     }
+
+    .logo {
+        margin: 0 auto 2rem;
+        width: 9rem;
+        height: 9rem;
+        font-size: 6.5rem;
+        line-height: 9rem;
+    }
 }
 
 @media (min-width: 576px) {
@@ -411,5 +419,13 @@ footer a:hover {
 
     .feature {
         text-align: left;
+    }
+
+    .logo {
+        margin: 0 auto 2rem;
+        width: 6rem;
+        height: 6rem;
+        font-size: 5.5rem;
+        line-height: 7rem;
     }
 }
