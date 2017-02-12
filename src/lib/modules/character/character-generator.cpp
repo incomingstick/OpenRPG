@@ -45,7 +45,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[]) {
+int parse_args(int argc, char* argv[], Ability* abil) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -84,13 +84,13 @@ int parse_args(int argc, char* argv[]) {
             output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
         } break;
-        
+
         /* parsing error */
         case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
         } break;
-        
+
         /* if we get here something very bad happened */
         default: {
             status = output("Aborting...", EXIT_FAILURE);
@@ -98,12 +98,7 @@ int parse_args(int argc, char* argv[]) {
         }
     }
 
-    return status;
-}
-
-int main(int argc, char* argv[]) {
-    int status = output("parse_args completed", parse_args(argc, argv)); // may exit
-
+    /* begin creating the character here */
     vector<int> stats = abil_arr();
 
     output("You generated the following ability scores: \n");
@@ -111,8 +106,6 @@ int main(int argc, char* argv[]) {
     for(int num : stats) output(to_string(num) + " ("+to_string(modifier(num))+")\n");
 
     output("\n");
-
-    Ability abil;
 
     for(size_t i = 0; i < stats.size(); i++) {
         int score;
@@ -123,7 +116,7 @@ int main(int argc, char* argv[]) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil.STR = score;
+            abil->STR = score;
         } break;
 
         case 1: {
@@ -131,7 +124,7 @@ int main(int argc, char* argv[]) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil.DEX = score;
+            abil->DEX = score;
         } break;
 
         case 2: {
@@ -139,7 +132,7 @@ int main(int argc, char* argv[]) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil.CON = score;
+            abil->CON = score;
         } break;
 
         case 3: {
@@ -147,25 +140,25 @@ int main(int argc, char* argv[]) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil.INT = score;
+            abil->INT = score;
         } break;
 
         case 4: {
             output("Set Wisdom\t (WIS): ");
 
             cin >> score;
-            // TODO if score is not on the list??            
-            abil.WIS = score;
+            // TODO if score is not on the list??
+            abil->WIS = score;
         } break;
-        
+
         case 5: {
             output("Set Charisma\t (CHA): ");
 
             cin >> score;
-            
-            abil.CHA = score;
+            // TODO if score is not on the list??
+            abil->CHA = score;
         } break;
-        
+
         default: {
             return output("should not have gotten here", EXIT_FAILURE);
         }
@@ -173,6 +166,13 @@ int main(int argc, char* argv[]) {
     }
 
     output("\n");
+
+    return status;
+}
+
+int main(int argc, char* argv[]) {
+    Ability abil;
+    int status = output("parse_args completed", parse_args(argc, argv, &abil)); // may exit
 
     Character player(abil);
 

@@ -73,7 +73,7 @@ class Character {
         Character(Ability ab, Skills sk);
         ~Character();
 
-        // Returns a copy of our Ability abils struct   
+        // Returns a copy of our Ability abils struct
         Ability get_ability_copy() { return abils; };
 
         // Returns a copy of our Skills skills struct

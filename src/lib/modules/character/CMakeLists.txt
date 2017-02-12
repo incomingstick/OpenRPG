@@ -5,7 +5,7 @@ include_directories("${MODULE_DIR}/roll"
                     "${MODULE_DIR}/names"
 )
 
-set(CG_SOURCES 
+set(CG_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/character-generator.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/character.cpp
 )
