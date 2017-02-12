@@ -6,6 +6,7 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <string>
 #include <vector>
 
 #include "utils.h"
@@ -81,13 +82,29 @@ Character::~Character() {
     // TODO nothing yet
 }
 
-// TODO accept different types of stat generation
+/* TODO format a ASCII text version of a character sheet */
+string Character::to_string() {
+    string ret("");
+
+    ret += "STR: "+ std::to_string(abils.STR) + "\n";
+    ret += "DEX: "+ std::to_string(abils.DEX) + "\n";
+    ret += "CON: "+ std::to_string(abils.CON) + "\n";
+    ret += "INT: "+ std::to_string(abils.INT) + "\n";
+    ret += "WIS: "+ std::to_string(abils.WIS) + "\n";
+    ret += "CHA: "+ std::to_string(abils.CHA) + "\n";
+
+    return ret;
+}
+
+/* TODO accept different types of stat generation */
 int gen_stat() {
     Die d6(6);
 
     return d6.roll() + d6.roll() + 6;
 }
 
+/* Generates a vector of ability scores base on the used type
+    TODO allow multiple types of ability score generation */
 vector<int> abil_arr() {
     vector<int> ret;
 

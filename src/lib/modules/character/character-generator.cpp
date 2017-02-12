@@ -110,16 +110,73 @@ int main(int argc, char* argv[]) {
 
     for(int num : stats) output(to_string(num) + " ("+to_string(modifier(num))+")\n");
 
+    output("\n");
+
     Ability abil;
 
-    abil.STR = stats[0];
-    abil.DEX = stats[1];
-    abil.CON = stats[2];
-    abil.INT = stats[3];
-    abil.WIS = stats[4];
-    abil.CHA = stats[5];
+    for(size_t i = 0; i < stats.size(); i++) {
+        int score;
+
+        switch(i) {
+        case 0: {
+            output("Set Strength\t (STR): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.STR = score;
+        } break;
+
+        case 1: {
+            output("Set Dexterity\t (DEX): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.DEX = score;
+        } break;
+
+        case 2: {
+            output("Set Constitution (CON): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.CON = score;
+        } break;
+
+        case 3: {
+            output("Set Intelligence (INT): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.INT = score;
+        } break;
+
+        case 4: {
+            output("Set Wisdom\t (WIS): ");
+
+            cin >> score;
+            // TODO if score is not on the list??            
+            abil.WIS = score;
+        } break;
+        
+        case 5: {
+            output("Set Charisma\t (CHA): ");
+
+            cin >> score;
+            
+            abil.CHA = score;
+        } break;
+        
+        default: {
+            return output("should not have gotten here", EXIT_FAILURE);
+        }
+        }
+    }
+
+    output("\n");
 
     Character player(abil);
+
+    output(player.to_string());
 
     return output("exiting with status "+to_string(status), status);
 }

@@ -91,6 +91,7 @@ class Character {
         int CHA_MOD() { return modifier(abils.CHA); };
 
         int passive_stat(int stat) { return 8 + prof + stat; };
+        std::string to_string();
 };
 
 #endif /* SRC_CHARACTER_H_ */
