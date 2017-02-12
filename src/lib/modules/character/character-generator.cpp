@@ -7,6 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <getopt.h>
+#include <vector>
 
 #include "config.h"
 #include "utils.h"
@@ -102,14 +103,22 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv)); // may exit
 
-    Character player;
+    vector<int> stats = abil_arr();
 
-    output("STR:\t"+ to_string(player.STR()) +"\t("+ to_string(player.STR_MOD())+")\n");
-    output("DEX:\t"+ to_string(player.DEX()) +"\t("+ to_string(player.DEX_MOD())+")\n");
-    output("CON:\t"+ to_string(player.CON()) +"\t("+ to_string(player.CON_MOD())+")\n");
-    output("INT:\t"+ to_string(player.INT()) +"\t("+ to_string(player.INT_MOD())+")\n");
-    output("WIS:\t"+ to_string(player.WIS()) +"\t("+ to_string(player.WIS_MOD())+")\n");
-    output("CHA:\t"+ to_string(player.CHA()) +"\t("+ to_string(player.CHA_MOD())+")\n");
+    output("You generated the following ability scores: \n");
+
+    for(int num : stats) output(to_string(num) + " ("+to_string(modifier(num))+")\n");
+
+    Ability abil;
+
+    abil.STR = stats[0];
+    abil.DEX = stats[1];
+    abil.CON = stats[2];
+    abil.INT = stats[3];
+    abil.WIS = stats[4];
+    abil.CHA = stats[5];
+
+    Character player(abil);
 
 	return output("exiting with status "+to_string(status), status);
 }

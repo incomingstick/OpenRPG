@@ -18,8 +18,12 @@ struct Ability {
     int CHA = 10;   // Charisma
 };
 
-// TODO better way??
-// These are just the 5E Skills
+/*
+TODO better way?? We need to also keep track of what
+skills have proficiency (or double prof)
+
+Note: These are just the 5E Skills
+*/
 struct Skills {
     int ACR = 0;    // Acrobatics       (DEX)
     int ANM = 0;    // Animal Handling  (WIS)
@@ -41,6 +45,15 @@ struct Skills {
     int SUR = 0;    // Survival         (WIS)
 };
 
+/* Generates a stat > 1 && < 20 */
+int gen_stat();
+
+/* Generates an array of stats > 1 && < 20 */
+std::vector<int> abil_arr();
+
+/* returns an integer representation of the passed abilities modifier */
+inline int modifier(int abil) { return (abil - 10) / 2; };
+
 // TODO take an in depth look at what should and should not be public here
 class Character {
     private:
@@ -50,14 +63,16 @@ class Character {
         int temp_hp;
         int max_hp;
         int prof;
+        int level;
+        int exp;
+        int max_exp;
     public:
-        Character(Ability ab, Skills sk);
         Character();
+        Character(Ability ab);
+        Character(Ability ab, Skills sk);
         ~Character();
-        Ability copy_ability() { return abils; };
-        Skills copy_skills() { return skills; };
-
-        int gen_stat();
+        Ability get_ability_copy() { return abils; };
+        Skills get_skills_copy() { return skills; };
 
         /* accessor functions for ability score modifiers */
         int STR() { return abils.STR; };
@@ -68,12 +83,12 @@ class Character {
         int CHA() { return abils.CHA; };
 
         /* accessor functions for ability score modifiers */
-        int STR_MOD() { return (abils.STR - 10) / 2; };
-        int DEX_MOD() { return (abils.DEX - 10) / 2; };
-        int CON_MOD() { return (abils.CON - 10) / 2; };
-        int INT_MOD() { return (abils.INT - 10) / 2; };
-        int WIS_MOD() { return (abils.WIS - 10) / 2; };
-        int CHA_MOD() { return (abils.CHA - 10) / 2; };
+        int STR_MOD() { return modifier(abils.STR); };
+        int DEX_MOD() { return modifier(abils.DEX); };
+        int CON_MOD() { return modifier(abils.CON); };
+        int INT_MOD() { return modifier(abils.INT); };
+        int WIS_MOD() { return modifier(abils.WIS); };
+        int CHA_MOD() { return modifier(abils.CHA); };
 
         int passive_stat(int stat) { return 8 + prof + stat; };
 };
