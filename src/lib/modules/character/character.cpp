@@ -12,15 +12,21 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+Character::Character(Ability ab, Skills sk)
+    :abils(ab),
+     skills(sk) {
+    output("character created", VB_CODE);
+}
+
 Character::Character() {
     output("character created", VB_CODE);
 
-    abil.STR = gen_stat();
-    abil.DEX = gen_stat();
-    abil.CON = gen_stat();
-    abil.INT = gen_stat();
-    abil.WIS = gen_stat();
-    abil.CHA = gen_stat();
+    abils.STR = gen_stat();
+    abils.DEX = gen_stat();
+    abils.CON = gen_stat();
+    abils.INT = gen_stat();
+    abils.WIS = gen_stat();
+    abils.CHA = gen_stat();
 }
 
 Character::~Character() {
@@ -30,5 +36,5 @@ Character::~Character() {
 int Character::gen_stat() {
     Die d6(6);
 
-    return d6.roll() + d6.roll() + 6;;
+    return d6.roll() + d6.roll() + 6;
 }

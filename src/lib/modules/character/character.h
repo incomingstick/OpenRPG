@@ -44,20 +44,38 @@ struct Skills {
 // TODO take an in depth look at what should and should not be public here
 class Character {
     private:
-        Ability abil;
+        Ability abils;
         Skills skills;
-        int gen_stat();
+        int curr_hp;
+        int temp_hp;
+        int max_hp;
+        int prof;
     public:
+        Character(Ability ab, Skills sk);
         Character();
         ~Character();
-        Ability get_ability_copy() { return abil; };
-        Skills get_skills_copy() { return skills; };
-        int STR() { return abil.STR; };
-        int DEX() { return abil.DEX; };
-        int CON() { return abil.CON; };
-        int INT() { return abil.INT; };
-        int WIS() { return abil.WIS; };
-        int CHA() { return abil.CHA; };
+        Ability copy_ability() { return abils; };
+        Skills copy_skills() { return skills; };
+
+        int gen_stat();
+
+        /* accessor functions for ability score modifiers */
+        int STR() { return abils.STR; };
+        int DEX() { return abils.DEX; };
+        int CON() { return abils.CON; };
+        int INT() { return abils.INT; };
+        int WIS() { return abils.WIS; };
+        int CHA() { return abils.CHA; };
+
+        /* accessor functions for ability score modifiers */
+        int STR_MOD() { return (abils.STR - 10) / 2; };
+        int DEX_MOD() { return (abils.DEX - 10) / 2; };
+        int CON_MOD() { return (abils.CON - 10) / 2; };
+        int INT_MOD() { return (abils.INT - 10) / 2; };
+        int WIS_MOD() { return (abils.WIS - 10) / 2; };
+        int CHA_MOD() { return (abils.CHA - 10) / 2; };
+
+        int passive_stat(int stat) { return 8 + prof + stat; };
 };
 
 #endif /* SRC_CHARACTER_H_ */

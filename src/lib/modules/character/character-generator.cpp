@@ -104,12 +104,12 @@ int main(int argc, char* argv[]) {
 
     Character player;
 
-    output("STR: "+ to_string(player.STR()) +"\n");
-    output("DEX: "+ to_string(player.DEX()) +"\n");
-    output("CON: "+ to_string(player.CON()) +"\n");
-    output("INT: "+ to_string(player.INT()) +"\n");
-    output("WIS: "+ to_string(player.WIS()) +"\n");
-    output("CHA: "+ to_string(player.CHA()) +"\n");
+    output("STR:\t"+ to_string(player.STR()) +"\t("+ to_string(player.STR_MOD())+")\n");
+    output("DEX:\t"+ to_string(player.DEX()) +"\t("+ to_string(player.DEX_MOD())+")\n");
+    output("CON:\t"+ to_string(player.CON()) +"\t("+ to_string(player.CON_MOD())+")\n");
+    output("INT:\t"+ to_string(player.INT()) +"\t("+ to_string(player.INT_MOD())+")\n");
+    output("WIS:\t"+ to_string(player.WIS()) +"\t("+ to_string(player.WIS_MOD())+")\n");
+    output("CHA:\t"+ to_string(player.CHA()) +"\t("+ to_string(player.CHA_MOD())+")\n");
 
 	return output("exiting with status "+to_string(status), status);
 }
