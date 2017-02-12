@@ -41,3 +41,7 @@
 [Bb]uild32/
 [Bb]uild64/
 .vscode
+
+# Project Folders
+doc/
+src/
