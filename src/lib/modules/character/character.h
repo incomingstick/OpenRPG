@@ -66,6 +66,7 @@ class Character {
         int level;
         int exp;
         int max_exp;
+        std::string name;
     public:
         Character();
         Character(Ability ab);

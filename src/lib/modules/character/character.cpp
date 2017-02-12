@@ -11,11 +11,16 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "utils.h"
 #include "die.h"
+#include "names.h"
 #include "character.h"
 
 using namespace std;
 
 Character::Character() {
+    NameGenerator ng;
+
+    name = ng.make_name();
+
     abils.STR = gen_stat();    // Strength
     abils.DEX = gen_stat();    // Dexterity
     abils.CON = gen_stat();    // Constitution
@@ -48,6 +53,9 @@ Character::Character() {
 
 Character::Character(Ability ab)
     :abils(ab) {
+    NameGenerator ng;
+
+    name = ng.make_name();
 
     // TODO will need to be modified when prof is taken in to account
     skills.ACR = abils.DEX;    // Acrobatics       (DEX)
@@ -75,6 +83,10 @@ Character::Character(Ability ab)
 Character::Character(Ability ab, Skills sk)
     :abils(ab),
      skills(sk) {
+    NameGenerator ng;
+
+    name = ng.make_name();
+
     output("character created", VB_CODE);
 }
 
@@ -85,6 +97,8 @@ Character::~Character() {
 /* TODO format a ASCII text version of a character sheet */
 string Character::to_string() {
     string ret("");
+
+    ret += "~~~ " + name + " ~~~\n";
 
     ret += "STR: "+ std::to_string(abils.STR) + "\n";
     ret += "DEX: "+ std::to_string(abils.DEX) + "\n";
