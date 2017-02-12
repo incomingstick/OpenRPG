@@ -28,6 +28,10 @@
 *.out
 *.app
 
+# compiled and generated files
+Makefile.*
+config.h
+
 # Folders and other files
 [Dd]ebug/
 .settings/
