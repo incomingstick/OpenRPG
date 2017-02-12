@@ -68,31 +68,32 @@ int parse_args(int argc, char* argv[]) {
 
         switch (opt) {
         /* -h --help */
-        case 'h':
+        case 'h': {
             print_help_flag();
-            break;
+        } break;
 
         /* -v --version */
-        case 'v':
+        case 'v': {
             print_version_flag();
-            break;
+        } break;
 
         /* -V --verbose */
-        case 'V':
+        case 'V': {
             VB_FLAG = true;
             output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
-            break;
+        } break;
         
         /* parsing error */
-        case '?':
+        case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
-            break;
+        } break;
         
         /* if we get here something very bad happened */
-        default:
+        default: {
             status = output("Aborting...", EXIT_FAILURE);
+        }
         }
     }
 

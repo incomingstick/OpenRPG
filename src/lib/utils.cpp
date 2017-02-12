@@ -153,19 +153,25 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
     for(;;) {
         int c = sb->sbumpc();
         switch (c) {
-        case '\n':
+        case '\n': {
             return is;
-        case '\r':
+        } break;
+
+        case '\r': {
             if(sb->sgetc() == '\n')
                 sb->sbumpc();
             return is;
-        case EOF:
+        } break;
+
+        case EOF: {
             // Also handle the case when the last line has no line ending
             if(t.empty())
                 is.setstate(std::ios::eofbit);
             return is;
-        default:
+        } break;
+        default: {
             t += (char)c;
+        }
         }
     }
 }
