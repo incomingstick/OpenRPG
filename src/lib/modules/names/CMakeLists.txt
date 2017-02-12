@@ -1,10 +1,10 @@
 set(NG_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
 )
 
 set(NG_INCLUDES
-		${CMAKE_CURRENT_SOURCE_DIR}/names.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/names.h
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
