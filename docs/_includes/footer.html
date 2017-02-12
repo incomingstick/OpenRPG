@@ -6,11 +6,27 @@
       <li><a href="{{ site.baseurl }}/about/history/">About</a></li>
     </ul>
 
-    <div class="copyright">
-      <p>Currently v{{ site.current_version }}.</p>
-      <p>Copyright 2017 Nicholas Gaulke</p>
-      <p>Distributed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007 (GPL-3.0). (See
-          copy <a href="{{ site.repo }}/about/license/">here.</a>)</p>
-    </div>
+    <p>Currently v{{ site.current_version }}.</p>
+    <p>Copyright 2017 Nicholas Gaulke</p>
+    <p>Distributed under the OpenRPG Software License - Version 1.0 - February 10th, 2017. (See
+        copy <a href="{{ site.baseurl }}/about/license/">here</a>)</p>
   </div>
 </footer>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{{ site.baseurl }}/js/ie10-viewport-bug-workaround.js"></script>
+<script src="{{ site.baseurl }}/js/ie-emulation-modes-warning.js"></script>
+
+{% if page.layout == "docs" %}
+<script src="{{ site.baseurl }}/js/vendor/jekyll-search.min.js"></script>
+
+<script>
+SimpleJekyllSearch.init({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('search-results'),
+  searchResultTemplate: '<a class="dropdown-item" href="{url}">{title}</a>',
+  noResultsText: '<div class="dropdown-item no-results">Sorry, there are no results for that search.</div>',
+  json: '{{ site.baseurl }}/search.json'
+})
+</script>
+{% endif %}

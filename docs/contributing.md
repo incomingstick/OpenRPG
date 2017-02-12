@@ -10,11 +10,6 @@ group: contributing
 </p>
 <!-- Copied from CONTRIBUTING.md -->
 
-# Contributing to the project
-
-So you want to know how you can help?? You've come to the right place!
-Below you will find many ways you can help.
-
 ## Contributing Issues
 
 ### Before Submitting an Issue

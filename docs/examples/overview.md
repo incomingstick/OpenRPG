@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Introduction
+title: Overview
 description: OpenRPG all the tools you need to get creative
 group: examples
 redirect_from: "/examples/"
