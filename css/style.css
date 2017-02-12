@@ -96,12 +96,13 @@ footer li {
 
 .pageheader h1 {
     color: #fff;
-    font-size: 4rem;
+    font-size: 3rem;
+    font-weight: 500;
 }
 
 .pageheader p {
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .masthead {
@@ -378,6 +379,10 @@ footer a:hover {
 
 /* @media styles */
 @media (min-width: 768px) {
+    .pageheader h1 {
+        font-size: 5rem;
+    }
+
     .masthead {
         padding-bottom: 4rem;
     }
@@ -406,6 +411,10 @@ footer a:hover {
         padding-bottom: 4rem;
         margin-bottom: 3rem;
         text-align: left;
+    }
+
+    .pageheader h1 {
+        font-size: 4rem;
     }
 
     .masthead {
