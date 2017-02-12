@@ -10,6 +10,11 @@ group: contributing
 </p>
 <!-- Copied from CONTRIBUTING.md -->
 
+## Contents
+
+* Will be replaced with the ToC, excluding the "Contents" header
+{:toc}
+
 ## Contributing Issues
 
 ### Before Submitting an Issue
@@ -96,7 +101,7 @@ by someone that understand the language.
 #### v1.0.0
 - [ ] fully portable GUI front-end for the CLI tools
 - [ ] city/town generator - fully generate a city/town with business names, NPC's, and a population
-    - [ ] passed basic info about town (name, size [exact diameter in meters OR small | medium |large | etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
+    - [ ] passed basic info about town (name, size [exact diameter in meters OR small, medium, large, etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
 - [ ] encounter/combat generator
     - [ ] passed basic info about encounter/combat (combat rating, average group level, etc.) and generates the rest (blank for completely generated)
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
