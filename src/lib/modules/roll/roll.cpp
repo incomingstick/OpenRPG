@@ -75,41 +75,42 @@ int parse_args(int argc, char* argv[]) {
 
         switch (opt) {
         /* -h --help */
-        case 'h':
+        case 'h': {
             print_help_flag();
-            break;
+        } break;
 
         /* -p --positive */
-        case 'p':
+        case 'p': {
             POS_FLAG = true;
-            break;
+        } break;
         
         /* -s --sum-series */
-        case 's':
+        case 's': {
             SUM_FLAG = true;
-            break;
+        } break;
 
         /* -v --version */
-        case 'v':
+        case 'v': {
             print_version_flag();
-            break;
+        } break;
 
         /* -V --verbose */
-        case 'V':
+        case 'V': {
             VB_FLAG = true;
             output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
-            break;
+        } break;
         
         /* parsing error */
-        case '?':
+        case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
-            break;
+        } break;
         
         /* if we get here something very bad happened */
-        default:
+        default: {
             status = output("Aborting...", EXIT_FAILURE);
+        }
         }
     }
 
@@ -140,7 +141,7 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv));
 
-	return output("exiting with status "+to_string(status), status);
+    return output("exiting with status "+to_string(status), status);
 }
 
 int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
@@ -292,43 +293,42 @@ int roll_expression(struct parse_node* node, bool print) {
         int sum = 0;
 
         switch(cur->op) {
-        case OP_NUMBER:
+        case OP_NUMBER: {
             sum = cur->value;
-            break;
+        } break;
 
-        case OP_REP:
+        case OP_REP: {
             for (i = 0; i < roll_expression(cur->left, false); i++)
                 sum = checked_sum(sum, roll_expression(cur->right, false));
-            break;
+        } break;
       
         case OP_DICE: {
-                Die die(roll_expression(cur->right, false));
-                sum = die.roll();
-            }
-            break;
+            Die die(roll_expression(cur->right, false));
+            sum = die.roll();
+        } break;
       
-        case OP_PLUS:
+        case OP_PLUS: {
             sum = checked_sum(roll_expression(cur->left, false),
                               roll_expression(cur->right, false));
-            break;
+        } break;
       
-        case OP_MINUS:
+        case OP_MINUS: {
             sum = checked_sum(roll_expression(cur->left, false),
                              -roll_expression(cur->right, false));
-            break;
+        } break;
       
-        case OP_TIMES:
+        case OP_TIMES: {
             sum = checked_multiplication(roll_expression(cur->left, false),
                                          roll_expression( cur->right, false));
-            break;
+        } break;
       
-        case OP_DIV:
+        case OP_DIV: {
             sum = (int)
             ceil((float)roll_expression(cur->left, false) /
                         roll_expression(cur->right, false));
-            break;
+        } break;
       
-        case OP_HIGH:
+        case OP_HIGH: {
             sides       = roll_expression(cur->right->right->right, false);
             repetitions = roll_expression(cur->right->left, false);
             high        = roll_expression(cur->left, false);      
@@ -350,9 +350,9 @@ int roll_expression(struct parse_node* node, bool print) {
             }
       
             free(results);
-            break;
+        } break;
       
-        case OP_LOW:
+        case OP_LOW: {
             sides       = roll_expression(cur->right->right->right, false);
             repetitions = roll_expression(cur->right->left,  false);
             low         = roll_expression(cur->left, false);
@@ -378,9 +378,9 @@ int roll_expression(struct parse_node* node, bool print) {
             }
       
             free(results);
-            break;
+        } break;
 
-        case OP_GT:
+        case OP_GT: {
             limit = roll_expression(cur->right, false);      
             tmp   = roll_expression(cur->left,  false);
             
@@ -389,9 +389,9 @@ int roll_expression(struct parse_node* node, bool print) {
             }
             
             sum = checked_sum( sum, tmp );
-            break;
+        } break;
       
-        case OP_GE:
+        case OP_GE: {
             limit = roll_expression(cur->right, false);      
             tmp   = roll_expression(cur->left,  false);
             
@@ -400,9 +400,9 @@ int roll_expression(struct parse_node* node, bool print) {
             }
       
             sum = checked_sum( sum, tmp );
-            break;
+        } break;
       
-        case OP_LT:
+        case OP_LT: {
             limit = roll_expression(cur->right, false);      
             tmp   = roll_expression(cur->left,  false);
       
@@ -412,9 +412,9 @@ int roll_expression(struct parse_node* node, bool print) {
       
             sum = checked_sum( sum, tmp );
       
-            break;
+        } break;
       
-        case OP_LE:
+        case OP_LE: {
             limit = roll_expression(cur->right, false);      
             tmp   = roll_expression(cur->left,  false);
       
@@ -423,9 +423,9 @@ int roll_expression(struct parse_node* node, bool print) {
             }
       
             sum = checked_sum( sum, tmp );
-            break;
+        } break;
         
-        case OP_NE:
+        case OP_NE: {
             limit = roll_expression(cur->right, false);      
             tmp   = roll_expression(cur->left,  false);
       
@@ -436,6 +436,11 @@ int roll_expression(struct parse_node* node, bool print) {
             }
         
             return return_value;
+        } break;
+
+        default: {
+            exit(output("got to default of roll_expression switch", EXIT_FAILURE));
+        }
         }
 
         return_value = checked_sum(return_value, sum);

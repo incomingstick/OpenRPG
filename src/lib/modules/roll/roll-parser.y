@@ -100,47 +100,47 @@ top_level_expression : expression {
         print_tree("TREE", $3, 0);
 
     for (i = 0; i < repetitions; i++) {
-    	res = roll_expression($3, true);
-    	
-		if (SUM_FLAG == true) {
+      res = roll_expression($3, true);
+      
+    if (SUM_FLAG == true) {
           output("Sum: "+ to_string(res) +"\n");
-        	sum += res;
-      	}
+          sum += res;
+        }
     }
 
-  	$$ = sum;
+    $$ = sum;
 }
 ;
 
 expression_list : expression {
-  	$$ = $1;
+    $$ = $1;
 }
 | expression COMMA expression_list {
-  	$1->next = $3;
-  	$$ = $1;
+    $1->next = $3;
+    $$ = $1;
 }
 ;
 
 expression : term {
-  	$$ = $1;
+    $$ = $1;
 }
 | expression PLUS term {
-  	$$ = new_op(OP_PLUS, $1, $3);
+    $$ = new_op(OP_PLUS, $1, $3);
 }
 | expression MINUS term {
-  	$$ = new_op(OP_MINUS, $1, $3);
+    $$ = new_op(OP_MINUS, $1, $3);
 }
 ;
 
 factor   :   NUMBER filtered_dice {
 
-  	$$ = new_op(OP_REP, new_number($1), $2);
+    $$ = new_op(OP_REP, new_number($1), $2);
   
 }
 | NUMBER filtered_dice HIGH NUMBER {
 
   if ($4 > $1) {
-    	output("the number of kept dices must be lower than the actual dices", 1);
+      output("the number of kept dices must be lower than the actual dices", 1);
   }
 
   $$ = new_op(OP_HIGH, new_number($4), new_op(OP_REP, new_number($1), $2));

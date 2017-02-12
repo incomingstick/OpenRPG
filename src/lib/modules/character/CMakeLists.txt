@@ -4,12 +4,12 @@ set(MODULE_DIR "${CMAKE_SOURCE_DIR}/src/lib/modules")
 include_directories("${MODULE_DIR}/roll")
 
 set(CG_SOURCES 
-		${CMAKE_CURRENT_SOURCE_DIR}/character-generator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/character-generator.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/character.cpp
 )
 
 set(CG_INCLUDES
-		${CMAKE_CURRENT_SOURCE_DIR}/character.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/character.h
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=gnu++11")
