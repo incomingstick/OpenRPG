@@ -8,8 +8,8 @@ There is NO WARRANTY, to the extent permitted by law.
  */
 #include <unistd.h>
 #include <sys/ioctl.h>
-
 #include <unistd.h>
+
 #include <fstream>
 #include <string>
 #include <functional>

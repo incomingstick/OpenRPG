@@ -6,14 +6,14 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <getopt.h>
+
 #include <iostream>
 #include <cstdio>
 #include <cmath>
 #include <climits>
 #include <cstring>
 #include <string>
-
-#include <getopt.h>
 
 #include "config.h"
 #include "utils.h"
@@ -24,7 +24,10 @@ using namespace std;
 bool POS_FLAG;
 bool SUM_FLAG;
 
-
+/**
+  * @desc prints the current compiled version
+  * @return void - always exits with status EXIT_SUCCESS
+  */
 static void print_version_flag() {
     fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -34,6 +37,10 @@ static void print_version_flag() {
     exit(EXIT_SUCCESS);
 }
 
+/**
+  * @desc prints the help and usage menu
+  * @return void - always exits with status EXIT_SUCCESS
+  */
 static void print_help_flag() {
     fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -55,8 +62,14 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/**
+  * @desc parses through the arguements passed by char* argv[] and runs
+  *     program logic realted to those arguements. This function may
+  *     exit the program
+  * @param int argc - length of argv as an integer
+  * @param char* argv[] - an array of cstrings read from the command line
+  * @return int - signifies the stats of the function call, 0 for success
+  */
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
@@ -146,6 +159,14 @@ int parse_args(int argc, char* argv[]) {
     return status;
 }
 
+/**
+  * @desc parses through the arguements passed by char* argv[] and runs
+  *     program logic realted to those arguements. This function may
+  *     exit the program
+  * @param int argc - length of argv as an integer
+  * @param char* argv[] - an array of cstrings read from the command line
+  * @return int - signifies the stats of the function call, 0 for success
+  */
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv));
 
