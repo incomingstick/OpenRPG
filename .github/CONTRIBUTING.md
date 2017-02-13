@@ -81,7 +81,7 @@ by someone that understand the language.
     - [ ] Triton (VOLO)
     - [ ] Vampire ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
     - [ ] Warforged: ([UA: "Eberron"](https://media.wizards.com/2015/downloads/dnd/UA_Eberron_v1.pdf))
-- [ ] character generator
+- [X] character generator (began implementation in [v0.1.0-dev](https://github.com/incomingstick/OpenRPG/tree/v0.1.0-dev), current development branch - character-module)
     - [ ] populates a PDF character sheet with the generated information
     - [ ] automatically determines if the character is legal in Adventurers League
     - [ ] can pass any number of stats and autofill the rest (blank for completely generated)
