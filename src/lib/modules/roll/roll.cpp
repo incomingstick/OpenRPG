@@ -10,12 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-extern bool POS_FLAG;
-extern bool SUM_FLAG;
+bool POS_FLAG;
+bool SUM_FLAG;
 
-#ifndef yyconst
-#define yyconst const
-#endif
 
 static void print_version_flag() {
     fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
@@ -129,9 +126,9 @@ int parse_args(int argc, char* argv[]) {
     if (expression.size() > 0) {
         globalInputString = expression.c_str();
 
-        yyparse();
+        // TODO parse globalInputString here
     } else {
-        yyparse();
+        // TODO roll 1d6 here
     }
 
     return status;
