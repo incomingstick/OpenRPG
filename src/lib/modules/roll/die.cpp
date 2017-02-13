@@ -1,6 +1,5 @@
 /*
 roll - die.cpp
-
 Created on: Nov 10, 2016
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
