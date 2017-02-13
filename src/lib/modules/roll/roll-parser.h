@@ -50,7 +50,9 @@ class ExpressionTree {
         int parse_tree(struct parse_node* node, bool print);
         void print_tree(struct parse_node* node, int indent);
 
-        int globalReadOffset = 0; 
+        int globalReadOffset = 0;
+
+        struct parse_node* head = allocate_node();
 
         std::string inputString = "1d20";
 

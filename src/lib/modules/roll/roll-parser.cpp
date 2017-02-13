@@ -9,6 +9,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <climits>
 #include <cstring>
 #include <cmath>
+#include <cctype>
 
 #include "utils.h"
 #include "die.h"
@@ -371,7 +372,9 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
     int bytesRemaining = inputString.length() - globalReadOffset;
     
     if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
-    
+
+    buff->clear();
+
     for(int i = 0; i < numBytesToRead; i++)
         buff->push_back(inputString[globalReadOffset+i]);
     
@@ -387,15 +390,36 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
 void ExpressionTree::parse_expression(void) {
     string curParseString = "";
 
-    int numBytesRead;
-    int numBytesToRead = 4;
+    int numBytesRead = 0;
+    int numBytesToRead = 0;
 
-    /* TODO now that this function is working as intended (probably)
-        we should scan the string to create the tree and parse out
-        the expression */
-    parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
+    /* TODO we should scan the string to create the tree and parse out the expression */
+    for(char ch : inputString) {
+        if(isdigit(ch)) {
+            numBytesToRead++;
+        } else if(!isspace(ch)) {
+            if(numBytesToRead > 0) {
+                parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
+                output("number: "+curParseString+"\n");
+                
+                numBytesToRead = 0;
+            }
 
-    output("read "+ to_string(numBytesRead) +"/"+ to_string(numBytesToRead) +" bytes ("+ curParseString +") from "+ inputString + "\n");
+            switch(ch) {
+            default: {
+                output("char: "+ string(1, ch) +"\n");
+                globalReadOffset++;
+            }
+            }
+        } else globalReadOffset++;
+
+        if(ch == inputString.back() && numBytesToRead > 0) {
+            parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
+            output("number: "+curParseString+"\n");
+                
+            numBytesToRead = 0;
+        }
+    }
 }
 
 /**
