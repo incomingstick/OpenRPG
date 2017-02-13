@@ -32,5 +32,5 @@ repo:             https://github.com/incomingstick/OpenRPG
 discord:          https://discord.gg/vdwKeZg
 
 download:
-  source:         https://github.com/incomingstick/OpenRPG/archive/v0.1.0-dev.zip
-  dist:           https://github.com/incomingstick/OpenRPG/archive/v0.1.0-dev.zip
+  source:         https://github.com/incomingstick/OpenRPG/archive/v0.1.1-dev.zip
+  dist:           https://github.com/incomingstick/OpenRPG/archive/v0.1.1-dev.zip
