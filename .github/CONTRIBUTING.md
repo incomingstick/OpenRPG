@@ -41,7 +41,7 @@ by someone that understand the language.
 ### Release Requirement TODO's
 
 #### v0.1.0-dev
-- [X] dice simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
+- [X] die simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
     - [ ] allows full math using dice (current development branch - roll-module)
 - [X] name generator (began implementation in [v0.0.2-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.2-dev), current development branch - names-module)
     - [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))

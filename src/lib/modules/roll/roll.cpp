@@ -17,6 +17,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "config.h"
 #include "utils.h"
+#include "roll-parser.h"
 #include "die.h"
 
 using namespace std;
@@ -148,13 +149,7 @@ int parse_args(int argc, char* argv[]) {
         argv++;
     }
 
-    if (expression.size() > 0) {
-        //globalInputString = expression.c_str();
-
-        // TODO parse globalInputString here
-    } else {
-        // TODO roll 1d6 here
-    }
+    if (expression.size() > 0) globalInputString = expression;
 
     return status;
 }
@@ -170,7 +165,14 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed", parse_args(argc, argv));
 
-    // TODO handle parsing here probably
+    output(globalInputString + "\n");
+
+    // string test;
+    // int bytesRead;
+
+    // parse_global_input_string(&test, &bytesRead, globalInputString.length());
+
+    // output("read "+ to_string(bytesRead) +" bytes of "+ globalInputString +" to "+ test);
 
     return output("exiting with status "+to_string(status), status);
 }

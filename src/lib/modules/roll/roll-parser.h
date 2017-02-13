@@ -16,14 +16,14 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "utils.h"
 #include "die.h"
 
-#define FUDGE_DICE      -2 // represents a fudge die
+#define FUDGE_DIE       -2 // represents a fudge die
 #define HUNDRED         -1 // represents d100
 
 /* parse tree nodes */
 #define OP_NUMBER        1 // number node
 #define OP_TIMES         2 // multiplication node
 #define OP_DIV           3 // integer division node
-#define OP_DICE          4 // n-sided dice node
+#define OP_DIE           4 // n-sided die node
 #define OP_PLUS          5 // addition node
 #define OP_MINUS         6 // subtraction node
 #define OP_HIGH          7 // keep highest results node
@@ -32,7 +32,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define OP_GE           10 // keep results greater or equal than
 #define OP_LT           11 // keep results less than
 #define OP_LE           12 // keep results less or equal than
-#define OP_NE           13 // keep results different from
+#define OP_NE           13 // keep results not equal to
 #define OP_REP          14 // number of rolls (repetitions)
 
 extern bool POS_FLAG;
@@ -41,10 +41,10 @@ extern bool SUM_FLAG;
 int globalReadOffset = 0; 
 
 // Text to read:
-static const char* globalInputString = "1d6";
+std::string globalInputString = "1d20";
 
-/* function for flex and bison to parse in a string to yyin */
-int read_string(char *buff, int *numBytesRead, int maxBytesToRead);
+/* function to parse in a die equation string */
+int parse_global_input_string(std::string* buff, int* numBytesRead, int maxBytesToRead);
 
 /* node of the intermediate representation parse tree */
 struct parse_node {
@@ -60,10 +60,10 @@ int checked_multiplication(int op1, int op2);
 
 struct parse_node* allocate_node(void);
 struct parse_node* new_number(int number);
-struct parse_node* new_op (unsigned short int op, struct parse_node* left, struct parse_node* right);
-struct parse_node* new_dice (struct parse_node* sides);
+struct parse_node* new_op(unsigned short int op, struct parse_node* left, struct parse_node* right);
+struct parse_node* new_die(struct parse_node* sides);
 
-int roll_expression(struct parse_node* node, bool print);
+int parse_tree(struct parse_node* node, bool print);
 void print_tree(std::string prefix, struct parse_node* node, int indent);
 
 #endif  /* SRC_ROLL_PARSER_H_ */
