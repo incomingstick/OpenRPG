@@ -18,7 +18,6 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include <getopt.h>
 
-#include "roll-parser.hpp"
 #include "config.h"
 #include "utils.h"
 #include "die.h"

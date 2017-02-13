@@ -28,7 +28,7 @@
 *.out
 *.app
 
-# compiled and generated files
+# Project generated files
 Makefile.*
 config.h
 

@@ -101,7 +101,7 @@ int parse_args(int argc, char* argv[]) {
         /* -q --quiet */
         case 'q': {
             QUIET_FLAG = true;
-            output("turning output flag off", VB_CODE);
+            output("turning verbose flag off", VB_CODE);
             VB_FLAG = false;
         } break;
 
