@@ -25,4 +25,4 @@ edit the original config.h.in file NOT THIS FILE.
 #define COPYRIGHT "(C) 2016-@YEAR@ @OpenRPG_AUTHOR@"
 #define ASSET_LOC "@CMAKE_INSTALL_PREFIX@/assets"
 
-#endif
+#endif  /* SRC_CONFIG_H_ */
