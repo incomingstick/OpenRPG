@@ -6,12 +6,15 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-/*
-TODO we will need to intergrate this in to our roll.cpp file to
-be used to interface with the die class and anything else we would
-like to do in this parser.
-*/
-int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
+
+/**
+  * @desc TODO figure this out
+  * @param char* buff - pointer to the buffer
+  * @param int* numBytesRead - the number of bytes to read
+  * @param int maxBytesToRead - the maximum number of bytes to read
+  * @return int - TODO figure this out
+  */
+int read_string(char* buff, int* numBytesRead, int maxBytesToRead) {
     int numBytesToRead = maxBytesToRead;
     int bytesRemaining = strlen(globalInputString) - globalReadOffset;
     
