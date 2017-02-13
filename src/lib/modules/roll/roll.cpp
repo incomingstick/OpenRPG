@@ -8,17 +8,11 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <getopt.h>
 
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <climits>
-#include <cstring>
 #include <string>
 
 #include "config.h"
 #include "utils.h"
 #include "roll-parser.h"
-#include "die.h"
 
 using namespace std;
 
@@ -71,7 +65,7 @@ static void print_help_flag() {
   * @param char* argv[] - an array of cstrings read from the command line
   * @return int - signifies the stats of the function call, 0 for success
   */
-int parse_args(int argc, char* argv[]) {
+int parse_args(int argc, char* argv[], string* inputString) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -149,7 +143,8 @@ int parse_args(int argc, char* argv[]) {
         argv++;
     }
 
-    if (expression.size() > 0) globalInputString = expression;
+    if (expression.size() > 0) *inputString = expression;
+    else *inputString = "1d20";
 
     return status;
 }
@@ -163,16 +158,13 @@ int parse_args(int argc, char* argv[]) {
   * @return int - signifies the stats of the function call, 0 for success
   */
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed", parse_args(argc, argv));
+    string inputString;
+    int status = output("parse_args completed", parse_args(argc, argv, &inputString));
 
-    output(globalInputString + "\n");
+    ExpressionTree tree;
 
-    // string test;
-    // int bytesRead;
-
-    // parse_global_input_string(&test, &bytesRead, globalInputString.length());
-
-    // output("read "+ to_string(bytesRead) +" bytes of "+ globalInputString +" to "+ test);
+    tree.set_expression(inputString);
+    tree.parse_expression();
 
     return output("exiting with status "+to_string(status), status);
 }

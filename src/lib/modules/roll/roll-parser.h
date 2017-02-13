@@ -9,13 +9,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_ROLL_PARSER_H_
 #define SRC_ROLL_PARSER_H_
 
-#include <climits>
-#include <cstring>
-#include <cmath>
-
-#include "utils.h"
-#include "die.h"
-
 #define FUDGE_DIE       -2 // represents a fudge die
 #define HUNDRED         -1 // represents d100
 
@@ -38,14 +31,6 @@ There is NO WARRANTY, to the extent permitted by law.
 extern bool POS_FLAG;
 extern bool SUM_FLAG;
 
-int globalReadOffset = 0; 
-
-// Text to read:
-std::string globalInputString = "1d20";
-
-/* function to parse in a die equation string */
-int parse_global_input_string(std::string* buff, int* numBytesRead, int maxBytesToRead);
-
 /* node of the intermediate representation parse tree */
 struct parse_node {
     struct parse_node* left;    // left node
@@ -55,15 +40,28 @@ struct parse_node {
     int value;                  // node value
 };
 
-int checked_sum(int op1, int op2);
-int checked_multiplication(int op1, int op2);
+class ExpressionTree {
+    private:
+        struct parse_node* allocate_node();
+        struct parse_node* new_number(int number);
+        struct parse_node* new_op(unsigned short int op, struct parse_node* left, struct parse_node* right);
+        struct parse_node* new_die(struct parse_node* sides);
 
-struct parse_node* allocate_node(void);
-struct parse_node* new_number(int number);
-struct parse_node* new_op(unsigned short int op, struct parse_node* left, struct parse_node* right);
-struct parse_node* new_die(struct parse_node* sides);
+        int parse_tree(struct parse_node* node, bool print);
+        void print_tree(struct parse_node* node, int indent);
 
-int parse_tree(struct parse_node* node, bool print);
-void print_tree(std::string prefix, struct parse_node* node, int indent);
+        int globalReadOffset = 0; 
+
+        std::string inputString = "1d20";
+
+        /* function to parse in a die equation string */
+        int parse_input_string(std::string* buff, int* numBytesRead, int maxBytesToRead);
+    public:
+        void set_expression(const std::string exp) { inputString = exp; };
+        void parse_expression();
+
+        int checked_sum(int op1, int op2);
+        int checked_multiplication(int op1, int op2);
+};
 
 #endif  /* SRC_ROLL_PARSER_H_ */

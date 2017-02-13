@@ -6,34 +6,15 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <climits>
+#include <cstring>
+#include <cmath>
+
+#include "utils.h"
+#include "die.h"
 #include "roll-parser.h"
 
 using namespace std;
-
-/**
-  * @desc reads in to the buffer bytes equal to maxBytesToRead
-  *     begining with an offest equal to globalReadOffset
-  *     and incremnting globalReadOffset by the number of bytes
-  *     read.
-  * @param char* buff - pointer to the buffer
-  * @param int* numBytesRead - pointer to the number of bytes we have read
-  * @param int maxBytesToRead - the maximum number of bytes to read
-  * @return 0 - to signify success
-  */
-int parse_global_input_string(string* buff, int* numBytesRead, int maxBytesToRead) {
-    int numBytesToRead = maxBytesToRead;
-    int bytesRemaining = globalInputString.length() - globalReadOffset;
-    
-    if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
-    
-    for(int i = 0; i < numBytesToRead; i++)
-        buff[i] = globalInputString[globalReadOffset+i];
-    
-    *numBytesRead = numBytesToRead;
-    globalReadOffset += numBytesToRead;
-    
-    return 0;
-}
 
 /**
   * @desc compares two values p1 and p2 as integers returning
@@ -52,39 +33,10 @@ int compare(const void* p1, const void* p2) {
 }
 
 /**
-  * @desc outputs an error with ERROR_CODE if there
-  *     would be an addition overflow
-  * @param int op1 - an integer to be added
-  * @param int op2 - an integer to be added
-  * @return int - op1 + op2
-  */
-int checked_sum(int op1, int op2) {
-    if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
-        output("overflow", ERROR_CODE);
-    
-    return op1+op2;
-}
-
-/**
-  * @desc outputs an error with ERROR_CODE if there
-  *     would be a multiplication overflow
-  * @param int op1 - an integer to be multiplied
-  * @param int op2 - an integer to be multiply by
-  * @return int - op1 * op2
-  */
-int checked_multiplication(int op1, int op2) {
-    int result = op1 * op2;
-    if(op1 != 0 && result / op1 != op2 )
-        output("overflow", ERROR_CODE);
-    
-    return result;
-}
-
-/**
   * @desc creates a pointer to an empty parse_node
   * @return struct parse_node* - and empty parse_node
   */
-struct parse_node* allocate_node(void) {
+struct parse_node* ExpressionTree::allocate_node() {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
     if(node == NULL) {
@@ -108,7 +60,7 @@ struct parse_node* allocate_node(void) {
   * @param int number - number for the nodes value
   * @return struct parse_node* - pointer to the created parse_node
   */
-struct parse_node* new_number(int number) {
+struct parse_node* ExpressionTree::new_number(int number) {
     struct parse_node* node = allocate_node();
     
     node->op = OP_NUMBER;
@@ -125,7 +77,7 @@ struct parse_node* new_number(int number) {
   * @param struct parse_node* left - the node to the left of our new node
   * @return struct parse_node* - a pointer to a node with the given op, left, and right
   */
-struct parse_node* new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
+struct parse_node* ExpressionTree::new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
     struct parse_node* node = allocate_node();
     
     node->op = op;
@@ -142,7 +94,7 @@ struct parse_node* new_op (unsigned short int op, struct parse_node* left, struc
   * @param struct parse_node* sides - the node to be placed to the right of our new node
   * @return struct parse_node* - a new node with op OP_DIE and sides on the right
   */
-struct parse_node* new_die (struct parse_node* sides) {
+struct parse_node* ExpressionTree::new_die (struct parse_node* sides) {
     struct parse_node* node = allocate_node();
   
     node->op = OP_DIE;
@@ -183,7 +135,7 @@ void print_node(struct parse_node* node, string pad) {
   * @param struct parse_node* node - the top node of the tree to print
   * @param int - the amount of whitespace to indent the current node by
   */
-void print_tree(struct parse_node* node, int indent) {
+void ExpressionTree::print_tree(struct parse_node* node, int indent) {
     int i;
     string pad("");
 
@@ -211,7 +163,7 @@ void print_tree(struct parse_node* node, int indent) {
   * @param bool print - bool flag to print return value
   * @return Function return
   */
-int parse_tree(struct parse_node* node, bool print) {
+int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
     int high;
     int i;
     int limit;
@@ -402,4 +354,65 @@ int parse_tree(struct parse_node* node, bool print) {
     }
 
     return ret;
+}
+
+/**
+  * @desc reads in to the buffer bytes equal to maxBytesToRead
+  *     begining with an offest equal to globalReadOffset
+  *     and incremnting globalReadOffset by the number of bytes
+  *     read.
+  * @param char* buff - pointer to the buffer
+  * @param int* numBytesRead - pointer to the number of bytes we have read
+  * @param int maxBytesToRead - the maximum number of bytes to read
+  * @return 0 - to signify success
+  */
+int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxBytesToRead) {
+    int numBytesToRead = maxBytesToRead;
+    int bytesRemaining = inputString.length() - globalReadOffset;
+    
+    if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
+    
+    for(int i = 0; i < numBytesToRead; i++)
+        buff[i] = inputString[globalReadOffset+i];
+    
+    *numBytesRead = numBytesToRead;
+    globalReadOffset += numBytesToRead;
+    
+    return 0;
+}
+
+/**
+  * @desc TODO parses the string held by the ExpressionTree
+  */
+void ExpressionTree::parse_expression(void) {
+    output("TODO parsing of "+ inputString +"\n");
+}
+
+/**
+  * @desc outputs an error with ERROR_CODE if there
+  *     would be an addition overflow
+  * @param int op1 - an integer to be added
+  * @param int op2 - an integer to be added
+  * @return int - op1 + op2
+  */
+int ExpressionTree::checked_sum(int op1, int op2) {
+    if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
+        output("overflow", ERROR_CODE);
+    
+    return op1 + op2;
+}
+
+/**
+  * @desc outputs an error with ERROR_CODE if there
+  *     would be a multiplication overflow
+  * @param int op1 - an integer to be multiplied
+  * @param int op2 - an integer to be multiply by
+  * @return int - op1 * op2
+  */
+int ExpressionTree::checked_multiplication(int op1, int op2) {
+    int result = op1 * op2;
+    if(op1 != 0 && result / op1 != op2 )
+        output("overflow", ERROR_CODE);
+    
+    return result;
 }
