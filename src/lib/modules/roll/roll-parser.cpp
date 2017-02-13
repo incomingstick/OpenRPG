@@ -373,7 +373,7 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
     if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
     
     for(int i = 0; i < numBytesToRead; i++)
-        buff[i] = inputString[globalReadOffset+i];
+        buff->push_back(inputString[globalReadOffset+i]);
     
     *numBytesRead = numBytesToRead;
     globalReadOffset += numBytesToRead;
@@ -385,7 +385,17 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
   * @desc TODO parses the string held by the ExpressionTree
   */
 void ExpressionTree::parse_expression(void) {
-    output("TODO parsing of "+ inputString +"\n");
+    string curParseString = "";
+
+    int numBytesRead;
+    int numBytesToRead = 4;
+
+    /* TODO now that this function is working as intended (probably)
+        we should scan the string to create the tree and parse out
+        the expression */
+    parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
+
+    output("read "+ to_string(numBytesRead) +"/"+ to_string(numBytesToRead) +" bytes ("+ curParseString +") from "+ inputString + "\n");
 }
 
 /**
