@@ -9,7 +9,12 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_ROLL_PARSER_H_
 #define SRC_ROLL_PARSER_H_
 
-#include <getopt.h>
+#include <climits>
+#include <cstring>
+#include <cmath>
+
+#include "utils.h"
+#include "die.h"
 
 #define FUDGE_DICE      -2 // represents a fudge die
 #define HUNDRED         -1 // represents d100
@@ -33,7 +38,7 @@ There is NO WARRANTY, to the extent permitted by law.
 extern bool POS_FLAG;
 extern bool SUM_FLAG;
 
-static int globalReadOffset;
+int globalReadOffset = 0; 
 
 // Text to read:
 static const char* globalInputString = "1d6";

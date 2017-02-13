@@ -7,12 +7,19 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 
+#include "roll-parser.h"
+
+using namespace std;
+
 /**
-  * @desc TODO figure this out
+  * @desc reads in to the buffer bytes equal to maxBytesToRead
+  *     begining with an offest equal to globalReadOffset
+  *     and incremnting globalReadOffset by the number of bytes
+  *     read.
   * @param char* buff - pointer to the buffer
-  * @param int* numBytesRead - the number of bytes to read
+  * @param int* numBytesRead - pointer to the number of bytes we have read
   * @param int maxBytesToRead - the maximum number of bytes to read
-  * @return int - TODO figure this out
+  * @return 0 - to signify success
   */
 int read_string(char* buff, int* numBytesRead, int maxBytesToRead) {
     int numBytesToRead = maxBytesToRead;
@@ -29,6 +36,7 @@ int read_string(char* buff, int* numBytesRead, int maxBytesToRead) {
     return 0;
 }
 
+/* TODO fiinish commenting all of these functions to be used */
 struct parse_node* allocate_node(void) {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
@@ -47,6 +55,12 @@ struct parse_node* allocate_node(void) {
     return node;
 }
 
+/**
+  * @desc creates a parse_node with an op value of OP_NUMBER
+  *     and a value of number
+  * @param int number - number for the nodes value
+  * @return struct parse_node* - pointer to the created parse_node
+  */
 struct parse_node* new_number(int number) {
     struct parse_node* node = allocate_node();
     
@@ -56,6 +70,13 @@ struct parse_node* new_number(int number) {
     return node;
 }
 
+/**
+  * @desc compares two values p1 and p2 as integers returning
+  *     p1 > p2 = 1, p1 < p2 = -1, p1 = p2 = 0 
+  * @param const void* p1 - first value to be compared
+  * @param const void* p2 - second value to be compared
+  * @return int - >  1, < -1, =  0
+  */
 int compare(const void* p1, const void* p2) {
     const int i1 = *((const int *)p1);
     const int i2 = *((const int *)p2);
