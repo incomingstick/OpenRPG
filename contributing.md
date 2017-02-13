@@ -116,10 +116,22 @@ submitted as a Pull Request to a current developement branch first.
 Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
 file.
 
+
 ### Programming Standards
+
+#### File Naming
+````c++
+cppFile.cpp
+headerFile.h
+````
 
 #### Code Blocks
 ````c++
+/**
+  * @desc function description here
+  * @param arg bar - what purpose this arg will serve
+  * @return function - what does the function return and why
+  */
 function Class::foo(arg bar) {
     // do stuff
     // 4 space tabbed indent
@@ -128,6 +140,11 @@ function Class::foo(arg bar) {
 
 #### Function and Variable Naming
 ````c++
+/**
+  * @desc function description here
+  * @param arg variableName - what purpose this arg will serve
+  * @return function - what does the function return and why
+  */
 function Class::my_function_name(arg variableName) {
     // do stuff
 }
@@ -142,12 +159,6 @@ private:
 public:
     // public variables and functions here
 };
-````
-
-#### File Naming
-````c++
-cppFile.cpp
-headerFile.h
 ````
 
 #### Switch Statements
