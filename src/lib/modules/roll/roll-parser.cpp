@@ -444,6 +444,13 @@ void ExpressionTree::parse_expression(void) {
                 representation of the current token. Add a new node as the
                 right child of the current node and descend to the right child. */
             case '+': {
+                if(cur->op) {
+                    while(cur->parent) cur = cur->parent;
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                    cur = cur->parent;
+                }
+
                 cur->op = OP_PLUS;
                 cur->right = allocate_node();
                 cur->right->parent = cur;
@@ -451,6 +458,13 @@ void ExpressionTree::parse_expression(void) {
             } break;
 
             case '-': {
+                if(cur->op) {
+                    while(cur->parent) cur = cur->parent;
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                    cur = cur->parent;
+                }
+
                 cur->op = OP_MINUS;
                 cur->right = allocate_node();
                 cur->right->parent = cur;
@@ -458,6 +472,13 @@ void ExpressionTree::parse_expression(void) {
             } break;
 
             case '*': {
+                if(cur->op) {
+                    while(cur->parent) cur = cur->parent;
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                    cur = cur->parent;
+                }
+
                 cur->op = OP_TIMES;
                 cur->right = allocate_node();
                 cur->right->parent = cur;
@@ -465,6 +486,13 @@ void ExpressionTree::parse_expression(void) {
             } break;
 
             case '/': {
+                if(cur->op) {
+                    while(cur->parent) cur = cur->parent;
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                    cur = cur->parent;
+                }
+                
                 cur->op = OP_DIV;
                 cur->right = allocate_node();
                 cur->right->parent = cur;
@@ -531,9 +559,7 @@ void ExpressionTree::parse_expression(void) {
             numBytesToRead = 0;
         }
     }
-    while(head->parent != NULL) head = head->parent;    // TODO make our head tracking more efficient
-
-    output("cur = "+ node_to_string(cur), VB_CODE);
+    while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
 
     print_tree(head, 0);
 
