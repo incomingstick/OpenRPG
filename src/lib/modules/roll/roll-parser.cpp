@@ -10,6 +10,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <cstring>
 #include <cmath>
 #include <cctype>
+#include <stack>
 
 #include "utils.h"
 #include "die.h"
@@ -37,7 +38,7 @@ int compare(const void* p1, const void* p2) {
   * @desc creates a pointer to an empty parse_node
   * @return struct parse_node* - and empty parse_node
   */
-struct parse_node* ExpressionTree::allocate_node() {
+parse_node* ExpressionTree::allocate_node() {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
     if(node == NULL) {
@@ -46,10 +47,10 @@ struct parse_node* ExpressionTree::allocate_node() {
     }
 
     /* initialize default values */
-    node->left  = NULL;
+    node->left = NULL;
     node->right = NULL;
-    node->next  = NULL;
-    node->op    = 0;
+    node->parent = NULL;
+    node->op = 0;
     node->value = 0;
   
     return node;
@@ -61,7 +62,7 @@ struct parse_node* ExpressionTree::allocate_node() {
   * @param int number - number for the nodes value
   * @return struct parse_node* - pointer to the created parse_node
   */
-struct parse_node* ExpressionTree::new_number(int number) {
+parse_node* ExpressionTree::new_number(int number) {
     struct parse_node* node = allocate_node();
     
     node->op = OP_NUMBER;
@@ -78,7 +79,7 @@ struct parse_node* ExpressionTree::new_number(int number) {
   * @param struct parse_node* left - the node to the left of our new node
   * @return struct parse_node* - a pointer to a node with the given op, left, and right
   */
-struct parse_node* ExpressionTree::new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
+parse_node* ExpressionTree::new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
     struct parse_node* node = allocate_node();
     
     node->op = op;
@@ -95,7 +96,7 @@ struct parse_node* ExpressionTree::new_op (unsigned short int op, struct parse_n
   * @param struct parse_node* sides - the node to be placed to the right of our new node
   * @return struct parse_node* - a new node with op OP_DIE and sides on the right
   */
-struct parse_node* ExpressionTree::new_die (struct parse_node* sides) {
+parse_node* ExpressionTree::new_die (struct parse_node* sides) {
     struct parse_node* node = allocate_node();
   
     node->op = OP_DIE;
@@ -110,23 +111,23 @@ struct parse_node* ExpressionTree::new_die (struct parse_node* sides) {
   * @param struct parse_node* node - the node to print
   * @return Function return
   */
-void print_node(struct parse_node* node, string pad) {
+string node_to_string(struct parse_node* node) {
     switch(node->op) {
-    case OP_NUMBER: output(pad +"number ("+ to_string(node->value) +")", VB_CODE); break;      
-    case OP_DIE:   output(pad +"die", VB_CODE); break;
-    case OP_PLUS:   output(pad +"+", VB_CODE); break;
-    case OP_MINUS:  output(pad +"-", VB_CODE); break;
-    case OP_TIMES:  output(pad +"*", VB_CODE); break;
-    case OP_DIV:    output(pad +"/", VB_CODE); break;
-    case OP_HIGH:   output(pad +"high", VB_CODE); break;
-    case OP_LOW:    output(pad +"low", VB_CODE); break;
-    case OP_GT:     output(pad +">", VB_CODE); break;
-    case OP_GE:     output(pad +">=", VB_CODE); break;
-    case OP_LT:     output(pad +"<", VB_CODE); break;
-    case OP_LE:     output(pad +"<=", VB_CODE); break;
-    case OP_NE:     output(pad +"!=", VB_CODE); break;
-    case OP_REP:    output(pad +"rep", VB_CODE); break;
-    default :       output(pad +"unknown node", VB_CODE); break;
+    case OP_NUMBER: return to_string(node->value);      
+    case OP_DIE:    return "die";
+    case OP_PLUS:   return "+";
+    case OP_MINUS:  return "-";
+    case OP_TIMES:  return "*";
+    case OP_DIV:    return "/";
+    case OP_HIGH:   return "high";
+    case OP_LOW:    return "low";
+    case OP_GT:     return ">";
+    case OP_GE:     return ">=";
+    case OP_LT:     return "<";
+    case OP_LE:     return "<=";
+    case OP_NE:     return "!=";
+    case OP_REP:    return "rep";
+    default :       return "unknown node ("+ to_string(node->value) +", "+ to_string(node->op) +")";
     }
 }
 
@@ -136,24 +137,22 @@ void print_node(struct parse_node* node, string pad) {
   * @param struct parse_node* node - the top node of the tree to print
   * @param int - the amount of whitespace to indent the current node by
   */
-void ExpressionTree::print_tree(struct parse_node* node, int indent) {
+void ExpressionTree::print_tree(struct parse_node* node, int indent, string pre) {
     int i;
     string pad("");
 
     for(i = 0; i < indent; i++) {
-        pad += " ";
+       pad += " ";
     }
 
-    print_node(node, pad);
-
-    output("\n", VB_FLAG);
+    output(pad + pre + "(" + node_to_string(node) +")", VB_CODE);
 
     if(node->left != NULL) {
-        print_tree(node->left, indent+1);
+        print_tree(node->left, indent + 2, "left->");
     }
 
     if(node->right != NULL) {
-        print_tree(node->right, indent+1);
+        print_tree(node->right, indent + 2, "right->");
     }
 }
 
@@ -179,180 +178,175 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
     /* sets our current node to node */
     struct parse_node* cur = node;
 
-    while (cur != NULL) {
-        int sum = 0;
+    int sum = 0;
 
-        switch(cur->op) {
-        // number node
-        case OP_NUMBER: {
-            sum = cur->value;
-        } break;
+    switch(cur->op) {
+    // number node
+    case OP_NUMBER: {
+        sum = cur->value;
+    } break;
 
-        // multiplication node
-        case OP_TIMES: {
-            sum = checked_multiplication(parse_tree(cur->left, false),
-                                         parse_tree(cur->right, false));
-        } break;
+    // multiplication node
+    case OP_TIMES: {
+        sum = checked_multiplication(parse_tree(cur->left, false),
+                                     parse_tree(cur->right, false));
+    } break;
 
-        // integer division node
-        case OP_DIV: {
-            sum = (int)
-            ceil((float)parse_tree(cur->left, false) /
-                        parse_tree(cur->right, false));
-        } break;
+    // integer division node
+    case OP_DIV: {
+        sum = (int)
+        ceil((float)parse_tree(cur->left, false) /
+                    parse_tree(cur->right, false));
+    } break;
 
-        // n-sided die node
-        case OP_DIE: {
-            Die die(parse_tree(cur->right, false));
-            sum = die.roll();
-        } break;
+    // n-sided die node
+    case OP_DIE: {
+        Die die(parse_tree(cur->right, false));
+        sum = die.roll();
+    } break;
       
-        // addition node
-        case OP_PLUS: {
-            sum = checked_sum(parse_tree(cur->left, false),
-                              parse_tree(cur->right, false));
-        } break;
+    // addition node
+    case OP_PLUS: {
+        sum = checked_sum(parse_tree(cur->left, false),
+                          parse_tree(cur->right, false));
+    } break;
       
-        // subtraction node
-        case OP_MINUS: {
-            sum = checked_sum(parse_tree(cur->left, false),
-                             -parse_tree(cur->right, false));
-        } break;
+    // subtraction node
+    case OP_MINUS: {
+        sum = checked_sum(parse_tree(cur->left, false),
+                         -parse_tree(cur->right, false));
+    } break;
       
-        // keep highest results node
-        case OP_HIGH: {
-            sides       = parse_tree(cur->right->right->right, false);
+    // keep highest results node
+    case OP_HIGH: {
+        sides       = parse_tree(cur->right->right->right, false);
+        repetitions = parse_tree(cur->right->left, false);
+        high        = parse_tree(cur->left, false);      
+
+        // array to store the results to sort
+        if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
+            output("out of memory", ERROR_CODE);
+        }
+      
+        for(i=0; i<repetitions; i++) {
+            Die die(sides);
+            results[i] = die.roll();
+        }
+
+        qsort(results, repetitions, sizeof(int), &compare);
+
+        for(i=(repetitions-high); i<repetitions; i++) {
+            sum = checked_sum( sum, results[i] );
+        }
+      
+        free(results);
+    } break;
+        
+    // keep lowest resutls node
+    case OP_LOW: {
+        sides       = parse_tree(cur->right->right->right, false);
+        repetitions = parse_tree(cur->right->left,  false);
+        low         = parse_tree(cur->left, false);
+      
+        if (cur->right->left != NULL) {
             repetitions = parse_tree(cur->right->left, false);
-            high        = parse_tree(cur->left, false);      
-
-            // array to store the results to sort
-            if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", ERROR_CODE);
-            }
-      
-            for(i=0; i<repetitions; i++) {
-                Die die(sides);
-                results[i] = die.roll();
-            }
-
-            qsort(results, repetitions, sizeof(int), &compare);
-
-            for(i=(repetitions-high); i<repetitions; i++) {
-                sum = checked_sum( sum, results[i] );
-            }
-      
-            free(results);
-        } break;
-        
-        // keep lowest resutls node
-        case OP_LOW: {
-            sides       = parse_tree(cur->right->right->right, false);
-            repetitions = parse_tree(cur->right->left,  false);
-            low         = parse_tree(cur->left, false);
-      
-            if (cur->right->left != NULL) {
-                repetitions = parse_tree(cur->right->left, false);
-            }
+        }
                   
-            /* array to store the results to sort */
-            if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", ERROR_CODE);
-            }
-      
-            for(i=0; i<repetitions; i++) {
-                Die die(sides);
-                results[i] = die.roll();
-            }
-
-            qsort(results, repetitions, sizeof(int), &compare);
-      
-            for(i=0; i<low; i++) {
-                sum = checked_sum( sum, results[i] );
-            }
-      
-            free(results);
-        } break;
-
-        // keep results greater than
-        case OP_GT: {
-            limit = parse_tree(cur->right, false);      
-            tmp   = parse_tree(cur->left,  false);
-            
-            while (tmp <= limit) {
-                tmp = parse_tree(cur->left, false);
-            }
-            
-            sum = checked_sum( sum, tmp );
-        } break;
-        
-        // keep results greater or equal than
-        case OP_GE: {
-            limit = parse_tree(cur->right, false);      
-            tmp   = parse_tree(cur->left,  false);
-            
-            while (tmp < limit) {
-                tmp = parse_tree(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-        } break;
-        
-        // keep results less than
-        case OP_LT: {
-            limit = parse_tree(cur->right, false);      
-            tmp   = parse_tree(cur->left,  false);
-      
-            while (tmp >= limit) {
-                tmp = parse_tree(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-      
-        } break;
-        
-        // keep results less or equal than
-        case OP_LE: {
-            limit = parse_tree(cur->right, false);      
-            tmp   = parse_tree(cur->left,  false);
-      
-            while (tmp > limit) {
-                tmp = parse_tree(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-        } break;
-        
-        // keep results not equal to
-        case OP_NE: {
-            limit = parse_tree(cur->right, false);      
-            tmp   = parse_tree(cur->left,  false);
-      
-            while (tmp == limit) {
-                tmp = parse_tree(cur->left, false);
-                fprintf(stderr, "Implementation error: unkown IR node with code %i\n", cur->op);
-                exit(EXIT_FAILURE);      
-            }
-        
-            return ret;
-        } break;
-
-        // number of rolls (repetitions)
-        case OP_REP: {
-            for (i = 0; i < parse_tree(cur->left, false); i++)
-                sum = checked_sum(sum, parse_tree(cur->right, false));
-        } break;
-
-        default: {
-            exit(output("got to default of parse_tree switch", EXIT_FAILURE));
+        /* array to store the results to sort */
+        if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
+            output("out of memory", ERROR_CODE);
         }
+      
+        for(i=0; i<repetitions; i++) {
+            Die die(sides);
+            results[i] = die.roll();
         }
 
-        ret = checked_sum(ret, sum);
+        qsort(results, repetitions, sizeof(int), &compare);
+      
+        for(i=0; i<low; i++) {
+            sum = checked_sum( sum, results[i] );
+        }
+      
+        free(results);
+    } break;
 
-        if(print) output(to_string(sum)+"\n");
+    // keep results greater than
+    case OP_GT: {
+        limit = parse_tree(cur->right, false);      
+        tmp   = parse_tree(cur->left,  false);
+            
+        while (tmp <= limit) {
+            tmp = parse_tree(cur->left, false);
+        }
+            
+        sum = checked_sum( sum, tmp );
+    } break;
 
-        cur = cur->next;    // move us to the next node in the tree
+    // keep results greater or equal than
+    case OP_GE: {
+    limit = parse_tree(cur->right, false);      
+        tmp   = parse_tree(cur->left,  false);
+        
+        while (tmp < limit) {
+            tmp = parse_tree(cur->left, false);
+        }
+    
+        sum = checked_sum( sum, tmp );
+    } break;
+        
+    // keep results less than
+    case OP_LT: {
+        limit = parse_tree(cur->right, false);      
+        tmp   = parse_tree(cur->left,  false);
+    
+        while (tmp >= limit) {
+            tmp = parse_tree(cur->left, false);
+        }
+    
+        sum = checked_sum( sum, tmp );
+    
+    } break;
+    
+    // keep results less or equal than
+    case OP_LE: {
+        limit = parse_tree(cur->right, false);      
+        tmp   = parse_tree(cur->left,  false);
+    
+        while (tmp > limit) {
+            tmp = parse_tree(cur->left, false);
+        }
+    
+        sum = checked_sum( sum, tmp );
+    } break;
+    
+    // keep results not equal to
+    case OP_NE: {
+        limit = parse_tree(cur->right, false);      
+        tmp   = parse_tree(cur->left,  false);
+    
+        while (tmp == limit) {
+            tmp = parse_tree(cur->left, false);
+            exit(output("Implementation error: unkown IR node with code "+ to_string(cur->op) +"\n", EXIT_FAILURE));      
+        }
+    
+        return ret;
+    } break;
+
+    // number of rolls (repetitions)
+    case OP_REP: {
+        for (i = 0; i < parse_tree(cur->left, false); i++)
+            sum = checked_sum(sum, parse_tree(cur->right, false));
+    } break;
+
+    default: {
+        exit(output("got to default of parse_tree switch", EXIT_FAILURE));
     }
+    }
+
+    ret = checked_sum(ret, sum);
+
+    if(print) output(to_string(sum)+"\n");
 
     return ret;
 }
@@ -376,7 +370,7 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
     buff->clear();
 
     for(int i = 0; i < numBytesToRead; i++)
-        buff->push_back(inputString[globalReadOffset+i]);
+        buff->push_back(inputString[i + globalReadOffset]);
     
     *numBytesRead = numBytesToRead;
     globalReadOffset += numBytesToRead;
@@ -400,8 +394,8 @@ void ExpressionTree::parse_expression(void) {
         child of the current node, and descend to the left child.
 
     2) If the current token is in the list ['+','-','/','*'],
-        set the root value of the current node to the operator
-        represented by the current token. Add a new node as the
+        set value of the current node to the operator code
+        representation of the current token. Add a new node as the
         right child of the current node and descend to the right child.
 
     3) If the current token is a number, set the root value of the
@@ -416,29 +410,118 @@ void ExpressionTree::parse_expression(void) {
         if(isdigit(cur_ch)) {
             numBytesToRead++;
         } else if(!isspace(cur_ch)) {
+            /* 3) If the current token is a number, set the root value of the
+                current node to the number and return to the parent. */
+            if(numBytesToRead > 0) {
+                parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
+                output("number: "+curParseString+"\n");
+
+                cur->value = stoi(curParseString);
+                cur->op = OP_NUMBER;
+
+                if(cur->parent != NULL) cur = cur->parent;
+
+                numBytesToRead = 0;
+            }
+
+            switch(cur_ch) {
+            /* 1) If the current token is a '(', add a new node as the left
+                child of the current node, and descend to the left child. */
+            case '(': {
+                struct parse_node* left = allocate_node();
+                left->parent = cur;
+                cur->left = left;
+                cur = cur->left;
+            } break;
+
+            /* 2) If the current token is in the list ['+','-','/','*'],
+                set value of the current node to the operator code
+                representation of the current token. Add a new node as the
+                right child of the current node and descend to the right child. */
+            case '+': {
+                cur->op = OP_PLUS;
+                cur->right = allocate_node();
+                cur->right->parent = cur;
+                cur = cur->right;
+            } break;
+
+            case '-': {
+                cur->op = OP_MINUS;
+                cur->right = allocate_node();
+                cur->right->parent = cur;
+                cur = cur->right;
+            } break;
+
+            case '*': {
+                cur->op = OP_TIMES;
+                cur->right = allocate_node();
+                cur->right->parent = cur;
+                cur = cur->right;
+            } break;
+
+            case '/': {
+                cur->op = OP_DIV;
+                cur->right = allocate_node();
+                cur->right->parent = cur;
+                cur = cur->right;
+            } break;
+
+            /* 4) If the current token is a ')', go to the parent of the current node. */
+            case ')': {
+                if(cur->parent != NULL) cur = cur->parent;
+            } break;
+
+            default: {
+                /* 
+                 * Default case for this scanner.
+                 * This set of characters will include all
+                 * charcters except:
+                 *  ['+','-','/','*', '()', '0-9']
+                 */
+            }
+            }
+            
+            output("char: "+ string(1, cur_ch) +"\n");
+
+            globalReadOffset++;  
+        } else {
+            /* 3) If the current token is a number, set the root value of the
+                current node to the number and return to the parent. */
             if(numBytesToRead > 0) {
                 parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
                 output("number: "+curParseString+"\n");
                 
+                cur->value = stoi(curParseString);
+                cur->op = OP_NUMBER;
+
+                if(cur->parent != NULL) cur = cur->parent;
+
                 numBytesToRead = 0;
             }
 
-            /* here we create a parse_node based on the current char */
-            switch(cur_ch) {
-            default: {
-                output("char: "+ string(1, cur_ch) +"\n");
-                globalReadOffset++;
-            }
-            }
-        } else globalReadOffset++;
+            globalReadOffset++;
+        }
 
+        /* 3) If the current token is a number, set the root value of the
+                current node to the number and return to the parent. */
         if(it + 1 == inputString.end() && numBytesToRead > 0) {
             parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
             output("number: "+curParseString+"\n");
-                
+            
+            cur->value = stoi(curParseString);
+            cur->op = OP_NUMBER;
+
+            if(cur->parent != NULL) cur = cur->parent;
+
             numBytesToRead = 0;
+
+            output("cur = "+ node_to_string(cur), VB_CODE);
         }
     }
+
+    print_tree(head, 0);
+
+    if(parse_tree(head, true) != 0);
 }
 
 /**

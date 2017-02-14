@@ -35,20 +35,20 @@ extern bool SUM_FLAG;
 struct parse_node {
     struct parse_node* left;    // left node
     struct parse_node* right;   // right node
-    struct parse_node* next;    // next tree
+    struct parse_node* parent;  // this nodes parent
     unsigned short int op;      // node type
     int value;                  // node value
 };
 
 class ExpressionTree {
     private:
-        struct parse_node* allocate_node();
-        struct parse_node* new_number(int number);
-        struct parse_node* new_op(unsigned short int op, struct parse_node* left, struct parse_node* right);
-        struct parse_node* new_die(struct parse_node* sides);
+        parse_node* allocate_node();
+        parse_node* new_number(int number);
+        parse_node* new_op(unsigned short int op, struct parse_node* left, struct parse_node* right);
+        parse_node* new_die(struct parse_node* sides);
 
         int parse_tree(struct parse_node* node, bool print);
-        void print_tree(struct parse_node* node, int indent);
+        void print_tree(struct parse_node* node, int indent, std::string pre = "head->");
 
         int globalReadOffset = 0;
 
