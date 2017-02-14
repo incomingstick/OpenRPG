@@ -389,7 +389,7 @@ void ExpressionTree::parse_expression(void) {
 
     struct parse_node* cur = head;
 
-    /* Basic rules of a math expression parser
+    /* Basic rules of a math expression parser (these WILL need improvement)
     1) If the current token is a '(', add a new node as the left
         child of the current node, and descend to the left child.
 
@@ -414,12 +414,17 @@ void ExpressionTree::parse_expression(void) {
                 current node to the number and return to the parent. */
             if(numBytesToRead > 0) {
                 parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-                output("number: "+curParseString+"\n");
+                output("number: "+curParseString, VB_CODE);
 
                 cur->value = stoi(curParseString);
                 cur->op = OP_NUMBER;
 
-                if(cur->parent != NULL) cur = cur->parent;
+                if(cur->parent == NULL) {
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                }
+                
+                cur = cur->parent;
 
                 numBytesToRead = 0;
             }
@@ -481,7 +486,7 @@ void ExpressionTree::parse_expression(void) {
             }
             }
             
-            output("char: "+ string(1, cur_ch) +"\n");
+            output("char: "+ string(1, cur_ch), VB_CODE);
 
             globalReadOffset++;  
         } else {
@@ -489,12 +494,17 @@ void ExpressionTree::parse_expression(void) {
                 current node to the number and return to the parent. */
             if(numBytesToRead > 0) {
                 parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-                output("number: "+curParseString+"\n");
+                output("number: "+curParseString, VB_CODE);
                 
                 cur->value = stoi(curParseString);
                 cur->op = OP_NUMBER;
 
-                if(cur->parent != NULL) cur = cur->parent;
+                if(cur->parent == NULL) {
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                }
+                
+                cur = cur->parent;
 
                 numBytesToRead = 0;
             }
@@ -506,18 +516,24 @@ void ExpressionTree::parse_expression(void) {
                 current node to the number and return to the parent. */
         if(it + 1 == inputString.end() && numBytesToRead > 0) {
             parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-            output("number: "+curParseString+"\n");
+            output("number: "+curParseString, VB_CODE);
             
             cur->value = stoi(curParseString);
             cur->op = OP_NUMBER;
 
-            if(cur->parent != NULL) cur = cur->parent;
+            if(cur->parent == NULL) {
+                cur->parent = allocate_node();
+                cur->parent->left = cur;
+            }
+                
+            cur = cur->parent;
 
             numBytesToRead = 0;
-
-            output("cur = "+ node_to_string(cur), VB_CODE);
         }
     }
+    while(head->parent != NULL) head = head->parent;    // TODO make our head tracking more efficient
+
+    output("cur = "+ node_to_string(cur), VB_CODE);
 
     print_tree(head, 0);
 
