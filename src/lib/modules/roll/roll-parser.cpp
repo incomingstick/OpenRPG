@@ -394,10 +394,11 @@ void ExpressionTree::parse_expression(void) {
     int numBytesToRead = 0;
 
     /* TODO we should scan the string to create the tree and parse out the expression */
-    for(char ch : inputString) {
-        if(isdigit(ch)) {
+    for(string::iterator it = inputString.begin(); it != inputString.end(); ++it) {
+        char cur_ch = *it;
+        if(isdigit(cur_ch)) {
             numBytesToRead++;
-        } else if(!isspace(ch)) {
+        } else if(!isspace(cur_ch)) {
             if(numBytesToRead > 0) {
                 parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
                 output("number: "+curParseString+"\n");
@@ -405,15 +406,16 @@ void ExpressionTree::parse_expression(void) {
                 numBytesToRead = 0;
             }
 
-            switch(ch) {
+            /* here we create a parse_node based on the current char */
+            switch(cur_ch) {
             default: {
-                output("char: "+ string(1, ch) +"\n");
+                output("char: "+ string(1, cur_ch) +"\n");
                 globalReadOffset++;
             }
             }
         } else globalReadOffset++;
 
-        if(ch == inputString.back() && numBytesToRead > 0) {
+        if(it + 1 == inputString.end() && numBytesToRead > 0) {
             parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
             output("number: "+curParseString+"\n");
                 
