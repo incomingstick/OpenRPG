@@ -506,6 +506,13 @@ void ExpressionTree::parse_expression(void) {
                     cur->parent->left = cur;
                     cur = cur->parent;
                 }
+
+                if(cur->left) {
+                    cur->op = OP_REP;
+                    cur->right = allocate_node();
+                    cur->right->parent = cur;
+                    cur = cur->right;
+                }
                 
                 cur->op = OP_DIE;
                 cur->right = allocate_node();
