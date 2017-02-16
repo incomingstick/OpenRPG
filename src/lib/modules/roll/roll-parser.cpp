@@ -499,6 +499,20 @@ void ExpressionTree::parse_expression(void) {
                 cur = cur->right;
             } break;
 
+            case 'd': {
+                if(cur->op) {
+                    while(cur->parent) cur = cur->parent;
+                    cur->parent = allocate_node();
+                    cur->parent->left = cur;
+                    cur = cur->parent;
+                }
+                
+                cur->op = OP_DIE;
+                cur->right = allocate_node();
+                cur->right->parent = cur;
+                cur = cur->right;
+            } break;
+
             /* 4) If the current token is a ')', go to the parent of the current node. */
             case ')': {
                 if(cur->parent != NULL) cur = cur->parent;
