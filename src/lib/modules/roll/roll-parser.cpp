@@ -62,13 +62,26 @@ parse_node* ExpressionTree::allocate_node() {
   * @param int number - number for the nodes value
   * @return struct parse_node* - pointer to the created parse_node
   */
-parse_node* ExpressionTree::new_number(int number) {
-    struct parse_node* node = allocate_node();
-    
-    node->op = OP_NUMBER;
-    node->value = number;
+struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBytesToRead) {
+    string curParseString = "";
 
-    return node;
+    int numBytesRead = 0;
+
+    parse_input_string(&curParseString, &numBytesRead, *numBytesToRead);
+            
+    cur->value = stoi(curParseString);
+    cur->op = OP_NUMBER;
+
+    if(cur->parent == NULL) {
+        cur->parent = allocate_node();
+        cur->parent->left = cur;
+    }
+        
+    cur = cur->parent;
+
+    *numBytesToRead = 0;
+    
+    return cur;
 }
 
 /**
@@ -396,7 +409,6 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
 void ExpressionTree::parse_expression(void) {
     string curParseString = "";
 
-    int numBytesRead = 0;
     int numBytesToRead = 0;
 
     struct parse_node* cur = head;
@@ -424,30 +436,15 @@ void ExpressionTree::parse_expression(void) {
         } else if(!isspace(cur_ch)) {
             /* 3) If the current token is a number, set the root value of the
                 current node to the number and return to the parent. */
-            if(numBytesToRead > 0) {
-                parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-                output("number: "+curParseString, VB_CODE);
-
-                cur->value = stoi(curParseString);
-                cur->op = OP_NUMBER;
-
-                if(cur->parent == NULL) {
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                }
-                
-                cur = cur->parent;
-
-                numBytesToRead = 0;
-            }
+            if(numBytesToRead > 0)
+                cur = new_number(cur, &numBytesToRead);
 
             switch(cur_ch) {
             /* 1) If the current token is a '(', add a new node as the left
                 child of the current node, and descend to the left child. */
             case '(': {
-                struct parse_node* left = allocate_node();
-                left->parent = cur;
-                cur->left = left;
+                cur->left = allocate_node();
+                cur->left->parent = cur;
                 cur = cur->left;
             } break;
 
@@ -489,51 +486,21 @@ void ExpressionTree::parse_expression(void) {
                  */
             }
             }
-            
-            output("char: "+ string(1, cur_ch), VB_CODE);
 
             globalReadOffset++;  
         } else {
             /* 3) If the current token is a number, set the root value of the
                 current node to the number and return to the parent. */
-            if(numBytesToRead > 0) {
-                parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-                output("number: "+curParseString, VB_CODE);
-                
-                cur->value = stoi(curParseString);
-                cur->op = OP_NUMBER;
-
-                if(cur->parent == NULL) {
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                }
-                
-                cur = cur->parent;
-
-                numBytesToRead = 0;
-            }
+            if(numBytesToRead > 0)
+                cur = new_number(cur, &numBytesToRead);
 
             globalReadOffset++;
         }
 
         /* 3) If the current token is a number, set the root value of the
                 current node to the number and return to the parent. */
-        if(it + 1 == inputString.end() && numBytesToRead > 0) {
-            parse_input_string(&curParseString, &numBytesRead, numBytesToRead);
-            output("number: "+curParseString, VB_CODE);
-            
-            cur->value = stoi(curParseString);
-            cur->op = OP_NUMBER;
-
-            if(cur->parent == NULL) {
-                cur->parent = allocate_node();
-                cur->parent->left = cur;
-            }
-                
-            cur = cur->parent;
-
-            numBytesToRead = 0;
-        }
+        if(it + 1 == inputString.end() && numBytesToRead > 0)
+            cur = new_number(cur, &numBytesToRead);
     }
     while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
 
