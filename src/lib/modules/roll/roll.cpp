@@ -151,6 +151,8 @@ int main(int argc, char* argv[]) {
     tree.set_expression(inputString);
     tree.scan_expression();
 
+    output(tree.to_string(), VB_CODE);
+
     int ans = tree.parse_expression();
 
     output(to_string(ans)+"\n");

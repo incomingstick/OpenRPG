@@ -43,7 +43,7 @@ parse_node* ExpressionTree::allocate_node() {
     
     if(node == NULL) {
         output("out of memory", VB_CODE);
-        exit(output("exiting with status "+to_string(EXIT_FAILURE), EXIT_FAILURE));
+        exit(output("exiting with status "+std::to_string(EXIT_FAILURE), EXIT_FAILURE));
     }
 
     /* initialize default values */
@@ -144,7 +144,7 @@ parse_node* ExpressionTree::new_die(struct parse_node* cur) {
   */
 string node_to_string(struct parse_node* node) {
     switch(node->op) {
-    case OP_NUMBER: return to_string(node->value);      
+    case OP_NUMBER: return std::to_string(node->value);      
     case OP_DIE:    return "die";
     case OP_PLUS:   return "+";
     case OP_MINUS:  return "-";
@@ -158,33 +158,31 @@ string node_to_string(struct parse_node* node) {
     case OP_LE:     return "<=";
     case OP_NE:     return "!=";
     case OP_REP:    return "rep";
-    default :       return "unknown node ("+ to_string(node->value) +", "+ to_string(node->op) +")";
+    default :       return "unknown node ("+ std::to_string(node->value) +", "+ std::to_string(node->op) +")";
     }
 }
 
 /**
-  * @desc recursively prints to output a tree of parse_nodes starting with
-  *     the top node node and taking precidence over the left node
+  * @desc recursively returns a string of the tree of parse_nodes starting with
+  *     the top node node and taking precidence over the left node and ending
+  *     with the char '\n'
   * @param struct parse_node* node - the top node of the tree to print
   * @param int - the amount of whitespace to indent the current node by
+  * @return string - a string of the tree of parse_nodes
   */
-void ExpressionTree::print_tree(struct parse_node* node, int indent, string pre) {
+string ExpressionTree::tree_string(struct parse_node* node, int indent, string pre) {
     int i;
     string pad("");
+    string ret("");
 
-    for(i = 0; i < indent; i++) {
-       pad += " ";
-    }
+    for(i = 0; i < indent; i++) pad += " ";
 
-    output(pad + pre + "(" + node_to_string(node) +")", VB_CODE);
+    ret = pad + pre + "(" + node_to_string(node) +")\n";
 
-    if(node->left != NULL) {
-        print_tree(node->left, indent + 2, "left->");
-    }
+    if(node->left != NULL)  ret += tree_string(node->left, indent + 2, "left->");
+    if(node->right != NULL) ret += tree_string(node->right, indent + 2, "right->");
 
-    if(node->right != NULL) {
-        print_tree(node->right, indent + 2, "right->");
-    }
+    return ret;
 }
 
 /**
@@ -421,8 +419,8 @@ void ExpressionTree::scan_expression(void) {
 
     4) If the current token is a ')', go to the parent of the current node.
     */
-    for(string::iterator it = inputString.begin(); it != inputString.end(); ++it) {
-        char cur_ch = *it;
+    for(auto it = inputString.begin(); it != inputString.end(); ++it) {
+        auto cur_ch = *it;
         if(isdigit(cur_ch)) {
             numBytesToRead++;
         } else if(!isspace(cur_ch)) {
@@ -534,8 +532,6 @@ void ExpressionTree::scan_expression(void) {
             cur = new_number(cur, &numBytesToRead);
     }
     while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
-
-    print_tree(head, 0);
 }
 
 /**
