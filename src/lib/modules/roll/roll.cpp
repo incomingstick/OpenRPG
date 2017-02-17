@@ -144,7 +144,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
   */
 int main(int argc, char* argv[]) {
     string inputString;
-    int status = output("parse_args completed", parse_args(argc, argv, &inputString));
+    int status = output("parse_args completed\n", parse_args(argc, argv, &inputString));
 
     ExpressionTree tree;
 
