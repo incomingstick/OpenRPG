@@ -71,7 +71,7 @@ string get_display_screen(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened\n");
     }
     
     return ret;
@@ -97,7 +97,7 @@ string file_to_string(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened");
+        output("file " + asset_loc + "/" + file + " could not be opened\n");
     }
     
     return ret;
@@ -198,13 +198,12 @@ int output(string log, int status_code) {
             
             // begin each new line with [OUTPUT] to align all debugging output
             for (auto it = log.begin(); it != log.end(); ++it) {
-                // if the current index is needed:
-                auto c = *it;
+                auto ch = *it;
 
-                cout << c;
+                cout << ch;
 
                 // access element as *it
-                if(c == '\n' && VB_FLAG) {
+                if(ch == '\n' && VB_FLAG) {
                     if(it + 1 == log.end()) break;
                     else cout << "[OUTPUT]\t";
                 }
@@ -212,13 +211,41 @@ int output(string log, int status_code) {
         } break;
 
         case VB_CODE: {
-            if(VB_FLAG)
-                cout << "[VERBOSE]\t" << log << endl;
+            if(VB_FLAG) {
+                cout << "[VERBOSE]\t";
+
+                // begin each new line with [VERBOSE] to align all verbose output
+                for(auto it = log.begin(); it != log.end(); it++) {
+                    auto ch = *it;
+
+                    cout << ch;
+
+                    // access element as *it
+                    if(ch == '\n') {
+                        if(it + 1 == log.end()) break;
+                        else cout << "[VERBOSE]\t";
+                    }
+                }
+            }
         } break;
 
         case ERROR_CODE: {
-            if(VB_FLAG)
-                cerr << "[ERROR]\t" << log << endl;
+            if(VB_FLAG) {
+                cout << "[ERROR]\t";
+
+                // begin each new line with [ERROR] to align all verbose output
+                for(auto it = log.begin(); it != log.end(); it++) {
+                    auto ch = *it;
+
+                    cout << ch;
+
+                    // access element as *it
+                    if(ch == '\n') {
+                        if(it + 1 == log.end()) break;
+                        else cout << "[ERROR]\t";
+                    }
+                }
+            }
         } break;
 
         default: {

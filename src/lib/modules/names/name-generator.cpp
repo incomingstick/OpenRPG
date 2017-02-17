@@ -82,7 +82,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set", VB_CODE);
+            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
         
@@ -94,7 +94,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...\n", EXIT_FAILURE);
         }
         }
     }
@@ -121,18 +121,18 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
 int main(int argc, char* argv[]) {
     string race, gender;
-    int status = output("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
+    int status = output("parse_args completed\n", parse_args(argc, argv, &race, &gender)); // may exit
 
-if(race.empty()) status =  output("race cannot be empty", EXIT_FAILURE);
-    if(gender.empty()) status = output("gender cannot be empty", EXIT_FAILURE);
+if(race.empty()) status =  output("race cannot be empty\n", EXIT_FAILURE);
+    if(gender.empty()) status = output("gender cannot be empty\n", EXIT_FAILURE);
 
     if(status == EXIT_SUCCESS) {
-        output("found "+race+" "+gender, VB_CODE);
+        output("found "+race+" "+gender+"\n", VB_CODE);
 
         NameGenerator gen(race, gender);
 
         output(gen.make_name() +'\n');
     }
 
-    return output("exiting with status "+ to_string(status), status);
+    return output("exiting with status "+ to_string(status)+"\n", status);
 }
