@@ -45,7 +45,7 @@ class ExpressionTree {
         parse_node* allocate_node();
         parse_node* new_number(struct parse_node* cur, int* numBytesToRead = 0);
         parse_node* new_op(unsigned short int op, struct parse_node* cur);
-        parse_node* new_die(struct parse_node* sides);
+        parse_node* new_die(struct parse_node* cur);
 
         int parse_tree(struct parse_node* node, bool print);
         void print_tree(struct parse_node* node, int indent, std::string pre = "head->");

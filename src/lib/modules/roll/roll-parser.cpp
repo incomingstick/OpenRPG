@@ -99,13 +99,6 @@ parse_node* ExpressionTree::new_op(unsigned short int op, struct parse_node* cur
         cur->parent->left = cur;
         cur = cur->parent;
     }
-
-    if(cur->left && op == OP_DIE) {
-        cur->op = OP_REP;
-        cur->right = allocate_node();
-        cur->right->parent = cur;
-        cur = cur->right;
-    }
     
     cur->op = op;
     cur->right = allocate_node();
@@ -120,14 +113,27 @@ parse_node* ExpressionTree::new_op(unsigned short int op, struct parse_node* cur
   * @param struct parse_node* sides - the node to be placed to the right of our new node
   * @return struct parse_node* - a new node with op OP_DIE and sides on the right
   */
-parse_node* ExpressionTree::new_die (struct parse_node* sides) {
-    struct parse_node* node = allocate_node();
-  
-    node->op = OP_DIE;
-    node->value = 0;
-    node->right = sides;
+parse_node* ExpressionTree::new_die(struct parse_node* cur) {
+    if(cur->op) {
+        while(cur->parent) cur = cur->parent;
+        cur->parent = allocate_node();
+        cur->parent->left = cur;
+        cur = cur->parent;
+    }
+
+    if(cur->left) {
+        cur->op = OP_REP;
+        cur->right = allocate_node();
+        cur->right->parent = cur;
+        cur = cur->right;
+    }
     
-    return node;
+    cur->op = OP_DIE;
+    cur->right = allocate_node();
+    cur->right->parent = cur;
+    cur = cur->right;
+    
+    return cur;
 }
 
 /**
@@ -469,7 +475,7 @@ void ExpressionTree::parse_expression(void) {
             } break;
 
             case 'd': {
-                cur = new_op(OP_DIE, cur);
+                cur = new_die(cur);
             } break;
 
             /* 4) If the current token is a ')', go to the parent of the current node. */
