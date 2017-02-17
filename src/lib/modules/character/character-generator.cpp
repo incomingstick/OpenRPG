@@ -45,7 +45,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], Ability* abil) {
+int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -98,6 +98,14 @@ int parse_args(int argc, char* argv[], Ability* abil) {
         }
     }
 
+    return status;
+}
+
+int main(int argc, char* argv[]) {
+    int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
+
+    Ability abil;
+
     /* begin creating the character here */
     vector<int> stats = abil_arr();
 
@@ -116,7 +124,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->STR = score;
+            abil.STR = score;
         } break;
 
         case 1: {
@@ -124,7 +132,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->DEX = score;
+            abil.DEX = score;
         } break;
 
         case 2: {
@@ -132,7 +140,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->CON = score;
+            abil.CON = score;
         } break;
 
         case 3: {
@@ -140,7 +148,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->INT = score;
+            abil.INT = score;
         } break;
 
         case 4: {
@@ -148,7 +156,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->WIS = score;
+            abil.WIS = score;
         } break;
 
         case 5: {
@@ -156,7 +164,7 @@ int parse_args(int argc, char* argv[], Ability* abil) {
 
             cin >> score;
             // TODO if score is not on the list??
-            abil->CHA = score;
+            abil.CHA = score;
         } break;
 
         default: {
@@ -166,13 +174,6 @@ int parse_args(int argc, char* argv[], Ability* abil) {
     }
 
     output("\n");
-
-    return status;
-}
-
-int main(int argc, char* argv[]) {
-    Ability abil;
-    int status = output("parse_args completed\n", parse_args(argc, argv, &abil)); // may exit
 
     Character player(abil);
 

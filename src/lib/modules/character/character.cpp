@@ -29,24 +29,24 @@ Character::Character() {
     abils.CHA = gen_stat();    // Charisma
 
     // TODO will need to be modified when prof is taken in to account
-    skills.ACR = abils.DEX;    // Acrobatics       (DEX)
-    skills.ANM = abils.WIS;    // Animal Handling  (WIS)
-    skills.ARC = abils.INT;    // Arcana           (INT)
-    skills.ATH = abils.STR;    // Athletics        (STR)
-    skills.DEC = abils.CHA;    // Deception        (CHA)
-    skills.HIS = abils.INT;    // History          (INT)
-    skills.INS = abils.WIS;    // Insight          (WIS)
-    skills.ITM = abils.CHA;    // Intimidation     (CHA)
-    skills.INV = abils.INT;    // Investigation    (INT)
-    skills.MED = abils.WIS;    // Medicine         (WIS)
-    skills.NAT = abils.INT;    // Nature           (INT)
-    skills.PRC = abils.WIS;    // Perception       (WIS)
-    skills.PRF = abils.CHA;    // Performance      (CHA)
-    skills.PRS = abils.CHA;    // Persuasion       (CHA)
-    skills.REL = abils.INT;    // Religion         (INT)
-    skills.SLE = abils.DEX;    // Sleight of Hand  (DEX)
-    skills.STL = abils.DEX;    // Stealth          (DEX)
-    skills.SUR = abils.WIS;    // Survival         (WIS)
+    skills.ACR = DEX();    // Acrobatics       (DEX)
+    skills.ANM = WIS();    // Animal Handling  (WIS)
+    skills.ARC = INT();    // Arcana           (INT)
+    skills.ATH = STR();    // Athletics        (STR)
+    skills.DEC = CHA();    // Deception        (CHA)
+    skills.HIS = INT();    // History          (INT)
+    skills.INS = WIS();    // Insight          (WIS)
+    skills.ITM = CHA();    // Intimidation     (CHA)
+    skills.INV = INT();    // Investigation    (INT)
+    skills.MED = WIS();    // Medicine         (WIS)
+    skills.NAT = INT();    // Nature           (INT)
+    skills.PRC = WIS();    // Perception       (WIS)
+    skills.PRF = CHA();    // Performance      (CHA)
+    skills.PRS = CHA();    // Persuasion       (CHA)
+    skills.REL = INT();    // Religion         (INT)
+    skills.SLE = DEX();    // Sleight of Hand  (DEX)
+    skills.STL = DEX();    // Stealth          (DEX)
+    skills.SUR = WIS();    // Survival         (WIS)
 
     output("character created", VB_CODE);
 }
@@ -58,24 +58,24 @@ Character::Character(Ability ab)
     name = ng.make_name();
 
     // TODO will need to be modified when prof is taken in to account
-    skills.ACR = abils.DEX;    // Acrobatics       (DEX)
-    skills.ANM = abils.WIS;    // Animal Handling  (WIS)
-    skills.ARC = abils.INT;    // Arcana           (INT)
-    skills.ATH = abils.STR;    // Athletics        (STR)
-    skills.DEC = abils.CHA;    // Deception        (CHA)
-    skills.HIS = abils.INT;    // History          (INT)
-    skills.INS = abils.WIS;    // Insight          (WIS)
-    skills.ITM = abils.CHA;    // Intimidation     (CHA)
-    skills.INV = abils.INT;    // Investigation    (INT)
-    skills.MED = abils.WIS;    // Medicine         (WIS)
-    skills.NAT = abils.INT;    // Nature           (INT)
-    skills.PRC = abils.WIS;    // Perception       (WIS)
-    skills.PRF = abils.CHA;    // Performance      (CHA)
-    skills.PRS = abils.CHA;    // Persuasion       (CHA)
-    skills.REL = abils.INT;    // Religion         (INT)
-    skills.SLE = abils.DEX;    // Sleight of Hand  (DEX)
-    skills.STL = abils.DEX;    // Stealth          (DEX)
-    skills.SUR = abils.WIS;    // Survival         (WIS)
+    skills.ACR = DEX();    // Acrobatics       (DEX)
+    skills.ANM = WIS();    // Animal Handling  (WIS)
+    skills.ARC = INT();    // Arcana           (INT)
+    skills.ATH = STR();    // Athletics        (STR)
+    skills.DEC = CHA();    // Deception        (CHA)
+    skills.HIS = INT();    // History          (INT)
+    skills.INS = WIS();    // Insight          (WIS)
+    skills.ITM = CHA();    // Intimidation     (CHA)
+    skills.INV = INT();    // Investigation    (INT)
+    skills.MED = WIS();    // Medicine         (WIS)
+    skills.NAT = INT();    // Nature           (INT)
+    skills.PRC = WIS();    // Perception       (WIS)
+    skills.PRF = CHA();    // Performance      (CHA)
+    skills.PRS = CHA();    // Persuasion       (CHA)
+    skills.REL = INT();    // Religion         (INT)
+    skills.SLE = DEX();    // Sleight of Hand  (DEX)
+    skills.STL = DEX();    // Stealth          (DEX)
+    skills.SUR = WIS();    // Survival         (WIS)
 
     output("character created\n", VB_CODE);
 }
@@ -100,12 +100,12 @@ string Character::to_string() {
 
     ret += "~~~ " + name + " ~~~\n";
 
-    ret += "STR: "+ std::to_string(abils.STR) + "\n";
-    ret += "DEX: "+ std::to_string(abils.DEX) + "\n";
-    ret += "CON: "+ std::to_string(abils.CON) + "\n";
-    ret += "INT: "+ std::to_string(abils.INT) + "\n";
-    ret += "WIS: "+ std::to_string(abils.WIS) + "\n";
-    ret += "CHA: "+ std::to_string(abils.CHA) + "\n";
+    ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
+    ret += "DEX: "+ std::to_string(DEX()) + " (" + std::to_string(DEX_MOD()) + ")\n";
+    ret += "CON: "+ std::to_string(CON()) + " (" + std::to_string(CON_MOD()) + ")\n";
+    ret += "INT: "+ std::to_string(INT()) + " (" + std::to_string(INT_MOD()) + ")\n";
+    ret += "WIS: "+ std::to_string(WIS()) + " (" + std::to_string(WIS_MOD()) + ")\n";
+    ret += "CHA: "+ std::to_string(CHA()) + " (" + std::to_string(CHA_MOD()) + ")\n";
 
     return ret;
 }

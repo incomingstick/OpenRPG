@@ -17,7 +17,7 @@ set(CG_INCLUDES
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=gnu++11")
 
 add_executable(character-generator ${CG_SOURCES})
-target_link_libraries(character-generator utils die names)
+target_link_libraries(character-generator utils roll-parser names)
 
 install(TARGETS character-generator DESTINATION bin)
 install(FILES ${CG_INCLUDE} DESTINATION include/openrpg)
