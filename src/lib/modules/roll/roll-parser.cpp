@@ -57,10 +57,11 @@ parse_node* ExpressionTree::allocate_node() {
 }
 
 /**
-  * @desc creates a parse_node with an op value of OP_NUMBER
-  *     and a value of number
-  * @param int number - number for the nodes value
-  * @return struct parse_node* - pointer to the created parse_node
+  * @desc sets cur to a parse_node with an op value of OP_NUMBER and a value of
+  *     read from the input string and return the parent of cur
+  * @param struct parse_node* cur - the current node
+  * @param int* numBytesToRead - the number of bytes to read from the input string
+  * @return struct parse_node* - pointer to the parent of cur
   */
 struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBytesToRead) {
     string curParseString = "";
@@ -85,14 +86,13 @@ struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBy
 }
 
 /**
-  * @desc creates a pointer to a new parse_node that sits
-  *     between the given left and right parse_nodes
-  * @param unsigned short int op - the operator to be assigned to this parse_node 
-  * @param struct parse_node* right - the node to the right of our new node
-  * @param struct parse_node* left - the node to the left of our new node
-  * @return struct parse_node* - a pointer to a node with the given op, left, and right
+  * @desc sets cur to a parse_node with an op value of op and a new node as the right
+  *     child of the cur node and returns the right child
+  * @param struct parse_node* cur - the current node
+  * @param unsigned short int op - the operator to be assigned to the cur parse_node 
+  * @return struct parse_node* - a pointer to the right child of cur
   */
-parse_node* ExpressionTree::new_op(unsigned short int op, struct parse_node* cur) {
+parse_node* ExpressionTree::new_op(struct parse_node* cur, unsigned short int op) {
     if(cur->op) {
         while(cur->parent) cur = cur->parent;
         cur->parent = allocate_node();
@@ -109,9 +109,10 @@ parse_node* ExpressionTree::new_op(unsigned short int op, struct parse_node* cur
 }
 
 /**
-  * @desc creates a parse_node pointer with the OP_DIE op
-  * @param struct parse_node* sides - the node to be placed to the right of our new node
-  * @return struct parse_node* - a new node with op OP_DIE and sides on the right
+  * @desc sets cur to a parse_node with an op value of op and a new node as the right
+  *     child of the cur node and returns the right child
+  * @param struct parse_node* cur - the current node
+  * @return struct parse_node* - a pointer to the right child of cur
   */
 parse_node* ExpressionTree::new_die(struct parse_node* cur) {
     if(cur->op) {
@@ -188,10 +189,9 @@ void ExpressionTree::print_tree(struct parse_node* node, int indent, string pre)
 
 /**
   * @desc parses the parse_node tree given the top node of the tree
-  *     and prints the return value based on print bool
+  *     and returns the end result of the expression
   * @param struct parse_node* node - the top node of the tree to parse
-  * @param bool print - bool flag to print return value
-  * @return Function return
+  * @return int - the end result of the expression
   */
 int ExpressionTree::parse_tree(struct parse_node* node) {
     int high;
@@ -362,6 +362,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
 
     default: {
         exit(output("got to default of parse_tree switch", EXIT_FAILURE));
+        // TODO syntax error here
     }
     }
 
@@ -398,7 +399,8 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
 }
 
 /**
-  * @desc TODO parses the string held by the ExpressionTree
+  * @desc scans the string held by the ExpressionTree and
+  * creates a binary tree to be parsed out
   */
 void ExpressionTree::scan_expression(void) {
     int numBytesToRead = 0;
@@ -419,8 +421,6 @@ void ExpressionTree::scan_expression(void) {
 
     4) If the current token is a ')', go to the parent of the current node.
     */
-
-    /* TODO we should scan the string to create the tree and parse out the expression */
     for(string::iterator it = inputString.begin(); it != inputString.end(); ++it) {
         char cur_ch = *it;
         if(isdigit(cur_ch)) {
@@ -440,24 +440,24 @@ void ExpressionTree::scan_expression(void) {
                 cur = cur->left;
             } break;
 
-            /* 2) If the current token is in the list ['+','-','/','*'],
-                set value of the current node to the operator code
-                representation of the current token. Add a new node as the
-                right child of the current node and descend to the right child. */
+            /* 2) If the current token is in the list, set value of the current
+                node to the operator code representation of the current token.
+                Add a new node as the right child of the current node and descend
+                to the right child. */
             case '+': {
-                cur = new_op(OP_PLUS, cur);
+                cur = new_op(cur, OP_PLUS);
             } break;
 
             case '-': {
-                cur = new_op(OP_MINUS, cur);
+                cur = new_op(cur, OP_MINUS);
             } break;
 
             case '*': {
-                cur = new_op(OP_TIMES, cur);
+                cur = new_op(cur, OP_TIMES);
             } break;
 
             case '/': {
-                cur = new_op(OP_DIV, cur);
+                cur = new_op(cur, OP_DIV);
             } break;
 
             case 'd': {
@@ -465,23 +465,23 @@ void ExpressionTree::scan_expression(void) {
             } break;
 
             case 'h': {
-                cur = new_op(OP_HIGH, cur);
+                cur = new_op(cur, OP_HIGH);
             } break;
 
             case 'l': {
-                cur = new_op(OP_LOW, cur);
+                cur = new_op(cur, OP_LOW);
             } break;
 
             case '>': {
-                cur = new_op(OP_GT, cur);
+                cur = new_op(cur, OP_GT);
             } break;
 
             case '<': {
-                cur = new_op(OP_LT, cur);
+                cur = new_op(cur, OP_LT);
             } break;
 
             case '!': {
-                cur = new_op(OP_NE, cur);
+                cur = new_op(cur, OP_NE);
             } break;
 
             case '=': {

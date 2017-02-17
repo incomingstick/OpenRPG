@@ -41,7 +41,7 @@ class ExpressionTree {
     private:
         parse_node* allocate_node();
         parse_node* new_number(struct parse_node* cur, int* numBytesToRead = 0);
-        parse_node* new_op(unsigned short int op, struct parse_node* cur);
+        parse_node* new_op(struct parse_node* cur, unsigned short int op);
         parse_node* new_die(struct parse_node* cur);
 
         int parse_tree(struct parse_node* node);
