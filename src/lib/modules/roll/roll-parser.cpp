@@ -79,16 +79,27 @@ parse_node* ExpressionTree::new_number(int number) {
   * @param struct parse_node* left - the node to the left of our new node
   * @return struct parse_node* - a pointer to a node with the given op, left, and right
   */
-parse_node* ExpressionTree::new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
-    struct parse_node* node = allocate_node();
+parse_node* ExpressionTree::new_op(unsigned short int op, struct parse_node* cur) {
+    if(cur->op) {
+        while(cur->parent) cur = cur->parent;
+        cur->parent = allocate_node();
+        cur->parent->left = cur;
+        cur = cur->parent;
+    }
+
+    if(cur->left && op == OP_DIE) {
+        cur->op = OP_REP;
+        cur->right = allocate_node();
+        cur->right->parent = cur;
+        cur = cur->right;
+    }
     
-    node->op = op;
-    node->value = 0;
-    node->left = left;
-    node->right = right;
+    cur->op = op;
+    cur->right = allocate_node();
+    cur->right->parent = cur;
+    cur = cur->right;
     
-    return node;
-  
+    return cur;
 }
 
 /**
@@ -335,7 +346,8 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
 
     // number of rolls (repetitions)
     case OP_REP: {
-        for (i = 0; i < parse_tree(cur->left, false); i++)
+        int reps = parse_tree(cur->left, false);
+        for (i = 0; i < reps; i++)
             sum = checked_sum(sum, parse_tree(cur->right, false));
     } break;
 
@@ -444,80 +456,23 @@ void ExpressionTree::parse_expression(void) {
                 representation of the current token. Add a new node as the
                 right child of the current node and descend to the right child. */
             case '+': {
-                if(cur->op) {
-                    while(cur->parent) cur = cur->parent;
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                    cur = cur->parent;
-                }
-
-                cur->op = OP_PLUS;
-                cur->right = allocate_node();
-                cur->right->parent = cur;
-                cur = cur->right;
+                cur = new_op(OP_PLUS, cur);
             } break;
 
             case '-': {
-                if(cur->op) {
-                    while(cur->parent) cur = cur->parent;
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                    cur = cur->parent;
-                }
-
-                cur->op = OP_MINUS;
-                cur->right = allocate_node();
-                cur->right->parent = cur;
-                cur = cur->right;
+                cur = new_op(OP_MINUS, cur);
             } break;
 
             case '*': {
-                if(cur->op) {
-                    while(cur->parent) cur = cur->parent;
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                    cur = cur->parent;
-                }
-
-                cur->op = OP_TIMES;
-                cur->right = allocate_node();
-                cur->right->parent = cur;
-                cur = cur->right;
+                cur = new_op(OP_TIMES, cur);
             } break;
 
             case '/': {
-                if(cur->op) {
-                    while(cur->parent) cur = cur->parent;
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                    cur = cur->parent;
-                }
-                
-                cur->op = OP_DIV;
-                cur->right = allocate_node();
-                cur->right->parent = cur;
-                cur = cur->right;
+                cur = new_op(OP_DIV, cur);
             } break;
 
             case 'd': {
-                if(cur->op) {
-                    while(cur->parent) cur = cur->parent;
-                    cur->parent = allocate_node();
-                    cur->parent->left = cur;
-                    cur = cur->parent;
-                }
-
-                if(cur->left) {
-                    cur->op = OP_REP;
-                    cur->right = allocate_node();
-                    cur->right->parent = cur;
-                    cur = cur->right;
-                }
-                
-                cur->op = OP_DIE;
-                cur->right = allocate_node();
-                cur->right->parent = cur;
-                cur = cur->right;
+                cur = new_op(OP_DIE, cur);
             } break;
 
             /* 4) If the current token is a ')', go to the parent of the current node. */
