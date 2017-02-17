@@ -98,7 +98,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set", VB_CODE);
+            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
         
@@ -110,7 +110,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
         
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...\n", EXIT_FAILURE);
         }
         }
     }

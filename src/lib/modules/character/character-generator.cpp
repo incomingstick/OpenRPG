@@ -80,7 +80,7 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set", VB_CODE);
+            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
         
@@ -92,7 +92,7 @@ int parse_args(int argc, char* argv[]) {
         
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...", EXIT_FAILURE);
+            status = output("Aborting...\n", EXIT_FAILURE);
         }
         }
     }
@@ -101,7 +101,7 @@ int parse_args(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed", parse_args(argc, argv)); // may exit
+    int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
 
     Character player;
 
@@ -112,5 +112,5 @@ int main(int argc, char* argv[]) {
     output("WIS: "+ to_string(player.WIS()) +"\n");
     output("CHA: "+ to_string(player.CHA()) +"\n");
 
-    return output("exiting with status "+to_string(status), status);
+    return output("exiting with status "+to_string(status)+"\n", status);
 }

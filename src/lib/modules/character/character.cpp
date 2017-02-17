@@ -13,7 +13,7 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 
 Character::Character() {
-    output("character created", VB_CODE);
+    output("character created\n", VB_CODE);
 
     abil.STR = gen_stat();
     abil.DEX = gen_stat();
