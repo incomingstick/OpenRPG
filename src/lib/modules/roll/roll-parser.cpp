@@ -341,14 +341,13 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         sum = checked_sum( sum, tmp );
     } break;
     
-    // keep results not equal to
+    // keep result not equal to
     case OP_NE: {
         limit = parse_tree(cur->right, false);      
         tmp   = parse_tree(cur->left,  false);
     
         while (tmp == limit) {
-            tmp = parse_tree(cur->left, false);
-            exit(output("Implementation error: unkown IR node with code "+ to_string(cur->op) +"\n", EXIT_FAILURE));      
+            tmp = parse_tree(cur->left, false);      
         }
     
         return ret;
@@ -481,6 +480,28 @@ void ExpressionTree::parse_expression(void) {
 
             case '<': {
                 cur = new_op(OP_LT, cur);
+            } break;
+
+            case '!': {
+                cur = new_op(OP_NE, cur);
+            } break;
+
+            case '=': {
+                if(cur->parent) {
+                    switch(cur->parent->op) {
+                    case OP_GT: {
+                        cur->parent->op = OP_GE;
+                    } break;
+
+                    case OP_LT: {
+                        cur->parent->op = OP_LE;
+                    } break;
+
+                    default: {
+                        // TODO Syntax error here
+                    }
+                    }
+                }
             } break;
 
             /* 4) If the current token is a ')', go to the parent of the current node. */
