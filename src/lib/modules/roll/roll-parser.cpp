@@ -430,8 +430,12 @@ void ExpressionTree::scan_expression(void) {
                 cur = new_number(cur, &numBytesToRead);
 
             switch(cur_ch) {
-            /* 1) If the current token is a '(', add a new node as the left
+            /* 1) If the current token is a '(', '[', or '{', add a new node as the left
                 child of the current node, and descend to the left child. */
+            case '{': {
+                cur = new_op(cur, OP_REP);
+            } // we want this to cascade in to '('
+            case '[':
             case '(': {
                 cur->left = allocate_node();
                 cur->left->parent = cur;
@@ -462,10 +466,12 @@ void ExpressionTree::scan_expression(void) {
                 cur = new_die(cur);
             } break;
 
+            // TODO generate a set (vector/array) of numbers
             case 'h': {
                 cur = new_op(cur, OP_HIGH);
             } break;
 
+            // TODO generate a set (vector/array) of numbers
             case 'l': {
                 cur = new_op(cur, OP_LOW);
             } break;
@@ -500,7 +506,9 @@ void ExpressionTree::scan_expression(void) {
                 }
             } break;
 
-            /* 4) If the current token is a ')', go to the parent of the current node. */
+            /* 4) If the current token is a ')', ']', or '}, go to the parent of the current node. */
+            case '}':
+            case ']':
             case ')': {
                 if(cur->parent != NULL) cur = cur->parent;
             } break;

@@ -157,5 +157,5 @@ int main(int argc, char* argv[]) {
 
     output(to_string(ans)+"\n");
 
-    return output("exiting with status "+to_string(status), status);
+    return output("exiting with status "+to_string(status)+"\n", status);
 }
