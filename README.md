@@ -16,7 +16,7 @@ our libraries in their games to help speed production of back end tools.
 
 Some of the features this tool will include by v1.0.0 are:
 - A GUI front-end for the CLI tools
-- A dice simulation tool
+- A die simulation tool
 - A name generator tool
 - A character generator tool (with the option to autofill a character sheet)
 - A town generator tool
