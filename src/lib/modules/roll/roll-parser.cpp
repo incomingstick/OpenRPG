@@ -489,6 +489,8 @@ void ExpressionTree::parse_expression(void) {
                  * This set of characters will include all
                  * charcters except:
                  *  ['+','-','/','*', '()', '0-9']
+                 *
+                 *  TODO output syntax error here
                  */
             }
             }
