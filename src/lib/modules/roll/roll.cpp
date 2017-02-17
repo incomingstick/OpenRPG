@@ -16,9 +16,6 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-bool POS_FLAG;
-bool SUM_FLAG;
-
 /**
   * @desc prints the current compiled version
   * @return void - always exits with status EXIT_SUCCESS
@@ -43,8 +40,6 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
                 "\t-h --help                   Print this help screen\n"
-                "\t-p --positive               Allow only positive results\n"
-                "\t-s --sum-series             Show the sum of roll series\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
           "\n"
@@ -85,7 +80,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hpsvV",
+    while ((opt = getopt_long(argc, argv, "hvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
@@ -93,16 +88,6 @@ int parse_args(int argc, char* argv[], string* inputString) {
         /* -h --help */
         case 'h': {
             print_help_flag();
-        } break;
-
-        /* -p --positive */
-        case 'p': {
-            POS_FLAG = true;
-        } break;
-        
-        /* -s --sum-series */
-        case 's': {
-            SUM_FLAG = true;
         } break;
 
         /* -v --version */
@@ -164,7 +149,11 @@ int main(int argc, char* argv[]) {
     ExpressionTree tree;
 
     tree.set_expression(inputString);
-    tree.parse_expression();
+    tree.scan_expression();
+
+    int ans = tree.parse_expression();
+
+    output(to_string(ans)+"\n");
 
     return output("exiting with status "+to_string(status), status);
 }

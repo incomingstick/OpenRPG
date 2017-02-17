@@ -28,9 +28,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #define OP_NE           13 // keep results not equal to
 #define OP_REP          14 // number of rolls (repetitions)
 
-extern bool POS_FLAG;
-extern bool SUM_FLAG;
-
 /* node of the intermediate representation parse tree */
 struct parse_node {
     struct parse_node* left;    // left node
@@ -47,7 +44,7 @@ class ExpressionTree {
         parse_node* new_op(unsigned short int op, struct parse_node* cur);
         parse_node* new_die(struct parse_node* cur);
 
-        int parse_tree(struct parse_node* node, bool print);
+        int parse_tree(struct parse_node* node);
         void print_tree(struct parse_node* node, int indent, std::string pre = "head->");
 
         int globalReadOffset = 0;
@@ -60,7 +57,8 @@ class ExpressionTree {
         int parse_input_string(std::string* buff, int* numBytesRead, int maxBytesToRead);
     public:
         void set_expression(const std::string exp) { inputString = exp; };
-        void parse_expression();
+        void scan_expression();
+        int parse_expression() { return parse_tree(head); };
 
         int checked_sum(int op1, int op2);
         int checked_multiplication(int op1, int op2);

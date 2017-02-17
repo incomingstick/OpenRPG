@@ -193,7 +193,7 @@ void ExpressionTree::print_tree(struct parse_node* node, int indent, string pre)
   * @param bool print - bool flag to print return value
   * @return Function return
   */
-int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
+int ExpressionTree::parse_tree(struct parse_node* node) {
     int high;
     int i;
     int limit;
@@ -217,39 +217,39 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
 
     // multiplication node
     case OP_TIMES: {
-        sum = checked_multiplication(parse_tree(cur->left, false),
-                                     parse_tree(cur->right, false));
+        sum = checked_multiplication(parse_tree(cur->left),
+                                     parse_tree(cur->right));
     } break;
 
     // integer division node
     case OP_DIV: {
         sum = (int)
-        ceil((float)parse_tree(cur->left, false) /
-                    parse_tree(cur->right, false));
+        ceil((float)parse_tree(cur->left) /
+                    parse_tree(cur->right));
     } break;
 
     // n-sided die node
     case OP_DIE: {
-        Die die(parse_tree(cur->right, false));
+        Die die(parse_tree(cur->right));
         sum = die.roll();
     } break;
       
     // addition node
     case OP_PLUS: {
-        sum = checked_sum(parse_tree(cur->left, false),
-                          parse_tree(cur->right, false));
+        sum = checked_sum(parse_tree(cur->left),
+                          parse_tree(cur->right));
     } break;
       
     // subtraction node
     case OP_MINUS: {
-        sum = checked_sum(parse_tree(cur->left, false),
-                         -parse_tree(cur->right, false));
+        sum = checked_sum(parse_tree(cur->left),
+                         -parse_tree(cur->right));
     } break;
       
     // keep highest results node
     case OP_HIGH: {
-        repetitions = parse_tree(cur->left->left, false);
-        high        = parse_tree(cur->right, false);      
+        repetitions = parse_tree(cur->left->left);
+        high        = parse_tree(cur->right);      
 
         // array to store the results to sort
         if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
@@ -257,7 +257,7 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         }
       
         for(i = 0; i < repetitions; i++) {
-            results[i] = parse_tree(cur->left->right, false);
+            results[i] = parse_tree(cur->left->right);
         }
 
         qsort(results, repetitions, sizeof(int), &compare);
@@ -271,8 +271,8 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         
     // keep lowest resutls node
     case OP_LOW: {
-        repetitions = parse_tree(cur->left->left, false);
-        low         = parse_tree(cur->right, false);
+        repetitions = parse_tree(cur->left->left);
+        low         = parse_tree(cur->right);
                   
         /* array to store the results to sort */
         if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
@@ -280,7 +280,7 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         }
       
         for(i = 0; i < repetitions; i++) {
-            results[i] = parse_tree(cur->left->right, false);
+            results[i] = parse_tree(cur->left->right);
         }
 
         qsort(results, repetitions, sizeof(int), &compare);
@@ -294,11 +294,11 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
 
     // keep results greater than
     case OP_GT: {
-        limit = parse_tree(cur->right, false);      
-        tmp   = parse_tree(cur->left,  false);
+        limit = parse_tree(cur->right);      
+        tmp   = parse_tree(cur->left);
             
         while (tmp <= limit) {
-            tmp = parse_tree(cur->left, false);
+            tmp = parse_tree(cur->left);
         }
             
         sum = checked_sum(sum, tmp);
@@ -306,11 +306,11 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
 
     // keep results greater or equal than
     case OP_GE: {
-    limit = parse_tree(cur->right, false);      
-        tmp   = parse_tree(cur->left,  false);
+        limit = parse_tree(cur->right);      
+        tmp   = parse_tree(cur->left);
         
         while (tmp < limit) {
-            tmp = parse_tree(cur->left, false);
+            tmp = parse_tree(cur->left);
         }
     
         sum = checked_sum( sum, tmp );
@@ -318,36 +318,36 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         
     // keep results less than
     case OP_LT: {
-        limit = parse_tree(cur->right, false);      
-        tmp   = parse_tree(cur->left,  false);
+        limit = parse_tree(cur->right);      
+        tmp   = parse_tree(cur->left);
     
         while (tmp >= limit) {
-            tmp = parse_tree(cur->left, false);
+            tmp = parse_tree(cur->left);
         }
     
-        sum = checked_sum( sum, tmp );
+        sum = checked_sum(sum, tmp);
     
     } break;
     
     // keep results less or equal than
     case OP_LE: {
-        limit = parse_tree(cur->right, false);      
-        tmp   = parse_tree(cur->left,  false);
+        limit = parse_tree(cur->right);      
+        tmp   = parse_tree(cur->left);
     
         while (tmp > limit) {
-            tmp = parse_tree(cur->left, false);
+            tmp = parse_tree(cur->left);
         }
     
-        sum = checked_sum( sum, tmp );
+        sum = checked_sum(sum, tmp);
     } break;
     
     // keep result not equal to
     case OP_NE: {
-        limit = parse_tree(cur->right, false);      
-        tmp   = parse_tree(cur->left,  false);
+        limit = parse_tree(cur->right);      
+        tmp   = parse_tree(cur->left);
     
         while (tmp == limit) {
-            tmp = parse_tree(cur->left, false);      
+            tmp = parse_tree(cur->left);      
         }
     
         return ret;
@@ -355,9 +355,9 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
 
     // number of rolls (repetitions)
     case OP_REP: {
-        int reps = parse_tree(cur->left, false);
+        int reps = parse_tree(cur->left);
         for (i = 0; i < reps; i++)
-            sum = checked_sum(sum, parse_tree(cur->right, false));
+            sum = checked_sum(sum, parse_tree(cur->right));
     } break;
 
     default: {
@@ -366,8 +366,6 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
     }
 
     ret = checked_sum(ret, sum);
-
-    if(print) output(to_string(sum)+"\n");
 
     return ret;
 }
@@ -402,7 +400,7 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
 /**
   * @desc TODO parses the string held by the ExpressionTree
   */
-void ExpressionTree::parse_expression(void) {
+void ExpressionTree::scan_expression(void) {
     int numBytesToRead = 0;
 
     struct parse_node* cur = head;
@@ -513,8 +511,7 @@ void ExpressionTree::parse_expression(void) {
                 /* 
                  * Default case for this scanner.
                  * This set of characters will include all
-                 * charcters except:
-                 *  ['+','-','/','*', '()', '0-9']
+                 * charcters enot included above
                  *
                  *  TODO output syntax error here
                  */
@@ -539,8 +536,6 @@ void ExpressionTree::parse_expression(void) {
     while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
 
     print_tree(head, 0);
-
-    if(parse_tree(head, true) != 0);
 }
 
 /**
