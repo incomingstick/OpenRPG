@@ -77,7 +77,7 @@ Character::Character(Ability ab)
     skills.STL = abils.DEX;    // Stealth          (DEX)
     skills.SUR = abils.WIS;    // Survival         (WIS)
 
-    output("character created", VB_CODE);
+    output("character created\n", VB_CODE);
 }
 
 Character::Character(Ability ab, Skills sk)
