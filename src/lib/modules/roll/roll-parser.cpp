@@ -272,27 +272,21 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
         
     // keep lowest resutls node
     case OP_LOW: {
-        sides       = parse_tree(cur->right->right->right, false);
-        repetitions = parse_tree(cur->right->left,  false);
-        low         = parse_tree(cur->left, false);
-      
-        if (cur->right->left != NULL) {
-            repetitions = parse_tree(cur->right->left, false);
-        }
+        repetitions = parse_tree(cur->left->left, false);
+        low         = parse_tree(cur->right, false);
                   
         /* array to store the results to sort */
         if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
             output("out of memory", ERROR_CODE);
         }
       
-        for(i=0; i<repetitions; i++) {
-            Die die(sides);
-            results[i] = die.roll();
+        for(i = 0; i < repetitions; i++) {
+            results[i] = parse_tree(cur->left->right, false);
         }
 
         qsort(results, repetitions, sizeof(int), &compare);
       
-        for(i=0; i<low; i++) {
+        for(i = 0; i < low; i++) {
             sum = checked_sum(sum, results[i]);
         }
       
@@ -476,6 +470,10 @@ void ExpressionTree::parse_expression(void) {
 
             case 'h': {
                 cur = new_op(OP_HIGH, cur);
+            } break;
+
+            case 'l': {
+                cur = new_op(OP_LOW, cur);
             } break;
 
             /* 4) If the current token is a ')', go to the parent of the current node. */
