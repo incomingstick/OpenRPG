@@ -199,7 +199,6 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
     int limit;
     int low;
     int repetitions;
-    int sides;
     int tmp;
     int* results;
 
@@ -302,7 +301,7 @@ int ExpressionTree::parse_tree(struct parse_node* node, bool print) {
             tmp = parse_tree(cur->left, false);
         }
             
-        sum = checked_sum( sum, tmp );
+        sum = checked_sum(sum, tmp);
     } break;
 
     // keep results greater or equal than
@@ -474,6 +473,14 @@ void ExpressionTree::parse_expression(void) {
 
             case 'l': {
                 cur = new_op(OP_LOW, cur);
+            } break;
+
+            case '>': {
+                cur = new_op(OP_GT, cur);
+            } break;
+
+            case '<': {
+                cur = new_op(OP_LT, cur);
             } break;
 
             /* 4) If the current token is a ')', go to the parent of the current node. */
