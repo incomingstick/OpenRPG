@@ -41,6 +41,7 @@ set(CUR_TEST roll-parser-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
+        ${MODULE_DIR}/roll/roll-parser.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
