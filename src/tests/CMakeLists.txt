@@ -32,11 +32,11 @@ macro(do_test test arg1 arg2)
   add_dependencies(check ${test})
 endmacro(do_test)
 
-# should we really test all combinations here?
+# TODO should we really test all combinations here?
 do_test(${CUR_TEST} dwarf male)
 do_test(${CUR_TEST} dwarf female)
 
-# start name-generator testing here
+# start roll-parser testing here
 set(CUR_TEST roll-parser-test)
 
 set(CUR_TEST_SRC
