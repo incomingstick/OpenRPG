@@ -231,7 +231,7 @@ int output(string log, int status_code) {
 
         case ERROR_CODE: {
             if(VB_FLAG) {
-                cout << "[ERROR]\t";
+                cout << "[ERROR]\t\t";
 
                 // begin each new line with [ERROR] to align all verbose output
                 for(auto it = log.begin(); it != log.end(); it++) {
