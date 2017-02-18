@@ -37,11 +37,10 @@ do_test(${CUR_TEST} dwarf male)
 do_test(${CUR_TEST} dwarf female)
 
 # start name-generator testing here
-set(CUR_TEST roll-test)
+set(CUR_TEST roll-parser-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
-        ${MODULE_DIR}/roll/die.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})

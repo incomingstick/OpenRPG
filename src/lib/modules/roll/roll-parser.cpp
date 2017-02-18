@@ -13,7 +13,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <stack>
 
 #include "utils.h"
-#include "die.h"
 #include "roll-parser.h"
 
 using namespace std;
