@@ -32,7 +32,7 @@ NameGenerator::NameGenerator(string race, string gender, string subrace)
     location = ASSET_LOC;
     location += "/names";
 
-    if(!subrace.empty()) subrace = "/" + subrace + "/";
+    if(!subrace.empty()) this->subrace = "/" + subrace;
 
     output("name asset location: "+location+"\n", VB_CODE);
 }

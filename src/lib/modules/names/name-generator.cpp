@@ -47,7 +47,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], string* race, string* gender) {
+int parse_args(int argc, char* argv[], string* race, string* subrace, string* gender) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -102,35 +102,74 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
     /* check to make sure there are at least 
         two "unknown" args to parse throug*/
-    while (optind + 1 < argc) {
-        string opt_str = argv[optind++];
+    switch(argc - optind) {
+    case 1: {
+        // TODO handle only one arg passed
+        string opt0 = argv[optind++];
 
-        /* allows gender to be passed first */
-        if(opt_str == "male" || opt_str == "female") {
-            *gender = opt_str;
-            *race = argv[optind];
+        /* we know they passed just a gender */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
             break;
         } else {
-            *race = opt_str;
-            *gender = argv[optind];
             break;
         }
+    } break;
+
+    case 2: { 
+        string opt0 = argv[optind++];
+        string opt1 = argv[optind++];
+
+        /* allows gender to be passed first */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
+            *race = opt1;
+            break;
+        } else {
+            *gender = opt1;
+            *race = opt0;
+            break;
+        }
+    } break;
+
+    case 3: {
+        string opt0 = argv[optind++];
+        string opt1 = argv[optind++];
+        string opt2 = argv[optind++];
+
+        /* allows gender to be passed first */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
+            *race = opt1;
+            *subrace = opt2;
+            break;
+        } else {
+            *gender = opt1;
+            *race = opt0;
+            *subrace = opt2;
+            break;
+        }
+    } break;
+
+    default: {
+        // TODO output error code
+    }
     }
 
     return status;
 }
 
 int main(int argc, char* argv[]) {
-    string race, gender;
-    int status = output("parse_args completed\n", parse_args(argc, argv, &race, &gender)); // may exit
+    string race, subrace, gender;
+    int status = output("parse_args completed\n", parse_args(argc, argv, &race, &subrace, &gender)); // may exit
 
-if(race.empty()) status =  output("race cannot be empty\n", EXIT_FAILURE);
+    if(race.empty())   status = output("race cannot be empty\n", EXIT_FAILURE);
     if(gender.empty()) status = output("gender cannot be empty\n", EXIT_FAILURE);
 
     if(status == EXIT_SUCCESS) {
         output("found "+race+" "+gender+"\n", VB_CODE);
 
-        NameGenerator gen(race, gender);
+        NameGenerator gen(race, gender, subrace);
 
         output(gen.make_name() +'\n');
     }
