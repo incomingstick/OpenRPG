@@ -36,7 +36,6 @@ static void print_help_flag() {
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man character-generator' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
