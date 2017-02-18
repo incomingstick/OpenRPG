@@ -31,7 +31,7 @@ static void print_help_flag() {
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: name-generator [options] RACE GENDER\n"
+          "Usage: name-generator [options] RACE SUBRACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
