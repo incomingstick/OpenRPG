@@ -104,9 +104,18 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
 
+    /* begin creating the character here */
+    output("Use character creator (Y/n)\n");   // TODO character creator switch
+    output("Race\n");                          // TODO race menu
+    output("Subrace\n");                       // TODO subrace menu
+    output("Class\n");                         // TODO class menu
+    output("Background\n");                    // TODO background menu
+
+    output("\n");
+
+    /* TODO Could this method of ability scoring work as a basis? */
     Ability abil;
 
-    /* begin creating the character here */
     vector<int> stats = abil_arr();
 
     output("You generated the following ability scores: \n");
@@ -172,6 +181,13 @@ int main(int argc, char* argv[]) {
         }
         }
     }
+
+    output("\n");
+
+    output("Skill select based on class\n");    // TODO Skill select based on class
+    output("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
+    output("Equipment\n");                      // TODO select equipment based on class and background
+    output("Name:\n");
 
     output("\n");
 
