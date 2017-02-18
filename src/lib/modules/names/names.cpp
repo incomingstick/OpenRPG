@@ -86,8 +86,7 @@ string NameGenerator::make_last() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        int select = random(0, lines.size() - 1);   // TODO (fix) only generating a static number
-                                                    // it appears to be system specific
+        int select = random(0, lines.size() - 1);
 
         file.close();
 
