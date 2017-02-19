@@ -5,8 +5,6 @@ description: Scan and parse a string to preform advance die math
 group: documentation
 ---
 
-# ExpressionTree
-
 **Namespace:** _none_  
 **Assembly:** _none_  
 

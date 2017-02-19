@@ -5,7 +5,9 @@ description: Randomly generate names based on race
 group: documentation
 ---
 
-# NameGenerator
+**Namespace:** _none_  
+**Assembly:** _none_  
+
 Defined in `#include "names.h"`
 ````C++
 class NameGenerator {
