@@ -5,8 +5,8 @@ set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 # Project info
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
-set(OpenRPG_VERSION_MINOR 1)
-set(OpenRPG_VERSION_TWEAK 1)
+set(OpenRPG_VERSION_MINOR 2)
+set(OpenRPG_VERSION_TWEAK 0)
 set(OpenRPG_VERSION_SUFFIX "dev")
 set(OpenRPG_AUTHOR "Nicholas Gaulke")
 string(TIMESTAMP YEAR %Y UTC)
@@ -20,17 +20,17 @@ configure_file (
 )
 
 # source directories
-include_directories("src/lib")
+include_directories("src/lib" "src/lib/modules/names" "src/lib/modules/roll")
 
 # module directory with CMakeLists.txt
 add_subdirectory("src/lib")
 
 set(SOURCES 
-		${CMAKE_SOURCE_DIR}/src/openrpg.cpp
+    ${CMAKE_SOURCE_DIR}/src/openrpg.cpp
 )
 
 set(INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/config.h
+    ${CMAKE_SOURCE_DIR}/src/lib/config.h
 )
 
 set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
@@ -38,7 +38,7 @@ set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
-target_link_libraries(openrpg utils)
+target_link_libraries(openrpg utils names roll-parser)
 
 install(TARGETS openrpg DESTINATION bin)
 install(FILES ${INCLUDE} DESTINATION include/openrpg)

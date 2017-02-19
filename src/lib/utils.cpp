@@ -8,8 +8,8 @@ There is NO WARRANTY, to the extent permitted by law.
  */
 #include <unistd.h>
 #include <sys/ioctl.h>
-
 #include <unistd.h>
+
 #include <fstream>
 #include <string>
 #include <functional>
@@ -34,18 +34,18 @@ bool VB_FLAG = false;
  * Returns the width of the console
  */
 size_t get_console_width() {
-	struct winsize size;
-	ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-	return size.ws_col;
+    struct winsize size;
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
+    return size.ws_col;
 }
 
 /*
  * Returns the height of terminal
  */
 size_t get_console_height() {
-	struct winsize size;
-	ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-	return size.ws_row;
+    struct winsize size;
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
+    return size.ws_row;
 }
 
 /*
@@ -63,7 +63,7 @@ string get_display_screen(string file) {
         while (getline(screen_file, buffer)) {
             // Append the formatted line to the cumulative string
             if(screen_file.peek() != EOF)
-            	ret = ret + buffer + '\n';
+                ret = ret + buffer + '\n';
             else ret = ret + buffer;
         }
         screen_file.close();
@@ -71,7 +71,7 @@ string get_display_screen(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened");
+        printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
     }
     
     return ret;
@@ -82,7 +82,7 @@ string get_display_screen(string file) {
  * used to create images and other printed files.
  */
 string file_to_string(string file) { 
-	// Open the assets file for the current screen
+    // Open the assets file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
@@ -97,7 +97,7 @@ string file_to_string(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened");
+        printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
     }
     
     return ret;
@@ -153,19 +153,25 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
     for(;;) {
         int c = sb->sbumpc();
         switch (c) {
-        case '\n':
+        case '\n': {
             return is;
-        case '\r':
+        } break;
+
+        case '\r': {
             if(sb->sgetc() == '\n')
                 sb->sbumpc();
             return is;
-        case EOF:
+        } break;
+
+        case EOF: {
             // Also handle the case when the last line has no line ending
             if(t.empty())
                 is.setstate(std::ios::eofbit);
             return is;
-        default:
+        } break;
+        default: {
             t += (char)c;
+        }
         }
     }
 }
@@ -175,52 +181,11 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
  */
 bool print_file(string type) {
     if(QUIET_FLAG) return false;
+
     string screen_disp = get_display_screen(type);
-    output(screen_disp + '\n');
+    printf("%s\n", screen_disp.c_str());
+    
     return true;
-}
-
-/* Outputs the log string to stderr if VB_FLAG is set */
-/* TODO improve output string for diff between verbose and debug output
-    output should not print line tags (i.e [VERBOSE]) unless debug flag
-    is set*/
-int output(string log, int status_code) {
-    switch(status_code) {
-        case OUTPUT_CODE: {
-            if(VB_FLAG)
-                cout << "[OUTPUT]\t";
-            
-            // begin each new line with [OUTPUT] to align all debugging output
-            for (auto it = log.begin(); it != log.end(); ++it) {
-                // if the current index is needed:
-                auto c = *it;
-
-                cout << c;
-
-                // access element as *it
-                if(c == '\n' && VB_FLAG) {
-                    if(it + 1 == log.end()) break;
-                    else cout << "[OUTPUT]\t";
-                }
-            }
-        } break;
-
-        case VB_CODE: {
-            if(VB_FLAG)
-                cout << "[VERBOSE]\t" << log << endl;
-        } break;
-
-        case ERROR_CODE: {
-            if(VB_FLAG)
-                cerr << "[ERROR]\t" << log << endl;
-        } break;
-
-        default: {
-            cout << log << endl;
-        }
-    }
-
-    return status_code;
 }
 
 int random(int min, int max) {

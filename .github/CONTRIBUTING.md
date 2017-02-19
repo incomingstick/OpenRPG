@@ -41,7 +41,7 @@ by someone that understand the language.
 ### Release Requirement TODO's
 
 #### v0.1.0-dev
-- [X] dice simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
+- [X] die simulation program (began implementation in [v0.0.3-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.3-dev))
     - [ ] allows full math using dice (current development branch - roll-module)
 - [X] name generator (began implementation in [v0.0.2-dev](https://github.com/incomingstick/OpenRPG/tree/v0.0.2-dev), current development branch - names-module)
     - [ ] Aarakocra ([EE](http://dnd.wizards.com/articles/features/elementalevil_playerscompanion))
@@ -81,7 +81,7 @@ by someone that understand the language.
     - [ ] Triton (VOLO)
     - [ ] Vampire ([ZEN](http://media.wizards.com/2016/downloads/magic/Plane%20Shift%20Zendikar.pdf))
     - [ ] Warforged: ([UA: "Eberron"](https://media.wizards.com/2015/downloads/dnd/UA_Eberron_v1.pdf))
-- [ ] character generator
+- [X] character generator (began implementation in [v0.1.0-dev](https://github.com/incomingstick/OpenRPG/tree/v0.1.0-dev), current development branch - character-module)
     - [ ] populates a PDF character sheet with the generated information
     - [ ] automatically determines if the character is legal in Adventurers League
     - [ ] can pass any number of stats and autofill the rest (blank for completely generated)
@@ -105,6 +105,12 @@ Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLAT
 file.
 
 ### Programming Standards
+
+#### File Naming
+````c++
+cppFile.cpp
+headerFile.h
+````
 
 #### Code Blocks
 ````c++
@@ -142,8 +148,26 @@ public:
 };
 ````
 
-#### File Naming
+#### Switch Statements
 ````c++
-cppFile.cpp
-headerFile.h
+/* this should be the standard method for
+    writing a switch statement unless switch
+    scoping is required */
+switch(c) {
+case 'a': {
+    // case a code here
+} break;
+
+case 'b': {
+    // case b code here
+} break;
+
+case 'c': {
+    // case c code here
+} break;
+
+default: {
+    // catch all code here
+}
+}
 ````

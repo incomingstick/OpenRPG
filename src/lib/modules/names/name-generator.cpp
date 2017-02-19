@@ -6,8 +6,9 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <iostream>
 #include <getopt.h>
+
+#include <iostream>
 #include <cstdlib>
 
 #include "config.h"
@@ -30,7 +31,7 @@ static void print_help_flag() {
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: name-generator [options] RACE GENDER\n"
+          "Usage: name-generator [options] RACE SUBRACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
@@ -38,7 +39,6 @@ static void print_help_flag() {
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
-          "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man name-generator' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
@@ -46,7 +46,7 @@ static void print_help_flag() {
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], string* race, string* gender) {
+int parse_args(int argc, char* argv[], string* race, string* subrace, string* gender) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -70,68 +70,127 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
         switch (opt) {
         /* -h --help */
-        case 'h':
+        case 'h': {
             print_help_flag();
-            break;
+         } break;
 
         /* -v --version */
-        case 'v':
+        case 'v': {
             print_version_flag();
-            break;
+        } break;
 
         /* -V --verbose */
-        case 'V':
+        case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
-            break;
+        } break;
         
         /* parsing error */
-        case '?':
+        case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
-            break;
+        } break;
         
         /* if we get here something very bad happened */
-        default:
-            status = output("Aborting...", EXIT_FAILURE);
+        default: {
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
+        }
         }
     }
 
     /* check to make sure there are at least 
         two "unknown" args to parse throug*/
-    while (optind + 1 < argc) {
-        string opt_str = argv[optind++];
+    switch(argc - optind) {
+    case 1: {
+        // TODO handle only one arg passed
+        string opt0 = argv[optind++];
 
-        /* allows gender to be passed first */
-        if(opt_str == "male" || opt_str == "female") {
-            *gender = opt_str;
-            *race = argv[optind];
+        /* we know they passed just a gender */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
             break;
         } else {
-            *race = opt_str;
-            *gender = argv[optind];
+            *race = opt0;
             break;
         }
+    } break;
+
+    case 2: { 
+        string opt0 = argv[optind++];
+        string opt1 = argv[optind++];
+
+        /* allows gender to be passed first */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
+            *race = opt1;
+            break;
+        } else {
+            *gender = opt1;
+            *race = opt0;
+            break;
+        }
+    } break;
+
+    case 3: {
+        string opt0 = argv[optind++];
+        string opt1 = argv[optind++];
+        string opt2 = argv[optind++];
+
+        /* allows gender to be passed first */
+        if(opt0 == "male" || opt0 == "female") {
+            *gender = opt0;
+            *race = opt1;
+            *subrace = opt2;
+            break;
+        } else {
+            *gender = opt1;
+            *race = opt0;
+            *subrace = opt2;
+            break;
+        }
+    } break;
+
+    default: {
+        // TODO output error code
+    }
     }
 
     return status;
 }
 
+/* TODO handle tab completion */
 int main(int argc, char* argv[]) {
-    string race, gender;
-    int status = output("parse_args completed", parse_args(argc, argv, &race, &gender)); // may exit
+    string race = "", subrace = "", gender = "";
+    int status = parse_args(argc, argv, &race, &subrace, &gender); // may exit
 
-if(race.empty()) status =  output("race cannot be empty", EXIT_FAILURE);
-    if(gender.empty()) status = output("gender cannot be empty", EXIT_FAILURE);
-
-    if(status == EXIT_SUCCESS) {
-        output("found "+race+" "+gender, VB_CODE);
-
-        NameGenerator gen(race, gender);
-
-        output(gen.make_name() +'\n');
+    if(race.empty()) {
+        printf("race cannot be empty\n");
+        status = EXIT_FAILURE;
+        print_help_flag();
     }
 
-	return output("exiting with status "+ to_string(status), status);
+    if(gender.empty()) {
+        printf("gender cannot be empty\n");
+        status = EXIT_FAILURE;
+        print_help_flag();
+    }
+
+    // TODO add races with subraces here
+    if(subrace.empty()) {
+        if(race == "human") {
+            printf("%s must have a subrace\n", race.c_str()); 
+            status = EXIT_FAILURE;
+        }
+
+        print_help_flag();
+    }
+
+    if(status == EXIT_SUCCESS) {
+        NameGenerator gen(race, gender, subrace);
+
+        printf("%s\n", gen.make_name().c_str());
+    }
+
+    return status;
 }

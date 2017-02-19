@@ -6,14 +6,20 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include "roll.h"
+#include <getopt.h>
+
+#include <string>
+
+#include "config.h"
+#include "utils.h"
+#include "roll-parser.h"
 
 using namespace std;
 
-bool POS_FLAG;
-bool SUM_FLAG;
-
-
+/**
+  * @desc prints the current compiled version
+  * @return void - always exits with status EXIT_SUCCESS
+  */
 static void print_version_flag() {
     fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -23,6 +29,10 @@ static void print_version_flag() {
     exit(EXIT_SUCCESS);
 }
 
+/**
+  * @desc prints the help and usage menu
+  * @return void - always exits with status EXIT_SUCCESS
+  */
 static void print_help_flag() {
     fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -30,23 +40,26 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
                 "\t-h --help                   Print this help screen\n"
-                "\t-p --positive               Allow only positive results\n"
-                "\t-s --sum-series             Show the sum of roll series\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
-          "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
           "See 'man name-generator' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
 }
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[]) {
+/**
+  * @desc parses through the arguements passed by char* argv[] and runs
+  *     program logic realted to those arguements. This function may
+  *     exit the program
+  * @param int argc - length of argv as an integer
+  * @param char* argv[] - an array of cstrings read from the command line
+  * @return int - signifies the stats of the function call, 0 for success
+  */
+int parse_args(int argc, char* argv[], string* inputString) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -66,47 +79,38 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hpsvV",
+    while ((opt = getopt_long(argc, argv, "hvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
         switch (opt) {
         /* -h --help */
-        case 'h':
+        case 'h': {
             print_help_flag();
-            break;
-
-        /* -p --positive */
-        case 'p':
-            POS_FLAG = true;
-            break;
-        
-        /* -s --sum-series */
-        case 's':
-            SUM_FLAG = true;
-            break;
+        } break;
 
         /* -v --version */
-        case 'v':
+        case 'v': {
             print_version_flag();
-            break;
+        } break;
 
         /* -V --verbose */
-        case 'V':
+        case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set", VB_CODE);
             QUIET_FLAG = false;
-            break;
+        } break;
         
         /* parsing error */
-        case '?':
+        case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
-            break;
+        } break;
         
         /* if we get here something very bad happened */
-        default:
-            status = output("Aborting...", EXIT_FAILURE);
+        default: {
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
+        }
         }
     }
 
@@ -123,326 +127,35 @@ int parse_args(int argc, char* argv[]) {
         argv++;
     }
 
-    if (expression.size() > 0) {
-        globalInputString = expression.c_str();
-
-        // TODO parse globalInputString here
-    } else {
-        // TODO roll 1d6 here
-    }
+    if (expression.size() > 0) *inputString = expression;
+    else *inputString = "1d20";
 
     return status;
 }
 
+/**
+  * @desc parses through the arguements passed by char* argv[] and runs
+  *     program logic realted to those arguements. This function may
+  *     exit the program
+  * @param int argc - length of argv as an integer
+  * @param char* argv[] - an array of cstrings read from the command line
+  * @return int - signifies the stats of the function call, 0 for success
+  */
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed", parse_args(argc, argv));
+    string inputString;
 
-	return output("exiting with status "+to_string(status), status);
-}
+    int status = parse_args(argc, argv, &inputString);
+    
+    if(status) {
+        ExpressionTree tree;
 
-int read_string(char *buff, int *numBytesRead, int maxBytesToRead) {
-    int numBytesToRead = maxBytesToRead;
-    int bytesRemaining = strlen(globalInputString)-globalReadOffset;
-    
-    if(numBytesToRead > bytesRemaining) { numBytesToRead = bytesRemaining; }
-    
-    for(int i = 0; i < numBytesToRead; i++)
-        buff[i] = globalInputString[globalReadOffset+i];
-    
-    *numBytesRead = numBytesToRead;
-    globalReadOffset += numBytesToRead;
-    
-    return 0;
-}
+        tree.set_expression(inputString);
+        tree.scan_expression();
 
-struct parse_node* allocate_node(void) {
-    struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
-    
-    if(node == NULL) {
-        output("out of memory", VB_CODE);
-        exit(output("exiting with status "+to_string(EXIT_FAILURE), EXIT_FAILURE));
+        printf("%s", tree.to_string().c_str());
+
+        printf("%i\n", tree.parse_expression());
     }
 
-    /* initialize default values */
-    node->left  = NULL;
-    node->right = NULL;
-    node->next  = NULL;
-    node->op    = 0;
-    node->value = 0;
-  
-    return node;
-}
-
-struct parse_node* new_number(int number) {
-    struct parse_node* node = allocate_node();
-    
-    node->op = OP_NUMBER;
-    node->value = number;
-
-    return node;
-}
-
-int compare(const void* p1, const void* p2) {
-    const int i1 = *((const int *)p1);
-    const int i2 = *((const int *)p2);
-
-    if (i1 > i2) return 1;
-    else if (i1 < i2) return -1;
-    else return 0;
-}
-
-struct parse_node* new_op (unsigned short int op, struct parse_node* left, struct parse_node* right) {
-    struct parse_node* node = allocate_node();
-    
-    node->op = op;
-    node->value = 0;
-    node->left = left;
-    node->right = right;
-    
-    return node;
-  
-}
-
-struct parse_node* new_dice (struct parse_node* sides) {
-    struct parse_node* node = allocate_node();
-  
-    node->op = OP_DICE;
-    node->value = 0;
-    node->right = sides;
-    
-    return node;
-}
-
-int checked_sum(int op1, int op2) {
-    if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
-    output("overflow", ERROR_CODE);
-    
-    return op1+op2;
-}
-
-int checked_multiplication(int op1, int op2) {
-    int result = op1 * op2;
-    if(op1 != 0 && result / op1 != op2 ) {
-        output("overflow", ERROR_CODE);
-    }
-    
-    return result;
-}
-
-void print_node(struct parse_node* node) {
-    switch(node->op) {
-    case OP_NUMBER: printf("number (%i)", node->value); break;      
-    case OP_DICE:   printf("dice"); break;
-    case OP_PLUS:   printf("+"); break;
-    case OP_MINUS:  printf("-"); break;
-    case OP_TIMES:  printf("*"); break;
-    case OP_DIV:    printf("/"); break;
-    case OP_HIGH:   printf("high"); break;
-    case OP_LOW:    printf("low"); break;
-    case OP_GT:     printf(">"); break;
-    case OP_GE:     printf(">="); break;
-    case OP_LT:     printf("<"); break;
-    case OP_LE:     printf("<="); break;
-    case OP_NE:     printf("!="); break;
-    case OP_REP:    printf("rep"); break;
-    default :       printf("unknown node"); break;
-    }
-}
-
-void print_tree(std::string prefix, struct parse_node* node, int indent) {
-    int i;
-  
-    printf("[%s]\t\t", prefix.c_str());
-
-    for(i = 0; i < indent; i++) {
-        printf(" ");
-    }
-
-    print_node(node);
-
-    printf("\n");
-
-    if(node->left != NULL) {
-        print_tree(prefix, node->left, indent+1);
-    }
-
-    if(node->right != NULL) {
-        print_tree(prefix, node->right, indent+1);
-    }
-}
-
-int roll_expression(struct parse_node* node, bool print) {
-    int high;
-    int i;
-    int limit;
-    int low;
-    int repetitions;
-    int return_value = 0;
-    int sides;
-    int tmp;
-    int* results;
-
-    struct parse_node* cur;
-
-    cur = node;
-    while (cur != NULL) {
-        int sum = 0;
-
-        switch(cur->op) {
-        case OP_NUMBER:
-            sum = cur->value;
-            break;
-
-        case OP_REP:
-            for (i = 0; i < roll_expression(cur->left, false); i++)
-                sum = checked_sum(sum, roll_expression(cur->right, false));
-            break;
-      
-        case OP_DICE: {
-                Die die(roll_expression(cur->right, false));
-                sum = die.roll();
-            }
-            break;
-      
-        case OP_PLUS:
-            sum = checked_sum(roll_expression(cur->left, false),
-                              roll_expression(cur->right, false));
-            break;
-      
-        case OP_MINUS:
-            sum = checked_sum(roll_expression(cur->left, false),
-                             -roll_expression(cur->right, false));
-            break;
-      
-        case OP_TIMES:
-            sum = checked_multiplication(roll_expression(cur->left, false),
-                                         roll_expression( cur->right, false));
-            break;
-      
-        case OP_DIV:
-            sum = (int)
-            ceil((float)roll_expression(cur->left, false) /
-                        roll_expression(cur->right, false));
-            break;
-      
-        case OP_HIGH:
-            sides       = roll_expression(cur->right->right->right, false);
-            repetitions = roll_expression(cur->right->left, false);
-            high        = roll_expression(cur->left, false);      
-
-            /* array to store the results to sort */
-            if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", ERROR_CODE);
-            }
-      
-            for(i=0; i<repetitions; i++) {
-                Die die(sides);
-                results[i] = die.roll();
-            }
-
-            qsort(results, repetitions, sizeof(int), &compare);
-
-            for(i=(repetitions-high); i<repetitions; i++) {
-                sum = checked_sum( sum, results[i] );
-            }
-      
-            free(results);
-            break;
-      
-        case OP_LOW:
-            sides       = roll_expression(cur->right->right->right, false);
-            repetitions = roll_expression(cur->right->left,  false);
-            low         = roll_expression(cur->left, false);
-      
-            if (cur->right->left != NULL) {
-                repetitions = roll_expression(cur->right->left, false);
-            }
-                  
-            /* array to store the results to sort */
-            if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-                output("out of memory", ERROR_CODE);
-            }
-      
-            for(i=0; i<repetitions; i++) {
-                Die die(sides);
-                results[i] = die.roll();
-            }
-
-            qsort(results, repetitions, sizeof(int), &compare);
-      
-            for(i=0; i<low; i++) {
-                sum = checked_sum( sum, results[i] );
-            }
-      
-            free(results);
-            break;
-
-        case OP_GT:
-            limit = roll_expression(cur->right, false);      
-            tmp   = roll_expression(cur->left,  false);
-            
-            while (tmp <= limit) {
-                tmp = roll_expression(cur->left, false);
-            }
-            
-            sum = checked_sum( sum, tmp );
-            break;
-      
-        case OP_GE:
-            limit = roll_expression(cur->right, false);      
-            tmp   = roll_expression(cur->left,  false);
-            
-            while (tmp < limit) {
-                tmp = roll_expression(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-            break;
-      
-        case OP_LT:
-            limit = roll_expression(cur->right, false);      
-            tmp   = roll_expression(cur->left,  false);
-      
-            while (tmp >= limit) {
-                tmp = roll_expression(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-      
-            break;
-      
-        case OP_LE:
-            limit = roll_expression(cur->right, false);      
-            tmp   = roll_expression(cur->left,  false);
-      
-            while (tmp > limit) {
-                tmp = roll_expression(cur->left, false);
-            }
-      
-            sum = checked_sum( sum, tmp );
-            break;
-        
-        case OP_NE:
-            limit = roll_expression(cur->right, false);      
-            tmp   = roll_expression(cur->left,  false);
-      
-            while (tmp == limit) {
-                tmp = roll_expression(cur->left, false);
-                fprintf(stderr, "Implementation error: unkown IR node with code %i\n", cur->op);
-                exit(EXIT_FAILURE);      
-            }
-        
-            return return_value;
-        }
-
-        return_value = checked_sum(return_value, sum);
-
-        if (print) {
-            output(to_string(sum)+"\n");
-        }
-
-        cur = cur->next;
-    }
-
-    return return_value;
+    return status;
 }

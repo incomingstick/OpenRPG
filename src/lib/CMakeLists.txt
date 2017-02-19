@@ -1,11 +1,11 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set(UTIL_SOURCE
-		${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
+        ${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
 )
 
 set(UTIL_INCLUDE
-		${CMAKE_SOURCE_DIR}/src/lib/utils.h
+        ${CMAKE_SOURCE_DIR}/src/lib/utils.h
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
