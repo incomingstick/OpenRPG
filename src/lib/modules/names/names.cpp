@@ -25,13 +25,16 @@ using namespace std;
 #define ASSET_LOC TESTING_ASSET_LOC
 #endif
 
-NameGenerator::NameGenerator(string race, string gender)
+NameGenerator::NameGenerator(string race, string gender, string subrace)
     :race(race),
+     subrace(subrace),
      gender(gender) {
     location = ASSET_LOC;
     location += "/names";
-    output("top location: "+location+"\n", VB_CODE);
-    output("NameGenerator with "+race+" "+gender+" created\n", VB_CODE);
+
+    if(!subrace.empty()) this->subrace = "/" + subrace;
+
+    output("name asset location: "+location+"\n", VB_CODE);
 }
 
 NameGenerator::~NameGenerator() {
@@ -45,7 +48,7 @@ string NameGenerator::make_name() {
 }
 
 string NameGenerator::make_first() {
-    string loc(location+"/"+race+"/"+gender);
+    string loc(location+"/"+ race + subrace +"/"+gender);
     
     output("opening location: "+loc+"\n", VB_CODE);
 
@@ -73,7 +76,7 @@ string NameGenerator::make_first() {
 }
 
 string NameGenerator::make_last() {
-    string loc(location+"/"+race+"/last");
+    string loc(location +"/"+ race + subrace +"/last");
 
     output("opening location: "+ loc +"\n", VB_CODE);
 
@@ -86,8 +89,7 @@ string NameGenerator::make_last() {
         while(safeGetline(file, line)) lines.push_back(line);
         while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        int select = random(0, lines.size() - 1);   // TODO (fix) only generating a static number
-                                                    // it appears to be system specific
+        int select = random(0, lines.size() - 1);
 
         file.close();
 
