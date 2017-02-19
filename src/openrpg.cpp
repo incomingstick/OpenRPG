@@ -83,13 +83,7 @@ int parse_args(int argc, char* argv[]) {
         /* -n --name */
         case 'n': {
             if(optind < argc) {
-                cmd = "name-generator";
-                if(VB_FLAG) cmd += " -V";
-                cmd += " "+(string)optarg +" "+ (string)argv[optind++];
-
-                output("calling "+cmd+"\n", EXIT_SUCCESS);
-                output("called "+cmd+"\n", system(cmd.c_str()));
-                output("exiting with status "+to_string(status)+"\n", status);
+                // TODO link to name generator here
 
                 exit(status);
             } else {
@@ -101,20 +95,13 @@ int parse_args(int argc, char* argv[]) {
         /* -q --quiet */
         case 'q': {
             QUIET_FLAG = true;
-            output("turning verbose flag off\n", VB_CODE);
             VB_FLAG = false;
         } break;
 
         /* -r --roll */
         case 'r': {
             if(optind <= argc) {
-                cmd = "roll";
-                if(VB_FLAG) cmd += " -V";
-                cmd += " "+(string)optarg;
-
-                output("calling "+cmd+"\n", EXIT_SUCCESS);
-                output("called "+cmd+"\n", system(cmd.c_str()));
-                output("exiting with status "+to_string(status)+"\n", status);
+                // TODO link to roll parser here
 
                 exit(status);
             } else {
@@ -131,7 +118,6 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
 
@@ -143,7 +129,8 @@ int parse_args(int argc, char* argv[]) {
 
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...\n", EXIT_FAILURE);
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
         }
         }
     }
@@ -156,9 +143,6 @@ int parse_input(string in) {
     int status = EXIT_SUCCESS;
 
     if (in.size() > 0) {
-        // message to user that program is working to fulfill request
-        output("parsing...\n", VB_CODE);
-
         // parsed individual words
         vector<string> words;
 
@@ -180,61 +164,50 @@ int parse_input(string in) {
         if(word.size() > 0) words.push_back(word); //end of command word
 
         if (words.size() > 0) {
-            output("Words (" + to_string(words.size()) + "):\n", VB_CODE);
-
-            for(string wrd : words) output(wrd+"\n", VB_CODE);
-
-
             // TODO simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
-                output("leaving input_parse("+ in +")\n", VB_CODE);
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
                 if(words.size() > 2) {
-                    string cmd = "./generator " + words[1] + " " + words[2];
 
-                    output("calling "+cmd+"\n", VB_CODE);
-                    output("called "+cmd+"\n", system(cmd.c_str()));
+                    // TODO link to name generator
 
                     if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
 
-                    return output("getting next in with status "+to_string(status)+"\n", status);
+                    return status;
                 } else {
-                    output("Missing arguments!\n");
+                    printf("Missing arguments!\n");
                 }
             } else if(words[0] == "roll") {
-                output("Preparing to roll some dice...\n");
                 if(words.size() > 1) {
                     string cmd = "./roll ";
                     for (int i = 1; (unsigned) i < words.size(); i++) {
                         cmd += words[i] + " ";
                     }
 
-                    //string cmd = "./roll " + (string)words[1];
-                    output("calling "+cmd+"\n", VB_CODE);
-                    output("called "+cmd+"\n", system(cmd.c_str()));
+                    // TODO link to roll parser
 
                     if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
 
-                    return output("getting next in with status "+to_string(status)+"\n", status);
+                    return status;
                 } else {
-                    output("Missing arguments\n");
+                    printf("Missing arguments\n");
                 }
             } else { //default case
-                output("Command not recognized!\n");
+                printf("Command not recognized!\n");
             }
             words = {};
         } else {
-            output("No command given!\n");
+            printf("No command given!\n");
         }
     } else {
-        output("No command given!\n");
+        printf("No command given!\n");
     }
     return CONTINUE_CODE;
 }
 
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
+    int status = parse_args(argc, argv); // may exit
 
     if(status == EXIT_SUCCESS) {
         // TODO - clgui for program
@@ -244,11 +217,12 @@ int main(int argc, char* argv[]) {
 
         // get user input
         while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
-            output("\33[4morpg\33[0m > ");
+            printf("\33[4morpg\33[0m > ");
             cin >> in;
+
             if((status = parse_input(in)) != CONTINUE_CODE) break;
         }
     }
 
-    return output("exiting with status "+ to_string(status)+"\n", status);
+    return status;
 }

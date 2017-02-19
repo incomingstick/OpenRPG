@@ -65,7 +65,8 @@ int parse_args(int argc, char* argv[]) {
     };
 
     while ((opt = getopt_long(argc, argv, "rhvV",
-                               long_opts, &opt_ind)) != EOF) {
+                               long_opts, &opt_ind)) != EOF &&
+                               status != EXIT_FAILURE) {
         string cmd("");
 
         switch (opt) {
@@ -87,7 +88,6 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
 
@@ -99,7 +99,8 @@ int parse_args(int argc, char* argv[]) {
 
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...\n", EXIT_FAILURE);
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
         }
         }
     }
@@ -108,34 +109,34 @@ int parse_args(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
+    int status = parse_args(argc, argv); // may exit
 
     /* begin creating the character here */
-    output("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
-    output("Race\n");                          // TODO race menu
-    output("Subrace\n");                       // TODO subrace menu
-    output("Class\n");                         // TODO class menu
-    output("Background\n");                    // TODO background menu
+    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
+    printf("Race\n");                          // TODO race menu
+    printf("Subrace\n");                       // TODO subrace menu
+    printf("Class\n");                         // TODO class menu
+    printf("Background\n");                    // TODO background menu
 
-    output("\n");
+    printf("\n");
 
     /* TODO Could this method of ability scoring work as a basis? */
     Ability abil;
 
     vector<int> stats = abil_arr();
 
-    output("You generated the following ability scores: \n");
+    printf("You generated the following ability scores: \n");
 
-    for(int num : stats) output(to_string(num) + " ("+to_string(modifier(num))+")\n");
+    for(int num : stats) printf("%i (%i)\n", num, modifier(num));
 
-    output("\n");
+    printf("\n");
 
     for(size_t i = 0; i < stats.size(); i++) {
         int score;
 
         switch(i) {
         case 0: {
-            output("Set Strength\t (STR): ");
+            printf("Set Strength\t (STR): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -143,7 +144,7 @@ int main(int argc, char* argv[]) {
         } break;
 
         case 1: {
-            output("Set Dexterity\t (DEX): ");
+            printf("Set Dexterity\t (DEX): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -151,7 +152,7 @@ int main(int argc, char* argv[]) {
         } break;
 
         case 2: {
-            output("Set Constitution (CON): ");
+            printf("Set Constitution (CON): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -159,7 +160,7 @@ int main(int argc, char* argv[]) {
         } break;
 
         case 3: {
-            output("Set Intelligence (INT): ");
+            printf("Set Intelligence (INT): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -167,7 +168,7 @@ int main(int argc, char* argv[]) {
         } break;
 
         case 4: {
-            output("Set Wisdom\t (WIS): ");
+            printf("Set Wisdom\t (WIS): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -175,7 +176,7 @@ int main(int argc, char* argv[]) {
         } break;
 
         case 5: {
-            output("Set Charisma\t (CHA): ");
+            printf("Set Charisma\t (CHA): ");
 
             cin >> score;
             // TODO if score is not on the list??
@@ -183,23 +184,24 @@ int main(int argc, char* argv[]) {
         } break;
 
         default: {
-            return output("should not have gotten here", EXIT_FAILURE);
+            printf("should not have gotten here");
+            return EXIT_FAILURE;
         }
         }
     }
 
-    output("\n");
+    printf("\n");
 
-    output("Skill select based on class\n");    // TODO Skill select based on class
-    output("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
-    output("Equipment\n");                      // TODO select equipment based on class and background
-    output("Name:\n");
+    printf("Skill select based on class\n");    // TODO Skill select based on class
+    printf("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
+    printf("Equipment\n");                      // TODO select equipment based on class and background
+    printf("Name:\n");                          // TODO read in name or generate random one?
 
-    output("\n");
+    printf("\n");
 
     Character player(abil);
 
-    output(player.to_string());
+    printf("%s", player.to_string().c_str());
 
-    return output("exiting with status "+to_string(status)+"\n", status);
+    return status;
 }

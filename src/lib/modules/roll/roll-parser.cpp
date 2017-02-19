@@ -41,8 +41,8 @@ parse_node* ExpressionTree::allocate_node() {
     struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
     
     if(node == NULL) {
-        output("out of memory", VB_CODE);
-        exit(output("exiting with status "+std::to_string(EXIT_FAILURE), EXIT_FAILURE));
+        printf("out of memory");
+        exit(EXIT_FAILURE);
     }
 
     /* initialize default values */
@@ -250,7 +250,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
 
         // array to store the results to sort
         if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-            output("out of memory", ERROR_CODE);
+            printf("out of memory");
         }
       
         for(i = 0; i < repetitions; i++) {
@@ -273,7 +273,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
                   
         /* array to store the results to sort */
         if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
-            output("out of memory", ERROR_CODE);
+            printf("out of memory");
         }
       
         for(i = 0; i < repetitions; i++) {
@@ -358,8 +358,8 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
     } break;
 
     default: {
-        exit(output("got to default of parse_tree switch", EXIT_FAILURE));
         // TODO syntax error here
+        exit(EXIT_FAILURE);
     }
     }
 
@@ -550,7 +550,7 @@ void ExpressionTree::scan_expression(void) {
   */
 int ExpressionTree::checked_sum(int op1, int op2) {
     if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
-        output("overflow", ERROR_CODE);
+        printf("overflow");
     
     return op1 + op2;
 }
@@ -565,7 +565,7 @@ int ExpressionTree::checked_sum(int op1, int op2) {
 int ExpressionTree::checked_multiplication(int op1, int op2) {
     int result = op1 * op2;
     if(op1 != 0 && result / op1 != op2 )
-        output("overflow", ERROR_CODE);
+        printf("overflow");
     
     return result;
 }
