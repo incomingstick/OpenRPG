@@ -31,6 +31,7 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: character-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
+                "\t-r --random                 Skips the character creator and generates a fully random character\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
           "\n"
@@ -56,13 +57,14 @@ int parse_args(int argc, char* argv[]) {
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
+        {"random",  no_argument,        0,  'r'},
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hvV",
+    while ((opt = getopt_long(argc, argv, "rhvV",
                                long_opts, &opt_ind)) != EOF) {
         string cmd("");
 
@@ -70,6 +72,11 @@ int parse_args(int argc, char* argv[]) {
         /* -h --help */
         case 'h': {
             print_help_flag();
+        } break;
+
+        /* -r --random */
+        case 'r': {
+            // TODO skip character creator and generate fully random character
         } break;
 
         /* -v --version */
@@ -104,7 +111,7 @@ int main(int argc, char* argv[]) {
     int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
 
     /* begin creating the character here */
-    output("Use character creator (Y/n)\n");   // TODO character creator switch
+    output("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
     output("Race\n");                          // TODO race menu
     output("Subrace\n");                       // TODO subrace menu
     output("Class\n");                         // TODO class menu
