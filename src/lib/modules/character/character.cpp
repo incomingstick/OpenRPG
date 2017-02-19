@@ -47,8 +47,6 @@ Character::Character() {
     skills.SLE = DEX();    // Sleight of Hand  (DEX)
     skills.STL = DEX();    // Stealth          (DEX)
     skills.SUR = WIS();    // Survival         (WIS)
-
-    output("character created", VB_CODE);
 }
 
 Character::Character(Ability ab)
@@ -76,8 +74,6 @@ Character::Character(Ability ab)
     skills.SLE = DEX();    // Sleight of Hand  (DEX)
     skills.STL = DEX();    // Stealth          (DEX)
     skills.SUR = WIS();    // Survival         (WIS)
-
-    output("character created\n", VB_CODE);
 }
 
 Character::Character(Ability ab, Skills sk)
@@ -86,8 +82,6 @@ Character::Character(Ability ab, Skills sk)
     NameGenerator ng;
 
     name = ng.make_name();
-
-    output("character created", VB_CODE);
 }
 
 Character::~Character() {
