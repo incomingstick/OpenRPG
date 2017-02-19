@@ -111,6 +111,7 @@ int parse_args(int argc, char* argv[], string* race, string* subrace, string* ge
             *gender = opt0;
             break;
         } else {
+            *race = opt0;
             break;
         }
     } break;
@@ -158,16 +159,31 @@ int parse_args(int argc, char* argv[], string* race, string* subrace, string* ge
     return status;
 }
 
+/* TODO handle tab completion */
 int main(int argc, char* argv[]) {
-    string race, subrace, gender;
+    string race = "", subrace = "", gender = "";
     int status = output("parse_args completed\n", parse_args(argc, argv, &race, &subrace, &gender)); // may exit
 
-    if(race.empty())   status = output("race cannot be empty\n", EXIT_FAILURE);
-    if(gender.empty()) status = output("gender cannot be empty\n", EXIT_FAILURE);
+    if(race.empty()) {
+        status = output("race cannot be empty\n", EXIT_FAILURE);
+        print_help_flag();
+    }
+
+    if(gender.empty()) {
+        status = output("gender cannot be empty\n", EXIT_FAILURE);
+        print_help_flag();
+    }
+
+    // TODO add races with subraces here
+    if(subrace.empty()) {
+        if(race == "human") {
+            status = output(race+" must have a subrace\n", EXIT_FAILURE);
+        }
+
+        print_help_flag();
+    }
 
     if(status == EXIT_SUCCESS) {
-        output("found "+race+" "+gender+"\n", VB_CODE);
-
         NameGenerator gen(race, gender, subrace);
 
         output(gen.make_name() +'\n');

@@ -230,20 +230,19 @@ int output(string log, int status_code) {
         } break;
 
         case ERROR_CODE: {
-            if(VB_FLAG) {
-                cout << "[ERROR]\t\t";
+            if(VB_FLAG)
+                cout << "[ERROR]\t";
+            
+            // begin each new line with [OUTPUT] to align all debugging output
+            for (auto it = log.begin(); it != log.end(); ++it) {
+                auto ch = *it;
 
-                // begin each new line with [ERROR] to align all verbose output
-                for(auto it = log.begin(); it != log.end(); it++) {
-                    auto ch = *it;
+                cerr << ch;
 
-                    cout << ch;
-
-                    // access element as *it
-                    if(ch == '\n') {
-                        if(it + 1 == log.end()) break;
-                        else cout << "[ERROR]\t";
-                    }
+                // access element as *it
+                if(ch == '\n' && VB_FLAG) {
+                    if(it + 1 == log.end()) break;
+                    else cerr << "[ERROR]\t";
                 }
             }
         } break;
