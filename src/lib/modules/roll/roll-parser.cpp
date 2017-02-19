@@ -72,7 +72,7 @@ struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBy
     cur->value = stoi(curParseString);
     cur->op = OP_NUMBER;
 
-    if(cur->parent == NULL) {
+    if(cur->parent == NULL && numBytesRead != inputString.length()) {
         cur->parent = allocate_node();
         cur->parent->left = cur;
     }

@@ -20,7 +20,7 @@ configure_file (
 )
 
 # source directories
-include_directories("src/lib")
+include_directories("src/lib" "src/lib/modules/names" "src/lib/modules/roll")
 
 # module directory with CMakeLists.txt
 add_subdirectory("src/lib")
@@ -38,7 +38,7 @@ set(ASSETS ${CMAKE_SOURCE_DIR}/src/assets)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
 
 add_executable(openrpg ${SOURCES})
-target_link_libraries(openrpg utils)
+target_link_libraries(openrpg utils names roll-parser)
 
 install(TARGETS openrpg DESTINATION bin)
 install(FILES ${INCLUDE} DESTINATION include/openrpg)

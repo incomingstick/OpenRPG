@@ -35,10 +35,6 @@ NameGenerator::NameGenerator(string race, string gender, string subrace)
     if(!subrace.empty()) this->subrace = "/" + subrace;
 }
 
-NameGenerator::~NameGenerator() {
-    // TODO nothing yet. May never be anything TODO.
-}
-
 string NameGenerator::make_name() {
     string ret(make_first() + " " + make_last());
 
