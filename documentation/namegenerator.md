@@ -5,8 +5,8 @@ description: Randomly generate names based on race
 group: documentation
 ---
 
-# Die
-Defined in `#include "die.h"`
+# NameGenerator
+Defined in `#include "names.h"`
 ````C++
 class NameGenerator {
     public:
