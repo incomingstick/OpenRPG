@@ -18,8 +18,12 @@ struct Ability {
     int CHA = 10;   // Charisma
 };
 
-// TODO better way??
-// These are just the 5E Skills
+/*
+TODO better way?? We need to also keep track of what
+skills have proficiency (or double prof)
+
+Note: These are just the 5E Skills
+*/
 struct Skills {
     int ACR = 0;    // Acrobatics       (DEX)
     int ANM = 0;    // Animal Handling  (WIS)
@@ -41,23 +45,60 @@ struct Skills {
     int SUR = 0;    // Survival         (WIS)
 };
 
+/* Generates a stat > 1 && < 20 */
+int gen_stat();
+
+/* Generates an array of stats > 1 && < 20 */
+std::vector<int> abil_arr();
+
+/* returns an integer representation of the passed abilities modifier */
+inline int modifier(int abil) { return (abil - 10) / 2; };
+
 // TODO take an in depth look at what should and should not be public here
 class Character {
     private:
-        Ability abil;
-        Skills skills;
-        int gen_stat();
+        std::string name;       // the characters name
+        Ability abils;          // collection of ability scores
+        Skills skills;          // collection of skill checks
+        int curr_hp;            // current hit points
+        int temp_hp;            // temporary hit points
+        int max_hp;             // maximum hit points
+        int prof;               // proficiency bonus
+        int level;              // character level total
+        int exp;                // current experience
+        int max_exp;            // experience needed for next level
     public:
         Character();
+        Character(Ability ab);
+        Character(Ability ab, Skills sk);
         ~Character();
-        Ability get_ability_copy() { return abil; };
+
+        // Returns a copy of our Ability abils struct
+        Ability get_ability_copy() { return abils; };
+
+        // Returns a copy of our Skills skills struct
         Skills get_skills_copy() { return skills; };
-        int STR() { return abil.STR; };
-        int DEX() { return abil.DEX; };
-        int CON() { return abil.CON; };
-        int INT() { return abil.INT; };
-        int WIS() { return abil.WIS; };
-        int CHA() { return abil.CHA; };
+
+        /* accessor functions for ability score modifiers */
+        int STR() { return abils.STR; };
+        int DEX() { return abils.DEX; };
+        int CON() { return abils.CON; };
+        int INT() { return abils.INT; };
+        int WIS() { return abils.WIS; };
+        int CHA() { return abils.CHA; };
+
+        /* accessor functions for ability score modifiers */
+        int STR_MOD() { return modifier(abils.STR); };
+        int DEX_MOD() { return modifier(abils.DEX); };
+        int CON_MOD() { return modifier(abils.CON); };
+        int INT_MOD() { return modifier(abils.INT); };
+        int WIS_MOD() { return modifier(abils.WIS); };
+        int CHA_MOD() { return modifier(abils.CHA); };
+
+        // allows quick conversion of a skill for its passive check
+        int passive_stat(int stat) { return 8 + prof + stat; };
+
+        std::string to_string();
 };
 
 #endif /* SRC_CHARACTER_H_ */

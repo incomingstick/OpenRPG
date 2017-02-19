@@ -12,11 +12,12 @@ There is NO WARRANTY, to the extent permitted by law.
 class NameGenerator {
     private:
         std::string location;
-        std::string race;
-        std::string gender;
     public:
-        NameGenerator(std::string race = "dwarf", std::string gender = "male");
-        ~NameGenerator();
+        std::string race;
+        std::string subrace;
+        std::string gender;
+
+        NameGenerator(std::string race = "dwarf", std::string gender = "male", std::string subrace = "");
         std::string make_name();
         std::string make_first();
         std::string make_last();

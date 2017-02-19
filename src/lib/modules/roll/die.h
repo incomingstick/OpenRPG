@@ -27,7 +27,7 @@ class Die {
             int ret = dist(mt);
 
             /* verbosely prints die rolls in the form "dX -> N" */
-            output("d"+ std::to_string(MAX) +" -> "+ std::to_string(ret)+"\n", VB_CODE);
+            if(VB_FLAG) printf("d%i -> %i\n", MAX, ret);
 
             return ret;
         }

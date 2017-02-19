@@ -71,7 +71,7 @@ string get_display_screen(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened\n");
+        printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
     }
     
     return ret;
@@ -97,7 +97,7 @@ string file_to_string(string file) {
     else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
-        output("file " + asset_loc + "/" + file + " could not be opened\n");
+        printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
     }
     
     return ret;
@@ -181,79 +181,11 @@ std::istream& safeGetline(std::istream& is, std::string& t) {
  */
 bool print_file(string type) {
     if(QUIET_FLAG) return false;
+
     string screen_disp = get_display_screen(type);
-    output(screen_disp + '\n');
+    printf("%s\n", screen_disp.c_str());
+    
     return true;
-}
-
-/* Outputs the log string to stderr if VB_FLAG is set */
-/* TODO improve output string for diff between verbose and debug output
-    output should not print line tags (i.e [VERBOSE]) unless debug flag
-    is set*/
-int output(string log, int status_code) {
-    switch(status_code) {
-        case OUTPUT_CODE: {
-            if(VB_FLAG)
-                cout << "[OUTPUT]\t";
-            
-            // begin each new line with [OUTPUT] to align all debugging output
-            for (auto it = log.begin(); it != log.end(); ++it) {
-                auto ch = *it;
-
-                cout << ch;
-
-                // access element as *it
-                if(ch == '\n' && VB_FLAG) {
-                    if(it + 1 == log.end()) break;
-                    else cout << "[OUTPUT]\t";
-                }
-            }
-        } break;
-
-        case VB_CODE: {
-            if(VB_FLAG) {
-                cout << "[VERBOSE]\t";
-
-                // begin each new line with [VERBOSE] to align all verbose output
-                for(auto it = log.begin(); it != log.end(); it++) {
-                    auto ch = *it;
-
-                    cout << ch;
-
-                    // access element as *it
-                    if(ch == '\n') {
-                        if(it + 1 == log.end()) break;
-                        else cout << "[VERBOSE]\t";
-                    }
-                }
-            }
-        } break;
-
-        case ERROR_CODE: {
-            if(VB_FLAG) {
-                cout << "[ERROR]\t\t";
-
-                // begin each new line with [ERROR] to align all verbose output
-                for(auto it = log.begin(); it != log.end(); it++) {
-                    auto ch = *it;
-
-                    cout << ch;
-
-                    // access element as *it
-                    if(ch == '\n') {
-                        if(it + 1 == log.end()) break;
-                        else cout << "[ERROR]\t";
-                    }
-                }
-            }
-        } break;
-
-        default: {
-            cout << log << endl;
-        }
-    }
-
-    return status_code;
 }
 
 int random(int min, int max) {

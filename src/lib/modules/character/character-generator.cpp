@@ -7,6 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <getopt.h>
+#include <vector>
 
 #include "config.h"
 #include "utils.h"
@@ -30,6 +31,7 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: character-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
+                "\t-r --random                 Skips the character creator and generates a fully random character\n"
                 "\t-v --version                Print version info\n"
                 "\t-V --verbose                Verbose program output\n"
           "\n"
@@ -55,20 +57,27 @@ int parse_args(int argc, char* argv[]) {
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
+        {"random",  no_argument,        0,  'r'},
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hvV",
-                               long_opts, &opt_ind)) != EOF) {
+    while ((opt = getopt_long(argc, argv, "rhvV",
+                               long_opts, &opt_ind)) != EOF &&
+                               status != EXIT_FAILURE) {
         string cmd("");
 
         switch (opt) {
         /* -h --help */
         case 'h': {
             print_help_flag();
+        } break;
+
+        /* -r --random */
+        case 'r': {
+            // TODO skip character creator and generate fully random character
         } break;
 
         /* -v --version */
@@ -79,19 +88,19 @@ int parse_args(int argc, char* argv[]) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
-        
+
         /* parsing error */
         case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
         } break;
-        
+
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...\n", EXIT_FAILURE);
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
         }
         }
     }
@@ -100,16 +109,99 @@ int parse_args(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    int status = output("parse_args completed\n", parse_args(argc, argv)); // may exit
+    int status = parse_args(argc, argv); // may exit
 
-    Character player;
+    /* begin creating the character here */
+    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
+    printf("Race\n");                          // TODO race menu
+    printf("Subrace\n");                       // TODO subrace menu
+    printf("Class\n");                         // TODO class menu
+    printf("Background\n");                    // TODO background menu
 
-    output("STR: "+ to_string(player.STR()) +"\n");
-    output("DEX: "+ to_string(player.DEX()) +"\n");
-    output("CON: "+ to_string(player.CON()) +"\n");
-    output("INT: "+ to_string(player.INT()) +"\n");
-    output("WIS: "+ to_string(player.WIS()) +"\n");
-    output("CHA: "+ to_string(player.CHA()) +"\n");
+    printf("\n");
 
-    return output("exiting with status "+to_string(status)+"\n", status);
+    /* TODO Could this method of ability scoring work as a basis? */
+    Ability abil;
+
+    vector<int> stats = abil_arr();
+
+    printf("You generated the following ability scores: \n");
+
+    for(int num : stats) printf("%i (%i)\n", num, modifier(num));
+
+    printf("\n");
+
+    for(size_t i = 0; i < stats.size(); i++) {
+        int score;
+
+        switch(i) {
+        case 0: {
+            printf("Set Strength\t (STR): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.STR = score;
+        } break;
+
+        case 1: {
+            printf("Set Dexterity\t (DEX): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.DEX = score;
+        } break;
+
+        case 2: {
+            printf("Set Constitution (CON): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.CON = score;
+        } break;
+
+        case 3: {
+            printf("Set Intelligence (INT): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.INT = score;
+        } break;
+
+        case 4: {
+            printf("Set Wisdom\t (WIS): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.WIS = score;
+        } break;
+
+        case 5: {
+            printf("Set Charisma\t (CHA): ");
+
+            cin >> score;
+            // TODO if score is not on the list??
+            abil.CHA = score;
+        } break;
+
+        default: {
+            printf("should not have gotten here");
+            return EXIT_FAILURE;
+        }
+        }
+    }
+
+    printf("\n");
+
+    printf("Skill select based on class\n");    // TODO Skill select based on class
+    printf("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
+    printf("Equipment\n");                      // TODO select equipment based on class and background
+    printf("Name:\n");                          // TODO read in name or generate random one?
+
+    printf("\n");
+
+    Character player(abil);
+
+    printf("%s", player.to_string().c_str());
+
+    return status;
 }
