@@ -97,7 +97,6 @@ int parse_args(int argc, char* argv[], string* inputString) {
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
         
@@ -109,7 +108,8 @@ int parse_args(int argc, char* argv[], string* inputString) {
         
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...\n", EXIT_FAILURE);
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
         }
         }
     }
@@ -143,18 +143,19 @@ int parse_args(int argc, char* argv[], string* inputString) {
   */
 int main(int argc, char* argv[]) {
     string inputString;
-    int status = output("parse_args completed\n", parse_args(argc, argv, &inputString));
 
-    ExpressionTree tree;
+    int status = parse_args(argc, argv, &inputString);
+    
+    if(status) {
+        ExpressionTree tree;
 
-    tree.set_expression(inputString);
-    tree.scan_expression();
+        tree.set_expression(inputString);
+        tree.scan_expression();
 
-    output(tree.to_string(), VB_CODE);
+        printf("%s", tree.to_string().c_str());
 
-    int ans = tree.parse_expression();
+        printf("%i\n", tree.parse_expression());
+    }
 
-    output(to_string(ans)+"\n");
-
-    return output("exiting with status "+to_string(status)+"\n", status);
+    return status;
 }

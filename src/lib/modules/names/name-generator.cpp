@@ -82,7 +82,6 @@ int parse_args(int argc, char* argv[], string* race, string* subrace, string* ge
         /* -V --verbose */
         case 'V': {
             VB_FLAG = true;
-            output("verbose flag is set\n", VB_CODE);
             QUIET_FLAG = false;
         } break;
         
@@ -94,7 +93,8 @@ int parse_args(int argc, char* argv[], string* race, string* subrace, string* ge
         
         /* if we get here something very bad happened */
         default: {
-            status = output("Aborting...\n", EXIT_FAILURE);
+            printf("Aborting...\n");
+            status = EXIT_FAILURE;
         }
         }
     }
@@ -162,22 +162,25 @@ int parse_args(int argc, char* argv[], string* race, string* subrace, string* ge
 /* TODO handle tab completion */
 int main(int argc, char* argv[]) {
     string race = "", subrace = "", gender = "";
-    int status = output("parse_args completed\n", parse_args(argc, argv, &race, &subrace, &gender)); // may exit
+    int status = parse_args(argc, argv, &race, &subrace, &gender); // may exit
 
     if(race.empty()) {
-        status = output("race cannot be empty\n", EXIT_FAILURE);
+        printf("race cannot be empty\n");
+        status = EXIT_FAILURE;
         print_help_flag();
     }
 
     if(gender.empty()) {
-        status = output("gender cannot be empty\n", EXIT_FAILURE);
+        printf("gender cannot be empty\n");
+        status = EXIT_FAILURE;
         print_help_flag();
     }
 
     // TODO add races with subraces here
     if(subrace.empty()) {
         if(race == "human") {
-            status = output(race+" must have a subrace\n", EXIT_FAILURE);
+            printf("%s must have a subrace\n", race.c_str()); 
+            status = EXIT_FAILURE;
         }
 
         print_help_flag();
@@ -186,8 +189,8 @@ int main(int argc, char* argv[]) {
     if(status == EXIT_SUCCESS) {
         NameGenerator gen(race, gender, subrace);
 
-        output(gen.make_name() +'\n');
+        printf("%s\n", gen.make_name().c_str());
     }
 
-    return output("exiting with status "+ to_string(status)+"\n", status);
+    return status;
 }

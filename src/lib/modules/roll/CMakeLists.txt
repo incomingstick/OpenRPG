@@ -1,24 +1,14 @@
-set(DIE_SOURCE
-    ${CMAKE_CURRENT_SOURCE_DIR}/die.cpp
-)
-
-set(DIE_INCLUDE
-    ${CMAKE_CURRENT_SOURCE_DIR}/die.h
-)
-
-add_library(die ${DIE_SOURCE})
-install(FILES ${DIE_INCLUDE} DESTINATION include/openrpg)
-
 set(ROLL_PARSER_SOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/roll-parser.cpp
 )
 
 set(ROLL_PARSER_INCLUDE
     ${CMAKE_CURRENT_SOURCE_DIR}/roll-parser.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/die.h
 )
 
 add_library(roll-parser ${ROLL_PARSER_SOURCE})
-target_link_libraries(roll-parser die)
+target_link_libraries(roll-parser)
 
 install(FILES ${ROLL_PARSER_INCLUDE} DESTINATION include/openrpg)
 
