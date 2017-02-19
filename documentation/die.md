@@ -1,21 +1,25 @@
 ---
 layout: docs
-title: Dice
-description: Emulate a die roll, and preform advance die math
+title: Die
+description: A simple header defined class to emulate a die roll
 group: documentation
 ---
 
 # Die
+Represents a die with a max number passed at construction.
+
+
+**Namespace:** _none_  
+**Assembly:** _none_  
+
 Defined in `#include "die.h"`
 ````C++
 class Die {
     public:
-        Die(int max):MAX(max){};
-        int roll()
+        Die(int max);
+        int roll();
 };
 ````
-
-## TODO description of class
 
 ## Member functions
 
