@@ -4,7 +4,7 @@
     - title: Source Setup
     - title: Character Generator
     - title: Die
-    - title: Expression Parser
+    - title: ExpressionTree
     - title: Name Generator
 
 - title: Examples

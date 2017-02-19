@@ -12,6 +12,7 @@ Represents a die with a max number passed at construction.
 **Namespace:** _none_  
 **Assembly:** _none_  
 
+## Definition
 Defined in `#include "die.h"`
 ````C++
 class Die {
