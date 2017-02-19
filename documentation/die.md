@@ -5,9 +5,7 @@ description: A simple header defined class to emulate a die roll
 group: documentation
 ---
 
-# Die
 Represents a die with a max number passed at construction.
-
 
 **Namespace:** _none_  
 **Assembly:** _none_  

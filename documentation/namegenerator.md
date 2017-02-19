@@ -8,6 +8,7 @@ group: documentation
 **Namespace:** _none_  
 **Assembly:** _none_  
 
+## Definition
 Defined in `#include "names.h"`
 ````C++
 class NameGenerator {
