@@ -29,12 +29,18 @@ Some of the features this tool will include by v1.0.0 are:
 v0.1.0 is a basis for the CLI/developer version, but v1.0.0 will contain a
 portable GUI that works on Windows, Linux, and macOS.
 
-# Building
-Currently we require `flex`, `bison`, `cmake` (at least v2.8.4) and `make`
+## Building
+Currently we require `cmake` (at least v2.8.4) and `make`
 
+### Build script
+**Linux:** run build.sh `$ ./build.sh`
+
+### Manual build
 Create a build directory `$ mkdir build && cd build`  
 Run cmake `$ cmake ..` **OR** Optionally run `$ cmake -DCMAKE_INSTALL_PREFIX=/desired/install/location ..`  
 Run make `$ make`  
+
+## Check Integrity of build
 Run make check `$ make check` 
 
 # Installing
