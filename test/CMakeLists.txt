@@ -1,27 +1,15 @@
-set(MODULE_DIR "${CMAKE_SOURCE_DIR}/src/lib/modules")
-
-# source directories
-include_directories("${CMAKE_SOURCE_DIR}/src/lib"
-                    "${MODULE_DIR}/names"
-                    "${MODULE_DIR}/roll"
-)
-
-set(TEST_COMMON_SRC
-        #${CMAKE_SOURCE_DIR}/src/lib/utils.cpp
-)
-
 # this flag allows mdoules to understand we are in a testing mode
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
 
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/src/assets")
+add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/assets")
 
 # start name-generator testing here
 set(CUR_TEST generator-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
-        ${MODULE_DIR}/names/names.cpp
+        ${CMAKE_SOURCE_DIR}/src/names/names.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
@@ -41,7 +29,7 @@ set(CUR_TEST roll-parser-test)
 
 set(CUR_TEST_SRC
         ${CUR_TEST}.cpp
-        ${MODULE_DIR}/roll/roll-parser.cpp
+        ${CMAKE_SOURCE_DIR}/src/roll/roll-parser.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
