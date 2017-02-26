@@ -3,8 +3,8 @@ set(ROLL_PARSER_SOURCE
 )
 
 set(ROLL_PARSER_INCLUDE
-    ${CMAKE_CURRENT_SOURCE_DIR}/roll-parser.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/die.h
+    ${CMAKE_SOURCE_DIR}/include/roll-parser.h
+    ${CMAKE_SOURCE_DIR}/include/die.h
 )
 
 add_library(roll-parser ${ROLL_PARSER_SOURCE})
@@ -17,12 +17,10 @@ set(R_SOURCES
 )
 
 set(R_INCLUDES
-		${CMAKE_CURRENT_SOURCE_DIR}/roll.h
+		${CMAKE_SOURCE_DIR}/include/roll.h
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=gnu++11")
 
 add_executable(roll ${R_SOURCES})
 target_link_libraries(roll utils roll-parser)
