@@ -146,13 +146,13 @@ int main(int argc, char* argv[]) {
 
     int status = parse_args(argc, argv, &inputString);
     
-    if(status) {
+    if(status == EXIT_SUCCESS) {
         ExpressionTree tree;
 
         tree.set_expression(inputString);
         tree.scan_expression();
 
-        printf("%s", tree.to_string().c_str());
+        if(VB_FLAG) printf("%s", tree.to_string().c_str());
 
         printf("%i\n", tree.parse_expression());
     }
