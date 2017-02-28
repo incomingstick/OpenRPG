@@ -62,7 +62,8 @@ parse_node* ExpressionTree::allocate_node() {
   * @param int* numBytesToRead - the number of bytes to read from the input string
   * @return struct parse_node* - pointer to the parent of cur
   */
-struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBytesToRead) {
+struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int
+					      * numBytesToRead) {
     string curParseString = "";
 
     int numBytesRead = 0;
@@ -72,7 +73,7 @@ struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int* numBy
     cur->value = stoi(curParseString);
     cur->op = OP_NUMBER;
 
-    if(cur->parent == NULL && numBytesRead != inputString.length()) {
+    if(cur->parent == NULL && (size_t) numBytesRead != inputString.length()) {
         cur->parent = allocate_node();
         cur->parent->left = cur;
     }

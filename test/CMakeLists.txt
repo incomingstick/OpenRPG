@@ -1,14 +1,8 @@
-# normal compiler flags
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
-
-# source directories
-include_directories("${CMAKE_SOURCE_DIR}/include/")
-
 # this flag allows mdoules to understand we are in a testing mode
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
 
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/assets")
+add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
 
 # start name-generator testing here
 set(CUR_TEST generator-test)
