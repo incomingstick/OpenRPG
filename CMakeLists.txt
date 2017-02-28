@@ -12,6 +12,9 @@ set(OpenRPG_AUTHOR "Nicholas Gaulke")
 string(TIMESTAMP YEAR %Y UTC)
 string(TIMESTAMP DATE UTC)
 
+# default compiler flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
@@ -31,4 +34,4 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
 enable_testing()
 
 # tests directory
-add_subdirectory("src/tests" EXCLUDE_FROM_ALL)
+add_subdirectory("test/" EXCLUDE_FROM_ALL)
