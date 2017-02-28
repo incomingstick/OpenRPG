@@ -2,7 +2,7 @@
 #   TODO: We really should write a solid test suite here to make testing
 #           easier and more defined. NOTE: look in to <assert.h>
 #
-#######################################################################
+############################################################################
 
 # normal compiler flags
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
@@ -14,7 +14,7 @@ include_directories("${CMAKE_SOURCE_DIR}/include/")
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
 
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/assets")
+add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
 
 # start name-generator testing here
 set(CUR_TEST name-generator-test)

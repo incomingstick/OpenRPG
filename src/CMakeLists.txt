@@ -9,8 +9,6 @@ set(UTIL_INCLUDE
         ${CMAKE_SOURCE_DIR}/include/utils.h
 )
 
-set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
-
 add_library(utils ${UTIL_SOURCE})
 install (FILES ${UTIL_INCLUDE} DESTINATION include/openrpg)
 
