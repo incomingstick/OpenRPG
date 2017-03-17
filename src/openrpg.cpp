@@ -74,7 +74,6 @@ int parse_args(int argc, char* argv[]) {
 
     while ((opt = getopt_long(argc, argv, "hn:qr:vV",
                                long_opts, &opt_ind)) != EOF) {
-
         switch (opt) {
         /* -h --help */
         case 'h': {
