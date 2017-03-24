@@ -9,11 +9,8 @@ kramdown:
 permalink:        pretty
 
 # Server
-source:           docs
 destination:      _gh_pages
-host:             0.0.0.0
-port:             9001
-baseurl:          http://openrpg.io
+#baseurl:          http://openrpg.io
 url:              http://www.openrpg.io
 encoding:         UTF-8
 
