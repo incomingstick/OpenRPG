@@ -9,7 +9,7 @@ kramdown:
 permalink:        pretty
 
 # Server
-destination:      web_build
+destination:      build
 url:              http://openrpg.io
 encoding:         UTF-8
 
