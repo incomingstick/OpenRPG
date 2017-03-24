@@ -9,9 +9,8 @@ kramdown:
 permalink:        pretty
 
 # Server
-destination:      _gh_pages
-#baseurl:          http://openrpg.io
-url:              http://www.openrpg.io
+destination:      web_build
+url:              http://openrpg.io
 encoding:         UTF-8
 
 gems:
