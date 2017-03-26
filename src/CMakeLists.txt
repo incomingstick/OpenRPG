@@ -21,14 +21,11 @@ set(ORPG_INCLUDE
     ${CMAKE_SOURCE_DIR}/include/config.h
 )
 
-set(ASSETS ${CMAKE_SOURCE_DIR}/assets)
-
 add_executable(openrpg ${ORPG_SOURCES})
 target_link_libraries(openrpg utils names roll-parser)
 
 install(TARGETS openrpg DESTINATION bin)
 install(FILES ${ORPG_INCLUDE} DESTINATION include/openrpg)
-install(DIRECTORY ${ASSETS} DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 # module directories
 add_subdirectory("names")

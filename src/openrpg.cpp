@@ -74,7 +74,6 @@ int parse_args(int argc, char* argv[]) {
 
     while ((opt = getopt_long(argc, argv, "hn:qr:vV",
                                long_opts, &opt_ind)) != EOF) {
-
         switch (opt) {
         /* -h --help */
         case 'h': {
@@ -237,7 +236,7 @@ int main(int argc, char* argv[]) {
         // get user input
         while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
-            cin >> in;
+            getline(cin, in);
 
             if((status = parse_input(in)) != CONTINUE_CODE) break;
         }
