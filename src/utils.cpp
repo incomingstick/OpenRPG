@@ -53,7 +53,7 @@ size_t get_console_height() {
  * for printing the UI
  */
 string get_display_screen(string file) {
-    // Open the assets file for the current screen
+    // Open the data file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     
@@ -82,7 +82,7 @@ string get_display_screen(string file) {
  * used to create images and other printed files.
  */
 string file_to_string(string file) { 
-    // Open the assets file for the current screen
+    // Open the data file for the current screen
     ifstream screen_file(asset_loc+"/"+file);
     string ret = "";
     

@@ -28,6 +28,10 @@ include_directories("include/")
 # source code directory with CMakeLists.txt
 add_subdirectory("src/")
 
+set(DATA ${CMAKE_SOURCE_DIR}/data)
+
+install(DIRECTORY ${DATA} DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 set(CMAKE_CTEST_COMMAND ctest -V)
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
 
