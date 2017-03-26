@@ -2,7 +2,7 @@
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
 
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/assets")
+add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
 
 # start name-generator testing here
 set(CUR_TEST generator-test)
