@@ -236,7 +236,7 @@ int main(int argc, char* argv[]) {
         // get user input
         while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
-            cin >> in;
+            getline(cin, in);
 
             if((status = parse_input(in)) != CONTINUE_CODE) break;
         }
