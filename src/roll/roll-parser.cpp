@@ -264,7 +264,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
             sum = checked_sum(sum, results[i]);
         }
       
-        free(results);
+        delete[] results;
     } break;
         
     // keep lowest resutls node
@@ -287,7 +287,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
             sum = checked_sum(sum, results[i]);
         }
       
-        free(results);
+        delete[] results;
     } break;
 
     // keep results greater than
