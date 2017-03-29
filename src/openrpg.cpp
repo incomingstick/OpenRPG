@@ -49,8 +49,11 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/* 
+   Option parser - parse_args(argc, argv)
+   This function parses all cla's passed to argv.
+   TODO put this in opt-parser.h
+*/
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
