@@ -6,14 +6,13 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <getopt.h>
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
+#include "opt-parser.h"
 #include "names.h"
 #include "roll-parser.h"
 
@@ -50,10 +49,10 @@ static void print_help_flag() {
 }
 
 /* 
-   Option parser - parse_args(argc, argv)
-   This function parses all cla's passed to argv.
-   TODO put this in opt-parser.h
-*/
+ Option parser - parse_args(argc, argv)
+ This function parses all cla's passed to argv.
+ TODO put this in opt-parser.h
+ */
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
@@ -62,7 +61,7 @@ int parse_args(int argc, char* argv[]) {
 
     /* disables getopt printing to now be handled in '?' case */
     opterr = 0;
-
+    
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
