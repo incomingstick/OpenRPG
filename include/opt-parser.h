@@ -71,7 +71,7 @@ int getopt_internal(int argc,
 
     /* option letter okay? */
     if ((optopt = (int)*place++) == (int)':' ||
-        !(oli = strchr(ostr, optopt))) {
+        !(oli = (char *)strchr(ostr, optopt))) {
         /*
          * if the user didn't specify '-' as an option,
          * assume it means -1.
