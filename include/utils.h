@@ -11,6 +11,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include <iostream>
 
+#ifdef WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
 #define CONTINUE_CODE  -2
 #define OUTPUT_CODE    -1
 #define VB_CODE         0

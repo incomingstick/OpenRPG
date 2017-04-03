@@ -28,20 +28,20 @@ struct option
     /* has_arg can't be an enum because some compilers complain about
        type mismatches in all the code that assumes it is an int.  */
     int has_arg;
-    int *flag;
+    int* flag;
     int val;
 };
 
 char* program_name(char* str) {
-    char* retval;
+    char* ret;
 
-    retval = strrchr(str, '/');
-    if(retval)
-        retval++;
+    ret = strrchr(str, '/');
+    if(ret)
+        ret++;
     else
-        retval = str;
+        ret = str;
 
-    return retval;
+    return ret;
 }
 
 int getopt_internal(int argc,
@@ -56,6 +56,7 @@ int getopt_internal(int argc,
     /* update scanning pointer */
     if (optreset || !*place) {
         optreset = 0;
+
         if (optind >= argc || *(place = argv[optind]) != '-') {
             place = (char* )"";
             return -1;
@@ -65,6 +66,7 @@ int getopt_internal(int argc,
         if (place[1] && *++place == '-') {
             /* ++optind; */
             place = (char* )"";
+
             return -2;
         }
     }

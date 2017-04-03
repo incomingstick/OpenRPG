@@ -228,7 +228,7 @@ int parse_input(string in) {
 
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
-
+    
     if(status == EXIT_SUCCESS) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
