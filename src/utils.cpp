@@ -195,3 +195,19 @@ int random(int min, int max) {
 
     return dist(mt);
 }
+
+/* Compute the greatest common divisor of a and b. */
+int gcd(int a, int b)
+{
+    int c;
+
+    c = a % b;
+    while (c != 0) {
+        a = b;
+        b = c;
+        c = a % b;
+    }
+
+    return b;
+}
+

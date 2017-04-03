@@ -136,8 +136,8 @@ int parse_args(int argc, char* argv[]) {
         } break;
 
         /* parsing error */
-        case '?': {
-            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
+        case ':': {
+            fprintf(stderr, "Error: unknown arguement %s\n\n", argv[optind]);
             print_help_flag();
         } break;
 

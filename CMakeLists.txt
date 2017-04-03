@@ -28,7 +28,7 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
 endif(CMAKE_BUILD_TYPE MATCHES DEBUG)
 
 MESSAGE( STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE} )
-MESSAGE( STATUS "DATA_DIR:\t\t" ${DATA_DIR} )
+MESSAGE( STATUS "DATA_DIR:\t\t\t" ${DATA_DIR} )
 
 # source directories
 include_directories("include/")
