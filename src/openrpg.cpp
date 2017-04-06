@@ -37,8 +37,8 @@ static void print_help_flag() {
                 "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
                 "\t-q --quiet                  Do not print the banner on startup\n"
                 "\t-r --roll=XdY               Simulates rolling dice\n"
-                "\t-v --version                Print version info\n"
-                "\t-V --verbose                Verbose program output\n"
+                "\t-v --verbose                Verbose program output\n"
+                "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -60,7 +60,7 @@ int parse_args(int argc, char* argv[]) {
     int opt = 0, opt_ind = 0;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    //opterr = 0;
     
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
@@ -68,8 +68,8 @@ int parse_args(int argc, char* argv[]) {
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
         {"roll",    required_argument,  0,  'r'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"version", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -124,20 +124,19 @@ int parse_args(int argc, char* argv[]) {
             exit(status);
         } break;
 
-        /* -v --version */
+        /* -v --verbose */
         case 'v': {
-            print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
 
-        /* parsing error */
-        case ':': {
-            fprintf(stderr, "Error: unknown arguement %s\n\n", argv[optind]);
+        /* -V --version */
+        case 'V': {
+            print_version_flag();
+        } break;
+
+        case ':':
+        case '?': {
             print_help_flag();
         } break;
 

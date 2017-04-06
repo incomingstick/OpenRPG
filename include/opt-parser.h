@@ -34,7 +34,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #endif
 
-int  opterr   = 0;    /* if error message should be printed */
+int  opterr   = 1;    /* if error message should be printed */
 int  optind   = 1;    /* index into parent argv array */
 int  optopt   = 0;    /* character checked for validity */
 int  optreset = 0;    /* reset getopt */
@@ -113,11 +113,16 @@ int getopt_internal(int argc,
 
     /* option letter list index */
     char* oli;
+
+    /* reset our non-option start and end positions */
+    if (optreset)
+        nonopt_start = nonopt_end = -1;
     
     /* update scanning pointer */
     if (optreset || !*place) {
         optreset = 0;
 
+        /* is this an arg or something else? */
         if (optind >= argc || *(place = argv[optind]) != OP_DELIM) {
             place = EMPTY;
 
@@ -132,7 +137,7 @@ int getopt_internal(int argc,
             return CONTINUE_CODE;
         }
     }
-
+    
     /* option letter okay? */
     if ((optopt = (int)*place++) == BADARG ||
         !(oli = (char *)strchr(ostr, optopt))) {
@@ -149,7 +154,7 @@ int getopt_internal(int argc,
                           "%s: illegal option -- %c\n",
                           program_name(argv[0]), optopt);
 
-        return *((int* )"?");
+        return BADCHAR;
     }
     if (*++oli != ':') {
         /* don't need argument */
@@ -173,7 +178,7 @@ int getopt_internal(int argc,
         } else
             /* white space */
             optarg = argv[optind];
-
+        
         place = EMPTY;
         ++optind;
     }
