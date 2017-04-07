@@ -6,11 +6,11 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <getopt.h>
 #include <vector>
 
 #include "config.h"
 #include "utils.h"
+#include "opt-parser.h"
 #include "character.h"
 
 using namespace std;
@@ -111,9 +111,24 @@ int parse_args(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
 
+    string input;
+    
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
-    printf("Race\n");                          // TODO race menu
+
+    printf("Choose Race:\n");
+
+    int tick = 0;
+    for(string race : races)
+        cout << "\t" << (tick++) << ") " << race << endl;
+    tick = 0;
+
+    cout << "#?";
+    cin >> input;
+
+    if(stoi(input) < 0 || stoi(input) > (signed)races.size())
+        cout << "invalid option" << endl;
+    
     printf("Subrace\n");                       // TODO subrace menu
     printf("Class\n");                         // TODO class menu
     printf("Background\n");                    // TODO background menu
@@ -132,55 +147,53 @@ int main(int argc, char* argv[]) {
     printf("\n");
 
     for(size_t i = 0; i < stats.size(); i++) {
-        int score;
-
         switch(i) {
         case 0: {
             printf("Set Strength\t (STR): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.STR = score;
+            cin >> input;
+            
+            abil.STR = stoi(input);
         } break;
 
         case 1: {
             printf("Set Dexterity\t (DEX): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.DEX = score;
+            cin >> input;
+            
+            abil.DEX = stoi(input);
         } break;
 
         case 2: {
             printf("Set Constitution (CON): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.CON = score;
+            cin >> input;
+            
+            abil.CON = stoi(input);
         } break;
 
         case 3: {
             printf("Set Intelligence (INT): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.INT = score;
+            cin >> input;
+            
+            abil.INT = stoi(input);
         } break;
 
         case 4: {
             printf("Set Wisdom\t (WIS): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.WIS = score;
+            cin >> input;
+            
+            abil.WIS = stoi(input);
         } break;
 
         case 5: {
             printf("Set Charisma\t (CHA): ");
 
-            cin >> score;
-            // TODO if score is not on the list??
-            abil.CHA = score;
+            cin >> input;
+            
+            abil.CHA = stoi(input);
         } break;
 
         default: {
