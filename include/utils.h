@@ -11,6 +11,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include <iostream>
 
+#ifdef WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
 #define CONTINUE_CODE  -2
 #define OUTPUT_CODE    -1
 #define VB_CODE         0
@@ -28,5 +33,6 @@ std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string file);
 int random(int min, int max);
+int gcd(int a, int b);
 
 #endif /* SRC_UTILS_H_ */
