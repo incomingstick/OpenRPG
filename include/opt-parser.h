@@ -106,7 +106,7 @@ static void permute_args(int start,
 
 /* This function is used to update pur scanning pointer */
 int getopt_internal(int argc,
-                    char* const argv[],
+                    char* argv[],
                     const char *ostr) {
     /* option letter processing */
     static char* place = EMPTY;
@@ -122,11 +122,65 @@ int getopt_internal(int argc,
     if (optreset || !*place) {
         optreset = 0;
 
-        /* is this an arg or something else? */
-        if (optind >= argc || *(place = argv[optind]) != OP_DELIM) {
+        /* end of argument array */
+        if (optind >= argc) {
             place = EMPTY;
 
+            if (nonopt_end != -1) {
+                /* do permutation, if we have to */
+                permute_args(nonopt_start, nonopt_end, optind, argv);
+
+                optind -= nonopt_end - nonopt_start;
+            } else if (nonopt_start != -1) {
+                /* If we skipped non-options, set optind
+                   to the first of them. */
+                optind = nonopt_start;
+            }
+            
+            nonopt_start = nonopt_end = -1;
+            
             return EOF;
+        }
+
+        /* check if this is a non-option */
+        if(*(place = argv[optind]) != OP_DELIM ||
+           (place[1] == '\0' && strchr(ostr, '-') == NULL)) {
+            place = EMPTY;
+            
+            /* do permutation */
+            if (nonopt_start == -1)
+                nonopt_start = optind;
+            else if (nonopt_end != -1) {
+                permute_args(nonopt_start, nonopt_end,
+                             optind, argv);
+                nonopt_start = optind -
+                    (nonopt_end - nonopt_start);
+                nonopt_end = -1;
+            }
+            
+            optind++;
+            
+            return EOF;
+        }
+
+        if (nonopt_start != -1 && nonopt_end == -1)
+            nonopt_end = optind;
+
+        /* If we have "-" do nothing, if "--" we are done. */
+        if (place[1] != '\0' && *++place == '-' && place[1] == '\0') {
+            optind++;
+            place = EMPTY;
+            /*
+             * We found an option (--), so if we skipped
+             * non-options, we have to permute.
+                                                      */
+            if (nonopt_end != -1) {
+                permute_args(nonopt_start, nonopt_end,
+                             optind, argv);
+                optind -= nonopt_end - nonopt_start;
+            }
+            nonopt_start = nonopt_end = -1;
+            return (-1);
         }
         
         /* found "--" */
@@ -187,7 +241,7 @@ int getopt_internal(int argc,
     return optopt;
 }
 
-int getopt_long(int argc, char* const argv[],
+int getopt_long(int argc, char* argv[],
                 const char* optstring,
                 const struct option* longopts,
                 int* index) {
