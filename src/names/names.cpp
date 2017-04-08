@@ -20,11 +20,6 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-#ifdef TESTING_FLAG
-#undef ASSET_LOC
-#define ASSET_LOC TESTING_ASSET_LOC
-#endif
-
 NameGenerator::NameGenerator(string race, string gender)
     :race(race),
      gender(gender) {

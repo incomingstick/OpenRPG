@@ -2,7 +2,7 @@
 
 cwd=$(pwd)
 
-if [[ $OSTYPE == "linux"* ]]; then
+if [[ $OSTYPE == "linux"* ||  $OSTYPE == "cygwin" ]]; then
     if [ ! -d "$cwd/build" ]; then
         mkdir "$cwd/build"
     fi
