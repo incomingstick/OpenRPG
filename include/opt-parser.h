@@ -24,13 +24,13 @@ There is NO WARRANTY, to the extent permitted by law.
    using '/' to delim arguemnts
 
    TODO: Does windows allow use of long args? If so what is the syntax? */
-#ifdef __unix__
-
-#define OP_DELIM '-'
-
-#elif _WIN32
+#ifdef _WIN32
 
 #define OP_DELIM '/'
+
+#else /* assume unix */
+
+#define OP_DELIM '-'
 
 #endif
 
