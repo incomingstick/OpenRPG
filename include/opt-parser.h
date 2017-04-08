@@ -24,7 +24,7 @@ There is NO WARRANTY, to the extent permitted by law.
    using '/' to delim arguemnts
 
    TODO: Does windows allow use of long args? If so what is the syntax? */
-#ifdef _WIN32
+#ifdef WIN32
 
 #define OP_DELIM '/'
 
