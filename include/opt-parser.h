@@ -107,12 +107,12 @@ static void permute_args(int start,
 /* This function is used to update pur scanning pointer */
 int getopt_internal(int argc,
                     char* argv[],
-                    const char *ostr) {
+                    const char *options) {
     /* option letter processing */
     static char* place = EMPTY;
 
     /* option letter list index */
-    char* oli;
+    char* olli;
 
     /* reset our non-option start and end positions */
     if (optreset)
@@ -144,17 +144,18 @@ int getopt_internal(int argc,
 
         /* check if this is a non-option */
         if(*(place = argv[optind]) != OP_DELIM ||
-           (place[1] == '\0' && strchr(ostr, '-') == NULL)) {
+           (place[1] == '\0' && strchr(options, '-') == NULL)) {
             place = EMPTY;
             
-            /* do permutation */
+            /* if we found the first non-argument set the start there
+               otherwise if we found the last non-argument then do a
+               permutation */
             if (nonopt_start == -1)
                 nonopt_start = optind;
             else if (nonopt_end != -1) {
-                permute_args(nonopt_start, nonopt_end,
-                             optind, argv);
-                nonopt_start = optind -
-                    (nonopt_end - nonopt_start);
+                permute_args(nonopt_start, nonopt_end, optind, argv);
+
+                nonopt_start = optind - (nonopt_end - nonopt_start);
                 nonopt_end = -1;
             }
             
@@ -170,17 +171,16 @@ int getopt_internal(int argc,
         if (place[1] != '\0' && *++place == '-' && place[1] == '\0') {
             optind++;
             place = EMPTY;
-            /*
-             * We found an option (--), so if we skipped
-             * non-options, we have to permute.
-                                                      */
+            /* We found an option (--), so if we skipped
+               non-options, we have to permute. */
             if (nonopt_end != -1) {
-                permute_args(nonopt_start, nonopt_end,
-                             optind, argv);
+                permute_args(nonopt_start, nonopt_end, optind, argv);
                 optind -= nonopt_end - nonopt_start;
             }
+
             nonopt_start = nonopt_end = -1;
-            return (-1);
+
+            return -1;
         }
         
         /* found "--" */
@@ -194,7 +194,7 @@ int getopt_internal(int argc,
     
     /* option letter okay? */
     if ((optopt = (int)*place++) == BADARG ||
-        !(oli = (char *)strchr(ostr, optopt))) {
+        !(olli = (char *)strchr(options, optopt))) {
         /*
          * if the user didn't specify OP_DELIM as an option,
          * assume it means EOF.
@@ -203,14 +203,14 @@ int getopt_internal(int argc,
             return EOF;
         if (!*place)
             ++optind;
-        if (opterr && *ostr != ':')
+        if (opterr && *options != ':')
             (void)fprintf(stderr,
                           "%s: illegal option -- %c\n",
                           program_name(argv[0]), optopt);
 
         return BADCHAR;
     }
-    if (*++oli != ':') {
+    if (*++olli != ':') {
         /* don't need argument */
         optarg = NULL;
         if (!*place)
@@ -224,7 +224,7 @@ int getopt_internal(int argc,
         /* no arg */
         else if (argc <= ++optind) {
             place = EMPTY;
-            if ((opterr) && (*ostr != ':'))
+            if ((opterr) && (*options != ':'))
                 (void)fprintf(stderr,
                               "%s: option requires an argument -- %c\n",
                               program_name(argv[0]), optopt);
@@ -256,14 +256,14 @@ int getopt_long(int argc, char* argv[],
     int retval = EOF;
 
     /* TODO: this currently stops if it comes across a non-option non-arguement value.
-             i.e $ openrpg -V something-irrelevant -r 10d6 
+             i.e $ openrpg -v something-irrelevant -r 10d6 
        The expected behavior would be to move something-irrelevant to the end and parse all
-       other options */
+       other options first */
     if ((retval = getopt_internal(argc, argv, optstring)) == CONTINUE_CODE) {
         char *current_argv = argv[optind++] + 2, *has_equal;
         int i, current_argv_len, match = EOF;
 
-        /* Check to make sure we have not reached a NULL ('\0') terminator*/
+        /* Check to make sure we have not reached a null ('\0') terminator*/
         if (*current_argv == '\0') return EOF;
 
         /* if our option has a '=' after it (i.e openrpg --roll=5d6)
