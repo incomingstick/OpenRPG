@@ -34,11 +34,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #endif
 
-int  opterr   = 1;    /* if error message should be printed */
-int  optind   = 1;    /* index into parent argv array */
-int  optopt   = 0;    /* character checked for validity */
-int  optreset = 0;    /* reset getopt */
-char* optarg  = 0;    /* argument associated with option */
+int  opterr   = 1;    // if error message should be printed
+int  optind   = 1;    // index into parent argv array
+int  optopt   = 0;    // character checked for validity
+int  optreset = 0;    // reset getopt
+char* optarg  = 0;    // argument associated with option
 
 /* set optreset to 1 rather than these two */
 static int nonopt_start = -1; // first non option argument (for permute)
@@ -50,7 +50,7 @@ struct option
     const char *name;
     
     /* has_arg can't be an enum because some compilers complain about
-       type mismatches in all the code that assumes it is an int.  */
+       type mismatches in all the code that assumes it is an int. */
     int has_arg;
     int* flag;
     int val;
@@ -127,7 +127,8 @@ int getopt_internal(int argc,
             place = EMPTY;
 
             if (nonopt_end != -1) {
-                /* do permutation, if we have to */
+                /* do permutation, if we have to 
+                   TODO: get this working!! */
                 permute_args(nonopt_start, nonopt_end, optind, argv);
 
                 optind -= nonopt_end - nonopt_start;
@@ -149,7 +150,9 @@ int getopt_internal(int argc,
             
             /* if we found the first non-argument set the start there
                otherwise if we found the last non-argument then do a
-               permutation */
+               permutation 
+
+               TODO: Get this working!!! */
             if (nonopt_start == -1)
                 nonopt_start = optind;
             else if (nonopt_end != -1) {
