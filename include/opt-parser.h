@@ -141,7 +141,7 @@ int getopt_internal(int argc,
             
             return EOF;
         }
-
+        
         /* check if this is a non-option */
         if(*(place = argv[optind]) != OP_DELIM ||
            (place[1] == '\0' && strchr(options, '-') == NULL)) {
@@ -161,17 +161,17 @@ int getopt_internal(int argc,
             
             optind++;
             
-            return EOF;
+            return getopt_internal(argc, argv, options);
         }
 
         if (nonopt_start != -1 && nonopt_end == -1)
             nonopt_end = optind;
 
-        /* If we have "-" do nothing, if "--" we are done. */
+        /* If we have "-" do nothing, if "--" we are done */
         if (place[1] != '\0' && *++place == '-' && place[1] == '\0') {
             optind++;
             place = EMPTY;
-            /* We found an option (--), so if we skipped
+            /* We found a long option (--), so if we skipped
                non-options, we have to permute. */
             if (nonopt_end != -1) {
                 permute_args(nonopt_start, nonopt_end, optind, argv);
@@ -205,8 +205,8 @@ int getopt_internal(int argc,
             ++optind;
         if (opterr && *options != ':')
             (void)fprintf(stderr,
-                          "%s: illegal option -- %c\n",
-                          program_name(argv[0]), optopt);
+                          "%s: illegal option -- %c%s\n",
+                          program_name(argv[0]), optopt, place);
 
         return BADCHAR;
     }
@@ -255,10 +255,6 @@ int getopt_long(int argc, char* argv[],
 
     int retval = EOF;
 
-    /* TODO: this currently stops if it comes across a non-option non-arguement value.
-             i.e $ openrpg -v something-irrelevant -r 10d6 
-       The expected behavior would be to move something-irrelevant to the end and parse all
-       other options first */
     if ((retval = getopt_internal(argc, argv, optstring)) == CONTINUE_CODE) {
         char *current_argv = argv[optind++] + 2, *has_equal;
         int i, current_argv_len, match = EOF;
