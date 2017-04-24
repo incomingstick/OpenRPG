@@ -6,13 +6,12 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <getopt.h>
-
 #include <iostream>
 #include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
+#include "opt-parser.h"
 #include "names.h"
 
 using namespace std;
@@ -86,8 +85,8 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         } break;
         
         /* parsing error */
+        case ':':
         case '?': {
-            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
         } break;
         
@@ -119,7 +118,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     } break;
 
     default: {
-        fprintf(stderr, "Error: Invalid number of arguements (expects 2)");
+        fprintf(stderr, "Error: Invalid number of arguements (expects 2)\n");
     }
     }
 
