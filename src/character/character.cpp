@@ -47,6 +47,14 @@ Character::Character() {
     skills.SLE = DEX_MOD();    // Sleight of Hand  (DEX)
     skills.STL = DEX_MOD();    // Stealth          (DEX)
     skills.SUR = WIS_MOD();    // Survival         (WIS)
+
+    curr_hp = 10;             // current hit points
+    temp_hp = 10;             // temporary hit points
+    max_hp = 10;              // maximum hit points
+    prof = 2;                 // proficiency bonus
+    level = 1;                // character level total
+    exp = 0;                  // current experience
+    max_exp = 300;            // experience needed for next level
 }
 
 Character::Character(Ability ab)

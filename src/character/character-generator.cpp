@@ -32,8 +32,8 @@ static void print_help_flag() {
           "Usage: character-generator [options] RACE GENDER\n"
                 "\t-h --help                   Print this help screen\n"
                 "\t-r --random                 Skips the character creator and generates a fully random character\n"
-                "\t-v --version                Print version info\n"
-                "\t-V --verbose                Verbose program output\n"
+                "\t-v --verbose                Verbose program output\n"
+                "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -58,8 +58,8 @@ int parse_args(int argc, char* argv[]) {
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -80,20 +80,20 @@ int parse_args(int argc, char* argv[]) {
             // TODO skip character creator and generate fully random character
         } break;
 
-        /* -v --version */
-        case 'v': {
-            print_version_flag();
-        } break;
-
         /* -V --verbose */
-        case 'V': {
+        case 'v': {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
 
+        /* -v --version */
+        case 'V': {
+            print_version_flag();
+        } break;
+            
         /* parsing error */
+        case ':':
         case '?': {
-            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
         } break;
 
