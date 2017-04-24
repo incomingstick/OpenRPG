@@ -9,6 +9,25 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
 
+/*
+list of crrently supported races
+
+TODO: this will probably need to be turned in to its own header
+to properly handle racial bonuses and such
+*/
+const std::vector<std::string> races = {
+    "Human",
+    "Dwarf"
+};
+
+/*
+list of crrently supported races
+
+TODO: this will probably need to be turned in to its own header
+to properly handle racial bonuses and such
+*/
+const std::vector<std::string> classes = { };
+
 struct Ability {
     int STR = 10;   // Strength
     int DEX = 10;   // Dexterity
@@ -22,7 +41,7 @@ struct Ability {
 TODO better way?? We need to also keep track of what
 skills have proficiency (or double prof)
 
-Note: These are just the 5E Skills
+NOTE: These are just the 5E Skills
 */
 struct Skills {
     int ACR = 0;    // Acrobatics       (DEX)
@@ -51,7 +70,11 @@ int gen_stat();
 /* Generates an array of stats > 1 && < 20 */
 std::vector<int> abil_arr();
 
-/* returns an integer representation of the passed abilities modifier */
+/* 
+returns an integer representation of the passed abilities modifier 
+
+NOTE: This is intended to always round down. Data loss is acceptable.
+*/
 inline int modifier(int abil) { return (abil - 10) / 2; };
 
 // TODO take an in depth look at what should and should not be public here
