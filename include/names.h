@@ -17,7 +17,7 @@ class NameGenerator {
         std::string subrace;
         std::string gender;
 
-        NameGenerator(std::string race = "dwarf", std::string gender = "male", std::string subrace = "");
+        NameGenerator(std::string race = "dwarf", std::string gender = "male");
         std::string make_name();
         std::string make_first();
         std::string make_last();

@@ -20,14 +20,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-NameGenerator::NameGenerator(string race, string gender, string subrace)
+NameGenerator::NameGenerator(string race, string gender)
     :race(race),
-     subrace(subrace),
      gender(gender) {
     location = ASSET_LOC;
     location += "/names";
-
-    if(!subrace.empty()) this->subrace = "/" + subrace;
 }
 
 string NameGenerator::make_name() {
@@ -37,7 +34,7 @@ string NameGenerator::make_name() {
 }
 
 string NameGenerator::make_first() {
-    string loc(location+"/"+ race + subrace +"/"+gender);
+    string loc(location+"/"+ race +"/"+gender);
 
     ifstream file(loc.c_str());
     
@@ -62,7 +59,7 @@ string NameGenerator::make_first() {
 }
 
 string NameGenerator::make_last() {
-    string loc(location +"/"+ race + subrace +"/last");
+    string loc(location +"/"+ race +"/last");
 
     ifstream file(loc.c_str());
     
