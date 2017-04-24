@@ -6,14 +6,13 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <getopt.h>
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 
 #include "config.h"
 #include "utils.h"
+#include "opt-parser.h"
 #include "names.h"
 #include "roll-parser.h"
 
@@ -38,8 +37,8 @@ static void print_help_flag() {
                 "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
                 "\t-q --quiet                  Do not print the banner on startup\n"
                 "\t-r --roll=XdY               Simulates rolling dice\n"
-                "\t-v --version                Print version info\n"
-                "\t-V --verbose                Verbose program output\n"
+                "\t-v --verbose                Verbose program output\n"
+                "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -49,8 +48,11 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/* 
+ Option parser - parse_args(argc, argv)
+ This function parses all cla's passed to argv.
+ TODO put this in opt-parser.h
+ */
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
@@ -58,23 +60,22 @@ int parse_args(int argc, char* argv[]) {
     int opt = 0, opt_ind = 0;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
-
+    //opterr = 0;
+    
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
         {"roll",    required_argument,  0,  'r'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"version", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
 
     while ((opt = getopt_long(argc, argv, "hn:qr:vV",
                                long_opts, &opt_ind)) != EOF) {
-
         switch (opt) {
         /* -h --help */
         case 'h': {
@@ -123,20 +124,19 @@ int parse_args(int argc, char* argv[]) {
             exit(status);
         } break;
 
-        /* -v --version */
+        /* -v --verbose */
         case 'v': {
-            print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
 
-        /* parsing error */
+        /* -V --version */
+        case 'V': {
+            print_version_flag();
+        } break;
+
+        case ':':
         case '?': {
-            fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
             print_help_flag();
         } break;
 
@@ -227,7 +227,7 @@ int parse_input(string in) {
 
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
-
+    
     if(status == EXIT_SUCCESS) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
@@ -237,7 +237,7 @@ int main(int argc, char* argv[]) {
         // get user input
         while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
-            cin >> in;
+            getline(cin, in);
 
             if((status = parse_input(in)) != CONTINUE_CODE) break;
         }
