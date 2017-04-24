@@ -38,7 +38,7 @@ int compare(const void* p1, const void* p2) {
   * @return struct parse_node* - and empty parse_node
   */
 parse_node* ExpressionTree::allocate_node() {
-    struct parse_node* node = (parse_node*) malloc(sizeof(struct parse_node));
+    struct parse_node* node = new parse_node;
     
     if(node == NULL) {
         printf("out of memory");
@@ -250,7 +250,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
         high        = parse_tree(cur->right);      
 
         // array to store the results to sort
-        if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
+        if (!(results = new int[repetitions])) {
             printf("out of memory");
         }
       
@@ -264,7 +264,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
             sum = checked_sum(sum, results[i]);
         }
       
-        free(results);
+        delete[] results;
     } break;
         
     // keep lowest resutls node
@@ -273,7 +273,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
         low         = parse_tree(cur->right);
                   
         /* array to store the results to sort */
-        if (!(results = (int*) malloc(sizeof(int)*repetitions))) {
+        if (!(results = new int[repetitions])) {
             printf("out of memory");
         }
       
@@ -287,7 +287,7 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
             sum = checked_sum(sum, results[i]);
         }
       
-        free(results);
+        delete[] results;
     } break;
 
     // keep results greater than

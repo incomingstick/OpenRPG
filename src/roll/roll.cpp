@@ -6,12 +6,11 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <getopt.h>
-
 #include <string>
 
 #include "config.h"
 #include "utils.h"
+#include "opt-parser.h"
 #include "roll-parser.h"
 
 using namespace std;
@@ -40,8 +39,8 @@ static void print_help_flag() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
                 "\t-h --help                   Print this help screen\n"
-                "\t-v --version                Print version info\n"
-                "\t-V --verbose                Verbose program output\n"
+                "\t-v --verbose                Verbose program output\n"
+                "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
           "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
@@ -73,8 +72,8 @@ int parse_args(int argc, char* argv[], string* inputString) {
         {"help",        no_argument,        0,  'h'},
         {"positive",    no_argument,        0,  'p'},
         {"sum-series",  no_argument,        0,  's'},
-        {"version",     no_argument,        0,  'v'},
-        {"verbose",     no_argument,        0,  'V'},
+        {"verbose",     no_argument,        0,  'v'},
+        {"version",     no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -89,17 +88,17 @@ int parse_args(int argc, char* argv[], string* inputString) {
             print_help_flag();
         } break;
 
-        /* -v --version */
-        case 'v': {
-            print_version_flag();
-        } break;
-
         /* -V --verbose */
-        case 'V': {
+        case 'v': {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
-        
+
+        /* -v --version */
+        case 'V': {
+            print_version_flag();
+        } break;
+            
         /* parsing error */
         case '?': {
             fprintf(stderr, "Error: unknown arguement %s\n", argv[optind]);
@@ -114,6 +113,8 @@ int parse_args(int argc, char* argv[], string* inputString) {
         }
     }
 
+    /* TODO this segfaults after this point if anything does not match out syntax
+       i.e: roll hahahaha -v 2d10+6 */
     string expression;
 
     argc -= optind;
