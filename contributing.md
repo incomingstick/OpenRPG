@@ -107,13 +107,13 @@ by someone that understand the language.
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
 - [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
 
-Message me with questions or visit me on Tumblr at [import-os](mkesec.io).
+Message me with questions or visit me on Tumblr at [import-os](http://mkesec.io).
 
 ### Pull Request
 
 For something to be considered for merging into master it must be
 submitted as a Pull Request to a current developement branch first.
-Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
+Pull requests must follow the format found in the [Issue Template](https://github.com/incomingstick/OpenRPG/blob/patch-v0.3.0-dev/.github/ISSUE_TEMPLATE.md)
 file.
 
 
