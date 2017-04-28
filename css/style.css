@@ -438,6 +438,10 @@ pre {
         text-align: left;
     }
 
+    .feature.right-align {
+        text-align: right;
+    }
+
     .logo {
         margin: 0 auto 2rem;
         width: 6rem;
