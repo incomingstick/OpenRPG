@@ -15,7 +15,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><a {% if page.group == "contributing" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/contributing/">Contributing</a></li>
-        <li><a href="https://discord.gg/vdwKeZg">Chat</a></li>
+        <li><a href="{{ site.chat }}">Chat</a></li>
         <li><a {% if page.group == "documentation" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/documentation/introduction/">Documentation</a></li>
         <li><a {% if page.group == "examples" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/examples/overview/">Examples</a></li>
       </ul>
@@ -31,7 +31,7 @@
             <li><a href="{{ site.baseurl }}/about/translations/">Translations</a></li>
           </ul>
         </li>
-        <li><a {% if page.group == "blog" %}class="nav-active"{% endif %} href="http://blog.openrpg.io">Blog</a></li>
+        <li><a {% if page.group == "blog" %}class="nav-active"{% endif %} href="{{ site.blog }}">Blog</a></li>
         <li><a {% if page.group == "faq" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/faq/">FAQ</a></li>
         <li><a {% if page.group == "download" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/download/">Download</a></li>
       </ul>

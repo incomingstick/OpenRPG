@@ -25,7 +25,8 @@ authors: Nick Gaulke
 # Custom vars
 current_version:  0.3.0-dev
 repo:             https://github.com/incomingstick/OpenRPG
-discord:        https://discord.gg/xEwaYE5
+chat:             https://discord.gg/xEwaYE5
+blog:             http://blog.openrpg.io
 
 download:
   source:         https://github.com/incomingstick/OpenRPG/archive/v0.3.0-dev.zip
