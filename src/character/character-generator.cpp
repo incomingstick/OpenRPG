@@ -114,16 +114,20 @@ int main(int argc, char* argv[]) {
     string input;
     
     /* begin creating the character here */
-    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv will ALSO handle this)
+    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
 
     printf("Choose Race:\n");
 
     int tick = 0;
-    for(string race : races)
-        cout << "\t" << (tick++) << ") " << race << endl;
+    for(string race : races) {
+        cout << "\t" << (tick++) << ") " << race;
+
+        if(tick % 3 == 0) cout << endl;
+    }
+    
     tick = 0;
 
-    cout << "#?";
+    cout << "\n#? ";
     cin >> input;
 
     if(stoi(input) < 0 || stoi(input) > (signed)races.size())

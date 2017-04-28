@@ -54,7 +54,7 @@ Character::Character() {
     prof = 2;                 // proficiency bonus
     level = 1;                // character level total
     exp = 0;                  // current experience
-    max_exp = 300;            // experience needed for next level
+    max_exp = levels[level - 1];            // experience needed for next level
 }
 
 Character::Character(Ability ab)

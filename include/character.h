@@ -9,6 +9,61 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
 
+/* an arrray that holds the EXP needed for each level */
+const int levels[] = {
+    300,          // Level 2
+    900,          // Level 3
+    2700,         // Level 4
+    6500,         // Level 5
+    14000,        // Level 6
+    23000,        // Level 7
+    34000,        // Level 8
+    48000,        // Level 9
+    64000,        // Level 10
+    85000,        // Level 11
+    100000,       // Level 12
+    120000,       // Level 13
+    140000,       // Level 14
+    165000,       // Level 15
+    195000,       // Level 16
+    225000,       // Level 17
+    265000,       // Level 18
+    305000,       // Level 19
+    355000        // Level 20
+};
+
+enum Alignment {
+    LawfulGood,
+    NeutralGood,
+    ChaoticGood,
+    
+    LawfulNeutral,
+    TrueNeutral,
+    ChaoticNeutral,
+
+    LawfulEvil,
+    NeutralEvil,
+    ChaoticEvil
+};
+
+enum Language {
+    Common,    Dwarvish,   Elvish,
+    Giant,     Gnomish,    Goblin,
+    Halfling,  Orc,        Abyssal,
+    Celestial, Draconic,   DeepSpeech,
+    Infernal,  Primordial, Silvian,
+    Undercommon
+};
+
+enum Size {
+    Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
+    Small,       // 5 by 5 ft.            [2 to 4 feet tall]
+    Medium,      // 5 by 5 ft.            [4 to 8 feet tall]
+    Large,       // 10 by 10 ft.          [8 to 12 feet tall]
+    Huge,        // 15 by 15 ft.          [12 to 16 feet tall]
+    Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
+};
+
 /*
 list of crrently supported races
 
@@ -79,49 +134,54 @@ inline int modifier(int abil) { return (abil - 10) / 2; };
 
 // TODO take an in depth look at what should and should not be public here
 class Character {
-    private:
-        std::string name;       // the characters name
-        Ability abils;          // collection of ability scores
-        Skills skills;          // collection of skill checks
-        int curr_hp;            // current hit points
-        int temp_hp;            // temporary hit points
-        int max_hp;             // maximum hit points
-        int prof;               // proficiency bonus
-        int level;              // character level total
-        int exp;                // current experience
-        int max_exp;            // experience needed for next level
-    public:
-        Character();
-        Character(Ability ab);
-        Character(Ability ab, Skills sk);
-        ~Character();
+private:
+    size_t age;                      // the age of the character
+    int alignment;                   // the character alignment
+    Size size;                       // the size type
+    std::string name;                // the characters name
+    Ability abils;                   // struct of ability scores
+    Skills skills;                   // struct of skill checks
+    int curr_hp;                     // current hit points
+    int temp_hp;                     // temporary hit points
+    int max_hp;                      // maximum hit points
+    int prof;                        // proficiency bonus
+    int level;                       // character level total
+    int exp;                         // current experience
+    int max_exp;                     // experience needed for next level
+    std::vector<Language> languages; // the array of known languages
+    
+public:
+    Character();
+    Character(Ability ab);
+    Character(Ability ab, Skills sk);
+    ~Character();
+    
+    // Returns a copy of our Ability abils struct
+    Ability get_ability_copy() { return abils; };
 
-        // Returns a copy of our Ability abils struct
-        Ability get_ability_copy() { return abils; };
-
-        // Returns a copy of our Skills skills struct
-        Skills get_skills_copy() { return skills; };
-
-        /* accessor functions for ability score modifiers */
-        int STR() { return abils.STR; };
-        int DEX() { return abils.DEX; };
-        int CON() { return abils.CON; };
-        int INT() { return abils.INT; };
-        int WIS() { return abils.WIS; };
-        int CHA() { return abils.CHA; };
-
-        /* accessor functions for ability score modifiers */
-        int STR_MOD() { return modifier(abils.STR); };
-        int DEX_MOD() { return modifier(abils.DEX); };
-        int CON_MOD() { return modifier(abils.CON); };
-        int INT_MOD() { return modifier(abils.INT); };
-        int WIS_MOD() { return modifier(abils.WIS); };
-        int CHA_MOD() { return modifier(abils.CHA); };
-
-        // allows quick conversion of a skill for its passive check
-        int passive_stat(int stat) { return 8 + prof + stat; };
-
-        std::string to_string();
+    // Returns a copy of our Skills skills struct
+    Skills get_skills_copy() { return skills; };
+    
+    /* accessor functions for ability score modifiers */
+    int STR() { return abils.STR; };
+    int DEX() { return abils.DEX; };
+    int CON() { return abils.CON; };
+    int INT() { return abils.INT; };
+    int WIS() { return abils.WIS; };
+    int CHA() { return abils.CHA; };
+    
+    /* accessor functions for ability score modifiers */
+    int STR_MOD() { return modifier(abils.STR); };
+    int DEX_MOD() { return modifier(abils.DEX); };
+    int CON_MOD() { return modifier(abils.CON); };
+    int INT_MOD() { return modifier(abils.INT); };
+    int WIS_MOD() { return modifier(abils.WIS); };
+    int CHA_MOD() { return modifier(abils.CHA); };
+    
+    // allows quick conversion of a skill for its passive check
+    int passive_stat(int stat) { return 8 + prof + stat; };
+    
+    std::string to_string();
 };
 
 #endif /* SRC_CHARACTER_H_ */
