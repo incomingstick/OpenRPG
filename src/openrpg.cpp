@@ -85,16 +85,8 @@ int parse_args(int argc, char* argv[]) {
         /* -n --name */
         case 'n': {
             NameGenerator name;
-            if(optind < argc) {
+            if(optind + 1 < argc) {
                 name.race = (string)optarg;
-                name.gender = (string)argv[optind++];
-
-                printf("%s\n", name.make_name().c_str());
-
-                exit(status);
-            } if(optind + 1 < argc) {
-                name.race = (string)optarg;
-                name.subrace = (string)argv[optind++];
                 name.gender = (string)argv[optind++];
 
                 printf("%s\n", name.make_name().c_str());

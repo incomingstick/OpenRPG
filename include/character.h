@@ -6,8 +6,8 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef SRC_CHARACTER_H_
-#define SRC_CHARACTER_H_
+#ifndef CHARACTER_H_
+#define CHARACTER_H_
 
 /* an arrray that holds the EXP needed for each level */
 const int levels[] = {
@@ -55,6 +55,12 @@ enum Language {
     Undercommon
 };
 
+enum Gender {
+    Male,
+    Female,
+    Agender
+};
+
 enum Size {
     Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
     Small,       // 5 by 5 ft.            [2 to 4 feet tall]
@@ -63,25 +69,6 @@ enum Size {
     Huge,        // 15 by 15 ft.          [12 to 16 feet tall]
     Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
 };
-
-/*
-list of crrently supported races
-
-TODO: this will probably need to be turned in to its own header
-to properly handle racial bonuses and such
-*/
-const std::vector<std::string> races = {
-    "Human",
-    "Dwarf"
-};
-
-/*
-list of crrently supported races
-
-TODO: this will probably need to be turned in to its own header
-to properly handle racial bonuses and such
-*/
-const std::vector<std::string> classes = { };
 
 struct Ability {
     int STR = 10;   // Strength
@@ -119,6 +106,18 @@ struct Skills {
     int SUR = 0;    // Survival         (WIS)
 };
 
+enum VisionType {
+    Normal,
+    Blindsight,
+    DarkVision,
+    TrueSight
+};
+
+struct Vision {
+    VisionType type;    // type of sight
+    int radius;         // radius of vision in feet (-1 == infinite IF unobstructed)
+};
+
 /* Generates a stat > 1 && < 20 */
 int gen_stat();
 
@@ -128,34 +127,38 @@ std::vector<int> abil_arr();
 /* 
 returns an integer representation of the passed abilities modifier 
 
-NOTE: This is intended to always round down. Data loss is acceptable.
+NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
 */
 inline int modifier(int abil) { return (abil - 10) / 2; };
 
 // TODO take an in depth look at what should and should not be public here
 class Character {
-private:
-    size_t age;                      // the age of the character
-    int alignment;                   // the character alignment
-    Size size;                       // the size type
-    std::string name;                // the characters name
-    Ability abils;                   // struct of ability scores
-    Skills skills;                   // struct of skill checks
-    int curr_hp;                     // current hit points
-    int temp_hp;                     // temporary hit points
-    int max_hp;                      // maximum hit points
-    int prof;                        // proficiency bonus
-    int level;                       // character level total
-    int exp;                         // current experience
-    int max_exp;                     // experience needed for next level
-    std::vector<Language> languages; // the array of known languages
+protected:
+    struct Vision vision;               // information about the characters vision
+    size_t age;                         // the age of the character
+    Alignment alignment;                // the character alignment
+    Size size;                          // the size type
+    std::string firstName;              // the characters first name
+    std::string lastName;               // the characters first name
+    Ability abils;                      // struct of ability scores
+    Skills skills;                      // struct of skill checks
+    int curr_hp;                        // current hit points
+    int temp_hp;                        // temporary hit points
+    int max_hp;                         // maximum hit points
+    int prof;                           // proficiency bonus
+    int level;                          // character level total
+    int cur_exp;                        // current experience
+    int max_exp;                        // experience needed for next level
+    std::vector<Language> languages;    // the array of known languages
+    Gender gender;                      // the characters gender
     
 public:
     Character();
     Character(Ability ab);
-    Character(Ability ab, Skills sk);
     ~Character();
     
+    virtual void Initialize() = 0;
+
     // Returns a copy of our Ability abils struct
     Ability get_ability_copy() { return abils; };
 
@@ -184,4 +187,7 @@ public:
     std::string to_string();
 };
 
-#endif /* SRC_CHARACTER_H_ */
+/* NOTE(incomingstick): this needs to stay at the
+   bottom as it relys on everything in this header */
+#include "races.h"
+#endif /* CHARACTER_H_ */

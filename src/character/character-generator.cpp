@@ -216,9 +216,9 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character player(abil);
+    Human character(abil);
 
-    printf("%s", player.to_string().c_str());
+    printf("%s", character.to_string().c_str());
 
     return status;
 }

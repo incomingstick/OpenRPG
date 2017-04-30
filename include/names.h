@@ -14,7 +14,6 @@ class NameGenerator {
         std::string location;
     public:
         std::string race;
-        std::string subrace;
         std::string gender;
 
         NameGenerator(std::string race = "dwarf", std::string gender = "male");
