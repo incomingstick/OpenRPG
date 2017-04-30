@@ -1,0 +1,4 @@
+[development]
+address = "api.openrpg.io"
+port = 8000
+log = "normal"
