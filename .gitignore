@@ -45,3 +45,8 @@ config.h
 [Bb]uild32/
 [Bb]uild64/
 .vscode
+*.un~
+*.un
+
+# Rust files
+Cargo.lock
