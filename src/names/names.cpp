@@ -10,9 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <ctime>
-#include <functional>
 #include <random>
+#include <functional>
+#include <algorithm>
 
 #include "config.h"
 #include "utils.h"
@@ -20,9 +20,13 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-NameGenerator::NameGenerator(string race, string gender)
-    :race(race),
-     gender(gender) {
+NameGenerator::NameGenerator(string race, string gender) {
+    transform(race.begin(), race.end(), race.begin(), ::tolower);
+    transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+
+    this->race = race;
+    this->gender = gender;
+    
     location = ASSET_LOC;
     location += "/names";
 }
