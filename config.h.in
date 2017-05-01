@@ -12,8 +12,8 @@ during the cmake configuration of your project. If you need to make changes
 edit the original config.h.in file NOT THIS FILE.
 --------------------------------------------------------------------------
 */
-#ifndef SRC_CONFIG_H_
-#define SRC_CONFIG_H_
+#ifndef CONFIG_H_
+#define CONFIG_H_
 
 /* custom project wide defines */
 #define VERSION_MAJOR @OpenRPG_VERSION_MAJOR@
@@ -26,4 +26,4 @@ edit the original config.h.in file NOT THIS FILE.
 #define ASSET_LOC "${DATA_DIR}"
 #define ${CMAKE_BUILD_TYPE}
 
-#endif  /* SRC_CONFIG_H_ */
+#endif  /* CONFIG_H_ */
