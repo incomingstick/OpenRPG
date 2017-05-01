@@ -118,20 +118,26 @@ int main(int argc, char* argv[]) {
 
     printf("Choose Race:\n");
 
-    int tick = 0;
-    for(string race : races) {
-        cout << "\t" << (tick++) << ") " << race;
-
-        if(tick % 3 == 0) cout << endl;
-    }
+    int raceIndex = -1;
     
-    tick = 0;
+    while(raceIndex < 0 || raceIndex > (signed)races.size()) {
+        
+        int tick = 0;
 
-    cout << "\n#? ";
-    cin >> input;
-
-    if(stoi(input) < 0 || stoi(input) > (signed)races.size())
-        cout << "invalid option" << endl;
+        for(string race : races) {
+            cout << "\t" << (tick++) << ") " << race;
+            
+            if(tick % 3 == 0) cout << endl;
+        }
+        
+        tick = 0;
+        
+        cout << "\n#? ";
+        cin >> input;
+    
+        raceIndex = stoi(input);
+    }
+    input = "";
     
     printf("Subrace\n");                       // TODO subrace menu
     printf("Class\n");                         // TODO class menu
@@ -216,9 +222,9 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Human character(abil);
+    Character* character = CharacterFactory(races[raceIndex]);
 
-    printf("%s", character.to_string().c_str());
+    printf("%s", character->to_string().c_str());
 
     return status;
 }

@@ -11,6 +11,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 extern std::vector<std::string> races;
 
+Character* CharacterFactory(std::string race);
+
 class Human : public Character {
 public:
     Human();

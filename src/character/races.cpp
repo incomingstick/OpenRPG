@@ -14,11 +14,20 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+/* TODO find a better way than hard coding this and its values 
+   Perhaps with preprocessor identifiers??? */
 vector<string> races = {
     "Human",
     "Dwarf",
     "Hill Dwarf"
 };
+
+Character* CharacterFactory(string race) {
+    if(race == races[1]) return new Dwarf();
+    if(race == races[2]) return new HillDwarf();
+    else return new Human();
+    
+}
 
 Human::Human() {
     abils.STR = gen_stat() + 1;    // Strength
@@ -43,7 +52,8 @@ Human::Human(Ability ab) {
 }
 
 void Human::Initialize() {
-    NameGenerator ng("human");
+    race = races[0]; // see races TODO at the top
+    NameGenerator ng(race);
 
     firstName = ng.make_first();
     lastName = ng.make_last();
@@ -100,7 +110,11 @@ Dwarf::Dwarf(Ability ab) {
 }
 
 void Dwarf::Initialize() {
-    NameGenerator ng("human");
+    race = races[1]; /* see races TODO at the top
+                        NOTE(incomingstick): this is supposed to JUST
+                        be dwarf as the subrace no longer matters*/
+
+    NameGenerator ng(race);
 
     firstName = ng.make_first();
     lastName = ng.make_last();
@@ -132,4 +146,26 @@ void Dwarf::Initialize() {
     level = 1;                      // character level total
     cur_exp = 0;                    // current experience
     max_exp = levels[level - 1];    // experience needed for next level
+}
+
+HillDwarf::HillDwarf() {
+    abils.STR = gen_stat();     // Strength
+    abils.DEX = gen_stat();     // Dexterity
+    abils.CON = gen_stat() + 2; // Constitution
+    abils.INT = gen_stat();     // Intelligence
+    abils.WIS = gen_stat() + 1; // Wisdom
+    abils.CHA = gen_stat();     // Charisma
+
+    Initialize();
+}
+
+HillDwarf::HillDwarf(Ability ab) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX;     // Dexterity
+    abils.CON = ab.CON + 2; // Constitution
+    abils.INT = ab.INT;     // Intelligence
+    abils.WIS = ab.WIS + 1; // Wisdom
+    abils.CHA = ab.STR;     // Charisma
+
+    Initialize();
 }

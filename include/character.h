@@ -9,6 +9,8 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
+/* NOTE: These are just the 5E character requirements */
+
 /* an arrray that holds the EXP needed for each level */
 const int levels[] = {
     300,          // Level 2
@@ -82,8 +84,6 @@ struct Ability {
 /*
 TODO better way?? We need to also keep track of what
 skills have proficiency (or double prof)
-
-NOTE: These are just the 5E Skills
 */
 struct Skills {
     int ACR = 0;    // Acrobatics       (DEX)
@@ -151,6 +151,7 @@ protected:
     int max_exp;                        // experience needed for next level
     std::vector<Language> languages;    // the array of known languages
     Gender gender;                      // the characters gender
+    std::string race;                   // our characters race (also denoted via the subclass)
     
 public:
     Character();
