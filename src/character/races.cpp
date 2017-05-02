@@ -14,21 +14,6 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-/* TODO find a better way than hard coding this and its values 
-   Perhaps with preprocessor identifiers??? */
-vector<string> races = {
-    "Human",
-    "Dwarf",
-    "Hill Dwarf"
-};
-
-Character* CharacterFactory(string race) {
-    if(race == races[1]) return new Dwarf();
-    if(race == races[2]) return new HillDwarf();
-    else return new Human();
-    
-}
-
 Human::Human() {
     abils.STR = gen_stat() + 1;    // Strength
     abils.DEX = gen_stat() + 1;    // Dexterity
@@ -168,4 +153,68 @@ HillDwarf::HillDwarf(Ability ab) {
     abils.CHA = ab.STR;     // Charisma
 
     Initialize();
+}
+
+/* TODO find a better way than hard coding this and its values 
+   Perhaps with preprocessor identifiers??? We need to be able to
+   tree out the races/subraces/varients. As an example, humans do
+   not have subraces per se, but they have an OPTIONAL variant
+   (+2 of players choice and a feat) whereas Dwarfs have Hill Dwarfs
+   or Mountain Dwarfs, and you MUST pick ONE subrace.*/
+vector<string> races = {
+    "Human",
+    "Dwarf",
+    "Hill Dwarf"
+};
+
+CharacterFactory::CharacterFactory() {
+    // TODO populate race tree here and remove the above race vector
+    /* head->parent = head;
+    head->race = NULL;
+    head->required = false;
+    
+    Node* human;
+
+    human->race = new Human;
+    human->required = true;
+    human->parent = head;
+    
+    Node* dwarf;
+
+    dwarf->race = new Dwarf;
+    dwarf->required = true;
+    dwarf->parent = head;
+   
+    Node* hillDwarf;
+
+    hillDwarf->race = new HillDwarf;
+    hillDwarf->required = true;
+    hillDwarf->parent = head;
+
+    dwarf->children[] = {
+        hillDwarf
+    };
+    
+    head->children[] = {
+        human,
+        dwarf
+    }; */
+};
+
+CharacterFactory::~CharacterFactory() {
+    //TODO clean up here
+};
+
+CharacterFactory::Node* CharacterFactory::allocate_node(Node* parent,
+                                             Node* children[],
+                                             Character* race,
+                                             bool required) {
+    Node* node = new Node;
+    return node;
+}
+
+Character* CharacterFactory::NewCharacter(string race) {
+    if(race == races[1]) return new Dwarf;
+    if(race == races[2]) return new HillDwarf;
+    else return new Human;
 }

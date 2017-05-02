@@ -112,6 +112,8 @@ int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
 
     string input;
+    CharacterFactory factory;
+
     
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
@@ -222,7 +224,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = CharacterFactory(races[raceIndex]);
+    Character* character = factory.NewCharacter(races[raceIndex]);
 
     printf("%s", character->to_string().c_str());
 

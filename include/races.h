@@ -9,10 +9,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef RACE_H_
 #define RACE_H_
 
-extern std::vector<std::string> races;
-
-Character* CharacterFactory(std::string race);
-
 class Human : public Character {
 public:
     Human();
@@ -33,6 +29,30 @@ class HillDwarf : public Dwarf {
 public:
     HillDwarf();
     HillDwarf(Ability ab);
+};
+
+extern std::vector<std::string> races;
+
+class CharacterFactory {
+private:
+    struct Node {
+        Character* race;
+        bool required;
+        
+        Node* parent;
+        Node* children[];
+    };
+
+    Node* head;
+    Node* current = head;
+    struct Node* allocate_node(Node* parent,
+                               Node* children[],
+                               Character* race,
+                               bool required);
+public:
+    CharacterFactory();
+    ~CharacterFactory();
+    Character* NewCharacter(std::string race);
 };
 
 #endif /* RACE_H_ */
