@@ -56,10 +56,26 @@ int gen_stat() {
 
 /* Generates a vector of ability scores base on the used type
     TODO allow multiple types of ability score generation */
-vector<int> abil_arr() {
+vector<int> ability_vector() {
     vector<int> ret;
 
     for(int i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
+
+    return ret;
+}
+
+
+/* Generates a struct of ability scores base on the used type
+    TODO allow multiple types of ability score generation */
+Ability ability_struct() {
+    Ability ret;
+
+    ret.STR = gen_stat();     // Strength
+    ret.DEX = gen_stat();     // Dexterity
+    ret.CON = gen_stat();     // Constitution
+    ret.INT = gen_stat();     // Intelligence
+    ret.WIS = gen_stat();     // Wisdom
+    ret.CHA = gen_stat();     // Charisma
 
     return ret;
 }

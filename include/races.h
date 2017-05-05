@@ -1,3 +1,4 @@
+
 /*
 character-generator - race.h
 Created on: Apr 29, 2017
@@ -60,9 +61,15 @@ public:
     CharacterFactory();
     ~CharacterFactory();
 
+    Character* NewCharacter(Ability ab = ability_struct());
     Character* NewCharacter(int identifier);
+    Character* NewCharacter(int identifier, Ability ab);
+
+    void reset() { current = head; };
     std::vector<std::string> current_options();
     bool has_options();
+    void select_option(int identifier);
+    int current_id();
 };
 
 #endif /* RACE_H_ */

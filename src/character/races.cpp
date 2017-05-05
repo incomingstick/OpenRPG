@@ -35,7 +35,7 @@ Human::Human(Ability ab) {
     abils.CON = ab.CON + 1;    // Constitution
     abils.INT = ab.INT + 1;    // Intelligence
     abils.WIS = ab.WIS + 1;    // Wisdom
-    abils.CHA = ab.STR + 1;    // Charisma
+    abils.CHA = ab.CHA + 1;    // Charisma
 
     Initialize();
 }
@@ -94,7 +94,7 @@ Dwarf::Dwarf(Ability ab) {
     abils.CON = ab.CON + 2; // Constitution
     abils.INT = ab.INT;     // Intelligence
     abils.WIS = ab.WIS;     // Wisdom
-    abils.CHA = ab.STR;     // Charisma
+    abils.CHA = ab.CHA;     // Charisma
 
     Initialize();
 }
@@ -151,7 +151,7 @@ HillDwarf::HillDwarf(Ability ab) {
     abils.CON = ab.CON + 2; // Constitution
     abils.INT = ab.INT;     // Intelligence
     abils.WIS = ab.WIS + 1; // Wisdom
-    abils.CHA = ab.STR;     // Charisma
+    abils.CHA = ab.CHA;     // Charisma
 
     Initialize();
 }
@@ -199,23 +199,101 @@ CharacterFactory::race_node* CharacterFactory::allocate_node(int raceID,
     return node;
 }
 
+
+Character* CharacterFactory::NewCharacter(Ability ab) {
+    switch(current->raceID) {
+    case Human::ID : {
+        return new Human(ab);
+    }
+        
+    case Dwarf::ID : {
+        return new Dwarf(ab);
+    }
+        
+    case HillDwarf::ID : {
+        return new HillDwarf(ab);
+    }
+    default: {
+        return NULL;
+    }
+    }
+}
+
 Character* CharacterFactory::NewCharacter(int identifier) {
-    if(identifier == Dwarf::ID) return new Dwarf;
-    if(identifier == HillDwarf::ID) return new HillDwarf;
-    else return new Human;
+    switch(identifier) {
+    case Human::ID : {
+        return new Human;
+    }
+        
+    case Dwarf::ID : {
+        return new Dwarf;
+    }
+        
+    case HillDwarf::ID : {
+        return new HillDwarf;
+    }
+    default: {
+        return NULL;
+    }
+    }
+}
+
+Character* CharacterFactory::NewCharacter(int identifier, Ability ab) {
+    switch(identifier) {
+    case Human::ID : {
+        return new Human(ab);
+    }
+        
+    case Dwarf::ID : {
+        return new Dwarf(ab);
+    }
+        
+    case HillDwarf::ID : {
+        return new HillDwarf(ab);
+    }
+    default: {
+        return NULL;
+    }
+    }
 }
 
 vector<string> CharacterFactory::current_options() {
-    vector<string> ret = {
-        "Human",
-        "Dwarf",
-        "Hill Dwarf"
-    };
+    vector<string> ret;
 
+    for(race_node* node : current->children) {
+        switch(node->raceID) {
+        case Human::ID : {
+            ret.push_back("Human");
+            break;
+        }
+
+        case Dwarf::ID : {
+            ret.push_back("Dwarf");
+            break;
+        }
+
+        case HillDwarf::ID : {
+            ret.push_back("Hill Dwarf");
+            break;
+        }
+        }
+    }
+    
     return ret;
 }
 
 bool CharacterFactory::has_options() {
-    if(true) return true;
+    if(!current->children.empty())
+        return true;
     else return false;
+}
+
+void CharacterFactory::select_option(int identifier) {
+    if(current != NULL && current->children[identifier] != NULL)
+        current = current->children[identifier];
+}
+
+int CharacterFactory::current_id() {
+    if(current != NULL) return current->raceID;
+    return -1;
 }

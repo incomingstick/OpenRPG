@@ -141,11 +141,37 @@ int main(int argc, char* argv[]) {
         cin >> input;
     
         raceIndex = stoi(input);
+
+        factory.select_option(raceIndex);
     }
 
     input = "";
     
-    printf("Subrace\n");                       // TODO subrace menu
+    if(factory.has_options()) {
+        raceList = factory.current_options();
+        raceIndex = -1;
+        printf("Choose Subrace:\n");
+    }
+        
+    while(raceIndex < 0 || raceIndex > (signed)raceList.size()) {
+        
+        int tick = 0;
+
+        for(string race : raceList) {
+            cout << "\t" << (tick++) << ") " << race;
+            
+            if(tick % 3 == 0) cout << endl;
+        }
+        
+        tick = 0;
+        
+        cout << "\n#? ";
+        cin >> input;
+    
+        raceIndex = stoi(input);
+        factory.select_option(raceIndex);
+    }
+
     printf("Class\n");                         // TODO class menu
     printf("Background\n");                    // TODO background menu
 
@@ -154,7 +180,7 @@ int main(int argc, char* argv[]) {
     /* TODO Could this method of ability scoring work as a basis? */
     Ability abil;
 
-    vector<int> stats = abil_arr();
+    vector<int> stats = ability_vector();
 
     printf("You generated the following ability scores: \n");
 
@@ -228,7 +254,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = factory.NewCharacter(Human::ID);
+    Character* character = factory.NewCharacter(abil);
 
     printf("%s", character->to_string().c_str());
 

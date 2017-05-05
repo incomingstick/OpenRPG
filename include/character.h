@@ -122,7 +122,8 @@ struct Vision {
 int gen_stat();
 
 /* Generates an array of stats > 1 && < 20 */
-std::vector<int> abil_arr();
+std::vector<int> ability_vector();
+Ability ability_struct();
 
 /* 
 returns an integer representation of the passed abilities modifier 
