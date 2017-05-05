@@ -23,4 +23,3 @@ add_executable(character-generator ${CG_SOURCES})
 target_link_libraries(character-generator utils character roll-parser names)
 
 install(TARGETS character-generator DESTINATION bin)
-install(FILES ${CG_INCLUDE} DESTINATION include/openrpg)
