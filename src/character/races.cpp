@@ -1,3 +1,4 @@
+
 /*
 character-generator - race.cpp
 Created on: Apr 29, 2017
@@ -8,7 +9,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <string>
 #include <vector>
-#include <cstdio>
+#include <cstdlib>
 
 #include "names.h"
 #include "character.h"
