@@ -113,7 +113,6 @@ int main(int argc, char* argv[]) {
 
     string input;
     CharacterFactory factory;
-
     
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
@@ -121,12 +120,16 @@ int main(int argc, char* argv[]) {
     printf("Choose Race:\n");
 
     int raceIndex = -1;
+    vector<string> raceList;
+
+    if(factory.has_options())
+        raceList = factory.current_options();
     
-    while(raceIndex < 0 || raceIndex > (signed)races.size()) {
+    while(raceIndex < 0 || raceIndex > (signed)raceList.size()) {
         
         int tick = 0;
 
-        for(string race : races) {
+        for(string race : raceList) {
             cout << "\t" << (tick++) << ") " << race;
             
             if(tick % 3 == 0) cout << endl;
@@ -139,6 +142,7 @@ int main(int argc, char* argv[]) {
     
         raceIndex = stoi(input);
     }
+
     input = "";
     
     printf("Subrace\n");                       // TODO subrace menu
@@ -224,7 +228,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = factory.NewCharacter(races[raceIndex]);
+    Character* character = factory.NewCharacter(Human::ID);
 
     printf("%s", character->to_string().c_str());
 

@@ -14,6 +14,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+const string Human::race = "Human";
+
 Human::Human() {
     abils.STR = gen_stat() + 1;    // Strength
     abils.DEX = gen_stat() + 1;    // Dexterity
@@ -37,7 +39,6 @@ Human::Human(Ability ab) {
 }
 
 void Human::Initialize() {
-    race = races[0]; // see races TODO at the top
     NameGenerator ng(race);
 
     firstName = ng.make_first();
@@ -72,6 +73,8 @@ void Human::Initialize() {
     max_exp = levels[level - 1];    // experience needed for next level
 }
 
+const string Dwarf::race = "Dwarf";
+
 Dwarf::Dwarf() {
     abils.STR = gen_stat();     // Strength
     abils.DEX = gen_stat();     // Dexterity
@@ -95,10 +98,6 @@ Dwarf::Dwarf(Ability ab) {
 }
 
 void Dwarf::Initialize() {
-    race = races[1]; /* see races TODO at the top
-                        NOTE(incomingstick): this is supposed to JUST
-                        be dwarf as the subrace no longer matters*/
-
     NameGenerator ng(race);
 
     firstName = ng.make_first();
@@ -155,66 +154,66 @@ HillDwarf::HillDwarf(Ability ab) {
     Initialize();
 }
 
-/* TODO find a better way than hard coding this and its values 
-   Perhaps with preprocessor identifiers??? We need to be able to
-   tree out the races/subraces/varients. As an example, humans do
-   not have subraces per se, but they have an OPTIONAL variant
-   (+2 of players choice and a feat) whereas Dwarfs have Hill Dwarfs
-   or Mountain Dwarfs, and you MUST pick ONE subrace.*/
-vector<string> races = {
-    "Human",
-    "Dwarf",
-    "Hill Dwarf"
-};
-
 CharacterFactory::CharacterFactory() {
     // TODO populate race tree here and remove the above race vector
-    /* head->parent = head;
-    head->race = NULL;
-    head->required = false;
+    head = allocate_node(Character::ID, false, NULL);
     
-    Node* human;
-
-    human->race = new Human;
-    human->required = true;
-    human->parent = head;
+    race_node* human = allocate_node(Human::ID, true, head);
     
-    Node* dwarf;
-
-    dwarf->race = new Dwarf;
-    dwarf->required = true;
-    dwarf->parent = head;
+    race_node* dwarf = allocate_node(Dwarf::ID, true, head);
    
-    Node* hillDwarf;
-
-    hillDwarf->race = new HillDwarf;
-    hillDwarf->required = true;
-    hillDwarf->parent = head;
-
-    dwarf->children[] = {
+    race_node* hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
+    
+    dwarf->children = {
         hillDwarf
     };
     
-    head->children[] = {
+    head->children = {
         human,
         dwarf
-    }; */
-};
+    };
+
+    current = head;
+}
 
 CharacterFactory::~CharacterFactory() {
     //TODO clean up here
-};
+}
 
-CharacterFactory::Node* CharacterFactory::allocate_node(Node* parent,
-                                             Node* children[],
-                                             Character* race,
-                                             bool required) {
-    Node* node = new Node;
+CharacterFactory::race_node* CharacterFactory::allocate_node(int raceID,
+                                                             bool required,
+                                                             race_node* parent) {
+    race_node* node = new race_node;
+        
+    if(node == NULL) {
+        printf("out of memory");
+        exit(EXIT_FAILURE);
+    }
+    
+    node->raceID = raceID;
+    node->required = required;
+    node->parent = parent;
+
     return node;
 }
 
-Character* CharacterFactory::NewCharacter(string race) {
-    if(race == races[1]) return new Dwarf;
-    if(race == races[2]) return new HillDwarf;
+Character* CharacterFactory::NewCharacter(int identifier) {
+    if(identifier == Dwarf::ID) return new Dwarf;
+    if(identifier == HillDwarf::ID) return new HillDwarf;
     else return new Human;
+}
+
+vector<string> CharacterFactory::current_options() {
+    vector<string> ret = {
+        "Human",
+        "Dwarf",
+        "Hill Dwarf"
+    };
+
+    return ret;
+}
+
+bool CharacterFactory::has_options() {
+    if(true) return true;
+    else return false;
 }

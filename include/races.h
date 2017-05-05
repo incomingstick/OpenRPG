@@ -10,49 +10,59 @@ There is NO WARRANTY, to the extent permitted by law.
 #define RACE_H_
 
 class Human : public Character {
+protected:
+    void Initialize();
+
 public:
     Human();
     Human(Ability ab);
 
-    void Initialize();
+    static const int ID = 0x0001;
+    static const std::string race;
 };
 
 class Dwarf : public Character {
+protected:
+    void Initialize();
+
 public:
     Dwarf();
     Dwarf(Ability ab);
 
-    void Initialize();
+    static const int ID = 0x0010;
+    static const std::string race;
 };
 
 class HillDwarf : public Dwarf {
 public:
     HillDwarf();
     HillDwarf(Ability ab);
-};
 
-extern std::vector<std::string> races;
+    static const int ID = 0x0011;
+};
 
 class CharacterFactory {
 private:
-    struct Node {
-        Character* race;
+    struct race_node {
+        int raceID;
         bool required;
         
-        Node* parent;
-        Node* children[];
+        race_node* parent;
+        std::vector<race_node* > children;
     };
 
-    Node* head;
-    Node* current = head;
-    struct Node* allocate_node(Node* parent,
-                               Node* children[],
-                               Character* race,
-                               bool required);
+    race_node* head;
+    race_node* current;
+    race_node* allocate_node(int raceID,
+                             bool required,
+                             race_node* parent);
 public:
     CharacterFactory();
     ~CharacterFactory();
-    Character* NewCharacter(std::string race);
+
+    Character* NewCharacter(int identifier);
+    std::vector<std::string> current_options();
+    bool has_options();
 };
 
 #endif /* RACE_H_ */

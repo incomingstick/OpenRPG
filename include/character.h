@@ -151,15 +151,18 @@ protected:
     int max_exp;                        // experience needed for next level
     std::vector<Language> languages;    // the array of known languages
     Gender gender;                      // the characters gender
-    std::string race;                   // our characters race (also denoted via the subclass)
+    
+    virtual void Initialize() = 0;
     
 public:
     Character();
     Character(Ability ab);
     ~Character();
-    
-    virtual void Initialize() = 0;
 
+    static const int ID = 0x0000;       // an integer that represents the Character class
+    static const std::string race;      // our characters race (also denoted via the subclass)
+
+    
     // Returns a copy of our Ability abils struct
     Ability get_ability_copy() { return abils; };
 
