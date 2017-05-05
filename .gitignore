@@ -45,6 +45,7 @@ config.h
 [Bb]uild32/
 [Bb]uild64/
 .vscode
+[Gg]ifs/
 *.un~
 *.un
 
