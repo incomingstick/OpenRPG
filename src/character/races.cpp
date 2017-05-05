@@ -8,6 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <string>
 #include <vector>
+#include <cstdio>
 
 #include "names.h"
 #include "character.h"
