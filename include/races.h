@@ -68,7 +68,7 @@ public:
     void reset() { current = head; };
     std::vector<std::string> current_options();
     bool has_options();
-    void select_option(int identifier);
+    void select_option(int index);
     int current_id();
 };
 

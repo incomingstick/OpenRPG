@@ -108,29 +108,21 @@ int parse_args(int argc, char* argv[]) {
     return status;
 }
 
-int main(int argc, char* argv[]) {
-    int status = parse_args(argc, argv); // may exit
-
+int request_selection(CharacterFactory factory) {
+    int index = -1;
     string input;
-    CharacterFactory factory;
+
+    vector<string> list;
     
-    /* begin creating the character here */
-    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
-
-    printf("Choose Race:\n");
-
-    int raceIndex = -1;
-    vector<string> raceList;
-
     if(factory.has_options())
-        raceList = factory.current_options();
+        list = factory.current_options();
     
-    while(raceIndex < 0 || raceIndex > (signed)raceList.size()) {
+    while(index < 0 || index > (signed)list.size()) {
         
         int tick = 0;
 
-        for(string race : raceList) {
-            cout << "\t" << (tick++) << ") " << race;
+        for(string str : list) {
+            cout << "\t" << (tick++) << ") " << str;
             
             if(tick % 3 == 0) cout << endl;
         }
@@ -140,46 +132,17 @@ int main(int argc, char* argv[]) {
         cout << "\n#? ";
         cin >> input;
     
-        raceIndex = stoi(input);
-
-        factory.select_option(raceIndex);
+        index = stoi(input);
     }
 
-    input = "";
-    
-    if(factory.has_options()) {
-        raceList = factory.current_options();
-        raceIndex = -1;
-        printf("Choose Subrace:\n");
-    }
-        
-    while(raceIndex < 0 || raceIndex > (signed)raceList.size()) {
-        
-        int tick = 0;
+    return index;
+}
 
-        for(string race : raceList) {
-            cout << "\t" << (tick++) << ") " << race;
-            
-            if(tick % 3 == 0) cout << endl;
-        }
-        
-        tick = 0;
-        
-        cout << "\n#? ";
-        cin >> input;
-    
-        raceIndex = stoi(input);
-        factory.select_option(raceIndex);
-    }
-
-    printf("Class\n");                         // TODO class menu
-    printf("Background\n");                    // TODO background menu
-
+Ability request_scores() {    
     printf("\n");
 
-    /* TODO Could this method of ability scoring work as a basis? */
-    Ability abil;
-
+    Ability ret;
+    string input;
     vector<int> stats = ability_vector();
 
     printf("You generated the following ability scores: \n");
@@ -195,7 +158,7 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.STR = stoi(input);
+            ret.STR = stoi(input);
         } break;
 
         case 1: {
@@ -203,7 +166,7 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.DEX = stoi(input);
+            ret.DEX = stoi(input);
         } break;
 
         case 2: {
@@ -211,7 +174,7 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.CON = stoi(input);
+            ret.CON = stoi(input);
         } break;
 
         case 3: {
@@ -219,7 +182,7 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.INT = stoi(input);
+            ret.INT = stoi(input);
         } break;
 
         case 4: {
@@ -227,7 +190,7 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.WIS = stoi(input);
+            ret.WIS = stoi(input);
         } break;
 
         case 5: {
@@ -235,18 +198,43 @@ int main(int argc, char* argv[]) {
 
             cin >> input;
             
-            abil.CHA = stoi(input);
+            ret.CHA = stoi(input);
         } break;
 
         default: {
             printf("should not have gotten here");
-            return EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
         }
     }
 
     printf("\n");
+    
+    return ret;
+}
 
+int main(int argc, char* argv[]) {
+    int status = parse_args(argc, argv); // may exit
+    
+    /* begin creating the character here */
+    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
+
+    CharacterFactory factory;
+    
+    printf("Choose Race:\n");
+    
+    factory.select_option(request_selection(factory));
+
+    if(factory.has_options()) {        
+        printf("Choose Subrace:\n");
+        factory.select_option(request_selection(factory)); 
+    }
+    
+    printf("Class\n");                         // TODO class menu
+    printf("Background\n");                    // TODO background menu
+
+    Ability abil = request_scores();
+    
     printf("Skill select based on class\n");    // TODO Skill select based on class
     printf("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
     printf("Equipment\n");                      // TODO select equipment based on class and background

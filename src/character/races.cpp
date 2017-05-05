@@ -288,9 +288,14 @@ bool CharacterFactory::has_options() {
     else return false;
 }
 
-void CharacterFactory::select_option(int identifier) {
-    if(current != NULL && current->children[identifier] != NULL)
-        current = current->children[identifier];
+void CharacterFactory::select_option(int index) {
+    if(current == NULL) return;
+
+    if(index < 0 || (size_t)index > current->children.size())
+        return;
+    
+    if(current->children[index] != NULL)
+        current = current->children[index];
 }
 
 int CharacterFactory::current_id() {
