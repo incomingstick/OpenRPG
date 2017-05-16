@@ -105,6 +105,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         string opt0 = argv[optind++];
         string opt1 = argv[optind++];
 
+        // TODO: See TODO in default block below
         /* allows gender to be passed first */
         if(opt0 == "male" || opt0 == "female") {
             *gender = opt0;
@@ -118,6 +119,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     } break;
 
     default: {
+        // TODO: What if the race is genderless? (i.e Changeling)
         fprintf(stderr, "Error: Invalid number of arguements (expects 2)\n");
     }
     }
