@@ -99,7 +99,7 @@ by someone that understand the language.
     - [ ] can pass any number of stats and autofill the rest (blank for completely generated)
 
 #### v1.0.0
-- [ ] fully portable GUI front-end for the CLI tools
+- [ ] fully portable GUI front-end for the CLI tools (current development branch - electron-gui)
 - [ ] city/town generator - fully generate a city/town with business names, NPC's, and a population
     - [ ] passed basic info about town (name, size [exact diameter in meters OR small, medium, large, etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
 - [ ] encounter/combat generator
@@ -107,7 +107,7 @@ by someone that understand the language.
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
 - [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
 
-Message me with questions or visit me on Tumblr at [import-os](http://mkesec.io).
+If you have questions on where to start, come join us on Discord [here](https://discord.gg/xEwaYE5).
 
 ### Pull Request
 
