@@ -20,6 +20,15 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+string make_location_valid(string loc) {
+    string ret = loc;
+
+    // TODO: test what location we are looking for
+    // ensure it is a valid list
+    
+    return ret;
+}
+
 NameGenerator::NameGenerator(string race, string gender) {
     transform(race.begin(), race.end(), race.begin(), ::tolower);
     transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
@@ -38,7 +47,7 @@ string NameGenerator::make_name() {
 }
 
 string NameGenerator::make_first() {
-    string loc(location+"/"+ race +"/"+gender);
+    string loc = make_location_valid(location+"/"+ race +"/"+gender);
 
     ifstream file(loc.c_str());
     
@@ -63,7 +72,7 @@ string NameGenerator::make_first() {
 }
 
 string NameGenerator::make_last() {
-    string loc(location +"/"+ race +"/last");
+    string loc = make_location_valid(location+"/"+ race +"/"+gender);
 
     ifstream file(loc.c_str());
     
