@@ -24,9 +24,19 @@ string make_location_valid(string loc) {
     string ret = loc;
 
     // TODO: test what location we are looking for
-    // ensure it is a valid list
+    // to ensure it is a valid list
     
     return ret;
+}
+
+NameGenerator::NameGenerator(string race) {
+    transform(race.begin(), race.end(), race.begin(), ::tolower);
+
+    this->race = race;
+    this->gender = "";
+    
+    location = ASSET_LOC;
+    location += "/names";
 }
 
 NameGenerator::NameGenerator(string race, string gender) {
@@ -41,16 +51,30 @@ NameGenerator::NameGenerator(string race, string gender) {
 }
 
 string NameGenerator::make_name() {
-    string ret(make_first() + " " + make_last());
+    string ret;
+
+    ret += make_first();
+
+    if(!gender.empty()) {
+        ret += " ";
+
+        ret += make_last();
+    }
 
     return ret;
 }
 
 string NameGenerator::make_first() {
-    string loc = make_location_valid(location+"/"+ race +"/"+gender);
+    string loc;
+
+    if(gender.empty()) {
+        loc = make_location_valid(location +"/"+ race);
+    } else {
+        loc = make_location_valid(location +"/"+ race +"/"+ gender);
+    }
 
     ifstream file(loc.c_str());
-    
+
     if(file.is_open()) {
         string line;
         vector<string> lines;
@@ -68,11 +92,13 @@ string NameGenerator::make_first() {
         // cannot be opened then something serious has gone wrong.
     }
 
+    file.close();
+
     return "NULL";
 }
 
 string NameGenerator::make_last() {
-    string loc = make_location_valid(location+"/"+ race +"/"+gender);
+    string loc = make_location_valid(location +"/"+ race +"/last");
 
     ifstream file(loc.c_str());
     

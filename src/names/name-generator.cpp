@@ -101,6 +101,11 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     /* check to make sure there are at least 
         two "unknown" args to parse throug*/
     switch(argc - optind) {
+    case 1: {
+        string opt0 = argv[optind++];
+        *race = opt0;
+    } break;
+        
     case 2: { 
         string opt0 = argv[optind++];
         string opt1 = argv[optind++];
@@ -134,12 +139,6 @@ int main(int argc, char* argv[]) {
 
     if(race.empty()) {
         printf("race cannot be empty\n");
-        status = EXIT_FAILURE;
-        print_help_flag();
-    }
-
-    if(gender.empty()) {
-        printf("gender cannot be empty\n");
         status = EXIT_FAILURE;
         print_help_flag();
     }
