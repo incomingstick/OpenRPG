@@ -14,15 +14,33 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <functional>
 #include <algorithm>
 
+/*
+NOTE(incomingstick): this header is to be included in C++17 (C++1z),
+however it is stil a part of the experimental library. This will need
+to be changed when it is included into the standard. If you do not
+have access to this standard please let me know.
+*/
+#include <experimental/filesystem>
+
 #include "config.h"
 #include "utils.h"
 #include "names.h"
 
 using namespace std;
 
+
+/*
+NOTE(incomingstick): this namespace is to be included in C++17 (C++1z),
+however it is stil a part of the experimental library. This will need
+to be changed when it is included into the standard. If you do not
+have access to this standard please let me know.
+*/
+using namespace std::experimental::filesystem::v1;
+
 string make_location_valid(string loc) {
     string ret = loc;
 
+    path p = "";
     // TODO: test what location we are looking for
     // to ensure it is a valid list
     
@@ -64,6 +82,7 @@ string NameGenerator::make_name() {
     return ret;
 }
 
+/* returns "NULL" if the file doesn't exist */
 string NameGenerator::make_first() {
     string loc;
 
@@ -97,6 +116,7 @@ string NameGenerator::make_first() {
     return "NULL";
 }
 
+/* returns "NULL" if the file doesn't exist */
 string NameGenerator::make_last() {
     string loc = make_location_valid(location +"/"+ race +"/last");
 
@@ -118,6 +138,6 @@ string NameGenerator::make_last() {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong
     }
-
+    
     return "NULL";
 }

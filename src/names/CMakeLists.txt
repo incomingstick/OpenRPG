@@ -7,6 +7,8 @@ set(NAMES_INCLUDE
 )
 
 add_library(names ${NAMES_SOURCE})
+target_link_libraries(names stdc++fs)
+
 install (FILES ${NAMES_INCLUDE} DESTINATION include/openrpg)
 
 set(NG_SOURCES 
