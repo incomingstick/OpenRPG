@@ -14,15 +14,7 @@ notifications:
   email: false
 
 before_install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo add-apt-repository -y ppa:llvm-toolchain-4.0/test
-  - sudo apt-get update -qq
   - build.sh
-
-install:
-  - sudo apt-get install -qq g++-6 clang-4.0
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
-  - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-4.0 90  
 
 script:
   - make check
