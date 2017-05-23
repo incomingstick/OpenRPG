@@ -7,6 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
+#include <algorithm>
 #include <cstdlib>
 
 #include "config.h"
@@ -125,7 +126,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
     default: {
         // TODO: What if the race is genderless? (i.e Changeling)
-        fprintf(stderr, "Error: Invalid number of arguements (expects 2)\n");
+        fprintf(stderr, "Error: Invalid number of arguements (expects 1 or 2 arguments)\n");
     }
     }
 
@@ -146,7 +147,9 @@ int main(int argc, char* argv[]) {
     if(status == EXIT_SUCCESS) {
         NameGenerator gen(race, gender);
 
-        printf("%s\n", gen.make_name().c_str());
+        string name = gen.make_name();
+        
+        printf("%s\n", name.c_str());
     }
 
     return status;

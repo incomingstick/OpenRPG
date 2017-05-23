@@ -14,8 +14,8 @@ notifications:
   email: false
 
 before_install:
-  - build.sh
+  - ./build.sh
+  - cd build
 
 script:
-  - make check
-  - sudo make install
+  - make check && sudo make install

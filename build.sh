@@ -1,8 +1,9 @@
+
 #!/bin/bash
 
 cwd=$(pwd)
 
-if [[ $OSTYPE == "linux"* ||  $OSTYPE == "cygwin" ]]; then
+if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; then
     if hash cmake 2>/dev/null; then
         if hash make 2>/dev/null; then
             if [ ! -d "$cwd/build" ]; then
