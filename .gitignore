@@ -46,3 +46,4 @@ config.h
 [Bb]uild64/
 .vscode
 [Gg]ifs/
+app/
