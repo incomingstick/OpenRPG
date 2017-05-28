@@ -9,7 +9,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_ROLL_PARSER_H_
 #define SRC_ROLL_PARSER_H_
 
-#include "die.h"
+#include "roll/die.h"
 
 #define FUDGE_DIE       -2 // represents a fudge die
 #define HUNDRED         -1 // represents d100

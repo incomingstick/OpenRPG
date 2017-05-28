@@ -1,14 +1,15 @@
 /*
-character-generator - Character module global include
+name-generator - Names module global include
 Created on: May 28, 2017
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef ROLL_H
+#define ROLL_H
 
-#include "character/character.h"
+#include "roll/die.h"
+#include "roll/roll-parser.h"
 
-#endif /* CHARACTER_H */
+#endif /* ROLL_H */

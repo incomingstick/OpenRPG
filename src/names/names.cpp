@@ -14,9 +14,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <functional>
 #include <random>
 
-#include "config.h"
-#include "utils.h"
-#include "names.h"
+#include "core/config.h"
+#include "core/utils.h"
+#include "names/names.h"
 
 using namespace std;
 

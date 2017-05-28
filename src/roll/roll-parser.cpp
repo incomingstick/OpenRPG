@@ -12,8 +12,8 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <cctype>
 #include <stack>
 
-#include "utils.h"
-#include "roll-parser.h"
+#include "core/utils.h"
+#include "roll/roll-parser.h"
 
 using namespace std;
 
