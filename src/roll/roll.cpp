@@ -151,7 +151,6 @@ int main(int argc, char* argv[]) {
         ExpressionTree tree;
 
         tree.set_expression(inputString);
-        tree.scan_expression();
 
         if(VB_FLAG) printf("%s", tree.to_string().c_str());
 

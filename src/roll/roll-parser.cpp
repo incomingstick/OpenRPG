@@ -397,10 +397,22 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
 }
 
 /**
+ * @desc sets the input string to be scanned and parsed equal to the string exp
+ * @param const std::string exp - the string to become the input string
+ */
+bool ExpressionTree::set_expression(const std::string exp) {
+    // TODO ensure integrity of this string before 
+    inputString = exp;
+
+    return build_expression_tree();
+}
+    
+
+/**
   * @desc scans the string held by the ExpressionTree and
   * creates a binary tree to be parsed out
   */
-void ExpressionTree::scan_expression(void) {
+bool ExpressionTree::build_expression_tree(void) {
     int numBytesToRead = 0;
 
     struct parse_node* cur = head;
@@ -501,6 +513,7 @@ void ExpressionTree::scan_expression(void) {
 
                     default: {
                         // TODO Syntax error here
+                        return false;
                     }
                     }
                 }
@@ -521,6 +534,7 @@ void ExpressionTree::scan_expression(void) {
                  *
                  *  TODO output syntax error here
                  */
+                return false;
             }
             }
 
@@ -540,6 +554,8 @@ void ExpressionTree::scan_expression(void) {
             cur = new_number(cur, &numBytesToRead);
     }
     while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
+
+    return true;
 }
 
 /**
