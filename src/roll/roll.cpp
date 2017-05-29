@@ -150,11 +150,14 @@ int main(int argc, char* argv[]) {
     if(status == EXIT_SUCCESS) {
         ExpressionTree tree;
 
-        tree.set_expression(inputString);
-
-        if(VB_FLAG) printf("%s", tree.to_string().c_str());
-
-        printf("%i\n", tree.parse_expression());
+        if(tree.set_expression(inputString)) {
+            if(VB_FLAG) printf("%s", tree.to_string().c_str());
+            
+            printf("%i\n", tree.parse_expression());
+        } else {
+            // TODO: improve error output
+            fprintf(stderr, "Invalid expression - %s\n", inputString.c_str());
+        }
     }
 
     return status;
