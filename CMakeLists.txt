@@ -1,5 +1,5 @@
 # require cmake v2.8.4
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.4 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
@@ -16,7 +16,7 @@ string(TIMESTAMP DATE UTC)
 
 # default compiler flags
 set(CMAKE_BUILD_TYPE DEBUG)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++14")
 
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
@@ -29,7 +29,7 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
 endif(CMAKE_BUILD_TYPE MATCHES DEBUG)
 
 MESSAGE(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
-MESSAGE(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
+MESSAGE(STATUS "DATA_DIR:\t\t\t" ${DATA_DIR})
 
 # source directories
 include_directories("include/")
