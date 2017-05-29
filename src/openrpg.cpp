@@ -46,10 +46,9 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
-/* 
- Option parser - parse_args(argc, argv)
- This function parses all cla's passed to argv.
- TODO put this in opt-parser.h
+/** 
+ * Option parser - parse_args(argc, argv)
+ * This function parses all cla's passed to argv.
  */
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
@@ -180,8 +179,19 @@ int parse_input(string in) {
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
                 if(words.size() > 3) {
+                    string race;
+                    string gender;
 
-                    // TODO link to name generator
+                    /* allows gender to be passed first */
+                    if(words[1] == "male" || words[1] == "female") {
+                        gender = words[1];
+                        race = words[2];
+                    } else {
+                        gender = words[1];
+                        race = words[2];
+                    }
+                                        
+                    NameGenerator name;
 
                     if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
 
