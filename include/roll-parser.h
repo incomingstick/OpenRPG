@@ -77,6 +77,8 @@ public:
      * @return string - a string representation of the current tree
      */
     std::string to_string() { return tree_string(head, 0); };
+
+    static bool is_exppression_valid(const std::string exp);
 };
 
 #endif  /* SRC_ROLL_PARSER_H_ */

@@ -113,8 +113,6 @@ int parse_args(int argc, char* argv[], string* inputString) {
         }
     }
 
-    /* TODO this segfaults after this point if anything does not match out syntax
-       i.e: roll hahahaha -v 2d10+6 */
     string expression;
 
     argc -= optind;

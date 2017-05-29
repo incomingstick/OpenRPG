@@ -359,7 +359,8 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
     } break;
 
     default: {
-        // TODO syntax error here
+        fprintf(stderr, "Invalid option - %c\n", cur->op);
+        
         exit(EXIT_FAILURE);
     }
     }
@@ -396,12 +397,18 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
     return 0;
 }
 
+// TODO ensure integrity of this string before
+static bool is_expression_valid(const std::string exp) {
+    return true;
+}
+
 /**
  * @desc sets the input string to be scanned and parsed equal to the string exp
  * @param const std::string exp - the string to become the input string
  */
 bool ExpressionTree::set_expression(const std::string exp) {
-    // TODO ensure integrity of this string before 
+    if(!is_expression_valid(exp)) return false;
+    
     inputString = exp;
 
     return build_expression_tree();
@@ -411,6 +418,16 @@ bool ExpressionTree::set_expression(const std::string exp) {
 /**
   * @desc scans the string held by the ExpressionTree and
   * creates a binary tree to be parsed out
+  *
+  * TODO: Improve error reporting to point to the exact character
+  * in the string that is considered invalid, i.e mimic GCC\LLDB
+  * error reporting
+  * 
+  * example:
+  *      $ roll character
+  *      Invalid character 'c' found in expression:
+  *                 character
+  *                 ^~~~~~~~~
   */
 bool ExpressionTree::build_expression_tree(void) {
     int numBytesToRead = 0;
@@ -512,7 +529,7 @@ bool ExpressionTree::build_expression_tree(void) {
                     } break;
 
                     default: {
-                        // TODO Syntax error here
+                        fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
                         return false;
                     }
                     }
@@ -530,10 +547,10 @@ bool ExpressionTree::build_expression_tree(void) {
                 /* 
                  * Default case for this scanner.
                  * This set of characters will include all
-                 * charcters enot included above
-                 *
-                 *  TODO output syntax error here
+                 * charcters not included above
                  */
+                fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
+                
                 return false;
             }
             }
