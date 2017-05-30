@@ -114,7 +114,6 @@ int parse_args(int argc, char* argv[]) {
             ExpressionTree tree;
 
             tree.set_expression(optarg);
-            tree.scan_expression();
 
             printf("%i\n", tree.parse_expression());
 
@@ -210,7 +209,6 @@ int parse_input(string in) {
                     ExpressionTree tree;
 
                     tree.set_expression(exp);
-                    tree.scan_expression();
 
                     printf("%i\n", tree.parse_expression());
 

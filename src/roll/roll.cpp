@@ -111,8 +111,6 @@ int parse_args(int argc, char* argv[], string* inputString) {
         }
     }
 
-    /* TODO this segfaults after this point if anything does not match out syntax
-       i.e: roll hahahaha -v 2d10+6 */
     string expression;
 
     argc -= optind;
@@ -148,12 +146,14 @@ int main(int argc, char* argv[]) {
     if(status == EXIT_SUCCESS) {
         ExpressionTree tree;
 
-        tree.set_expression(inputString);
-        tree.scan_expression();
-
-        if(VB_FLAG) printf("%s", tree.to_string().c_str());
-
-        printf("%i\n", tree.parse_expression());
+        if(tree.set_expression(inputString)) {
+            if(VB_FLAG) printf("%s", tree.to_string().c_str());
+            
+            printf("%i\n", tree.parse_expression());
+        } else {
+            // TODO: improve error output
+            fprintf(stderr, "Invalid expression - %s\n", inputString.c_str());
+        }
     }
 
     return status;
