@@ -54,8 +54,6 @@ static void print_help_flag() {
  TODO put this in opt-parser.h
  */
 int parse_args(int argc, char* argv[]) {
-    int status = EXIT_SUCCESS;
-
     /* getopt_long stores the option and option index here */
     int opt = 0, opt_ind = 0;
 
@@ -92,7 +90,7 @@ int parse_args(int argc, char* argv[]) {
 
                 printf("%s\n", name.make_name().c_str());
 
-                exit(status);
+                exit(EXIT_SUCCESS);
             } if(optind + 1 < argc) {
                 name.race = (string)optarg;
                 name.subrace = (string)argv[optind++];
@@ -100,7 +98,7 @@ int parse_args(int argc, char* argv[]) {
 
                 printf("%s\n", name.make_name().c_str());
 
-                exit(status);
+                exit(EXIT_SUCCESS);
             } else {
                 fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
                 print_help_flag();
@@ -122,7 +120,7 @@ int parse_args(int argc, char* argv[]) {
 
             printf("%i\n", tree.parse_expression());
 
-            exit(status);
+            exit(EXIT_SUCCESS);
         } break;
 
         /* -v --verbose */
@@ -144,18 +142,16 @@ int parse_args(int argc, char* argv[]) {
         /* if we get here something very bad happened */
         default: {
             fprintf(stderr, "Aborting...\n");
-            status = EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
         }
     }
 
-    return status;
+    return CONTINUE_CODE;
 }
 
 /* TODO Parses text input into the console and determines the appropriate response/action */
 int parse_input(string in) {
-    int status = EXIT_SUCCESS;
-
     if (in.size() > 0) {
         // parsed individual words
         vector<string> words;
@@ -182,24 +178,24 @@ int parse_input(string in) {
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
-                if(words.size() > 3) {
-                    string race;
-                    string gender;
-
-                    /* allows gender to be passed first */
-                    if(words[1] == "male" || words[1] == "female") {
-                        gender = words[1];
-                        race = words[2];
-                    } else {
-                        gender = words[1];
-                        race = words[2];
-                    }
-
+                if(words.size() >= 2) {
                     NameGenerator name;
 
-                    if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
+                    /* allows gender to be passed first */
+                    if((words[1] == "male" || words[1] == "female") &&
+                       (words.size() >= 3)) {
+                        name.gender = words[1];
+                        name.race = words[2];
+                    } else if(words.size() >= 3) {
+                        name.gender = words[1];
+                        name.race = words[2];
+                    } else {
+                        name.race = words[1];
+                    }
 
-                    return status;
+                    printf("%s\n", name.make_name().c_str());
+
+                    return CONTINUE_CODE;;
                 } else {
                     printf("Missing arguments!\n");
                 }
@@ -218,9 +214,7 @@ int parse_input(string in) {
 
                     printf("%i\n", tree.parse_expression());
 
-                    if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
-
-                    return status;
+                    return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
                 }
@@ -234,24 +228,25 @@ int parse_input(string in) {
     } else {
         printf("No command given!\n");
     }
+    
     return CONTINUE_CODE;
 }
 
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
     
-    if(status == EXIT_SUCCESS) {
+    if(status == CONTINUE_CODE) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
 
         string in("");
 
         // get user input
-        while(status == EXIT_SUCCESS || status == CONTINUE_CODE) {
+        while(status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
             getline(cin, in);
 
-            if((status = parse_input(in)) != CONTINUE_CODE) break;
+            status = parse_input(in);
         }
     }
 
