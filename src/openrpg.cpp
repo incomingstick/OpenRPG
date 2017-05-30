@@ -85,6 +85,7 @@ int parse_args(int argc, char* argv[]) {
         /* -n --name */
         case 'n': {
             NameGenerator name;
+
             if(optind < argc) {
                 name.race = (string)optarg;
                 name.gender = (string)argv[optind++];
@@ -182,8 +183,19 @@ int parse_input(string in) {
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
                 if(words.size() > 3) {
+                    string race;
+                    string gender;
 
-                    // TODO link to name generator
+                    /* allows gender to be passed first */
+                    if(words[1] == "male" || words[1] == "female") {
+                        gender = words[1];
+                        race = words[2];
+                    } else {
+                        gender = words[1];
+                        race = words[2];
+                    }
+
+                    NameGenerator name;
 
                     if(status == EXIT_SUCCESS) status = CONTINUE_CODE;
 
