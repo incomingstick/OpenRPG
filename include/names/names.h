@@ -11,17 +11,20 @@ There is NO WARRANTY, to the extent permitted by law.
 #define SRC_GENERATOR_H_
 
 class NameGenerator {
-    private:
-        std::string location;
-    public:
-        std::string race;
-        std::string subrace;
-        std::string gender;
+private:
+    std::string location;
 
-        NameGenerator(std::string race = "dwarf", std::string gender = "male");
-        std::string make_name();
-        std::string make_first();
-        std::string make_last();
+public:
+    std::string race;
+    std::string subrace;
+    std::string gender;
+
+    NameGenerator(std::string race = "dwarf");
+    NameGenerator(std::string race, std::string gender);
+
+    std::string make_name();
+    std::string make_first();
+    std::string make_last();
 };
 
 #endif /* SRC_GENERATOR_H_ */

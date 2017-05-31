@@ -11,4 +11,9 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "character/character.h"
 
+/* NOTE(incomingstick): this needs to stay at the
+   bottom as it relys on everything in this header */
+#include "character/races.h"
+
+
 #endif /* CHARACTER_H */

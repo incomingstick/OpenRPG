@@ -29,6 +29,16 @@ string make_location_valid(string loc) {
     return ret;
 }
 
+NameGenerator::NameGenerator(string race) {
+    transform(race.begin(), race.end(), race.begin(), ::tolower);
+
+    this->race = race;
+    this->gender = "";
+
+    location = ASSET_LOC;
+    location += "/names";
+}
+
 NameGenerator::NameGenerator(string race, string gender) {
     transform(race.begin(), race.end(), race.begin(), ::tolower);
     transform(gender.begin(), gender.end(), gender.begin(), ::tolower);

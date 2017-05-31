@@ -82,24 +82,23 @@ int parse_args(int argc, char* argv[]) {
             NameGenerator name;
 
             if(optind < argc) {
+                if((string)optarg == "male" || (string)optarg == "female") {
+                    name.gender = (string)optarg;
+                    name.race = (string)argv[optind++];
+                } else {
+                    name.race = (string)optarg;
+                    name.gender = (string)argv[optind++];
+                }
+            } else if(optind == argc) {
                 name.race = (string)optarg;
-                name.gender = (string)argv[optind++];
-
-                printf("%s\n", name.make_name().c_str());
-
-                exit(EXIT_SUCCESS);
-            } if(optind + 1 < argc) {
-                name.race = (string)optarg;
-                name.subrace = (string)argv[optind++];
-                name.gender = (string)argv[optind++];
-
-                printf("%s\n", name.make_name().c_str());
-
-                exit(EXIT_SUCCESS);
             } else {
-                fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
+                fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                 print_help_flag();
             }
+            
+            printf("%s\n", name.make_name().c_str());
+
+            exit(EXIT_SUCCESS);
         } break;
 
         /* -q --quiet */
@@ -178,18 +177,20 @@ int parse_input(string in) {
                 if(words.size() >= 2) {
                     NameGenerator name;
 
-                    /* allows gender to be passed first */
-                    if((words[1] == "male" || words[1] == "female") &&
-                       (words.size() >= 3)) {
-                        name.gender = words[1];
-                        name.race = words[2];
-                    } else if(words.size() >= 3) {
-                        name.gender = words[1];
-                        name.race = words[2];
-                    } else {
+                    if(words.size() >= 3) {
+                        if(words[1] == "male" || words[1] == "female") {
+                            name.gender = words[1];
+                            name.race = words[2];
+                        } else {
+                            name.race = words[1];
+                            name.gender = words[2];
+                        }
+                    } else if(words.size() == 2) {
                         name.race = words[1];
+                    } else {
+                        fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
-
+                    
                     printf("%s\n", name.make_name().c_str());
 
                     return CONTINUE_CODE;;
