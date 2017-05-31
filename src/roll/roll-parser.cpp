@@ -12,8 +12,8 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <cctype>
 #include <stack>
 
-#include "utils.h"
-#include "roll-parser.h"
+#include "core/utils.h"
+#include "roll/roll-parser.h"
 
 using namespace std;
 
@@ -359,7 +359,8 @@ int ExpressionTree::parse_tree(struct parse_node* node) {
     } break;
 
     default: {
-        // TODO syntax error here
+        fprintf(stderr, "Invalid option - %c\n", cur->op);
+        
         exit(EXIT_FAILURE);
     }
     }
@@ -396,11 +397,39 @@ int ExpressionTree::parse_input_string(string* buff, int* numBytesRead, int maxB
     return 0;
 }
 
+// TODO ensure integrity of this string before
+static bool is_expression_valid(const std::string exp) {
+    return true;
+}
+
+/**
+ * @desc sets the input string to be scanned and parsed equal to the string exp
+ * @param const std::string exp - the string to become the input string
+ */
+bool ExpressionTree::set_expression(const std::string exp) {
+    if(!is_expression_valid(exp)) return false;
+    
+    inputString = exp;
+
+    return build_expression_tree();
+}
+    
+
 /**
   * @desc scans the string held by the ExpressionTree and
   * creates a binary tree to be parsed out
+  *
+  * TODO: Improve error reporting to point to the exact character
+  * in the string that is considered invalid, i.e mimic GCC\LLDB
+  * error reporting
+  * 
+  * example:
+  *      $ roll character
+  *      Invalid character 'c' found in expression:
+  *                 character
+  *                 ^~~~~~~~~
   */
-void ExpressionTree::scan_expression(void) {
+bool ExpressionTree::build_expression_tree(void) {
     int numBytesToRead = 0;
 
     struct parse_node* cur = head;
@@ -500,7 +529,8 @@ void ExpressionTree::scan_expression(void) {
                     } break;
 
                     default: {
-                        // TODO Syntax error here
+                        fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
+                        return false;
                     }
                     }
                 }
@@ -517,10 +547,11 @@ void ExpressionTree::scan_expression(void) {
                 /* 
                  * Default case for this scanner.
                  * This set of characters will include all
-                 * charcters enot included above
-                 *
-                 *  TODO output syntax error here
+                 * charcters not included above
                  */
+                fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
+                
+                return false;
             }
             }
 
@@ -540,6 +571,8 @@ void ExpressionTree::scan_expression(void) {
             cur = new_number(cur, &numBytesToRead);
     }
     while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
+
+    return true;
 }
 
 /**

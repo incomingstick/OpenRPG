@@ -12,7 +12,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <random>
 #include <functional>
 
-#include "utils.h"
+#include "core/utils.h"
 
 class Die {
     private:

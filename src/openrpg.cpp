@@ -10,11 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <vector>
 #include <cstdlib>
 
-#include "config.h"
-#include "utils.h"
-#include "opt-parser.h"
+#include "openrpg.h"
 #include "names.h"
-#include "roll-parser.h"
+#include "roll.h"
 
 using namespace std;
 
@@ -48,10 +46,9 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
-/* 
- Option parser - parse_args(argc, argv)
- This function parses all cla's passed to argv.
- TODO put this in opt-parser.h
+/** 
+ * Option parser - parse_args(argc, argv)
+ * This function parses all cla's passed to argv.
  */
 int parse_args(int argc, char* argv[]) {
     /* getopt_long stores the option and option index here */
@@ -85,24 +82,23 @@ int parse_args(int argc, char* argv[]) {
             NameGenerator name;
 
             if(optind < argc) {
+                if((string)optarg == "male" || (string)optarg == "female") {
+                    name.gender = (string)optarg;
+                    name.race = (string)argv[optind++];
+                } else {
+                    name.race = (string)optarg;
+                    name.gender = (string)argv[optind++];
+                }
+            } else if(optind == argc) {
                 name.race = (string)optarg;
-                name.gender = (string)argv[optind++];
-
-                printf("%s\n", name.make_name().c_str());
-
-                exit(EXIT_SUCCESS);
-            } if(optind + 1 < argc) {
-                name.race = (string)optarg;
-                name.subrace = (string)argv[optind++];
-                name.gender = (string)argv[optind++];
-
-                printf("%s\n", name.make_name().c_str());
-
-                exit(EXIT_SUCCESS);
             } else {
-                fprintf(stderr, "Error: invalid number of args 1 (expects 2)\n");
+                fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                 print_help_flag();
             }
+            
+            printf("%s\n", name.make_name().c_str());
+
+            exit(EXIT_SUCCESS);
         } break;
 
         /* -q --quiet */
@@ -116,7 +112,6 @@ int parse_args(int argc, char* argv[]) {
             ExpressionTree tree;
 
             tree.set_expression(optarg);
-            tree.scan_expression();
 
             printf("%i\n", tree.parse_expression());
 
@@ -178,21 +173,24 @@ int parse_input(string in) {
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 return EXIT_SUCCESS;
             } else if(words[0] == "gen" || words[0] == "generate") {
+
                 if(words.size() >= 2) {
                     NameGenerator name;
 
-                    /* allows gender to be passed first */
-                    if((words[1] == "male" || words[1] == "female") &&
-                       (words.size() >= 3)) {
-                        name.gender = words[1];
-                        name.race = words[2];
-                    } else if(words.size() >= 3) {
-                        name.gender = words[1];
-                        name.race = words[2];
-                    } else {
+                    if(words.size() >= 3) {
+                        if(words[1] == "male" || words[1] == "female") {
+                            name.gender = words[1];
+                            name.race = words[2];
+                        } else {
+                            name.race = words[1];
+                            name.gender = words[2];
+                        }
+                    } else if(words.size() == 2) {
                         name.race = words[1];
+                    } else {
+                        fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
-
+                    
                     printf("%s\n", name.make_name().c_str());
 
                     return CONTINUE_CODE;;
@@ -210,7 +208,6 @@ int parse_input(string in) {
                     ExpressionTree tree;
 
                     tree.set_expression(exp);
-                    tree.scan_expression();
 
                     printf("%i\n", tree.parse_expression());
 
