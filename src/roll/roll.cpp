@@ -8,10 +8,8 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <string>
 
-#include "config.h"
-#include "utils.h"
-#include "opt-parser.h"
-#include "roll-parser.h"
+#include "openrpg.h"
+#include "roll/roll-parser.h"
 
 using namespace std;
 
