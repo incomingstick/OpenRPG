@@ -6,9 +6,10 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef NAMES_H
-#define NAMES_H
+#ifndef ROLL_H
+#define ROLL_H
 
-#include "names/names.h"
+#include "roll/die.h"
+#include "roll/roll-parser.h"
 
-#endif /* NAMES_H */
+#endif /* ROLL_H */

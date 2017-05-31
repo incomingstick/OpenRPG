@@ -51,3 +51,6 @@ config.h
 
 # Rust files
 Cargo.lock
+
+# Temp until GUI is merged into dev branch
+app/
