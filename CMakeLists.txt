@@ -7,7 +7,7 @@ set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 # Project info
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
-set(OpenRPG_VERSION_MINOR 4)
+set(OpenRPG_VERSION_MINOR 5)
 set(OpenRPG_VERSION_TWEAK 0)
 set(OpenRPG_VERSION_SUFFIX "dev")
 set(OpenRPG_AUTHOR "Nicholas Gaulke")
