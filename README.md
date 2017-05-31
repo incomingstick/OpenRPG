@@ -1,6 +1,6 @@
 # OpenRPG
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
-![Version Number](https://img.shields.io/badge/version-v0.3.0--dev-blue.svg)
+![Version Number](https://img.shields.io/badge/version-v0.4.0--dev-blue.svg)
 [![Discord Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/xEwaYE5)  
 
 OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!  

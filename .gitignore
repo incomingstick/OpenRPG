@@ -45,3 +45,12 @@ config.h
 [Bb]uild32/
 [Bb]uild64/
 .vscode
+[Gg]ifs/
+*.un~
+*.un
+
+# Rust files
+Cargo.lock
+
+# Temp until GUI is merged into dev branch
+app/
