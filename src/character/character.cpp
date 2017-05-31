@@ -9,7 +9,10 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <string>
 #include <vector>
 
-#include "die.h"
+#include "core/utils.h"
+#include "roll.h"
+#include "names.h"
+
 #include "character.h"
 
 using namespace std;

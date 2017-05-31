@@ -8,9 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <vector>
 
-#include "config.h"
-#include "utils.h"
-#include "opt-parser.h"
+#include "openrpg.h"
 #include "character.h"
 
 using namespace std;

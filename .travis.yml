@@ -1,4 +1,3 @@
-sudo: false
 language: cpp
 
 compiler:
@@ -15,10 +14,8 @@ notifications:
   email: false
 
 before_install:
-  - mkdir build
+  - ./build.sh
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=~/local ..
-  - make check
 
 script:
-  - make install
+  - make check && sudo make install

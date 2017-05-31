@@ -14,11 +14,30 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <functional>
 #include <algorithm>
 
-#include "config.h"
-#include "utils.h"
-#include "names.h"
+#include "core/config.h"
+#include "core/utils.h"
+#include "names/names.h"
 
 using namespace std;
+
+string make_location_valid(string loc) {
+    string ret = loc;
+
+    // TODO: test what location we are looking for
+    // to ensure it is a valid list
+    
+    return ret;
+}
+
+NameGenerator::NameGenerator(string race) {
+    transform(race.begin(), race.end(), race.begin(), ::tolower);
+
+    this->race = race;
+    this->gender = "";
+
+    location = ASSET_LOC;
+    location += "/names";
+}
 
 NameGenerator::NameGenerator(string race, string gender) {
     transform(race.begin(), race.end(), race.begin(), ::tolower);
@@ -32,16 +51,31 @@ NameGenerator::NameGenerator(string race, string gender) {
 }
 
 string NameGenerator::make_name() {
-    string ret(make_first() + " " + make_last());
+    string ret;
+
+    ret += make_first();
+
+    if(!gender.empty()) {
+        ret += " ";
+
+        ret += make_last();
+    }
 
     return ret;
 }
 
+/* returns "NULL" if the file doesn't exist */
 string NameGenerator::make_first() {
-    string loc(location+"/"+ race +"/"+gender);
+    string loc;
+
+    if(gender.empty()) {
+        loc = make_location_valid(location +"/"+ race +".lst");
+    } else {
+        loc = make_location_valid(location +"/"+ race +"/"+ gender +".lst");
+    }
 
     ifstream file(loc.c_str());
-    
+
     if(file.is_open()) {
         string line;
         vector<string> lines;
@@ -57,13 +91,17 @@ string NameGenerator::make_first() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
+        cerr << "unable to open file " << loc << endl;
     }
+
+    file.close();
 
     return "NULL";
 }
 
+/* returns "NULL" if the file doesn't exist */
 string NameGenerator::make_last() {
-    string loc(location +"/"+ race +"/last");
+    string loc = make_location_valid(location +"/"+ race +"/last.lst");
 
     ifstream file(loc.c_str());
     
@@ -82,7 +120,8 @@ string NameGenerator::make_last() {
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong
+        cerr << "unable to open file " << loc << endl;
     }
-
+    
     return "NULL";
 }
