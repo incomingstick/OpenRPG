@@ -8,7 +8,7 @@ set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 project(OpenRPG)
 set(OpenRPG_VERSION_MAJOR 0)
 set(OpenRPG_VERSION_MINOR 4)
-set(OpenRPG_VERSION_TWEAK 1)
+set(OpenRPG_VERSION_TWEAK 2)
 set(OpenRPG_VERSION_SUFFIX "dev")
 set(OpenRPG_AUTHOR "Nicholas Gaulke")
 string(TIMESTAMP YEAR %Y UTC)
@@ -16,7 +16,7 @@ string(TIMESTAMP DATE UTC)
 
 # default compiler flags
 set(CMAKE_BUILD_TYPE DEBUG)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
 
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
