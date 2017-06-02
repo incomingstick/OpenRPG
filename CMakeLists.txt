@@ -16,7 +16,7 @@ string(TIMESTAMP DATE UTC)
 
 # default compiler flags
 set(CMAKE_BUILD_TYPE DEBUG)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall --std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
 
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
