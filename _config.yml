@@ -10,17 +10,20 @@ permalink:        pretty
 
 # Server
 destination:      build
-url:              http://openrpg.io
+url:                     http://openrpg.io
 encoding:         UTF-8
 
 gems:
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Social
 title: OpenRPG
 description: You're tabletop RPG workbench!
 authors: Nick Gaulke
+
+logo: logo.jpg
 
 # Custom vars
 current_version:  0.4.2-dev
