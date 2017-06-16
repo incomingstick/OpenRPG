@@ -1,9 +1,12 @@
 ---
 layout: docs
 title: History
-description: TODO what do we do here
+description: From the begging to present day, learn about the OpenRPG journey
 group: about
 ---
 
-# {{ page.title }}
-## {{page.description }}
+OpenRPG was created on Oct 25, 2016 by [@incomingstick](https://github.com/incomingstick)
+
+OpenRPG was invisioned by [@incomingstick](https://github.com/incomingstick) when he noticed there were no free and open source charactor creators or dungeon master tools for tabletop RPG games. He took the idea to some of his peers on the Tumblr social network, and thus began active development.
+
+OpenRPG hopes to see its v1.0.0 release some time in 2017.
