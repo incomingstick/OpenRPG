@@ -14,13 +14,13 @@ url:                     http://openrpg.io
 encoding:         UTF-8
 
 gems:
-  # - jekyll-redirect-from
+  - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-seo-tag
 
 # Social
 title: OpenRPG
-description: You're tabletop RPG workbench!
+description: Your up to date tabletop RPG workbench!
 authors: Nick Gaulke
 
 logo: logo.jpg
