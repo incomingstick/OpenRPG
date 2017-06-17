@@ -56,13 +56,11 @@ NameGenerator::NameGenerator(string _race, string _gender)
 }
 
 string NameGenerator::make_name() {
-    string ret;
-
-    ret += make_first();
+    string ret(std::move(make_first()));
 
     if(!gender.empty()) {
         ret += " ";
-
+        
         ret += make_last();
     }
 
