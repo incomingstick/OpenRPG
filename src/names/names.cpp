@@ -20,13 +20,13 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-string make_location_valid(string loc) {
-    string ret = loc;
+string make_location_valid(const string& loc) {
+    // string ret = loc;
 
     // TODO: test what location we are looking for
     // to ensure it is a valid list
     
-    return ret;
+    return loc;
 }
 
 NameGenerator::NameGenerator(string race):
@@ -85,15 +85,14 @@ string NameGenerator::make_first() {
         string line;
         vector<string> lines;
 
-
         while(safeGetline(file, line)) {
             if(!line.empty())
                 lines.push_back(line);
         }
-        //while(safeGetline(file, line)) lines.push_back(line);
-        //while(lines[lines.size()-1].empty()) lines.pop_back();
+        // while(safeGetline(file, line)) lines.push_back(line);
+        // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        int select = random(0, lines.size() - 1);
+        const int select = random(0, lines.size() - 1);
 
         file.close();
 
@@ -119,10 +118,15 @@ string NameGenerator::make_last() {
         string line;
         vector<string> lines;
 
-        while(safeGetline(file, line)) lines.push_back(line);
-        while(lines[lines.size()-1].empty()) lines.pop_back();
+        while(safeGetline(file, line)) {
+            if(!line.empty())
+                lines.push_back(line);
+        }
 
-        int select = random(0, lines.size() - 1);
+        // while(safeGetline(file, line)) lines.push_back(line);
+        // while(lines[lines.size()-1].empty()) lines.pop_back();
+
+        const int select = random(0, lines.size() - 1);
 
         file.close();
 
