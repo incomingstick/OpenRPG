@@ -21,15 +21,24 @@ gems:
 # Social
 title: OpenRPG
 description: Your up to date tabletop RPG workbench!
-authors: Nick Gaulke
+authors: Nicholas Gaulke
 
-logo: /assets/logos/logo.jpg
+# SEO
+logo:     /assets/images/logos/logo.jpg
+image:  /assets/images/logos/logo.jpg
+webmaster_verifications:
+  google: EugX-uWEf8uZsqe6jeR8UN8BM1Du88Zq27dh-ORFB50
+
+author:
+  twitter: incomingstick
 
 # Custom vars
 current_version:  0.4.2-dev
 repo:               https://github.com/incomingstick/OpenRPG
 chat:               https://discord.gg/xEwaYE5
 blog:               http://blog.openrpg.io
+
+d20_blue:  /assets/images/logos/d20_blue.jpg
 
 download:
   source:       https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
