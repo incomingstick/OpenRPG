@@ -1,6 +1,6 @@
 # Dependencies
 markdown:         kramdown
-highlighter:      rouge
+highlighter:        rouge
 
 kramdown:
   auto_ids: true
@@ -23,14 +23,14 @@ title: OpenRPG
 description: Your up to date tabletop RPG workbench!
 authors: Nick Gaulke
 
-logo: logo.jpg
+logo: /assets/logos/logo.jpg
 
 # Custom vars
 current_version:  0.4.2-dev
-repo:             https://github.com/incomingstick/OpenRPG
-chat:             https://discord.gg/xEwaYE5
-blog:             http://blog.openrpg.io
+repo:               https://github.com/incomingstick/OpenRPG
+chat:               https://discord.gg/xEwaYE5
+blog:               http://blog.openrpg.io
 
 download:
-  source:         https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
-  dist:           https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
+  source:       https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
+  dist:             https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
