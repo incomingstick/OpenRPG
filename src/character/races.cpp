@@ -1,4 +1,3 @@
-
 /*
 character-generator - race.cpp
 Created on: Apr 29, 2017
@@ -218,6 +217,27 @@ void Elf::Initialize() {
     max_exp = levels[level - 1];    // experience needed for next level
 }
 
+HighElf::HighElf() {
+    abils.STR = gen_stat();     // Strength
+    abils.DEX = gen_stat() + 2; // Dexterity
+    abils.CON = gen_stat();     // Constitution
+    abils.INT = gen_stat() + 1; // Intelligence
+    abils.WIS = gen_stat();     // Wisdom
+    abils.CHA = gen_stat();     // Charisma
+
+    Initialize();
+}
+
+HighElf::HighElf(Ability ab) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX + 2; // Dexterity
+    abils.CON = ab.CON;     // Constitution
+    abils.INT = ab.INT + 1; // Intelligence
+    abils.WIS = ab.WIS;     // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    Initialize();
+}
 
 // TODO Find cleaner way to do this factory, things get entered in too many places!!!
 CharacterFactory::CharacterFactory() {
@@ -227,13 +247,19 @@ CharacterFactory::CharacterFactory() {
     race_node* human = allocate_node(Human::ID, true, head);
     
     race_node* dwarf = allocate_node(Dwarf::ID, true, head);
-    
-    race_node* elf = allocate_node(Elf::ID, true, head);
    
     race_node* hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
     
+    race_node* elf = allocate_node(Elf::ID, true, head);
+   
+    race_node* highElf = allocate_node(HighElf::ID, true, elf);
+    
     dwarf->children = {
         hillDwarf
+    };
+
+    elf->children = {
+        highElf
     };
     
     head->children = {
@@ -266,7 +292,7 @@ CharacterFactory::race_node* CharacterFactory::allocate_node(int raceID,
     return node;
 }
 
-
+// TODO Combine these three functions??
 Character* CharacterFactory::NewCharacter(Ability ab) {
     switch(current->raceID) {
     case Human::ID : {
@@ -276,13 +302,17 @@ Character* CharacterFactory::NewCharacter(Ability ab) {
     case Dwarf::ID : {
         return new Dwarf(ab);
     }
+  
+    case HillDwarf::ID : {
+        return new HillDwarf(ab);
+    }
         
     case Elf::ID : {
         return new Elf(ab);
     }
-    
-    case HillDwarf::ID : {
-        return new HillDwarf(ab);
+        
+    case HighElf::ID : {
+        return new HighElf(ab);
     }
     default: {
         return NULL;
@@ -300,12 +330,16 @@ Character* CharacterFactory::NewCharacter(int identifier) {
         return new Dwarf;
     }
         
+    case HillDwarf::ID : {
+        return new HillDwarf;
+    }
+    
     case Elf::ID : {
         return new Elf;
     }
         
-    case HillDwarf::ID : {
-        return new HillDwarf;
+    case HighElf::ID : {
+        return new HighElf;
     }
     default: {
         return NULL;
@@ -322,13 +356,17 @@ Character* CharacterFactory::NewCharacter(int identifier, Ability ab) {
     case Dwarf::ID : {
         return new Dwarf(ab);
     }
+    
+    case HillDwarf::ID : {
+        return new HillDwarf(ab);
+    }
         
     case Elf::ID : {
         return new Elf(ab);
     }
-    
-    case HillDwarf::ID : {
-        return new HillDwarf(ab);
+        
+    case HighElf::ID : {
+        return new HighElf(ab);
     }
     default: {
         return NULL;
@@ -350,14 +388,19 @@ vector<string> CharacterFactory::current_options() {
             ret.push_back("Dwarf");
             break;
         }
+   
+        case HillDwarf::ID : {
+            ret.push_back("Hill Dwarf");
+            break;
+        }
     
         case Elf::ID : {
             ret.push_back("Elf");
             break;
         }
-   
-        case HillDwarf::ID : {
-            ret.push_back("Hill Dwarf");
+    
+        case HighElf::ID : {
+            ret.push_back("High Elf");
             break;
         }
         }

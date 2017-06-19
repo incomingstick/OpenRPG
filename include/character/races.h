@@ -54,6 +54,14 @@ public:
     static const std::string race;
 };
 
+class HighElf : public Elf {
+public:
+    HighElf();
+    HighElf(Ability ab);
+
+    static const int ID = 0x0021;
+};
+
 class CharacterFactory {
 private:
     struct race_node {
