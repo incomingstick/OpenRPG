@@ -102,7 +102,7 @@ If you have questions on where to start, come join us on Discord [here](https://
     - [ ] automatically determines if the character is legal in Adventurers League
     - [ ] can pass any number of stats and autofill the rest (blank for completely generated)
 
-#### v1.0.0 required
+### v1.0.0 required
 - [ ] fully portable GUI front-end for the CLI tools (current development branch - electron-gui)
 - [ ] city/town generator - fully generate a city/town with business names, NPC's, and a population
     - [ ] passed basic info about town (name, size [exact diameter in meters OR small, medium, large, etc.], type [rural, metropolitan, mining, trade, etc.]) and generates the rest (blank for completely generated)
