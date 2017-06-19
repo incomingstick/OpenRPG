@@ -50,7 +50,7 @@ submitted as a Pull Request to a current developement branch first.
 Pull requests must follow the format found in the [Issue Template](https://github.com/incomingstick/OpenRPG/blob/patch-v0.3.0-dev/.github/ISSUE_TEMPLATE.md)
 file.
 
-### TODO's
+## TODO's
 If you have questions on where to start, come join us on Discord [here](https://discord.gg/xEwaYE5).
 
 - spelling and grammar updates
