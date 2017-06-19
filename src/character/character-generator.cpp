@@ -223,12 +223,12 @@ int main(int argc, char* argv[]) {
     
     factory.select_option(request_selection(factory));
 
-    if(factory.has_options()) {        
+    if(factory.has_options()) {
         printf("Choose Subrace:\n");
         factory.select_option(request_selection(factory)); 
     }
     
-    printf("Class\n");                         // TODO class menu
+    printf("Class\n");                         // TODO class menu.
     printf("Background\n");                    // TODO background menu
 
     Ability abil = request_scores();

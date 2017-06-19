@@ -41,6 +41,7 @@ Human::Human(Ability ab) {
 }
 
 void Human::Initialize() {
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
     NameGenerator ng(race);
 
     firstName = ng.make_first();
@@ -66,9 +67,9 @@ void Human::Initialize() {
     skills.STL = DEX_MOD();    // Stealth          (DEX)
     skills.SUR = WIS_MOD();    // Survival         (WIS)
 
-    curr_hp = 10;                   // current hit points
-    temp_hp = 10;                   // temporary hit points
-    max_hp = 10;                    // maximum hit points
+    curr_hp = 10;                   // TODO current hit points
+    temp_hp = 0;                    // TODO temporary hit points
+    max_hp = curr_hp;               // TODO maximum hit points
     prof = 2;                       // proficiency bonus
     level = 1;                      // character level total
     cur_exp = 0;                    // current experience
@@ -100,6 +101,7 @@ Dwarf::Dwarf(Ability ab) {
 }
 
 void Dwarf::Initialize() {
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
     NameGenerator ng(race);
 
     firstName = ng.make_first();
@@ -125,9 +127,9 @@ void Dwarf::Initialize() {
     skills.STL = DEX_MOD();    // Stealth          (DEX)
     skills.SUR = WIS_MOD();    // Survival         (WIS)
 
-    curr_hp = 10;                   // current hit points
-    temp_hp = 10;                   // temporary hit points
-    max_hp = 10;                    // maximum hit points
+    curr_hp = 10;                   // TODO current hit points
+    temp_hp = 0;                    // TODO temporary hit points
+    max_hp = curr_hp;               // TODO maximum hit points
     prof = 2;                       // proficiency bonus
     level = 1;                      // character level total
     cur_exp = 0;                    // current experience
@@ -156,6 +158,68 @@ HillDwarf::HillDwarf(Ability ab) {
     Initialize();
 }
 
+const string Elf::race = "Elf";
+
+Elf::Elf() {
+    abils.STR = gen_stat();     // Strength
+    abils.DEX = gen_stat() + 2; // Dexterity
+    abils.CON = gen_stat();     // Constitution
+    abils.INT = gen_stat();     // Intelligence
+    abils.WIS = gen_stat();     // Wisdom
+    abils.CHA = gen_stat();     // Charisma
+
+    Initialize();
+}
+
+Elf::Elf(Ability ab) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX + 2; // Dexterity
+    abils.CON = ab.CON;     // Constitution
+    abils.INT = ab.INT;     // Intelligence
+    abils.WIS = ab.WIS;     // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    Initialize();
+}
+
+void Elf::Initialize() {
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
+    // TODO will need to be modified when prof is taken in to account
+    skills.ACR = DEX_MOD();    // Acrobatics       (DEX)
+    skills.ANM = WIS_MOD();    // Animal Handling  (WIS)
+    skills.ARC = INT_MOD();    // Arcana           (INT)
+    skills.ATH = STR_MOD();    // Athletics        (STR)
+    skills.DEC = CHA_MOD();    // Deception        (CHA)
+    skills.HIS = INT_MOD();    // History          (INT)
+    skills.INS = WIS_MOD();    // Insight          (WIS)
+    skills.ITM = CHA_MOD();    // Intimidation     (CHA)
+    skills.INV = INT_MOD();    // Investigation    (INT)
+    skills.MED = WIS_MOD();    // Medicine         (WIS)
+    skills.NAT = INT_MOD();    // Nature           (INT)
+    skills.PRC = WIS_MOD();    // Perception       (WIS)
+    skills.PRF = CHA_MOD();    // Performance      (CHA)
+    skills.PRS = CHA_MOD();    // Persuasion       (CHA)
+    skills.REL = INT_MOD();    // Religion         (INT)
+    skills.SLE = DEX_MOD();    // Sleight of Hand  (DEX)
+    skills.STL = DEX_MOD();    // Stealth          (DEX)
+    skills.SUR = WIS_MOD();    // Survival         (WIS)
+
+    curr_hp = 10;                   // TODO current hit points
+    temp_hp = 0;                    // TODO temporary hit points
+    max_hp = curr_hp;               // TODO maximum hit points
+    prof = 2;                       // proficiency bonus
+    level = 1;                      // character level total
+    cur_exp = 0;                    // current experience
+    max_exp = levels[level - 1];    // experience needed for next level
+}
+
+
+// TODO Find cleaner way to do this factory, things get entered in too many places!!!
 CharacterFactory::CharacterFactory() {
     // TODO populate race tree here and remove the above race vector
     head = allocate_node(Character::ID, false, NULL);
@@ -163,6 +227,8 @@ CharacterFactory::CharacterFactory() {
     race_node* human = allocate_node(Human::ID, true, head);
     
     race_node* dwarf = allocate_node(Dwarf::ID, true, head);
+    
+    race_node* elf = allocate_node(Elf::ID, true, head);
    
     race_node* hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
     
@@ -172,7 +238,8 @@ CharacterFactory::CharacterFactory() {
     
     head->children = {
         human,
-        dwarf
+        dwarf,
+        elf
     };
 
     current = head;
@@ -210,6 +277,10 @@ Character* CharacterFactory::NewCharacter(Ability ab) {
         return new Dwarf(ab);
     }
         
+    case Elf::ID : {
+        return new Elf(ab);
+    }
+    
     case HillDwarf::ID : {
         return new HillDwarf(ab);
     }
@@ -227,6 +298,10 @@ Character* CharacterFactory::NewCharacter(int identifier) {
         
     case Dwarf::ID : {
         return new Dwarf;
+    }
+        
+    case Elf::ID : {
+        return new Elf;
     }
         
     case HillDwarf::ID : {
@@ -248,6 +323,10 @@ Character* CharacterFactory::NewCharacter(int identifier, Ability ab) {
         return new Dwarf(ab);
     }
         
+    case Elf::ID : {
+        return new Elf(ab);
+    }
+    
     case HillDwarf::ID : {
         return new HillDwarf(ab);
     }
@@ -271,7 +350,12 @@ vector<string> CharacterFactory::current_options() {
             ret.push_back("Dwarf");
             break;
         }
-
+    
+        case Elf::ID : {
+            ret.push_back("Elf");
+            break;
+        }
+   
         case HillDwarf::ID : {
             ret.push_back("Hill Dwarf");
             break;

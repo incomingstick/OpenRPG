@@ -42,6 +42,18 @@ public:
     static const int ID = 0x0011;
 };
 
+class Elf : public Dwarf {
+protected:
+    void Initialize();
+
+public:
+    Elf();
+    Elf(Ability ab);
+
+    static const int ID = 0x0020;
+    static const std::string race;
+};
+
 class CharacterFactory {
 private:
     struct race_node {
