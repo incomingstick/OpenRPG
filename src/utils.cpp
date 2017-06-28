@@ -6,10 +6,6 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
 #include <fstream>
 #include <string>
 #include <functional>
@@ -29,24 +25,6 @@ string asset_loc = ASSET_LOC;
 
 bool QUIET_FLAG = false;
 bool VB_FLAG = false;
-
-/*
- * Returns the width of the console
- */
-size_t get_console_width() {
-    struct winsize size;
-    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-    return size.ws_col;
-}
-
-/*
- * Returns the height of terminal
- */
-size_t get_console_height() {
-    struct winsize size;
-    ioctl(STDOUT_FILENO,TIOCGWINSZ,&size);
-    return size.ws_row;
-}
 
 /*
  * Loads the menu file of the given type to be used
