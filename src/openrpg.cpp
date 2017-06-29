@@ -8,7 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
 #include <vector>
-#include <cstdlib>
+#include <string>
 
 #include "openrpg.h"
 #include "names.h"
