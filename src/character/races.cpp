@@ -1,4 +1,3 @@
-
 /*
 character-generator - race.cpp
 Created on: Apr 29, 2017
