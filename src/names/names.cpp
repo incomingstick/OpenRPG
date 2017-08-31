@@ -50,21 +50,26 @@ NameGenerator::NameGenerator(string race, string gender) {
     location += "/names";
 }
 
+/*
+ * TODO Maybe generate last name unless provided a gender?
+ * Instead of the current, first name unless a gender is provided
+ */
 string NameGenerator::make_name() {
     string ret;
 
-    ret += make_first();
-
     if(!gender.empty()) {
+        ret += make_first();
         ret += " ";
-
-        ret += make_last();
     }
+
+    ret += make_last();
 
     return ret;
 }
 
-/* returns "NULL" if the file doesn't exist */
+/*
+ * returns "NULL" if the file doesn't exist
+ */
 string NameGenerator::make_first() {
     string loc;
 

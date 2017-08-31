@@ -50,7 +50,13 @@ string Character::to_string() {
     return ret;
 }
 
-/* TODO accept different types of stat generation */
+/*
+ * TODO accept different types of stat generation
+ * Main types recognized by OrcPub2:
+ *     Point Buy
+ *     Die Roll
+ *     Standard Scores
+ */
 int gen_stat() {
     Die d6(6);
 
@@ -58,7 +64,8 @@ int gen_stat() {
 }
 
 /* Generates a vector of ability scores base on the used type
-    TODO allow multiple types of ability score generation */
+ * TODO allow multiple types of ability score generation
+ */
 vector<int> ability_vector() {
     vector<int> ret;
 
@@ -69,7 +76,8 @@ vector<int> ability_vector() {
 
 
 /* Generates a struct of ability scores base on the used type
-    TODO allow multiple types of ability score generation */
+ * TODO allow multiple types of ability score generation
+ */
 Ability ability_struct() {
     Ability ret;
 
