@@ -175,8 +175,7 @@ int random(int min, int max) {
 }
 
 /* Compute the greatest common divisor of a and b. */
-int gcd(int a, int b)
-{
+int gcd(int a, int b) {
     int c;
 
     c = a % b;
@@ -188,4 +187,3 @@ int gcd(int a, int b)
 
     return b;
 }
-
