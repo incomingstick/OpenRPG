@@ -51,8 +51,7 @@ NameGenerator::NameGenerator(string race, string gender) {
 }
 
 /*
- * TODO Maybe generate last name unless provided a gender?
- * Instead of the current, first name unless a gender is provided
+ * Generate last name unless provided a gender
  */
 string NameGenerator::make_name() {
     string ret;
