@@ -20,34 +20,39 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-string make_location_valid(string loc) {
-    string ret = loc;
+string make_location_valid(const string& loc) {
+    // string ret = loc;
 
     // TODO: test what location we are looking for
     // to ensure it is a valid list
     
-    return ret;
+    return loc;
 }
 
-NameGenerator::NameGenerator(string race) {
+NameGenerator::NameGenerator(string race):
+    NameGenerator(race, "")    
+{
     transform(race.begin(), race.end(), race.begin(), ::tolower);
 
-    this->race = race;
-    this->gender = "";
+    // this->race = race;
+    // this->gender = "";
 
-    location = ASSET_LOC;
-    location += "/names";
+    // location = ASSET_LOC;
+    // location += "/names";
 }
 
-NameGenerator::NameGenerator(string race, string gender) {
+NameGenerator::NameGenerator(string _race, string _gender)
+    :race(_race), gender(_gender), location(ASSET_LOC)
+{
     transform(race.begin(), race.end(), race.begin(), ::tolower);
     transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
-
-    this->race = race;
-    this->gender = gender;
-    
-    location = ASSET_LOC;
     location += "/names";
+
+    // this->race = race;
+    // this->gender = gender;
+    
+    // location = ASSET_LOC;
+    // location += "/names";
 }
 
 string NameGenerator::make_name() {
@@ -80,10 +85,14 @@ string NameGenerator::make_first() {
         string line;
         vector<string> lines;
 
-        while(safeGetline(file, line)) lines.push_back(line);
-        while(lines[lines.size()-1].empty()) lines.pop_back();
+        while(safeGetline(file, line)) {
+            if(!line.empty())
+                lines.push_back(line);
+        }
+        // while(safeGetline(file, line)) lines.push_back(line);
+        // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-        int select = random(0, lines.size() - 1);
+        const int select = random(0, lines.size() - 1);
 
         file.close();
 
@@ -109,10 +118,15 @@ string NameGenerator::make_last() {
         string line;
         vector<string> lines;
 
-        while(safeGetline(file, line)) lines.push_back(line);
-        while(lines[lines.size()-1].empty()) lines.pop_back();
+        while(safeGetline(file, line)) {
+            if(!line.empty())
+                lines.push_back(line);
+        }
 
-        int select = random(0, lines.size() - 1);
+        // while(safeGetline(file, line)) lines.push_back(line);
+        // while(lines[lines.size()-1].empty()) lines.pop_back();
+
+        const int select = random(0, lines.size() - 1);
 
         file.close();
 
