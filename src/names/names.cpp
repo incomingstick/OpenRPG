@@ -42,7 +42,7 @@ NameGenerator::NameGenerator(string race):
 }
 
 NameGenerator::NameGenerator(string _race, string _gender)
-    :race(_race), gender(_gender), location(ASSET_LOC)
+    :location(ASSET_LOC), race(_race), gender(_gender) 
 {
     transform(race.begin(), race.end(), race.begin(), ::tolower);
     transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
