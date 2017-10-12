@@ -1,4 +1,5 @@
 [development]
-address = "199.48.164.51"
+address = "{url or ip herei}"
 port = 8000
+workers = [number of cpus * 2]
 log = "normal"
