@@ -2,16 +2,29 @@
 
 cwd=$(pwd)
 
-if [[ $OSTYPE == "linux"* ||  $OSTYPE == "cygwin" ]]; then
-    if [ ! -d "$cwd/build" ]; then
-        mkdir "$cwd/build"
-    fi
+if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; then
+    if hash cmake 2>/dev/null; then
+        if hash make 2>/dev/null; then
+            if [ ! -d "$cwd/build" ]; then
+                mkdir "$cwd/build"
+            fi
 
-    pushd $cwd/build/
-    cmake ..
-    make
-    popd
+            pushd $cwd/build/
+
+            #TODO should we check the arch we are building for?
+            
+            if [[ ! -a "Makefile" ]]; then
+                cmake ..
+            fi
+
+            make
+            popd  
+        else
+            echo "MAKE NOT INSTALLED, ABORTING..."
+        fi
+    else
+        echo "CMAKE NOT INSTALLED, ABORTING..."
+    fi
 else
     echo "UNSUPORTED PLATFORM $OSTYPE"
-    exit
 fi

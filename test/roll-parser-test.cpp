@@ -8,7 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <iostream>
 
-#include "roll-parser.h"
+#include "roll/roll-parser.h"
 
 using namespace std;
 
@@ -31,15 +31,6 @@ int main(int argc, char* argv[]) {
     tree_d20.set_expression("1d20");
     tree_d100.set_expression("1d100");
     
-
-    tree_d4.scan_expression();
-    tree_d6.scan_expression();
-    tree_d8.scan_expression();
-    tree_d10.scan_expression();
-    tree_d12.scan_expression();
-    tree_d20.scan_expression();
-    tree_d100.scan_expression();
-
     int d4      = tree_d4.parse_expression();
     int d6      = tree_d6.parse_expression();
     int d8      = tree_d8.parse_expression();
