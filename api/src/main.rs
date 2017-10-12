@@ -1,24 +1,27 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 
+
+
+//extern crate for rock framework && json
+extern crate rocket;
+extern crate serde_json;
+#[macro_use] extern crate rocket_contrib;
+
+
 //imports for spawnning processes and sending html reponse
 use std::process::Command;
 use rocket::response::content;
 
-//extern crate for rock framework && json 
-extern crate rocket;
-#[macro_use]
-extern crate serde_json;
-
 
 /// # Function Name: roll_module
 /// ---
-/// 
+///
 /// This function is called with a user navigates to /roll?<args>.
 /// Uppon being called it grabs the args and splits them into an vector
 /// by the delimiter & (the & does not go into the vector)
 /// As long as there is at least 1 specified argument, it will call
-/// the roll module with that argument. 
+/// the roll module with that argument.
 ///
 /// If &json is specified at the **END** of the path, it will drop down into
 /// "Some(i)". It removes the json argument from the vector, then returns
@@ -59,12 +62,12 @@ match index {
 
 /// # Function Name: name_module
 /// ---
-/// 
+///
 /// This function is called with a user navigates to /name?<args>.
 /// Uppon being called it grabs the args and splits them into an vector
 /// by the delimiter & (the & does not go into the vector)
 /// As long as there is at least 1 specified argument, it will call
-/// the roll module with that argument. 
+/// the roll module with that argument.
 ///
 /// If &json is specified at the **END** of the path, it will drop down into
 /// "Some(i)". It removes the json argument from the vector, then returns
@@ -105,9 +108,9 @@ match index {
 
 /// # Function Name: remove_ele
 /// ---
-/// 
+///
 /// This function simple removes the specified element
-/// spaw_remove is o(1), but will 
+/// spaw_remove is o(1), but will
 /// >Removes an element from anywhere in the vector and return it, replacing it with the last
 /// element.
 
@@ -118,29 +121,27 @@ fn remove_ele(v: &mut Vec<&str>, p: usize){
 
 /// # Function Name: not_found
 /// ---
-/// 
+///
 /// This will trigger if the path requested is not found.
-/// It displays a simple error message, with suggestions. 
+/// It displays a simple error message, with suggestions.
 
 #[error(404)]
-fn not_found(req: &rocket::Request) -> content::HTML<String> {
-        content::HTML(format!("
-        <h1>404 path '{}' not found!</h1>
-        <p>Try visiting /roll?-h instead.</p>
-        <p>or visit /name?-h instead. </p>
-        ",
-        req.uri()))
+fn not_found(req: &rocket::Request) -> content::Html<String> {
+    content::Html(format!("<h1>404 path '{}' not found!</h1>
+    <p>Try visiting /roll?-h instead.</p>
+    <p>or visit /name?-h instead. </p>",
+            req.uri()))
 }
 
 
 /// # Function Name: main
 /// ---
-/// 
+///
 /// Main funciton
 
 fn main() {
     rocket::ignite()
         .mount("/", routes![roll_module, name_module])
-        .catch(errors![not_found]) 
+        .catch(errors![not_found])
         .launch();
 }
