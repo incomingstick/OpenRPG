@@ -1,6 +1,6 @@
 # Dependencies
 markdown:         kramdown
-highlighter:        rouge
+highlighter:      rouge
 
 kramdown:
   auto_ids: true
@@ -10,7 +10,7 @@ permalink:        pretty
 
 # Server
 destination:      build
-url:                     http://openrpg.io
+url:              http://openrpg.io
 encoding:         UTF-8
 
 gems:
@@ -24,7 +24,7 @@ description: Your up to date tabletop RPG workbench!
 authors: Nicholas Gaulke
 
 # SEO
-logo:     /assets/images/logos/logo.jpg
+logo:   /assets/images/logos/logo.jpg
 image:  /assets/images/logos/logo.jpg
 webmaster_verifications:
   google: EugX-uWEf8uZsqe6jeR8UN8BM1Du88Zq27dh-ORFB50
@@ -41,5 +41,5 @@ blog:               http://blog.openrpg.io
 d20_blue:  /assets/images/logos/d20_blue.jpg
 
 download:
-  source:       https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
-  dist:             https://github.com/incomingstick/OpenRPG/archive/v0.4.2-dev.zip
+  source:       https://github.com/incomingstick/OpenRPG/archive/v0.4.3-dev.zip
+  dist:             https://github.com/incomingstick/OpenRPG/archive/v0.4.3-dev.zip
