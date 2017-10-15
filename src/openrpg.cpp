@@ -46,6 +46,11 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
+/* TODO hold in memory a history of the commands run in the current session
+ * and allow use of the UP and DOWN arrow keys to move through this list
+ */
+vector<string> commandHistory;
+
 /** 
  * Option parser - parse_args(argc, argv)
  * This function parses all cla's passed to argv.
