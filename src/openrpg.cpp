@@ -215,7 +215,15 @@ int parse_input(string in) {
                     printf("Missing arguments\n");
                 }
             } else if(words[0] == "help" || words[0] == "h") {
-                // TODO complete the help command
+                /*
+                 * TODO complete the help command as follows
+                 *    The help command should print in a similar format
+                 *    to the '-h' arguement, but should be expanded on in
+                 *    the TUI. Each command will have its own help section
+                 *    i.e calling `help roll` will display the roll modules
+                 *    TUI formatted help command. This should hold true for
+                 *    all modules callable from within the TUI.
+                 */
 
                 printf("Available commands: exit (quit, q), generate (gen), help (h), roll (r)\n");                 
             } else { //default case
