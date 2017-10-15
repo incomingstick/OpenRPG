@@ -197,7 +197,7 @@ int parse_input(string in) {
                 } else {
                     printf("Missing arguments!\n");
                 }
-            } else if(words[0] == "roll") {
+            } else if(words[0] == "roll" || words[0] == "r") {
                 // TODO fix the roll command
                 if(words.size() > 1) {
                     string exp;
@@ -207,14 +207,17 @@ int parse_input(string in) {
 
                     ExpressionTree tree;
 
-                    tree.set_expression(exp);
-
-                    printf("%i\n", tree.parse_expression());
+                    if(tree.set_expression(exp))
+                        printf("%i\n", tree.parse_expression());
 
                     return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
                 }
+            } else if(words[0] == "help" || words[0] == "h") {
+                // TODO complete the help command
+
+                printf("Available commands: exit (quit, q), generate (gen), help (h), roll (r)\n");                 
             } else { //default case
                 printf("Command not recognized!\n");
             }
