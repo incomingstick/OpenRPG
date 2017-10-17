@@ -140,6 +140,18 @@ h1, h2, h3 {
     font-weight: 400;
 }
 
+hr {
+    margin: 1rem 5rem;
+}
+
+.bio img {
+    width: 160px;
+    float: right;
+    margin: 0 0 2rem 2rem;
+    clear: both;
+    border-radius: 50%
+}
+
 footer a, .navbar a {
     color:#333;
     font-weight: 500;
@@ -153,7 +165,6 @@ footer a, .navbar a {
     color: #555;
     text-align: center;
     background-color: #fff;
-    border-top: 1px solid #eee;
 }
 
 .feature > h2 {

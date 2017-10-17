@@ -1,0 +1,74 @@
+==================================================================
+https://keybase.io/incomingstick
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://openrpg.io
+  * I am incomingstick (https://keybase.io/incomingstick) on keybase.
+  * I have a public key with fingerprint 5E55 C12B F8BC A6E7 FD3F  4520 12B2 10CA 1C7F 4A15
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101efca8e704cde28f91b9790a3cd5e3b24a2c049dd996551ac0f6b818792a6934a0a",
+      "fingerprint": "5e55c12bf8bca6e7fd3f452012b210ca1c7f4a15",
+      "host": "keybase.io",
+      "key_id": "12b210ca1c7f4a15",
+      "kid": "0101efca8e704cde28f91b9790a3cd5e3b24a2c049dd996551ac0f6b818792a6934a0a",
+      "uid": "796442428911fc3f46d8b27acdb9f319",
+      "username": "incomingstick"
+    },
+    "service": {
+      "hostname": "openrpg.io",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1504077146,
+  "expire_in": 157680000,
+  "prev": "b4a3dd82294b7d5c9b52fc994c63c4db694d7dd38b7c52db7426b1261f9d156d",
+  "seqno": 14,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.73
+Comment: https://keybase.io/crypto
+
+yMNMAnicrZJtTBRHGMcPFEyhVkFME2iUWxtLKcXdvX25vSMptaLlMFArShH03N2Z
+PdaD3WPvjvKSs0iAxmorRQgNlIBIDWpoUorplaSCosQKIVAVWwxYAeUl1UKrUFSw
+u9R+68fOl8k8839+8/9Pnksrl+kCfIJbVl995SPLWp/uC9VuXeopuKcA4WSQh5gK
+EDtc2mAmgE6X1S4CxISgGIpBgWeNkEYJHkDcKDAYx9AMyhp4QEIDhxMszqMEAwDD
+UCSJsTwqUJwRM9IMzlKMgWBRFolCBFGyQcWhiJJLxZKQJHkM5wQjx7MUpAVgEAgS
+R9USjqE8i/G0QLAYqTZmyE6tQzXHsU4YLcpqTT1Yl+z9h/5/9u1ewtEMRRA4gRsZ
+DBN41SsFjBxOszzgGMGAMZrQCRWJzYKqWpR4OUvN63SJvB3xRCHqVY7IQ+13tTjP
+ZbIDSorD9k8khyK7ZF7OVOsZLpfDpLW58hya7kPIWZ8TrJwoAZWsNuRAxSnKEmLC
+VCXvEjUkRqIEStMYQUUhMNchKtAqagqSpoyourRnYI6K5AjWAIARxxmCowHJMxyJ
+CzzDEDxl4AnAUQwBaAAMRo7mSRxwNIFTHIZTmMAAjKQAomXKlmSVTag+WZvKdIo2
+iXW5FYh4Ll5IX67zCdD5+/lqI6YLeGH1v4MHq1c9yy/z73zq9Z5IeZDIFnQl3Szf
+VNl/LbQhqmeFf0nc0cSszZ0L5v2psU9yIh7mKS039DFtv5xL31HTNDu3RZauh2fD
+jQ8mvAv1DdM9O/x65ga+m08LyUmLHAl4kuQOFn2Dem8nZzSWpLU3072pYZzf5dAP
+EPPQ27tfS4g9WBrTE+Lzvb491pzOxn4e1t7iK4U2Hi4aq7FP548OFZ2d6vth+7yn
+onjvsw19ltTM22Ff6snmNXd23zLX872Ws18fqS0+cSjifNy6jXdHOz5pPjNau6V+
+sHZne17HPovbWvzox/uL1pjEmYvku5anyfGDr+fGD/88nKfUePdnVx/QTYV9E17X
+3NSYfutccGvwX/rxscn8CcPcsoLaUn/7kWunD3tc5VtT1hNdUn5E2sOE8spd8UUx
+b4482rrwRuPM+F7jwlt7DB7yZkXgSBmnWD5z9vVuaNt8cn5wl/v9TeFXPs3680Z3
+lbnQV5/VMDAZ8lVJUNW94z/dW1wFbFENBxv6x/RfhOgjXwp6/LGjuhIUHqqfjn6c
+up57dTGwxWBfe2XN702mBH9zxztu78p9U8U7uyfqFqeGK2YLZv+Y7PzNdGzdJVty
+WUckjE4aPxWUWPry9QO5gWXulKrW/qHh0pZt37aeD7u7/PSLkxnHtgfEbZvuOrmC
+yO69fIbpuPNeW/OvtZV1xweGmcKrM8ne+38DYVTLMA==
+=CL/i
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/incomingstick
+
+==================================================================

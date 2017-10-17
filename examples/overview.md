@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Overview
-description: OpenRPG all the tools you need to get creative
+description: Learn how to use all the tools OpenRPG offers
 group: examples
 redirect_from: "/examples/"
 ---
