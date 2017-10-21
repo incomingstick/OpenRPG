@@ -127,7 +127,7 @@ matrix:
     ####################################################################
     # TODO: Uncomment with release of v0.5.0-dev to test build again.
     #       Travis CI job 16: apt-get install failed
-    #       The build currently failes with the following error:
+    #       The build currently fails with the following error:
     #           The command "sudo -E apt-get -yq --no-install-suggests \
     #           --no-install-recommends --force-yes install clang-5.0" \
     #           failed and exited with 100 during .

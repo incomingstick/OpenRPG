@@ -93,14 +93,14 @@ by someone that understand the language.
 - [ ] encounter/combat generator
     - [ ] passed basic info about encounter/combat (combat rating, average group level, etc.) and generates the rest (blank for completely generated)
 - [ ] world generator - fully generate a world with city/towns, roads, and geography
-- [ ] world/town map generator - generates a image formatted file of a world and indiviual maps for its towns
+- [ ] world/town map generator - generates a image formatted file of a world and individual maps for its towns
 
 If you have questions on where to start, come join us on Discord [here](https://discord.gg/xEwaYE5).
 
 ### Pull Request
 
 For something to be considered for merging into master it must be
-submitted as a Pull Request to a current developement branch first.
+submitted as a Pull Request to a current development branch first.
 Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
 file.
 
