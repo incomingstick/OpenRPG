@@ -46,6 +46,11 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
+/* TODO hold in memory a history of the commands run in the current session
+ * and allow use of the UP and DOWN arrow keys to move through this list
+ */
+vector<string> commandHistory;
+
 /** 
  * Option parser - parse_args(argc, argv)
  * This function parses all cla's passed to argv.
@@ -197,7 +202,7 @@ int parse_input(string in) {
                 } else {
                     printf("Missing arguments!\n");
                 }
-            } else if(words[0] == "roll") {
+            } else if(words[0] == "roll" || words[0] == "r") {
                 // TODO fix the roll command
                 if(words.size() > 1) {
                     string exp;
@@ -207,14 +212,25 @@ int parse_input(string in) {
 
                     ExpressionTree tree;
 
-                    tree.set_expression(exp);
-
-                    printf("%i\n", tree.parse_expression());
+                    if(tree.set_expression(exp))
+                        printf("%i\n", tree.parse_expression());
 
                     return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
                 }
+            } else if(words[0] == "help" || words[0] == "h") {
+                /*
+                 * TODO complete the help command as follows
+                 *    The help command should print in a similar format
+                 *    to the '-h' arguement, but should be expanded on in
+                 *    the TUI. Each command will have its own help section
+                 *    i.e calling `help roll` will display the roll modules
+                 *    TUI formatted help command. This should hold true for
+                 *    all modules callable from within the TUI.
+                 */
+
+                printf("Available commands: exit (quit, q), generate (gen), help (h), roll (r)\n");                 
             } else { //default case
                 printf("Command not recognized!\n");
             }
