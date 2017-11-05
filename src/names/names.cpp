@@ -60,10 +60,9 @@ string NameGenerator::make_name() {
 
     if(!gender.empty()) {
         ret += make_first();
-
         ret += " ";
     }
-
+    
     ret += make_last();
     
     return ret;
