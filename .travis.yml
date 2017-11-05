@@ -56,16 +56,12 @@ matrix:
 
     - os: osx
       compiler: gcc
-      rvm:
-        - 2.3
       osx_image: xcode8
       env:
         - MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5"
 
     - os: osx
       compiler: gcc
-      rvm:
-        - 2.3
       osx_image: xcode8
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc && CXX=g++"
@@ -149,6 +145,7 @@ matrix:
     #   - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - eval "${MATRIX_EVAL}"
   - ./build.sh
   - cd build
