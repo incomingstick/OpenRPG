@@ -141,8 +141,8 @@ matrix:
             - llvm-toolchain-trusty
          packages:
            - clang-5.0
-     env:
-       - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+       env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
