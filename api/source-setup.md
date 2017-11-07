@@ -28,7 +28,7 @@ Currently we **require** `rust-nightly`
 
 ## Build script
 **Linux:** run build.sh `$ ./build.sh api`
-
+**Linux:** to clean the build run `$ ./build.sh clean-api`
 ## Manual build
 First follow build instructions for CPP sources [here]({{ site.baseurl }}/documentation/source-setup/) 
 Make the build directory in api/ `$ mkdir api/build/`
