@@ -24,12 +24,15 @@ Return to root directory `$ cd ..`
 
 
 # Building
-Currently we require `rust-nightly`
+Currently we **require** `rust-nightly`
 
 ## Build script
 **Linux:** run build.sh `$ ./build.sh api`
 
 ## Manual build
+First follow build instructions for CPP sources [here]({{ site.baseurl }}/documentation/source-setup/) 
+Make the build directory in api/ `$ mkdir api/build/`
+Move files to build directory for the api `cp build/{character-generator,name-generator,roll,openrpg} api/build/`
 Move into api directory `$ cd api/`  
 Run cargo build `$ cargo build`  
 
