@@ -12,10 +12,58 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "core/utils.h"
 #include "roll.h"
 #include "names.h"
-
 #include "character.h"
 
 using namespace std;
+
+/*
+ * mod is what is added to rolls
+ * Prof is number of proficiencies, 0 if unproficient, 1 if proficient, 2 if doubly proficient
+ * 
+ * both are chars to reduce memory usage
+ */
+Skill::Skill(void) {
+    this->mod = 0;
+    this->prof = 0;
+}
+    
+Skill::Skill(char nb, unsigned char np) {
+    this->mod = nb;
+    this->prof = np;
+}
+    
+void Skill::set(char nb, unsigned char np) {
+    this->mod = nb;
+    this->prof = np;
+}
+    
+void Skill::setMod(char nb) {
+    this->mod = nb;
+}
+    
+void Skill::setProf(unsigned char np) {
+    this->prof = np;
+}
+    
+char Skill::getMod(void) {
+    return this->mod;
+}
+    
+unsigned char Skill::getProf(void) {
+    return this->prof;
+}
+
+Skills::Skills(void) {
+    
+}
+
+Skills::~Skills(void) {
+    delete[] &skillsMap;
+}
+
+Skill* Skills::get(EnumSkill skill) {
+    return skillsMap[skill];
+}
 
 Character::Character() {
     abils.STR = 10;    // Strength
@@ -32,6 +80,27 @@ Character::Character(Ability ab)
 
 Character::~Character() {
     // TODO nothing yet
+}
+
+void Character::Initialize() {
+    skills.get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
+    skills.get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
+    skills.get(ARC)->setMod(INT_MOD());    // Arcana           (INT)
+    skills.get(ATH)->setMod(STR_MOD());    // Athletics        (STR)
+    skills.get(DEC)->setMod(CHA_MOD());    // Deception        (CHA)
+    skills.get(HIS)->setMod(INT_MOD());    // History          (INT)
+    skills.get(INS)->setMod(WIS_MOD());    // Insight          (WIS)
+    skills.get(ITM)->setMod(CHA_MOD());    // Intimidation     (CHA)
+    skills.get(INV)->setMod(INT_MOD());    // Investigation    (INT)
+    skills.get(MED)->setMod(WIS_MOD());    // Medicine         (WIS)
+    skills.get(NAT)->setMod(INT_MOD());    // Nature           (INT)
+    skills.get(PRC)->setMod(WIS_MOD());    // Perception       (WIS)
+    skills.get(PRF)->setMod(CHA_MOD());    // Performance      (CHA)
+    skills.get(PRS)->setMod(CHA_MOD());    // Persuasion       (CHA)
+    skills.get(REL)->setMod(INT_MOD());    // Religion         (INT)
+    skills.get(SLE)->setMod(DEX_MOD());    // Sleight of Hand  (DEX)
+    skills.get(STL)->setMod(DEX_MOD());    // Stealth          (DEX)
+    skills.get(SUR)->setMod(WIS_MOD());    // Survival         (WIS)
 }
 
 /* TODO format a ASCII text version of a character sheet */
