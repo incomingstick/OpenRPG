@@ -1,5 +1,5 @@
 [development]
-address = "{your ip here}"
+address = "localhost"
 port = 8000
 workers = 2
 log = "normal"
