@@ -1,5 +1,5 @@
 [development]
-address = "{url or ip herei}"
+address = "{your ip here}"
 port = 8000
-workers = [number of cpus * 2]
+workers = 2
 log = "normal"
