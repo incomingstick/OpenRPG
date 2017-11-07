@@ -53,13 +53,12 @@ NameGenerator::NameGenerator(string race, string gender) {
 string NameGenerator::make_name() {
     string ret;
 
-    ret += make_first();
-
     if(!gender.empty()) {
+        ret += make_first();
         ret += " ";
-
-        ret += make_last();
     }
+    
+    ret += make_last();
 
     return ret;
 }

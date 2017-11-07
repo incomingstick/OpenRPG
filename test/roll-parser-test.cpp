@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     int d100    = tree_d100.parse_expression();
     
     if(d4 > 4 || d4 < 0)        return 1;
-    if(d6 > 8 || d6 < 0)        return 1;
+    if(d6 > 6 || d6 < 0)        return 1;
     if(d8 > 8 || d8 < 0)        return 1;
     if(d10 > 10 || d10 < 0)     return 1;
     if(d12 > 12 || d12 < 0)     return 1;
