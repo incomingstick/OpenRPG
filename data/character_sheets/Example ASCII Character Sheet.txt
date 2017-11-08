@@ -1,0 +1,49 @@
+                         ╭────────────────────────────────────────────────────╮
+                         │Barbarian Lv1     Hermit          Someone           │
+ ────────────────────────┤Class & Level     Background      Player Name       │
+_\  Hilgar Rockbreaker   │                                                    │
+ ────────────────────────┤Dwarf             Lawful Neutral  100,000           │
+_\  Character Name       │Race              Alignment       Experience Points │
+                         ╰────────────────────────────────────────────────────╯
+───────────────────────────────────────────────────────────────────────────────
+╭───╮│ ╭───┬───────────╮
+│STR││ │   │Inspiration│
+│###|│ ╰───┴───────────╯
+├───┤│
+│±##││ ╭───┬───────────╮
+╰───╯│ │   │Proficiency│
+     │ ╰───┴───────────╯
+╭───╮│ 
+│DEX││ ╭─┬───┬─────────╮
+│###││ │X│±##│   STR   │
+├───┤│ │X│±##│   DEX   │
+│±##││ │X│±##│   CON   │
+╰───╯│ │X│±##│   INT   │
+     │ │X│±##│   WIS   │
+╭───╮│ │X│±##│   CHA   │
+│CON││ ├─┴───┴─────────┤
+│###││ │ Saving throws │
+├───┤│ ╰───────────────╯
+│±##││ 
+╰───╯│ ╭─┬───┬───────────────╮
+     │ │X│±##│Acrobatics     │
+╭───╮│ │X│±##│Animal Handling│
+│INT││ │X│±##│Arcana         │
+│###││ │X│±##│Athletics      │
+├───┤│ │X│±##│Deception      │
+│±##││ │X│±##│History        │
+╰───╯│ │X│±##│Insight        │
+     │ │X│±##│Intimidation   │
+╭───╮│ │X│±##│Investigation  │
+│WIS││ │X│±##│Medicine       │
+│###││ │X│±##│Nature         │
+├───┤│ │X│±##│Perception     │
+│±##││ │X│±##│Performance    │
+╰───╯│ │X│±##│Persuassion    │
+     │ │X│±##│Religion       │
+╭───╮│ │X│±##│Sleight of Hand│
+│CHA││ │X│±##│Stealth        │
+│###││ │X│±##│Survival       │
+├───┤│ ├─┴───┴───────────────┤
+│±##││ │       Skills        │
+╰───╯│ ╰─────────────────────╯
