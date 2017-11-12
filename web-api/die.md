@@ -6,22 +6,29 @@ group: web-api
 ---
 
 # Function Name: roll_module
+
 ---
-This function is called with a user navigates to /roll?<args>.
+This function is called with a user navigates to `/roll?<args>`.
+
 Uppon being called it grabs the args and splits them into an vector
 by the delimiter & (the & does not go into the vector)
 As long as there is at least 1 specified argument, it will call
 the roll module with that argument.
-If &json is specified at the **END** of the path, it will drop down into
-"Some(i)". It removes the json argument from the vector, then returns
+
+If `&json` is specified at the **END** of the path, it will drop down into
+`"Some(i)"`. It removes the json argument from the vector, then returns
 the output of roll as a json formated object
 
 ## Example
-calling with one argument `{base_ul}/roll?-h`<br>
-calling with multiple arguments `{base_url}/roll?-v&3d4`<br>
-requesting json `{base_url}/roll?3d4&json`<br>
+
+Calling with one argument `{base_ul}/roll?-h`
+
+Calling with multiple arguments `{base_url}/roll?-v&3d4`
+
+Requesting json `{base_url}/roll?3d4&json`
 
 ## Definition
+
 ````rust
 #[get("/roll?<args>")]
 fn roll_module(args: &str) -> String {
