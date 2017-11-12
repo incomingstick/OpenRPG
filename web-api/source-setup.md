@@ -12,13 +12,14 @@ Move into api directory `$ cd api/`
 Open Rocket.toml with your favorite editor.
 
 Edit the line `address` and put your ip in quotes. (This is the IP or address which you will be able to access the api from)
-    **Example**: `address = "xxx.xx.xx.xxx"`
+
+**Example**: `address = "xxx.xx.xx.xxx"`
 
 Edit the line `workers` to the number of workers/threads you want the API to use. A single worker can NOT process 2 requests at the same time, so if you have 2 workers you could have 2 different requests being processed.
 
-    **Example**: `workers = 4`
+**Example**: `workers = 4`
 
-    **NOTE**: unless you plan to have many people accessing the api at once 1 or 2 workers would be fine.
+**NOTE**: unless you plan to have many people accessing the api at once 1 or 2 workers would be fine.
 
 Return to root directory `$ cd ..`
 
