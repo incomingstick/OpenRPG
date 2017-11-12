@@ -12,12 +12,12 @@ redirect_from: "/api/"
 
 Currently OpenRPG API in under active development, as OpenRPG updates
 with new modules and features. The API will be updated to accommodate them.
-The API works as a thin wrapper around the existing OpenRPG modules, but 
+The API works as a thin wrapper around the existing OpenRPG modules, but
 gives you the ability to use the modules within an internet browser.
 The API is currently written in Rust and utilizes the Rocket framework for all
-Interactions and hosting. 
+Interactions and hosting.
 
-Some of the current features of the API are: <br>
--	A restfull api for interacting with OpenRPG modules <br>
--	Currently supported modules are roll and name modules <br>
+Some of the current features of the API are:
 
+- A restfull api for interacting with OpenRPG modules
+- Currently supported modules are roll and name modules
