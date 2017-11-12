@@ -7,19 +7,19 @@
     - title: ExpressionTree
     - title: NameGenerator
 
+- title: Web API
+  pages:
+    - title: Introduction
+    - title: Source Setup
+    - title: Die
+    - title: NameGenerator
+
 - title: Examples
   pages:
     - title: Overview
     - title: Character Generator
     - title: Roll
     - title: Name Generator
-
-- title: Api
-  pages:
-    - title: Introduction
-    - title: Source Setup
-    - title: Die
-    - title: NameGenerator
 
 - title: Download
 
