@@ -111,7 +111,9 @@ public:
     Skills(void);
     ~Skills(void);
     Skill* get(EnumSkill skill);
-    char getMod(EnumSkill skill);
+    char getMod(EnumSkill skill) {
+        return skillsMap[skill]->getMod();
+    }
     unsigned char getProf(EnumSkill skill);
 private:
 std::map <EnumSkill, Skill*> skillsMap = {
@@ -190,6 +192,10 @@ public:
     Character();
     Character(Ability ab);
     ~Character();
+    
+    std::string format_mod(int mod, int spaces);
+    
+    void update_skills();
 
     static const int ID = 0x0000;       // an integer that represents the Character class
     static const std::string race;      // our characters race (also denoted via the subclass)
@@ -221,6 +227,7 @@ public:
     int passive_stat(int stat) { return 8 + prof + stat; };
     
     std::string to_string();
+    std::string to_sheet();
 };
 
 #endif /* CHARACTER_H_ */
