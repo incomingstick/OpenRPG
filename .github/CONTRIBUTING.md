@@ -22,7 +22,7 @@ The more information you can provide, the more likely someone will be successful
 * Errors printed to the command line
 
 ## Contributing Fixes
-First and foremost check the TODO's to see what needs to be done.
+First and foremost check the [Issues](https://github.com/incomingstick/OpenRPG/issues) page to see what needs to be done.
 Once you're ready to start programming see the Programming Standards section.
 
 I have broken the goals and needs by the "Difficulty" of the task. Beginner tasks
@@ -104,15 +104,15 @@ submitted as a Pull Request to a current development branch first.
 Pull requests must follow the format found in the [Issue Template](ISSUE_TEMPLATE.md)
 file.
 
-### Programming Standards
+## Programming Standards
 
-#### File Naming
+### File Naming
 ````c++
 cppFile.cpp
 headerFile.h
 ````
 
-#### Code Blocks
+### Code Blocks
 ````c++
 /**
   * @desc function description here
@@ -125,7 +125,7 @@ function Class::foo(arg bar) {
 }
 ````
 
-#### Function and Variable Naming
+### Function and Variable Naming
 ````c++
 /**
   * @desc function description here
@@ -137,7 +137,7 @@ function Class::my_function_name(arg variableName) {
 }
 ````
 
-#### Class Naming
+### Class Naming
 ````c++
 class ClassName {
 private:
@@ -148,7 +148,7 @@ public:
 };
 ````
 
-#### Switch Statements
+### Switch Statements
 ````c++
 /* this should be the standard method for
     writing a switch statement unless switch

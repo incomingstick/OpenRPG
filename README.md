@@ -1,7 +1,9 @@
+
 # OpenRPG
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
-![Version Number](https://img.shields.io/badge/version-v0.4.3--dev-blue.svg)
-[![Discord Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/xEwaYE5)  
+![Version Number](https://img.shields.io/badge/version-v0.5.0--dev-blue.svg)
+[![Discord Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/xEwaYE5)
+[![Build status](https://ci.appveyor.com/api/projects/status/jhcr2ebcws32bs2m?svg=true)](https://ci.appveyor.com/project/incomingstick/openrpg)
 
 OpenRPG is still in its infancy and I want it to do a lot by v1.0.0!  
 What OpenRPG aims to accomplish two fold.  

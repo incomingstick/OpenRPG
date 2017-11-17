@@ -11,6 +11,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #define RACE_H_
 
 class Human : public Character {
+private:
+    typedef Character super;
+
 protected:
     void Initialize();
 
@@ -23,6 +26,9 @@ public:
 };
 
 class Dwarf : public Character {
+private:
+    typedef Character super;
+    
 protected:
     void Initialize();
 
@@ -35,6 +41,8 @@ public:
 };
 
 class HillDwarf : public Dwarf {
+private:
+    typedef Dwarf super;
 public:
     HillDwarf();
     HillDwarf(Ability ab);

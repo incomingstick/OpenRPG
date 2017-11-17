@@ -8,6 +8,9 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
+#include <map>
+
+using namespace std;
 
 /* NOTE: These are just the 5E character requirements */
 
@@ -81,30 +84,60 @@ struct Ability {
     int CHA = 10;   // Charisma
 };
 
-/*
-TODO better way?? We need to also keep track of what
-skills have proficiency (or double prof)
-*/
-struct Skills {
-    int ACR = 0;    // Acrobatics       (DEX)
-    int ANM = 0;    // Animal Handling  (WIS)
-    int ARC = 0;    // Arcana           (INT)
-    int ATH = 0;    // Athletics        (STR)
-    int DEC = 0;    // Deception        (CHA)
-    int HIS = 0;    // History          (INT)
-    int INS = 0;    // Insight          (WIS)
-    int ITM = 0;    // Intimidation     (CHA)
-    int INV = 0;    // Investigation    (INT)
-    int MED = 0;    // Medicine         (WIS)
-    int NAT = 0;    // Nature           (INT)
-    int PRC = 0;    // Perception       (WIS)
-    int PRF = 0;    // Performance      (CHA)
-    int PRS = 0;    // Persuasion       (CHA)
-    int REL = 0;    // Religion         (INT)
-    int SLE = 0;    // Sleight of Hand  (DEX)
-    int STL = 0;    // Stealth          (DEX)
-    int SUR = 0;    // Survival         (WIS)
+class Skill {
+public:
+    Skill(void);
+    Skill(char modifier, unsigned char proficiency);
+    ~Skill(void);
+    void set(char newMod, unsigned char newProficiency);
+    void setMod(char newMod);
+    void setProf(unsigned char newProficiency);
+    char getMod(void);
+    unsigned char getProf(void);
+private:
+    char mod = 0;
+    unsigned char prof = 0;
 };
+
+enum EnumSkill{
+    ACR, ANM, ARC, ATH, DEC, 
+    HIS, INS, ITM, INV, MED, 
+    NAT, PRC, PRF, PRS, REL, 
+    SLE, STL, SUR
+};
+
+class Skills {
+public:
+    Skills(void);
+    ~Skills(void);
+    Skill* get(EnumSkill skill);
+    char getMod(EnumSkill skill) {
+        return skillsMap[skill]->getMod();
+    }
+    unsigned char getProf(EnumSkill skill);
+private:
+std::map <EnumSkill, Skill*> skillsMap = {
+    { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
+    { ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
+    { ARC, new Skill(0, 0) },    // Arcana           (INT)
+    { ATH, new Skill(0, 0) },    // Athletics        (STR)
+    { DEC, new Skill(0, 0) },    // Deception        (CHA)
+    { HIS, new Skill(0, 0) },    // History          (INT)
+    { INS, new Skill(0, 0) },    // Insight          (WIS)
+    { ITM, new Skill(0, 0) },    // Intimidation     (CHA)
+    { INV, new Skill(0, 0) },    // Investigation    (INT)
+    { MED, new Skill(0, 0) },    // Medicine         (WIS)
+    { NAT, new Skill(0, 0) },    // Nature           (INT)
+    { PRC, new Skill(0, 0) },    // Perception       (WIS)
+    { PRF, new Skill(0, 0) },    // Performance      (CHA)
+    { PRS, new Skill(0, 0) },    // Persuasion       (CHA)
+    { REL, new Skill(0, 0) },    // Religion         (INT)
+    { SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
+    { STL, new Skill(0, 0) },    // Stealth          (DEX)
+    { SUR, new Skill(0, 0) }    // Survival         (WIS)
+};
+};
+
 
 enum VisionType {
     Normal,
@@ -153,12 +186,16 @@ protected:
     std::vector<Language> languages;    // the array of known languages
     Gender gender;                      // the characters gender
     
-    virtual void Initialize() = 0;
+    void Initialize();
     
 public:
     Character();
     Character(Ability ab);
     ~Character();
+    
+    std::string format_mod(int mod, int spaces);
+    
+    void update_skills();
 
     static const int ID = 0x0000;       // an integer that represents the Character class
     static const std::string race;      // our characters race (also denoted via the subclass)
@@ -168,7 +205,7 @@ public:
     Ability get_ability_copy() { return abils; };
 
     // Returns a copy of our Skills skills struct
-    Skills get_skills_copy() { return skills; };
+    //Skills get_skills_copy() { return skills; };
     
     /* accessor functions for ability score modifiers */
     int STR() { return abils.STR; };
@@ -190,6 +227,7 @@ public:
     int passive_stat(int stat) { return 8 + prof + stat; };
     
     std::string to_string();
+    std::string to_sheet();
 };
 
 #endif /* CHARACTER_H_ */

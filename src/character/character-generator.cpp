@@ -7,6 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <vector>
+#include <string>
 
 #include "openrpg.h"
 #include "character.h"
@@ -242,7 +243,7 @@ int main(int argc, char* argv[]) {
 
     Character* character = factory.NewCharacter(abil);
 
-    printf("%s", character->to_string().c_str());
+    printf("%s", character->to_sheet().c_str());
 
     return status;
 }

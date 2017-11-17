@@ -7,12 +7,8 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <climits>
-#include <cstring>
-#include <cmath>
-#include <cctype>
-#include <stack>
+#include <string>
 
-#include "core/utils.h"
 #include "roll/roll-parser.h"
 
 using namespace std;
