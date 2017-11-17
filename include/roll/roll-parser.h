@@ -22,7 +22,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define OP_PLUS          5 // addition node
 #define OP_MINUS         6 // subtraction node
 #define OP_HIGH          7 // keep highest results node
-#define OP_LOW           8 // keep lowest resutls node
+#define OP_LOW           8 // keep lowest results node
 #define OP_GT            9 // keep results greater than
 #define OP_GE           10 // keep results greater or equal than
 #define OP_LT           11 // keep results less than
@@ -73,7 +73,7 @@ public:
     
     /**
      * @desc returns a string of the tree starting with
-     *     the top node node and taking precidence over the left node
+     *     the top node and taking precedence over the left node
      * @return string - a string representation of the current tree
      */
     std::string to_string() { return tree_string(head, 0); };
