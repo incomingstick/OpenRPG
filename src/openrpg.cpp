@@ -91,9 +91,6 @@ int parse_args(int argc, char* argv[]) {
     /* getopt_long stores the option and option index here */
     int opt = 0, opt_ind = 0;
 
-    /* disables getopt printing to now be handled in '?' case */
-    //opterr = 0;
-    
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
@@ -262,7 +259,11 @@ int parse_input(string in) {
                  *    all modules callable from within the TUI.
                  */
 
-                print_basic_help();
+                if(words.size() == 1) {
+                    print_basic_help();
+                } else if(words.size() > 1) {
+                    // DO module printing here
+                }
             } else if (words[0] == "version" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
                 print_basic_version();
