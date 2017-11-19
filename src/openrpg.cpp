@@ -46,8 +46,40 @@ static void print_help_flag() {
     exit(EXIT_SUCCESS);
 }
 
+static void print_basic_version() {
+    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "This is free software: you are free to change and redistribute it.\n"
+          "There is NO WARRANTY, to the extent permitted by law.\n\n",
+          stdout);
+}
+
+static void print_basic_help() {
+    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "This is free software: you are free to change and redistribute it.\n"
+          "There is NO WARRANTY, to the extent permitted by law.\n\n"
+          "Usage: orpg > [command]\n"
+          "\n"
+          "Available commands:\n"
+                "\thelp (h) [COMMAND]                  Print the help screen for the given module. Omitting a\n"
+                "\t                                      command prints this help menu.\n" 
+                "\tgenerate (gen, ng) [RACE | GENDER]  Generate a random name of the given RACE and GENDER\n"
+                "\troll (r) [XdY]                      Simulates rolling dice with Y sides X number of times\n"
+                "\tversion (ver, v | V)                Print version info\n"
+          "\n"
+          "Long options may not be passed with a single dash.\n"
+          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
+          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
+          "See 'man openrpg' for more information [TODO add man pages].\n",
+          stdout);
+}
+
 /* TODO hold in memory a history of the commands run in the current session
  * and allow use of the UP and DOWN arrow keys to move through this list
+ * 
+ * NOTE: Do we want this list to be endless or finite? Endless may pose a
+ * security risk.
  */
 vector<string> commandHistory;
 
@@ -177,7 +209,7 @@ int parse_input(string in) {
             // TODO simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 return EXIT_SUCCESS;
-            } else if(words[0] == "gen" || words[0] == "generate") {
+            } else if(words[0] == "generate" || words[0] == "gen" || words[0] == "ng") {
 
                 if(words.size() >= 2) {
                     NameGenerator name;
@@ -230,17 +262,20 @@ int parse_input(string in) {
                  *    all modules callable from within the TUI.
                  */
 
-                printf("Available commands: exit (quit, q), generate (gen), help (h), roll (r)\n");                 
-            } else { //default case
+                print_basic_help();
+            } else if (words[0] == "version" || words[0] == "v" || words[0] == "V") {
+                /* Prints print_version_string() without exiting */
+                print_basic_version();
+            } else {
                 printf("Command not recognized!\n");
-            }
+            } /* default case for words array */
             words = {};
         } else {
             printf("No command given!\n");
-        }
+        } /* END if (words.size() > 0) */
     } else {
         printf("No command given!\n");
-    }
+    } /* END if (in.size() > 0) */
     
     return CONTINUE_CODE;
 }
