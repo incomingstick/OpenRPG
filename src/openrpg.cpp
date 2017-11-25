@@ -16,6 +16,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+/* Print functions {{{1 */
+/* static void print_version_flag {{{2*/
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -24,7 +26,9 @@ static void print_version_flag() {
           stdout);
     exit(EXIT_SUCCESS);
 }
+/* }}}2 */
 
+/* static void print_help_flag() {{{2*/
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -45,7 +49,9 @@ static void print_help_flag() {
           stdout);
     exit(EXIT_SUCCESS);
 }
+/* }}}2 */
 
+/* static void print_basic_version() {{{2 */
 static void print_basic_version() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -53,7 +59,9 @@ static void print_basic_version() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
 }
+/* }}}2 */
 
+/* static void print_basic_help() {{{2 */
 static void print_basic_help() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -74,6 +82,8 @@ static void print_basic_help() {
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
+/* }}}2 */
+/* }}}1 */
 
 /* TODO hold in memory a history of the commands run in the current session
  * and allow use of the UP and DOWN arrow keys to move through this list
@@ -83,10 +93,9 @@ static void print_basic_help() {
  */
 vector<string> commandHistory;
 
-/** 
- * Option parser - parse_args(argc, argv)
- * This function parses all cla's passed to argv.
- */
+/* Option parser - int parse_args(argc, argv) {{{1 */
+
+/* This function parses all cla's passed to argv. */
 int parse_args(int argc, char* argv[]) {
     /* getopt_long stores the option and option index here */
     int opt = 0, opt_ind = 0;
@@ -106,83 +115,81 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hn:qr:vV",
-                               long_opts, &opt_ind)) != EOF) {
+    while ((opt = getopt_long(argc, argv, "hn:qr:vV", long_opts, &opt_ind)) 
+			!= EOF) {
         switch (opt) {
-        /* -h --help */
-        case 'h': {
-            print_help_flag();
-        } break;
+			/* -h --help */
+			case 'h': {
+				print_help_flag();
+			} break;
+	
+			/* -n --name */
+			case 'n': {
+				NameGenerator name;
 
-        /* -n --name */
-        case 'n': {
-            NameGenerator name;
+				if(optind < argc) {
+					if((string)optarg == "male" || (string)optarg == "female") {
+						name.gender = (string)optarg;
+						name.race = (string)argv[optind++];
+					} else {
+						name.race = (string)optarg;
+						name.gender = (string)argv[optind++];
+					}
+				} else if(optind == argc) {
+					name.race = (string)optarg;
+				} else {
+					fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
+					print_help_flag();
+				}
+				printf("%s\n", name.make_name().c_str());
+				exit(EXIT_SUCCESS);
+			} break;
 
-            if(optind < argc) {
-                if((string)optarg == "male" || (string)optarg == "female") {
-                    name.gender = (string)optarg;
-                    name.race = (string)argv[optind++];
-                } else {
-                    name.race = (string)optarg;
-                    name.gender = (string)argv[optind++];
-                }
-            } else if(optind == argc) {
-                name.race = (string)optarg;
-            } else {
-                fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
-                print_help_flag();
-            }
-            
-            printf("%s\n", name.make_name().c_str());
+			/* -q --quiet */
+			case 'q': {
+				QUIET_FLAG = true;
+				VB_FLAG = false;
+			} break;
 
-            exit(EXIT_SUCCESS);
-        } break;
+			/* -r --roll */
+			case 'r': {
+				ExpressionTree tree;
+				tree.set_expression(optarg);
+				printf("%i\n", tree.parse_expression());
+				exit(EXIT_SUCCESS);
+			} break;
 
-        /* -q --quiet */
-        case 'q': {
-            QUIET_FLAG = true;
-            VB_FLAG = false;
-        } break;
+			/* -v --verbose */
+			case 'v': {
+				VB_FLAG = true;
+				QUIET_FLAG = false;
+			} break;
 
-        /* -r --roll */
-        case 'r': {
-            ExpressionTree tree;
+			/* -V --version */
+			case 'V': {
+				print_version_flag();
+			} break;
 
-            tree.set_expression(optarg);
+			case ':':
+			case '?': {
+				print_help_flag();
+			} break;
 
-            printf("%i\n", tree.parse_expression());
-
-            exit(EXIT_SUCCESS);
-        } break;
-
-        /* -v --verbose */
-        case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
-        } break;
-
-        /* -V --version */
-        case 'V': {
-            print_version_flag();
-        } break;
-
-        case ':':
-        case '?': {
-            print_help_flag();
-        } break;
-
-        /* if we get here something very bad happened */
-        default: {
-            fprintf(stderr, "Aborting...\n");
-            exit(EXIT_FAILURE);
-        }
+			/* if we get here something very bad happened */
+			default: {
+				fprintf(stderr, "Aborting...\n");
+				exit(EXIT_FAILURE);
+			}
         }
     }
 
     return CONTINUE_CODE;
 }
+/* }}}1 */
 
-/* TODO Parses text input into the console and determines the appropriate response/action */
+/* int parse_input(string in) {{{1 */
+
+/*TODO Parses text input into the console and determines the appropriate response/action */
 int parse_input(string in) {
     if (in.size() > 0) {
         // parsed individual words
@@ -203,17 +210,17 @@ int parse_input(string in) {
             }
         }
 
-        if(word.size() > 0) words.push_back(word); //end of command word
+		//end of command word
+        if(word.size() > 0) 
+			words.push_back(word);
 
         if (words.size() > 0) {
             // TODO simple commands, must be expanded on based on command content
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 return EXIT_SUCCESS;
             } else if(words[0] == "generate" || words[0] == "gen" || words[0] == "ng") {
-
                 if(words.size() >= 2) {
                     NameGenerator name;
-
                     if(words.size() >= 3) {
                         if(words[1] == "male" || words[1] == "female") {
                             name.gender = words[1];
@@ -227,9 +234,7 @@ int parse_input(string in) {
                     } else {
                         fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
-                    
                     printf("%s\n", name.make_name().c_str());
-
                     return CONTINUE_CODE;;
                 } else {
                     printf("Missing arguments!\n");
@@ -241,19 +246,16 @@ int parse_input(string in) {
                     for (int i = 1; (unsigned) i < words.size(); i++) {
                         exp += words[i];
                     }
-
                     ExpressionTree tree;
-
                     if(tree.set_expression(exp))
                         printf("%i\n", tree.parse_expression());
-
                     return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
                 }
             } else if(words[0] == "help" || words[0] == "h") {
-                /*
-                 * TODO complete the help command as follows
+                /* 
+				 * TODO complete the help command as follows
                  *    The help command should print in a similar format
                  *    to the '-h' arguement, but should be expanded on in
                  *    the TUI. Each command will have its own help section
@@ -261,7 +263,6 @@ int parse_input(string in) {
                  *    TUI formatted help command. This should hold true for
                  *    all modules callable from within the TUI.
                  */
-
                 print_basic_help();
             } else if (words[0] == "version" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
@@ -279,24 +280,24 @@ int parse_input(string in) {
     
     return CONTINUE_CODE;
 }
+/* }}}1 */
 
+/* int main(int argc, char* argv[]) {{{1 */
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
     
     if(status == CONTINUE_CODE) {
         // TODO - clgui for program
         print_file("banners/welcome_mat1");
-
         string in("");
 
         // get user input
         while(status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
             getline(cin, in);
-
             status = parse_input(in);
         }
     }
-
     return status;
 }
+/* }}}1 */
