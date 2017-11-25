@@ -26,29 +26,23 @@ Skill::Skill(void) {
     this->mod = 0;
     this->prof = 0;
 }
-    
 Skill::Skill(char nb, unsigned char np) {
     this->mod = nb;
     this->prof = np;
 }
-    
 void Skill::set(char nb, unsigned char np) {
     this->mod = nb;
     this->prof = np;
 }
-    
 void Skill::setMod(char nb) {
     this->mod = nb;
 }
-    
 void Skill::setProf(unsigned char np) {
     this->prof = np;
 }
-    
 char Skill::getMod(void) {
     return this->mod;
 }
-    
 unsigned char Skill::getProf(void) {
     return this->prof;
 }
@@ -56,11 +50,9 @@ unsigned char Skill::getProf(void) {
 Skills::Skills(void) {
     
 }
-
 Skills::~Skills(void) {
     delete[] &skillsMap;
 }
-
 Skill* Skills::get(EnumSkill skill) {
     return skillsMap[skill];
 }
@@ -73,19 +65,14 @@ Character::Character() {
     abils.WIS = 10;    // Wisdom
     abils.CHA = 10;    // Charisma
 }
-
-Character::Character(Ability ab)
-    :abils(ab) {
+Character::Character(Ability ab):abils(ab) {
 }
-
 Character::~Character() {
     // TODO nothing yet
 }
-
 void Character::Initialize() {
     update_skills();
 }
-
 void Character::update_skills() {
     skills.get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
     skills.get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
@@ -106,8 +93,6 @@ void Character::update_skills() {
     skills.get(STL)->setMod(DEX_MOD());    // Stealth          (DEX)
     skills.get(SUR)->setMod(WIS_MOD());    // Survival         (WIS)
 }
-
-/* TODO format a ASCII text version of a character sheet */
 string Character::to_string() {
     string ret("");
 
@@ -122,7 +107,6 @@ string Character::to_string() {
     
     return ret;
 }
-
 string Character::format_mod(int mod, int spaces) {
     string ret("");
     if(mod > 0) {
@@ -134,7 +118,6 @@ string Character::format_mod(int mod, int spaces) {
     
     return ret;
 }
-
 string Character::to_sheet() {
     string ret("");
 
@@ -257,8 +240,9 @@ ret += "╰───────────────────────
     return ret;
 }
 
-/* TODO accept different types of stat generation */
 int gen_stat() {
+    /* TODO accept different types of stat generation */
+
     Die d6(6);
 
     return d6.roll() + d6.roll() + 6;
