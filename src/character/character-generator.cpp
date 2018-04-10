@@ -234,15 +234,22 @@ int main(int argc, char* argv[]) {
 
     Ability abil = request_scores();
     
-    printf("Skill select based on class\n");    // TODO Skill select based on class
-    printf("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
-    printf("Equipment\n");                      // TODO select equipment based on class and background
-    printf("Name:\n");                          // TODO read in name or generate random one?
+    printf("Skill select based on class\n");   // TODO Skill select based on class
+    printf("Hit points\n");                    // TODO hit points max, avg, or roll + con mod
+    printf("Equipment\n\n");                   // TODO select equipment based on class and background
+
+    printf("(leave blank for random name)\n");
+    printf("Name: ");
+
+    string name;
+
+    cin.ignore();
+    getline(cin, name);
 
     printf("\n");
 
     Character* character = factory.NewCharacter(abil);
-
+    
     printf("%s", character->to_string().c_str());
 
     return status;

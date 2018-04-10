@@ -67,7 +67,6 @@ vector<int> ability_vector() {
     return ret;
 }
 
-
 /* Generates a struct of ability scores base on the used type
     TODO allow multiple types of ability score generation */
 Ability ability_struct() {
