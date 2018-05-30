@@ -88,8 +88,7 @@ static void print_basic_help() {
 /* TODO hold in memory a history of the commands run in the current session
  * and allow use of the UP and DOWN arrow keys to move through this list
  * 
- * NOTE: Do we want this list to be endless or finite? Endless may pose a
- * security risk.
+ * NOTE: We should make this finite, based on a changeable setting, up to a max of 1000 lines
  */
 vector<string> commandHistory;
 
@@ -263,22 +262,47 @@ int parse_input(string in) {
                  *    TUI formatted help command. This should hold true for
                  *    all modules callable from within the TUI.
                  */
-                print_basic_help();
+                if(words.size() > 1) {
+                    if(words[1] == "roll" || words[1] == "r") {
+                        // TODO Get Roll module help message
+                        printf("Roll help not available yet.\n");
+
+                        return CONTINUE_CODE;
+                    } else if(words[1] == "generate" || words[1] == "gen" || words[1] == "ng") {
+                        // TODO Get Name Generator module help message
+                        printf("Name Generator help not available yet.\n");
+
+                        return CONTINUE_CODE;
+                    }
+                } else {
+                    print_basic_help();
+
+                    return CONTINUE_CODE;
+                }
             } else if (words[0] == "version" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
                 print_basic_version();
+
+                return CONTINUE_CODE;
             } else {
                 printf("Command not recognized!\n");
+
+                return CONTINUE_CODE;
             } /* default case for words array */
             words = {};
         } else {
             printf("No command given!\n");
+
+            return CONTINUE_CODE;
         } /* END if (words.size() > 0) */
     } else {
         printf("No command given!\n");
+
+        return CONTINUE_CODE;
     } /* END if (in.size() > 0) */
     
-    return CONTINUE_CODE;
+    // should never get here!
+    return EXIT_FAILURE;
 }
 /* }}}1 */
 
@@ -294,6 +318,7 @@ int main(int argc, char* argv[]) {
         // get user input
         while(status == CONTINUE_CODE) {
             printf("\33[4morpg\33[0m > ");
+
             getline(cin, in);
             status = parse_input(in);
         }
