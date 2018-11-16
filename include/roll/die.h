@@ -18,7 +18,13 @@ class Die {
     private:
         const int MAX = 20;
     public:
-        Die(int max):MAX(max){};
+        Die(int max):MAX(
+                /* If max is less than 2, set MAX to 2; else set MAX to max.
+                 * Ensures we don't have nonsense like a 1- or 0-sided die
+                 * (or a negative-sided die) */
+                (max < 2) ? 2
+                          : max
+                ){};
         int roll() {
             std::random_device rd;
             std::mt19937 mt(rd());
