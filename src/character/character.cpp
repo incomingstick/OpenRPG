@@ -38,7 +38,9 @@ Character::~Character() {
 string Character::to_string() {
     string ret("");
 
-    ret += "~~~ " + firstName + " " + lastName + " ~~~\n";
+    ret += "~~~ " + firstName.empty() ? "" : firstName;
+    ret += " " + lastName.empty() ? "" : lastName;
+    ret += " ~~~\n";
 
     ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
     ret += "DEX: "+ std::to_string(DEX()) + " (" + std::to_string(DEX_MOD()) + ")\n";

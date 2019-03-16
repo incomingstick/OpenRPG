@@ -17,6 +17,7 @@ protected:
 public:
     Human();
     Human(Ability ab);
+    Human(Ability ab, std::string name);
 
     static const int ID = 0x0001;
     static const std::string race;
@@ -29,6 +30,7 @@ protected:
 public:
     Dwarf();
     Dwarf(Ability ab);
+    Dwarf(Ability ab, std::string name);
 
     static const int ID = 0x0010;
     static const std::string race;
@@ -38,6 +40,7 @@ class HillDwarf : public Dwarf {
 public:
     HillDwarf();
     HillDwarf(Ability ab);
+    HillDwarf(Ability ab, std::string name);
 
     static const int ID = 0x0011;
 };
@@ -49,6 +52,7 @@ protected:
 public:
     Elf();
     Elf(Ability ab);
+    Elf(Ability ab, std::string name);
 
     static const int ID = 0x0020;
     static const std::string race;
@@ -58,6 +62,7 @@ class HighElf : public Elf {
 public:
     HighElf();
     HighElf(Ability ab);
+    HighElf(Ability ab, std::string name);
 
     static const int ID = 0x0021;
 };
@@ -84,6 +89,7 @@ public:
     Character* NewCharacter(Ability ab = ability_struct());
     Character* NewCharacter(int identifier);
     Character* NewCharacter(int identifier, Ability ab);
+    Character* NewCharacter(Ability ab,std::string name);
 
     void reset() { current = head; };
     std::vector<std::string> current_options();

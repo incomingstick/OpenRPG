@@ -248,7 +248,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = factory.NewCharacter(abil);
+    Character* character = name.empty() ? factory.NewCharacter(abil) : factory.NewCharacter(abil, name);
     
     printf("%s", character->to_string().c_str());
 

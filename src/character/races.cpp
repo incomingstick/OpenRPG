@@ -25,6 +25,12 @@ Human::Human() {
     abils.WIS = gen_stat() + 1;    // Wisdom
     abils.CHA = gen_stat() + 1;    // Charisma
 
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
     Initialize();
 }
 
@@ -36,16 +42,29 @@ Human::Human(Ability ab) {
     abils.WIS = ab.WIS + 1;    // Wisdom
     abils.CHA = ab.CHA + 1;    // Charisma
 
-    Initialize();
-}
-
-void Human::Initialize() {
     // TODO Gender??? What about asexual races? What if they want to enter a name?
     NameGenerator ng(race);
 
     firstName = ng.make_first();
     lastName = ng.make_last();
 
+    Initialize();
+}
+
+Human::Human(Ability ab, string name) {
+    abils.STR = ab.STR + 1;    // Strength
+    abils.DEX = ab.DEX + 1;    // Dexterity
+    abils.CON = ab.CON + 1;    // Constitution
+    abils.INT = ab.INT + 1;    // Intelligence
+    abils.WIS = ab.WIS + 1;    // Wisdom
+    abils.CHA = ab.CHA + 1;    // Charisma
+
+    // TODO parse and set the name here, generating any missing pieces
+
+    Initialize();
+}
+
+void Human::Initialize() {
     // TODO will need to be modified when prof is taken in to account
     skills.ACR = DEX_MOD();    // Acrobatics       (DEX)
     skills.ANM = WIS_MOD();    // Animal Handling  (WIS)
@@ -96,16 +115,29 @@ Dwarf::Dwarf(Ability ab) {
     abils.WIS = ab.WIS;     // Wisdom
     abils.CHA = ab.CHA;     // Charisma
 
-    Initialize();
-}
-
-void Dwarf::Initialize() {
     // TODO Gender??? What about asexual races? What if they want to enter a name?
     NameGenerator ng(race);
 
     firstName = ng.make_first();
     lastName = ng.make_last();
 
+    Initialize();
+}
+
+Dwarf::Dwarf(Ability ab, string name) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX;     // Dexterity
+    abils.CON = ab.CON + 2; // Constitution
+    abils.INT = ab.INT;     // Intelligence
+    abils.WIS = ab.WIS;     // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    // TODO parse and set the name here, generating any missing pieces
+
+    Initialize();
+}
+
+void Dwarf::Initialize() {
     // TODO will need to be modified when prof is taken in to account
     skills.ACR = DEX_MOD();    // Acrobatics       (DEX)
     skills.ANM = WIS_MOD();    // Animal Handling  (WIS)
@@ -143,6 +175,12 @@ HillDwarf::HillDwarf() {
     abils.WIS = gen_stat() + 1; // Wisdom
     abils.CHA = gen_stat();     // Charisma
 
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
     Initialize();
 }
 
@@ -153,6 +191,25 @@ HillDwarf::HillDwarf(Ability ab) {
     abils.INT = ab.INT;     // Intelligence
     abils.WIS = ab.WIS + 1; // Wisdom
     abils.CHA = ab.CHA;     // Charisma
+
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
+    Initialize();
+}
+
+HillDwarf::HillDwarf(Ability ab, string name) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX;     // Dexterity
+    abils.CON = ab.CON + 2; // Constitution
+    abils.INT = ab.INT;     // Intelligence
+    abils.WIS = ab.WIS + 1; // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    // TODO parse and set the name here, generating any missing pieces
 
     Initialize();
 }
@@ -167,6 +224,12 @@ Elf::Elf() {
     abils.WIS = gen_stat();     // Wisdom
     abils.CHA = gen_stat();     // Charisma
 
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
     Initialize();
 }
 
@@ -178,16 +241,33 @@ Elf::Elf(Ability ab) {
     abils.WIS = ab.WIS;     // Wisdom
     abils.CHA = ab.CHA;     // Charisma
 
-    Initialize();
-}
-
-void Elf::Initialize() {
     // TODO Gender??? What about asexual races? What if they want to enter a name?
     NameGenerator ng(race);
 
     firstName = ng.make_first();
     lastName = ng.make_last();
 
+    Initialize();
+}
+
+Elf::Elf(Ability ab, string name) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX + 2; // Dexterity
+    abils.CON = ab.CON;     // Constitution
+    abils.INT = ab.INT;     // Intelligence
+    abils.WIS = ab.WIS;     // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
+    Initialize();
+}
+
+void Elf::Initialize() {
     // TODO will need to be modified when prof is taken in to account
     skills.ACR = DEX_MOD();    // Acrobatics       (DEX)
     skills.ANM = WIS_MOD();    // Animal Handling  (WIS)
@@ -225,6 +305,12 @@ HighElf::HighElf() {
     abils.WIS = gen_stat();     // Wisdom
     abils.CHA = gen_stat();     // Charisma
 
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
     Initialize();
 }
 
@@ -235,6 +321,25 @@ HighElf::HighElf(Ability ab) {
     abils.INT = ab.INT + 1; // Intelligence
     abils.WIS = ab.WIS;     // Wisdom
     abils.CHA = ab.CHA;     // Charisma
+
+    // TODO Gender??? What about asexual races? What if they want to enter a name?
+    NameGenerator ng(race);
+
+    firstName = ng.make_first();
+    lastName = ng.make_last();
+
+    Initialize();
+}
+
+HighElf::HighElf(Ability ab, string name) {
+    abils.STR = ab.STR;     // Strength
+    abils.DEX = ab.DEX + 2; // Dexterity
+    abils.CON = ab.CON;     // Constitution
+    abils.INT = ab.INT + 1; // Intelligence
+    abils.WIS = ab.WIS;     // Wisdom
+    abils.CHA = ab.CHA;     // Charisma
+
+    // TODO parse and set the name here, generating any missing pieces
 
     Initialize();
 }
@@ -367,6 +472,33 @@ Character* CharacterFactory::NewCharacter(int identifier, Ability ab) {
         
     case HighElf::ID : {
         return new HighElf(ab);
+    }
+    default: {
+        return NULL;
+    }
+    }
+}
+
+Character* CharacterFactory::NewCharacter(Ability ab, string name) {
+    switch(current->raceID) {
+    case Human::ID : {
+        return new Human(ab, name);
+    }
+        
+    case Dwarf::ID : {
+        return new Dwarf(ab, name);
+    }
+  
+    case HillDwarf::ID : {
+        return new HillDwarf(ab, name);
+    }
+        
+    case Elf::ID : {
+        return new Elf(ab, name);
+    }
+        
+    case HighElf::ID : {
+        return new HighElf(ab, name);
     }
     default: {
         return NULL;
