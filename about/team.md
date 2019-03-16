@@ -8,7 +8,7 @@ author: nick
 
 <h2>Lead Programmer</h2>
 <div class="bio">
-    <h3>Nicholas Gaulke</h3>
+    <h3>{{ site.data.team.nick.name }}</h3>
     <p>
         <img src="/assets/images/bios/nick.png"/>
     </p>
