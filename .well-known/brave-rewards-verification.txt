@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: openrpg.io
+Token: 0379e74622b3de827ae30223864ffb8c3c85608a471ecd1dc0a819b65064935e
