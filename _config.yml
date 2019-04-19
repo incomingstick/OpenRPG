@@ -13,7 +13,8 @@ destination:      build
 url:              http://openrpg.io
 encoding:         UTF-8
 
-include:          .well-known/
+includes:
+  - .well-known/
 
 gems:
   - jekyll-redirect-from
