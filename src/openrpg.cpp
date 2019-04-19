@@ -16,8 +16,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
-/* Print functions {{{1 */
-/* static void print_version_flag {{{2*/
+/**
+  * @desc prints the version info when -V or --version is an argument to the command.
+  * This adhears to the GNU standard for version printing, and immediately terminates
+  * the program with exit code EXIT_SUCCESS
+  */
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -26,9 +29,12 @@ static void print_version_flag() {
           stdout);
     exit(EXIT_SUCCESS);
 }
-/* }}}2 */
 
-/* static void print_help_flag() {{{2*/
+/**
+  * @desc prints the help info when -h or --help is an argument to the command.
+  * This adhears to the GNU standard for help printing, and immediately terminates
+  * the program with exit code EXIT_SUCCESS
+  */
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -49,9 +55,11 @@ static void print_help_flag() {
           stdout);
     exit(EXIT_SUCCESS);
 }
-/* }}}2 */
 
-/* static void print_basic_version() {{{2 */
+/**
+  * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
+  * Because this is called from within our ORPG shell, the program will continue running.
+  */
 static void print_basic_version() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -59,9 +67,11 @@ static void print_basic_version() {
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
 }
-/* }}}2 */
 
-/* static void print_basic_help() {{{2 */
+/**
+  * @desc prints the help info when help, h, or H are called in the ORPG shell.
+  * Because this is called from within our ORPG shell, the program will continue running.
+  */
 static void print_basic_help() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
           "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
@@ -82,8 +92,6 @@ static void print_basic_help() {
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
-/* }}}2 */
-/* }}}1 */
 
 /* TODO hold in memory a history of the commands run in the current session
  * and allow use of the UP and DOWN arrow keys to move through this list
@@ -92,9 +100,14 @@ static void print_basic_help() {
  */
 vector<string> commandHistory;
 
-/* Option parser - int parse_args(argc, argv) {{{1 */
-
-/* This function parses all cla's passed to argv. */
+/**
+  * @desc This function parses all cla's passed to argv from the command line.
+  * This function may terminate the program.
+  * 
+  * @param int argc - the number of arguments passed / the length of argv[]
+  * @param char* argv[] - the arguments passed from the command line
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int parse_args(int argc, char* argv[]) {
     /* getopt_long stores the option and option index here */
     int opt = 0, opt_ind = 0;
@@ -181,11 +194,14 @@ int parse_args(int argc, char* argv[]) {
 
     return CONTINUE_CODE;
 }
-/* }}}1 */
 
-/* int parse_input(string in) {{{1 */
-
-/*TODO Parses text input into the console and determines the appropriate response/action */
+/**
+  * @desc parse input is our ORPG shell. This takes in the users input string and parses
+  * it out based on our logic. This function may terminate the program.
+  * 
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int parse_input(string in) {
     if (in.size() > 0) {
         // parsed individual words
@@ -249,7 +265,7 @@ int parse_input(string in) {
                 } else {
                     printf("Missing arguments\n");
                 }
-            } else if(words[0] == "help" || words[0] == "h") {
+            } else if(words[0] == "help" || words[0] == "h" || words[0] == "H") {
                 /* 
 				 * TODO complete the help command as follows
                  *    The help command should print in a similar format
@@ -276,7 +292,7 @@ int parse_input(string in) {
 
                     return CONTINUE_CODE;
                 }
-            } else if (words[0] == "version" || words[0] == "v" || words[0] == "V") {
+            } else if (words[0] == "version" || words[0] == "ver" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
                 print_basic_version();
 
@@ -301,9 +317,15 @@ int parse_input(string in) {
     // should never get here!
     return EXIT_FAILURE;
 }
-/* }}}1 */
 
-/* int main(int argc, char* argv[]) {{{1 */
+/**
+  * @desc entry point for the ORPG program. This contains the main loop for the ORPG
+  * shell. All command line arguments are parsed before entering the ORPG shell, and
+  * the program may terminate before allowing user input.
+  * 
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
     
@@ -322,4 +344,3 @@ int main(int argc, char* argv[]) {
     }
     return status;
 }
-/* }}}1 */
