@@ -13,8 +13,8 @@ destination:      build
 url:              http://openrpg.io
 encoding:         UTF-8
 
-includes:
-  - .well-known/
+include:
+  - /.well-known/brave-rewards-verification.txt
 
 gems:
   - jekyll-redirect-from
