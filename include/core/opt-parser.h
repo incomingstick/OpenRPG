@@ -148,7 +148,7 @@ int getopt_internal(int argc,
            (place[1] == '\0' && strchr(options, '-') == NULL)) {
             place = EMPTY;
             
-            /* if we found the first non-argument set the start there
+            /* if we found the first non-argument set, then start there
                otherwise if we found the last non-argument then do a
                permutation 
 

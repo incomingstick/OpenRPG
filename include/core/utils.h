@@ -18,10 +18,17 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #endif
 
+// these are orpg connonical exit and output codes
 #define CONTINUE_CODE  -2
 #define OUTPUT_CODE    -1
 #define VB_CODE         0
 #define ERROR_CODE      1
+
+// Any useful keycodes go here
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
 
 extern bool VB_FLAG;
 extern bool QUIET_FLAG;
