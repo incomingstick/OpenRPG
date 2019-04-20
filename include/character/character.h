@@ -8,6 +8,9 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
+#include <map>
+
+using namespace std;
 
 /* NOTE: These are just the 5E character requirements */
 
@@ -81,29 +84,60 @@ struct Ability {
     int CHA = 10;   // Charisma
 };
 
-/*
-TODO better way?? We need to also keep track of what
-skills have proficiency (or double prof)
-*/
-struct Skills {
-    int ACR = 0;    // Acrobatics       (DEX)
-    int ANM = 0;    // Animal Handling  (WIS)
-    int ARC = 0;    // Arcana           (INT)
-    int ATH = 0;    // Athletics        (STR)
-    int DEC = 0;    // Deception        (CHA)
-    int HIS = 0;    // History          (INT)
-    int INS = 0;    // Insight          (WIS)
-    int ITM = 0;    // Intimidation     (CHA)
-    int INV = 0;    // Investigation    (INT)
-    int MED = 0;    // Medicine         (WIS)
-    int NAT = 0;    // Nature           (INT)
-    int PRC = 0;    // Perception       (WIS)
-    int PRF = 0;    // Performance      (CHA)
-    int PRS = 0;    // Persuasion       (CHA)
-    int REL = 0;    // Religion         (INT)
-    int SLE = 0;    // Sleight of Hand  (DEX)
-    int STL = 0;    // Stealth          (DEX)
-    int SUR = 0;    // Survival         (WIS)
+class Skill {
+	public:
+		Skill(void);
+		Skill(char modifier, unsigned char proficiency);
+		~Skill(void);
+		void set(char newMod, unsigned char newProficiency);
+		void setMod(char newMod);
+		void setProf(unsigned char newProficiency);
+		char getMod(void);
+		unsigned char getProf(void);
+
+	private:
+		char mod = 0;
+		unsigned char prof = 0;
+};
+
+enum EnumSkill{
+    ACR, ANM, ARC, ATH, DEC, 
+    HIS, INS, ITM, INV, MED, 
+    NAT, PRC, PRF, PRS, REL, 
+    SLE, STL, SUR
+};
+
+class Skills {
+	public:
+		Skills(void);
+		~Skills(void);
+		Skill* get(EnumSkill skill);
+		char getMod(EnumSkill skill) {
+			return skillsMap[skill]->getMod();
+		}
+		unsigned char getProf(EnumSkill skill);
+
+	private:
+		std::map <EnumSkill, Skill*> skillsMap = {
+			{ ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
+			{ ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
+			{ ARC, new Skill(0, 0) },    // Arcana           (INT)
+			{ ATH, new Skill(0, 0) },    // Athletics        (STR)
+			{ DEC, new Skill(0, 0) },    // Deception        (CHA)
+			{ HIS, new Skill(0, 0) },    // History          (INT)
+			{ INS, new Skill(0, 0) },    // Insight          (WIS)
+			{ ITM, new Skill(0, 0) },    // Intimidation     (CHA)
+			{ INV, new Skill(0, 0) },    // Investigation    (INT)
+			{ MED, new Skill(0, 0) },    // Medicine         (WIS)
+			{ NAT, new Skill(0, 0) },    // Nature           (INT)
+			{ PRC, new Skill(0, 0) },    // Perception       (WIS)
+			{ PRF, new Skill(0, 0) },    // Performance      (CHA)
+			{ PRS, new Skill(0, 0) },    // Persuasion       (CHA)
+			{ REL, new Skill(0, 0) },    // Religion         (INT)
+			{ SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
+			{ STL, new Skill(0, 0) },    // Stealth          (DEX)
+			{ SUR, new Skill(0, 0) }    // Survival         (WIS)
+		};
 };
 
 enum VisionType {
@@ -126,70 +160,77 @@ std::vector<int> ability_vector();
 Ability ability_struct();
 
 /* 
-returns an integer representation of the passed abilities modifier 
-
-NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
-*/
+ * returns an integer representation of the passed abilities modifier 
+ * 
+ * NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
+ */
 inline int modifier(int abil) { return (abil - 10) / 2; };
 
 // TODO take an in depth look at what should and should not be public here
 class Character {
-protected:
-    struct Vision vision;               // information about the characters vision
-    size_t age;                         // the age of the character
-    Alignment alignment;                // the character alignment
-    Size size;                          // the size type
-    std::string firstName;              // the characters first name
-    std::string lastName;               // the characters first name
-    Ability abils;                      // struct of ability scores
-    Skills skills;                      // struct of skill checks
-    int curr_hp;                        // current hit points
-    int temp_hp;                        // temporary hit points
-    int max_hp;                         // maximum hit points
-    int prof;                           // proficiency bonus
-    int level;                          // character level total
-    int cur_exp;                        // current experience
-    int max_exp;                        // experience needed for next level
-    std::vector<Language> languages;    // the array of known languages
-    Gender gender;                      // the characters gender
+	protected:
+		struct Vision vision;               // information about the characters vision
+		size_t age;                         // the age of the character
+		Alignment alignment;                // the character alignment
+		Size size;                          // the size type
+		std::string firstName;              // the characters first name
+		std::string lastName;               // the characters first name
+		Ability abils;                      // struct of ability scores
+		Skills skills;                      // struct of skill checks
+		int curr_hp;                        // current hit points
+		int temp_hp;                        // temporary hit points
+		int max_hp;                         // maximum hit points
+		int prof;                           // proficiency bonus
+		int level;                          // character level total
+		int cur_exp;                        // current experience
+		int max_exp;                        // experience needed for next level
+		std::vector<Language> languages;    // the array of known languages
+		Gender gender;                      // the characters gender
     
-    virtual void Initialize() = 0;
-    
-public:
-    Character();
-    Character(Ability ab);
-    ~Character();
+		void Initialize();
 
-    static const int ID = 0x0000;       // an integer that represents the Character class
-    static const std::string race;      // our characters race (also denoted via the subclass)
+	public:
+		Character();
+		Character(Ability ab);
+		~Character();
+    
+		std::string format_mod(int mod, int spaces);
+    
+		void update_skills();
 
-    
-    // Returns a copy of our Ability abils struct
-    Ability get_ability_copy() { return abils; };
+		// an integer that represents the Character class
+		static const int ID = 0x0000;
+		// our characters race (also denoted via the subclass)		
+		static const std::string race;      
 
-    // Returns a copy of our Skills skills struct
-    Skills get_skills_copy() { return skills; };
+		// Returns a copy of our Ability abils struct
+		Ability get_ability_copy() { return abils; };
+
+		// Returns a copy of our Skills skills struct
+		// NOTE(var_username): Commented out because I broke it
+		// Skills get_skills_copy() { return skills; };
     
-    /* accessor functions for ability score modifiers */
-    int STR() { return abils.STR; };
-    int DEX() { return abils.DEX; };
-    int CON() { return abils.CON; };
-    int INT() { return abils.INT; };
-    int WIS() { return abils.WIS; };
-    int CHA() { return abils.CHA; };
+		/* accessor functions for ability score modifiers */
+		int STR() { return abils.STR; };
+		int DEX() { return abils.DEX; };
+		int CON() { return abils.CON; };
+		int INT() { return abils.INT; };
+		int WIS() { return abils.WIS; };
+		int CHA() { return abils.CHA; };
     
-    /* accessor functions for ability score modifiers */
-    int STR_MOD() { return modifier(abils.STR); };
-    int DEX_MOD() { return modifier(abils.DEX); };
-    int CON_MOD() { return modifier(abils.CON); };
-    int INT_MOD() { return modifier(abils.INT); };
-    int WIS_MOD() { return modifier(abils.WIS); };
-    int CHA_MOD() { return modifier(abils.CHA); };
+		/* accessor functions for ability score modifiers */
+		int STR_MOD() { return modifier(abils.STR); };
+		int DEX_MOD() { return modifier(abils.DEX); };
+		int CON_MOD() { return modifier(abils.CON); };
+		int INT_MOD() { return modifier(abils.INT); };
+		int WIS_MOD() { return modifier(abils.WIS); };
+		int CHA_MOD() { return modifier(abils.CHA); };
     
-    // allows quick conversion of a skill for its passive check
-    int passive_stat(int stat) { return 8 + prof + stat; };
+		// allows quick conversion of a skill for its passive check
+		int passive_stat(int stat) { return 8 + prof + stat; };
     
-    std::string to_string();
+		std::string to_string();
+		std::string to_sheet();
 };
 
 #endif /* CHARACTER_H_ */

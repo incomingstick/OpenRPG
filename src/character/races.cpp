@@ -92,6 +92,7 @@ void Human::Initialize() {
     level = 1;                      // character level total
     cur_exp = 0;                    // current experience
     max_exp = levels[level - 1];    // experience needed for next level
+    Character::Initialize();
 }
 
 const string Dwarf::race = "Dwarf";
@@ -165,6 +166,8 @@ void Dwarf::Initialize() {
     level = 1;                      // character level total
     cur_exp = 0;                    // current experience
     max_exp = levels[level - 1];    // experience needed for next level
+    
+    Character::Initialize();
 }
 
 HillDwarf::HillDwarf() {
