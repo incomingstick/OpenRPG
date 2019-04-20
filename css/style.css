@@ -70,7 +70,6 @@ footer li {
 
 /* Custom styles */
 .navbar-logo {
-    display: hidden;
     width: 2rem;
     height: 2rem;
 }
@@ -402,7 +401,7 @@ pre {
 /* whenever larger than 768px */
 @media (min-width: 768px) {
     .navbar-logo {
-        display: hidden;
+        display: none;
     }
 
     .pageheader h1 {
