@@ -14,6 +14,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "character.h"
 
 using namespace std;
+using namespace ORPG;
 
 const string Human::race = "Human";
 
