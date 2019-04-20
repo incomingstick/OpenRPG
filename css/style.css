@@ -69,6 +69,12 @@ footer li {
 }
 
 /* Custom styles */
+.navbar-logo {
+    display: hidden;
+    width: 2rem;
+    height: 2rem;
+}
+
 .navbar-default,
 .navbar-toggle {
     border-color: #555
@@ -393,7 +399,12 @@ pre {
 }
 
 /* @media styles */
+/* whenever larger than 768px */
 @media (min-width: 768px) {
+    .navbar-logo {
+        display: hidden;
+    }
+
     .pageheader h1 {
         font-size: 5rem;
     }
@@ -424,6 +435,7 @@ pre {
     }
 }
 
+/* whenever larger than 768px */
 @media (min-width: 576px) {
     .pageheader {
         padding-top: 4rem;
