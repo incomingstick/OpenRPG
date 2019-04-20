@@ -9,7 +9,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef ROLL_H
 #define ROLL_H
 
-#include "roll/die.h"
 #include "roll/roll-parser.h"
 
 #endif /* ROLL_H */
