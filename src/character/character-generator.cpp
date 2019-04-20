@@ -13,34 +13,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "character.h"
 
 using namespace std;
-
-static void print_version_flag() {
-    fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
-
-static void print_help_flag() {
-    fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: character-generator [options] RACE GENDER\n"
-                "\t-h --help                   Print this help screen\n"
-                "\t-r --random                 Skips the character creator and generates a fully random character\n"
-                "\t-v --verbose                Verbose program output\n"
-                "\t-V --version                Print version info\n"
-          "\n"
-          "Long options may not be passed with a single dash.\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "See 'man character-generator' for more information [TODO add man pages].\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
+using namespace ORPG;
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
@@ -71,7 +44,7 @@ int parse_args(int argc, char* argv[]) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            print_help_flag();
+            Characters::print_help_flag();
         } break;
 
         /* -r --random */
@@ -87,13 +60,13 @@ int parse_args(int argc, char* argv[]) {
 
         /* -v --version */
         case 'V': {
-            print_version_flag();
+            Characters::print_version_flag();
         } break;
             
         /* parsing error */
         case ':':
         case '?': {
-            print_help_flag();
+            Characters::print_help_flag();
         } break;
 
         /* if we get here something very bad happened */
@@ -224,26 +197,33 @@ int main(int argc, char* argv[]) {
     
     factory.select_option(request_selection(factory));
 
-    if(factory.has_options()) {        
+    if(factory.has_options()) {
         printf("Choose Subrace:\n");
         factory.select_option(request_selection(factory)); 
     }
     
-    printf("Class\n");                         // TODO class menu
+    printf("Class\n");                         // TODO class menu.
     printf("Background\n");                    // TODO background menu
 
     Ability abil = request_scores();
     
-    printf("Skill select based on class\n");    // TODO Skill select based on class
-    printf("Hit points\n");                     // TODO hit points max, avg, or roll + con mod
-    printf("Equipment\n");                      // TODO select equipment based on class and background
-    printf("Name:\n");                          // TODO read in name or generate random one?
+    printf("Skill select based on class\n");   // TODO Skill select based on class
+    printf("Hit points\n");                    // TODO hit points max, avg, or roll + con mod
+    printf("Equipment\n\n");                   // TODO select equipment based on class and background
+
+    printf("(leave blank for random name)\n");
+    printf("Name: ");
+
+    string name;
+
+    cin.ignore();
+    getline(cin, name);
 
     printf("\n");
 
-    Character* character = factory.NewCharacter(abil);
-
-    printf("%s", character->to_sheet().c_str());
+    Character* character = name.empty() ? factory.NewCharacter(abil) : factory.NewCharacter(abil, name);
+    
+    printf("%s", character->to_string().c_str());
 
     return status;
 }
