@@ -81,8 +81,8 @@ namespace ORPG {
         }
     }
 
-    NameGenerator::NameGenerator(string race):
-        NameGenerator(race, "")    
+    NameGenerator::NameGenerator(string _race):
+        NameGenerator(_race, "")    
     {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
 
