@@ -397,6 +397,10 @@ pre {
     font-size: .65rem;
 }
 
+.d-inline-block {
+    display: inline-block !important;
+}
+
 /* @media styles */
 /* whenever larger than 768px */
 @media (min-width: 768px) {
