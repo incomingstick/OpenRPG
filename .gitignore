@@ -54,3 +54,4 @@ Cargo.lock
 api/target/
 # Temp until GUI is merged into dev branch
 app/
+*.swp

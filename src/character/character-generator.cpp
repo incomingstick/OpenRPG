@@ -243,7 +243,7 @@ int main(int argc, char* argv[]) {
 
     Character* character = factory.NewCharacter(abil);
 
-    printf("%s", character->to_string().c_str());
+    printf("%s", character->to_sheet().c_str());
 
     return status;
 }
