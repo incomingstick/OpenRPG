@@ -5,7 +5,7 @@ description: Create a D&D or Pathfinder character from scratch
 group: documentation
 ---
 
-**Namespace:** _none_  
+**Namespace:** ORPG, Characters  
 **Assembly:** _none_
 
 ## Definition TODO

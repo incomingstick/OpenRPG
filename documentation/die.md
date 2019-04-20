@@ -7,7 +7,7 @@ group: documentation
 
 Represents a die with a max number passed at construction.
 
-**Namespace:** _none_  
+**Namespace:** ORPG
 **Assembly:** _none_  
 
 ## Definition

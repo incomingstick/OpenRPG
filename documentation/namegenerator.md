@@ -5,7 +5,7 @@ description: Randomly generate names based on race
 group: documentation
 ---
 
-**Namespace:** _none_  
+**Namespace:** ORPG, Names
 **Assembly:** _none_  
 
 ## Definition

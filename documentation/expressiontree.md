@@ -5,7 +5,7 @@ description: Scan and parse a string to preform advance die math
 group: documentation
 ---
 
-**Namespace:** _none_  
+**Namespace:** ORPG 
 **Assembly:** _none_  
 
 ## Definition
