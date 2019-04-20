@@ -405,7 +405,7 @@ pre {
 /* whenever larger than 768px */
 @media (min-width: 768px) {
     .navbar-logo {
-        display: none;
+        display: none !important;
     }
 
     .pageheader h1 {
