@@ -1,5 +1,5 @@
 /*
-character-generator - character.h
+character-generator - character.cpp
 Created on: Jan 30, 2017
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
@@ -16,6 +16,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "character.h"
 
 using namespace std;
+using namespace ORPG;
 
 namespace ORPG {
     namespace Characters {

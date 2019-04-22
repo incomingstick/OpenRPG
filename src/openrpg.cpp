@@ -15,6 +15,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll.h"
 
 using namespace std;
+using namespace ORPG;
 
 /**
   * @desc prints the version info when -V or --version is an argument to the command.
@@ -277,13 +278,11 @@ int parse_input(string in) {
                  */
                 if(words.size() > 1) {
                     if(words[1] == "roll" || words[1] == "r") {
-                        // TODO Get Roll module help message
-                        printf("Roll help not available yet.\n");
+                        Roll::print_basic_help();
 
                         return CONTINUE_CODE;
                     } else if(words[1] == "generate" || words[1] == "gen" || words[1] == "ng") {
-                        // TODO Get Name Generator module help message
-                        printf("Name Generator help not available yet.\n");
+                        Names::print_basic_help();
 
                         return CONTINUE_CODE;
                     }

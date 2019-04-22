@@ -1,5 +1,5 @@
 /*
-openrpg - utils.h
+openrpg - utils.cpp
 Created on: Mar 23, 2016
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
