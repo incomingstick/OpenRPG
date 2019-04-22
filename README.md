@@ -33,7 +33,8 @@ v0.1.0 is a basis for the CLI/developer version, but v1.0.0 will contain a
 portable GUI that works on Windows, Linux, and macOS.
 
 ## Building
-Currently we require `cmake` (at least v2.8.4) and `make`
+Currently we require `cmake` (at least v2.8.4) and `make`, and your choice of C/C++
+compiler.
 
 ### Build script
 **Linux:** run build.sh `$ ./build.sh`
@@ -44,10 +45,13 @@ Run cmake `$ cmake ..` **OR** Optionally run `$ cmake -DCMAKE_INSTALL_PREFIX=/de
 Run make `$ make`  
 
 ## Check Integrity of build
-Run make check `$ make check` 
+In the `build/` folder, run make check `$ make check` 
 
 # Installing
-After building run make install `$ make install`
+After building, in the `build/` folder, run make install `$ make install`
+
+# Uninstalling
+After installing, in the `build/` folder, run make uninstall `$ make uninstall`
 
 # License
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
