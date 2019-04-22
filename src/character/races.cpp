@@ -16,6 +16,12 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 using namespace ORPG;
 
+/*
+ * TODO(incomingstick): based on how much copy pasting I did, it is clear that
+ * setting the name could get ugly quick if we don't turn as much of it into
+ * functions.
+ */
+
 namespace ORPG {
     const string Human::race = "Human";
 
@@ -61,17 +67,16 @@ namespace ORPG {
         abils.WIS = ab.WIS + 1;    // Wisdom
         abils.CHA = ab.CHA + 1;    // Charisma
 
-        // TODO parse and set the name here, generating any missing pieces
-
-        Initialize();
-    }
-
-    void Human::Initialize() {
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
         NameGenerator ng(race);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
 
+        Initialize();
+    }
+
+    void Human::Initialize() {
         curr_hp = 10;                   // TODO current hit points
         temp_hp = 0;                    // TODO temporary hit points
         max_hp = curr_hp;               // TODO maximum hit points
@@ -93,6 +98,12 @@ namespace ORPG {
         abils.WIS = gen_stat();     // Wisdom
         abils.CHA = gen_stat();     // Charisma
 
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
+
         Initialize();
     }
 
@@ -103,6 +114,12 @@ namespace ORPG {
         abils.INT = ab.INT;     // Intelligence
         abils.WIS = ab.WIS;     // Wisdom
         abils.CHA = ab.CHA;     // Charisma
+
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
 
         Initialize();
     }
@@ -115,18 +132,16 @@ namespace ORPG {
         abils.WIS = ab.WIS;     // Wisdom
         abils.CHA = ab.CHA;     // Charisma
 
-        // TODO parse and set the name here, generating any missing pieces
-
-        Initialize();
-    }
-
-    void Dwarf::Initialize() {
-        // TODO parse and set the name here, generating any missing pieces
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
         NameGenerator ng(race);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
 
+        Initialize();
+    }
+
+    void Dwarf::Initialize() {
         curr_hp = 10;                   // TODO current hit points
         temp_hp = 0;                    // TODO temporary hit points
         max_hp = curr_hp;               // TODO maximum hit points
@@ -147,6 +162,10 @@ namespace ORPG {
         abils.CHA = gen_stat();     // Charisma
 
         // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
 
         Initialize();
     }
@@ -159,6 +178,12 @@ namespace ORPG {
         abils.WIS = ab.WIS + 1; // Wisdom
         abils.CHA = ab.CHA;     // Charisma
 
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
+
         Initialize();
     }
 
@@ -170,7 +195,11 @@ namespace ORPG {
         abils.WIS = ab.WIS + 1; // Wisdom
         abils.CHA = ab.CHA;     // Charisma
 
-        // TODO parse and set the name here, generating any missing pieces
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
 
         Initialize();
     }
@@ -220,16 +249,15 @@ namespace ORPG {
         abils.CHA = ab.CHA;     // Charisma
 
         // TODO Gender??? What about asexual races? What if they want to enter a name?
-
-        Initialize();
-    }
-
-    void Elf::Initialize() {
         NameGenerator ng(race);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
 
+        Initialize();
+    }
+
+    void Elf::Initialize() {
         curr_hp = 10;                   // TODO current hit points
         temp_hp = 0;                    // TODO temporary hit points
         max_hp = curr_hp;               // TODO maximum hit points
@@ -283,7 +311,11 @@ namespace ORPG {
         abils.WIS = ab.WIS;     // Wisdom
         abils.CHA = ab.CHA;     // Charisma
 
-        // TODO parse and set the name here, generating any missing pieces
+        // TODO Gender??? What about asexual races? What if they want to enter a name?
+        NameGenerator ng(race);
+
+        firstName = ng.make_first();
+        lastName = ng.make_last();
 
         Initialize();
     }
