@@ -219,10 +219,6 @@ namespace ORPG {
         abils.CHA = ab.CHA;     // Charisma
 
         // TODO Gender??? What about asexual races? What if they want to enter a name?
-        NameGenerator ng(race);
-
-        firstName = ng.make_first();
-        lastName = ng.make_last();
 
         Initialize();
     }
