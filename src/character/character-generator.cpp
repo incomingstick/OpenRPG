@@ -6,6 +6,7 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <cctype>
 #include <vector>
 #include <string>
 
@@ -15,8 +16,14 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 using namespace ORPG;
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/**
+  * @desc This function parses all cla's passed to argv from the command line.
+  * This function may terminate the program.
+  * 
+  * @param int argc - the number of arguments passed / the length of argv[]
+  * @param char* argv[] - the arguments passed from the command line
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int parse_args(int argc, char* argv[]) {
     int status = EXIT_SUCCESS;
 
@@ -80,6 +87,38 @@ int parse_args(int argc, char* argv[]) {
     return status;
 }
 
+/* 
+ * Currently this function only checks to ensure the string contains
+ * only digits, and returns true. It will return false otherwise.
+ * 
+ * NOTE(incomingsting): This could, and probably should, be improved
+ * to also ensure we are at least coming in as an int, but possibly
+ * even within the bounds on the "question" being asked.
+ * 
+ * @param: string check - this string to be checked
+ * @return bool - returns true if check contains only numbers
+ */
+bool purity_check_string(string check) {
+    for(char c : check) {
+        if(!isdigit((unsigned char)c)) return false;
+    }
+
+    return true;
+}
+
+/* 
+ * This function is built to work in tandem specifically with the character
+ * module. It takes in a CharacterFactory and checks what stage it is
+ * currently in, prompting the user for any required input from cin.
+ * 
+ * NOTE(incomingsting): currently, we are only using numbered input
+ * (i.e '1') so the above purity check function strictly ensures the input 
+ * will only contain digits. If it does not, it will continue to prompt the
+ * user.
+ * 
+ * @param: CharacterFactory factory - the factory to check and prompt from
+ * @return int - the selected input
+ */
 int request_selection(CharacterFactory factory) {
     int index = -1;
     string input;
@@ -103,13 +142,32 @@ int request_selection(CharacterFactory factory) {
         
         cout << "\n#? ";
         cin >> input;
-    
-        index = stoi(input);
+
+        if(purity_check_string(input)) {
+            index = stoi(input);
+        } else {
+            cout << "invalid input!" << endl;
+        }
     }
 
     return index;
 }
 
+/* 
+ * This function prompts the user for 6 numbers to use as their characters
+ * abilities. It specifically request their ability scores in the following
+ * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
+ * 
+ * NOTE(incomingsting): currently, we are only using numbered input
+ * (i.e '12') so the above purity check function strictly ensures the input 
+ * will only contain digits. If it does not, it will continue to prompt the
+ * user.
+ * 
+ * This function could likely also be cleaner. Its just a giant switch
+ * currently, which looks kinda ungly, and takes up space. Like this comment.
+ * 
+ * @return Ability - an Ability containing the users input scores
+ */
 Ability request_scores() {    
     printf("\n");
 
@@ -129,48 +187,78 @@ Ability request_scores() {
             printf("Set Strength\t (STR): ");
 
             cin >> input;
-            
-            ret.STR = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.STR = stoi(input);
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         case 1: {
             printf("Set Dexterity\t (DEX): ");
 
             cin >> input;
-            
-            ret.DEX = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.DEX = stoi(input);
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         case 2: {
             printf("Set Constitution (CON): ");
 
             cin >> input;
-            
-            ret.CON = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.CON = stoi(input); 
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         case 3: {
             printf("Set Intelligence (INT): ");
 
             cin >> input;
-            
-            ret.INT = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.INT = stoi(input);
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         case 4: {
             printf("Set Wisdom\t (WIS): ");
 
             cin >> input;
-            
-            ret.WIS = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.WIS = stoi(input);
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         case 5: {
             printf("Set Charisma\t (CHA): ");
 
             cin >> input;
-            
-            ret.CHA = stoi(input);
+
+            if(purity_check_string(input)) {
+                ret.CHA = stoi(input);
+            } else {
+                i--;
+                cout << "invalid input!" << endl;
+            }
         } break;
 
         default: {
@@ -185,6 +273,15 @@ Ability request_scores() {
     return ret;
 }
 
+/**
+  * @desc entry point for the character-generator program. This contains the 
+  * main logic for creating a character via the character-generator. All 
+  * command line arguments are parsed before character creation begins, and
+  * the program may terminate before allowing user input.
+  * 
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
     
