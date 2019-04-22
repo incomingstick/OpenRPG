@@ -16,8 +16,14 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 using namespace ORPG;
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/**
+  * @desc This function parses all cla's passed to argv from the command line.
+  * This function may terminate the program.
+  * 
+  * @param int argc - the number of arguments passed / the length of argv[]
+  * @param char* argv[] - the arguments passed from the command line
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int parse_args(int argc, char* argv[], string* race, string* gender) {
     int status = EXIT_SUCCESS;
 
@@ -105,6 +111,14 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     return status;
 }
 
+/**
+  * @desc entry point for the name-generator program. All command line
+  * arguments are parsed before entering the name-generator program, and
+  * the program may terminate before generating a name.
+  * 
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 /* TODO handle tab completion */
 int main(int argc, char* argv[]) {
     string race = "", gender = "";
