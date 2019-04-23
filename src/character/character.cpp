@@ -41,8 +41,8 @@ namespace ORPG {
                         "\t-V --version                Print version info\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
             exit(EXIT_SUCCESS);
@@ -68,8 +68,8 @@ namespace ORPG {
                         "\t-V --version                Print version info\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
