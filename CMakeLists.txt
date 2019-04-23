@@ -39,6 +39,9 @@ endif (CMAKE_BUILD_TYPE EQUAL "DEBUG")
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
 
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib/openrpg)
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 # used to pass the location to use for data into config.h.in
 if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(DATA_DIR ${DATA})
