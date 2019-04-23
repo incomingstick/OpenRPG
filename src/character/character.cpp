@@ -22,7 +22,7 @@ namespace ORPG {
     namespace Characters {
         void print_version_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -31,7 +31,7 @@ namespace ORPG {
 
         void print_help_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -41,8 +41,8 @@ namespace ORPG {
                         "\t-V --version                Print version info\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-                "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
+                "OpenRPG home page: < https://www.openrpg.io >\n"
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
             exit(EXIT_SUCCESS);
@@ -50,7 +50,7 @@ namespace ORPG {
 
         void print_basic_version() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -58,7 +58,7 @@ namespace ORPG {
 
         void print_basic_help() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -68,8 +68,8 @@ namespace ORPG {
                         "\t-V --version                Print version info\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-                "OpenRPG home page: <https://github.com/incomingstick/OpenRPG/issues>\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
+                "OpenRPG home page: < https://www.openrpg.io >\n"
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
