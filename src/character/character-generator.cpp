@@ -92,8 +92,9 @@ int parse_args(int argc, char* argv[]) {
  * only digits, and returns true. It will return false otherwise.
  * 
  * NOTE(incomingsting): This could, and probably should, be improved
- * to also ensure we are at least coming in as an int, but possibly
- * even within the bounds on the "question" being asked.
+ * to also ensure we are within the bounds on the "question" being asked.
+ * 
+ * TODO(incomingstick): ensure we are at least coming in as an int32.
  * 
  * @param: string check - this string to be checked
  * @return bool - returns true if check contains only numbers

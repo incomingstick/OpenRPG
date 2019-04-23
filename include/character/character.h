@@ -94,18 +94,18 @@ namespace ORPG {
 
 	class Skill {
 		public:
-			Skill(void);
-			Skill(char modifier, unsigned char proficiency);
-			~Skill(void);
-			void set(char newMod, unsigned char newProficiency);
+			Skill();
+			Skill(char modifier, unsigned char proficiencyBonus);
+			~Skill();
+			void set(char newMod, unsigned char newProficiencyBonus);
 			void setMod(char newMod);
-			void setProf(unsigned char newProficiency);
-			char getMod(void);
-			unsigned char getProf(void);
+			void setProfBonus(unsigned char newProficiencyBonus);
+			char getMod();
+			unsigned char getProfBonus();
 
 		private:
 			char mod = 0;
-			unsigned char prof = 0;
+			unsigned char profBonus = 0;
 	};
 
 	enum EnumSkill{
@@ -117,13 +117,13 @@ namespace ORPG {
 
 	class Skills {
 		public:
-			Skills(void);
-			~Skills(void);
+			Skills();
+			~Skills();
 			Skill* get(EnumSkill skill);
 			char getMod(EnumSkill skill) {
 				return skillsMap[skill]->getMod();
 			}
-			unsigned char getProf(EnumSkill skill);
+			unsigned char getProfBonus(EnumSkill skill);
 
 		private:
 			std::map <EnumSkill, Skill*> skillsMap = {

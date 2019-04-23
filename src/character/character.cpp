@@ -81,35 +81,35 @@ namespace ORPG {
     * 
     * both are chars to reduce memory usage
     */
-    Skill::Skill(void) {
+    Skill::Skill() {
         this->mod = 0;
-        this->prof = 0;
+        this->profBonus = 0;
     }
-    Skill::Skill(char nb, unsigned char np) {
-        this->mod = nb;
-        this->prof = np;
+    Skill::Skill(char modifier, unsigned char proficiencyBonus) {
+        this->mod = modifier;
+        this->profBonus = proficiencyBonus;
     }
-    void Skill::set(char nb, unsigned char np) {
-        this->mod = nb;
-        this->prof = np;
+    void Skill::set(char modifier, unsigned char proficiencyBonus) {
+        this->mod = modifier;
+        this->profBonus = proficiencyBonus;
     }
-    void Skill::setMod(char nb) {
-        this->mod = nb;
+    void Skill::setMod(char modifier) {
+        this->mod = modifier;
     }
-    void Skill::setProf(unsigned char np) {
-        this->prof = np;
+    void Skill::setProfBonus(unsigned char modifier) {
+        this->profBonus = modifier;
     }
-    char Skill::getMod(void) {
+    char Skill::getMod() {
         return this->mod;
     }
-    unsigned char Skill::getProf(void) {
-        return this->prof;
+    unsigned char Skill::getProfBonus() {
+        return this->profBonus;
     }
 
-    Skills::Skills(void) {
-        
+    Skills::Skills() {
+        // empty
     }
-    Skills::~Skills(void) {
+    Skills::~Skills() {
         delete[] &skillsMap;
     }
     Skill* Skills::get(EnumSkill skill) {
