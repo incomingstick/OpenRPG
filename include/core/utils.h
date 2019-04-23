@@ -41,7 +41,7 @@ std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string file);
-int random(int min, int max);
+int randomInt(int min, int max);
 int gcd(int a, int b);
 
 #endif /* SRC_UTILS_H_ */
