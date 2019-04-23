@@ -4,7 +4,7 @@ set(UTIL_SOURCE
         ${CMAKE_SOURCE_DIR}/src/utils.cpp
 )
 
-add_library(utils ${UTIL_SOURCE})
+add_library(utils SHARED ${UTIL_SOURCE})
 
 # if the utils library needs a higher standard than C++11 please update here
 set_property(TARGET utils PROPERTY CXX_STANDARD 11)
@@ -23,6 +23,7 @@ set_property(TARGET openrpg PROPERTY CXX_STANDARD 11)
 set_property(TARGET openrpg PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS openrpg DESTINATION bin)
+install(TARGETS utils DESTINATION lib/openrpg)
 
 # module directories
 add_subdirectory("names")
