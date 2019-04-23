@@ -50,8 +50,8 @@ static void print_help_flag() {
                 "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
           "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
-          "OpenRPG home page: < https://github.com/incomingstick/OpenRPG >\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
@@ -88,8 +88,8 @@ static void print_basic_help() {
                 "\tversion (ver, v | V)                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
           "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: < https://github.com/incomingstick/OpenRPG >\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
@@ -119,8 +119,8 @@ int parse_args(int argc, char* argv[]) {
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
         {"roll",    required_argument,  0,  'r'},
-        {"version", no_argument,        0,  'V'},
         {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
