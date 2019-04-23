@@ -166,7 +166,7 @@ bool print_file(string type) {
     return true;
 }
 
-int random(int min, int max) {
+int randomInt(int min, int max) {
     random_device rd;
     mt19937 mt(rd());
     uniform_int_distribution<int> dist(min, max);
