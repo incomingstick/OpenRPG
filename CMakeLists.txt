@@ -43,7 +43,7 @@ set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
 if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(DATA_DIR ${DATA})
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
-    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data)
+    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data/openrpg)
 endif(CMAKE_BUILD_TYPE MATCHES DEBUG)
 
 MESSAGE(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
@@ -63,8 +63,8 @@ configure_file (
 )
 
 # install targets
-install(DIRECTORY ${DATA} DESTINATION ${CMAKE_INSTALL_PREFIX})
-install(DIRECTORY ${INCLUDE}/ DESTINATION include/openrpg)
+install(DIRECTORY ${DATA}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/data/openrpg)
+install(DIRECTORY ${INCLUDE}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/openrpg)
 
 # uninstall target
 if(NOT TARGET uninstall)
