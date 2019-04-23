@@ -36,8 +36,8 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -52,15 +52,15 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
             ORPG::Names::print_help_flag();
          } break;
 
-        /* -v --version */
+        /* -v --verbose */
         case 'v': {
-            ORPG::Names::print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             VB_FLAG = true;
             QUIET_FLAG = false;
+        } break;
+
+        /* -V --version */
+        case 'V': {
+            ORPG::Names::print_version_flag();
         } break;
         
         /* parsing error */

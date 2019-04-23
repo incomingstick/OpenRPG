@@ -51,8 +51,8 @@ namespace ORPG {
                         "\t-V --verbose                Verbose program output\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man name-generator' for more information [TODO add man pages].\n",
                 stdout);
             exit(EXIT_SUCCESS);
@@ -74,8 +74,8 @@ namespace ORPG {
                 "Usage: name-generator [RACE | SUBRACE] [GENDER]\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man name-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
