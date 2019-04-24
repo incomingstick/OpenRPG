@@ -2,7 +2,7 @@
 roll - roll-parser.cpp
 Created on: Feb 12, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -22,7 +22,7 @@ namespace ORPG {
          */
         void print_version_flag() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -35,7 +35,7 @@ namespace ORPG {
          */
         void print_help_flag() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
@@ -57,7 +57,7 @@ namespace ORPG {
          */
         void print_basic_version() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -69,7 +69,7 @@ namespace ORPG {
          */
         void print_basic_help() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"

@@ -2,7 +2,7 @@
 roll-parser-test.cpp - Test program for roll-parser
 Created on: Dec 1, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -11,6 +11,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll/roll-parser.h"
 
 using namespace std;
+using namespace ORPG;
 
 int main(int argc, char* argv[]) {
     // TODO roll parser test cases 
@@ -22,7 +23,7 @@ int main(int argc, char* argv[]) {
     ExpressionTree tree_d20;
     ExpressionTree tree_d100;
 
-    /* Once we have a test suite api built/chosen make these expressions far more complex to ensure the enrigirty of our  */
+    /* Once we have a test suite api built/chosen make these expressions far more complex to ensure the enrigirty of our program */
     tree_d4.set_expression("1d4");
     tree_d6.set_expression("1d6");
     tree_d8.set_expression("1d8");
