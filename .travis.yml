@@ -8,10 +8,7 @@ os:
   - linux
   - osx
 
-dist: 
-  - precise
-  - trusty
-  - xenial
+dist: xenial
 
 notifications:
   email: false
