@@ -2,7 +2,7 @@
 openrpg - openrpg.cpp
 Created on: Nov 7, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -24,7 +24,7 @@ using namespace ORPG;
   */
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < http://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -38,7 +38,7 @@ static void print_version_flag() {
   */
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: openrpg [options]\n"
@@ -50,8 +50,8 @@ static void print_help_flag() {
                 "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
           "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
-          "OpenRPG home page: < https://github.com/incomingstick/OpenRPG >\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
@@ -63,7 +63,7 @@ static void print_help_flag() {
   */
 static void print_basic_version() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < http://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -75,7 +75,7 @@ static void print_basic_version() {
   */
 static void print_basic_help() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < http://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: orpg > [command]\n"
@@ -88,8 +88,8 @@ static void print_basic_help() {
                 "\tversion (ver, v | V)                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
           "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: < https://github.com/incomingstick/OpenRPG >\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
@@ -119,8 +119,8 @@ int parse_args(int argc, char* argv[]) {
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
         {"roll",    required_argument,  0,  'r'},
-        {"version", no_argument,        0,  'V'},
         {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -330,7 +330,8 @@ int main(int argc, char* argv[]) {
     
     if(status == CONTINUE_CODE) {
         // TODO - clgui for program
-        print_file("banners/welcome_mat1");
+        if(!QUIET_FLAG)
+            print_file("banners/welcome_mat1");
         string in("");
 
         // get user input

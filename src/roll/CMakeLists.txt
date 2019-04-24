@@ -3,7 +3,7 @@ set(ROLL_PARSER_SOURCE
 )
 
 add_library(roll-parser SHARED ${ROLL_PARSER_SOURCE})
-target_link_libraries(roll-parser)
+target_link_libraries(roll-parser utils)
 
 # if the roll-parser library needs a higher standard than C++11 please update here
 set_property(TARGET roll-parser PROPERTY CXX_STANDARD 11)

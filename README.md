@@ -34,7 +34,7 @@ portable GUI that works on Windows, Linux, and macOS.
 
 ## Building
 Currently we require `cmake` (at least v2.8.4) and `make`, and your choice of C/C++
-compiler.
+compiler that supports at least the C++11 standard.
 
 Note: This project strives to keep its source as clean of any dependancies to be as cross platform as possible. If you have suggestions to help move toward that goal, please feel free to open issues, or even a PR!
 
@@ -76,4 +76,4 @@ After building, in the `build/` folder, run make install `$ make install`
 After installing, in the `build/` folder, run make uninstall `$ make uninstall`
 
 # License
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
