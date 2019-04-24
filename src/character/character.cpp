@@ -160,8 +160,8 @@ namespace ORPG {
     string Character::to_string() {
         string ret("");
 
-        ret += "~~~ " + firstName.empty() ? "" : firstName;
-        ret += " " + lastName.empty() ? "" : lastName;
+        ret += "~~~ " + (firstName.empty() ? "" : firstName);
+        ret += " " + (lastName.empty() ? "" : lastName);
         ret += " ~~~\n";
 
         ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
