@@ -330,7 +330,8 @@ int main(int argc, char* argv[]) {
     
     if(status == CONTINUE_CODE) {
         // TODO - clgui for program
-        print_file("banners/welcome_mat1");
+        if(!QUIET_FLAG)
+            print_file("banners/welcome_mat1");
         string in("");
 
         // get user input
