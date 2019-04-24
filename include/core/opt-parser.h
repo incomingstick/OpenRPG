@@ -6,8 +6,8 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrp
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef OPT_PARSER_H
-#define OPT_PARSER_H
+#ifndef SRC_OPT_PARSER_H
+#define SRC_OPT_PARSER_H
 
 #include <cstring>
 
@@ -341,4 +341,4 @@ int getopt_long(int argc, char* argv[],
     return retval;
 }
 
-#endif /* OPT_PARSER_H */
+#endif /* SRC_OPT_PARSER_H */
