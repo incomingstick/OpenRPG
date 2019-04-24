@@ -7,8 +7,10 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrp
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef RACE_H_
-#define RACE_H_
+#ifndef SRC_RACE_H_
+#define SRC_RACE_H_
+
+#include "character.h"
 
 namespace ORPG {
     class Human : public Character {
@@ -108,4 +110,4 @@ namespace ORPG {
     };
 }
 
-#endif /* RACE_H_ */
+#endif /* SRC_RACE_H_ */

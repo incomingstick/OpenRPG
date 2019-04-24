@@ -160,8 +160,8 @@ namespace ORPG {
     string Character::to_string() {
         string ret("");
 
-        ret += "~~~ " + (firstName.empty() ? "" : firstName);
-        ret += " " + (lastName.empty() ? "" : lastName);
+        ret += "~~~ " + (firstName.empty() || firstName == "NULL" ? "" : firstName);
+        ret += " " + (lastName.empty() || lastName == "NULL" ? "" : lastName);
         ret += " ~~~\n";
 
         ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
@@ -311,10 +311,12 @@ namespace ORPG {
 
         return ret;
     }
-    /* }}}1 */
 
     int gen_stat() {
-        /* TODO accept different types of stat generation */
+        /* 
+         * TODO accept different types of stat generation
+         * i.e 4d4+4 or 4d6h3+2
+         */
 
         Die d6(6);
 
@@ -345,5 +347,4 @@ namespace ORPG {
 
         return ret;
     }
-
 }
