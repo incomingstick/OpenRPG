@@ -299,14 +299,15 @@ int main(int argc, char* argv[]) {
         printf("Choose Subrace:\n");
         factory.select_option(request_selection(factory)); 
     }
-    
-    printf("Class\n");                         // TODO class menu.
-    printf("Background\n");                    // TODO background menu
 
     Ability abil = request_scores();
     
+    printf("Background\n");                    // TODO background menu
+    
+    printf("Class\n");                         // TODO class menu.
     printf("Skill select based on class\n");   // TODO Skill select based on class
     printf("Hit points\n");                    // TODO hit points max, avg, or roll + con mod
+    
     printf("Equipment\n\n");                   // TODO select equipment based on class and background
 
     printf("(leave blank for random name)\n");
