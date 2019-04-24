@@ -9,7 +9,7 @@ set(CHARACTER_INCLUDE
 )
 
 add_library(character SHARED ${CHARACTER_SOURCE})
-target_link_libraries(character utils)
+target_link_libraries(character utils roll-parser names)
 
 # if the character library needs a higher standard than C++11 please update here
 set_property(TARGET character PROPERTY CXX_STANDARD 11)
