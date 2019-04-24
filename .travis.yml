@@ -139,6 +139,7 @@ matrix:
       osx_image: xcode10.1
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - eval "${MATRIX_EVAL}"
   - ./build.sh
   - cd build
