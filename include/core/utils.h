@@ -2,7 +2,7 @@
 openrpg - utils.h
 Created on: Mar 23, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
@@ -11,7 +11,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include <iostream>
 
-#ifdef WIN32
+#ifdef _WIN32
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -41,7 +41,7 @@ std::string leftpad(std::string str, int len = 0, char ch = ' ');
 std::string rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream& safeGetline(std::istream& is, std::string& t);
 bool print_file(std::string file);
-int random(int min, int max);
+int randomInt(int min, int max);
 int gcd(int a, int b);
 
 #endif /* SRC_UTILS_H_ */

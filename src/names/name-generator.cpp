@@ -2,7 +2,7 @@
 name-generator - name-generator.cpp
 Created on: Nov 10, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -14,33 +14,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "names.h"
 
 using namespace std;
-
-static void print_version_flag() {
-    fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
-
-static void print_help_flag() {
-    fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: name-generator [options] RACE SUBRACE GENDER\n"
-                "\t-h --help                   Print this help screen\n"
-                "\t-v --version                Print version info\n"
-                "\t-V --verbose                Verbose program output\n"
-          "\n"
-          "Long options may not be passed with a single dash.\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
-          "See 'man name-generator' for more information [TODO add man pages].\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
+using namespace ORPG;
 
 /* Option parser - parse_args(argc, argv)
     This function parses all cla's passed to argv. */
@@ -69,12 +43,12 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            print_help_flag();
+            ORPG::Names::print_help_flag();
          } break;
 
         /* -v --version */
         case 'v': {
-            print_version_flag();
+            ORPG::Names::print_version_flag();
         } break;
 
         /* -V --verbose */
@@ -86,7 +60,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         /* parsing error */
         case ':':
         case '?': {
-            print_help_flag();
+            ORPG::Names::print_help_flag();
         } break;
         
         /* if we get here something very bad happened */
@@ -139,7 +113,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) {
         printf("race cannot be empty\n");
         status = EXIT_FAILURE;
-        print_help_flag();
+        ORPG::Names::print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {

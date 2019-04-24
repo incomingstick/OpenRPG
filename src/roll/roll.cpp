@@ -2,7 +2,7 @@
 roll - roll.cpp
 Created on: Nov 10, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -12,41 +12,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll/roll-parser.h"
 
 using namespace std;
-
-/**
-  * @desc prints the current compiled version
-  * @return void - always exits with status EXIT_SUCCESS
-  */
-static void print_version_flag() {
-    fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
-
-/**
-  * @desc prints the help and usage menu
-  * @return void - always exits with status EXIT_SUCCESS
-  */
-static void print_help_flag() {
-    fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
-                "\t-h --help                   Print this help screen\n"
-                "\t-v --verbose                Verbose program output\n"
-                "\t-V --version                Print version info\n"
-          "\n"
-          "Long options may not be passed with a single dash.\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
-          "See 'man name-generator' for more information [TODO add man pages].\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
+using namespace ORPG;
 
 /**
   * @desc parses through the arguements passed by char* argv[] and runs
@@ -83,7 +49,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            print_help_flag();
+            Roll::print_help_flag();
         } break;
 
         /* -V --verbose */
@@ -94,13 +60,13 @@ int parse_args(int argc, char* argv[], string* inputString) {
 
         /* -v --version */
         case 'V': {
-            print_version_flag();
+            Roll::print_version_flag();
         } break;
             
         /* parsing error */
         case ':':
         case '?': {
-            print_help_flag();
+            Roll::print_help_flag();
         } break;
         
         /* if we get here something very bad happened */

@@ -2,7 +2,7 @@
 openrpg - openrpg.cpp
 Created on: Nov 7, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -15,6 +15,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll.h"
 
 using namespace std;
+using namespace ORPG;
 
 /**
   * @desc prints the version info when -V or --version is an argument to the command.
@@ -23,7 +24,7 @@ using namespace std;
   */
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -37,7 +38,7 @@ static void print_version_flag() {
   */
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: openrpg [options]\n"
@@ -49,8 +50,8 @@ static void print_help_flag() {
                 "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
+          "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
@@ -62,7 +63,7 @@ static void print_help_flag() {
   */
 static void print_basic_version() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -74,7 +75,7 @@ static void print_basic_version() {
   */
 static void print_basic_help() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: orpg > [command]\n"
@@ -87,8 +88,8 @@ static void print_basic_help() {
                 "\tversion (ver, v | V)                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
+          "OpenRPG home page: < https://www.openrpg.io >\n"
+          "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues>\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
@@ -118,8 +119,8 @@ int parse_args(int argc, char* argv[]) {
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
         {"roll",    required_argument,  0,  'r'},
-        {"version", no_argument,        0,  'V'},
         {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -277,13 +278,11 @@ int parse_input(string in) {
                  */
                 if(words.size() > 1) {
                     if(words[1] == "roll" || words[1] == "r") {
-                        // TODO Get Roll module help message
-                        printf("Roll help not available yet.\n");
+                        Roll::print_basic_help();
 
                         return CONTINUE_CODE;
                     } else if(words[1] == "generate" || words[1] == "gen" || words[1] == "ng") {
-                        // TODO Get Name Generator module help message
-                        printf("Name Generator help not available yet.\n");
+                        Names::print_basic_help();
 
                         return CONTINUE_CODE;
                     }
@@ -331,7 +330,8 @@ int main(int argc, char* argv[]) {
     
     if(status == CONTINUE_CODE) {
         // TODO - clgui for program
-        print_file("banners/welcome_mat1");
+        if(!QUIET_FLAG)
+            print_file("banners/welcome_mat1");
         string in("");
 
         // get user input

@@ -5,6 +5,10 @@
 ############################################################################
 
 # normal compiler flags
+# NOTE(incomingstick): is this necessary? shouldn't cmake pull in our
+# already set compiler flags, like all the othe cmake files do? Is there
+# a reason why we WOULDN'T want to just use those? The is currently no real
+# difference
 set(CMAKE_CXX_FLAGS "-g -Wall --std=c++11")
 
 # source directories

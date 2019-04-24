@@ -8,8 +8,8 @@ set(CHARACTER_INCLUDE
         ${CMAKE_SOURCE_DIR}/include/races.h
 )
 
-add_library(character ${CHARACTER_SOURCE})
-target_link_libraries(character)
+add_library(character SHARED ${CHARACTER_SOURCE})
+target_link_libraries(character utils roll-parser names)
 
 # if the character library needs a higher standard than C++11 please update here
 set_property(TARGET character PROPERTY CXX_STANDARD 11)
@@ -27,3 +27,4 @@ set_property(TARGET character-generator PROPERTY CXX_STANDARD 11)
 set_property(TARGET character-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS character-generator DESTINATION bin)
+install(TARGETS character DESTINATION lib/openrpg)

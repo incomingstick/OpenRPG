@@ -33,21 +33,47 @@ v0.1.0 is a basis for the CLI/developer version, but v1.0.0 will contain a
 portable GUI that works on Windows, Linux, and macOS.
 
 ## Building
-Currently we require `cmake` (at least v2.8.4) and `make`
+Currently we require `cmake` (at least v2.8.4) and `make`, and your choice of C/C++
+compiler that supports at least the C++11 standard.
 
-### Build script
-**Linux:** run build.sh `$ ./build.sh`
+Note: This project strives to keep its source as clean of any dependancies to be as cross platform as possible. If you have suggestions to help move toward that goal, please feel free to open issues, or even a PR!
 
-### Manual build
+### Linux Build Script
+The build script now provides some extra assistance with building, installing, uninstalling and more.
+
+**Debug build:** `$ ./build.sh`
+
+**Install debug build:** `$ ./build.sh install`
+
+**Release build:** `$ ./build.sh release`
+
+**Install release build:** `$ ./build.sh release install`
+
+**Linux clean build:** `$ ./build.sh clean`
+
+**Linux clean and rebuild:** `$ ./build.sh rebuild`
+
+Note: `build.sh` has the potential to work on MacOS, but is currently untested. If you happen to use a Mac, please test this!
+
+### Windows Build Script
+This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR!
+
+Simply run `> build.bat`
+
+
+### Manual Build
 Create a build directory `$ mkdir build && cd build`  
 Run cmake `$ cmake ..` **OR** Optionally run `$ cmake -DCMAKE_INSTALL_PREFIX=/desired/install/location ..`  
 Run make `$ make`  
 
-## Check Integrity of build
-Run make check `$ make check` 
+## Check Integrity of Build
+In the `build/` folder, run make check `$ make check` 
 
 # Installing
-After building run make install `$ make install`
+After building, in the `build/` folder, run make install `$ make install`
+
+# Uninstalling
+After installing, in the `build/` folder, run make uninstall `$ make uninstall`
 
 # License
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
