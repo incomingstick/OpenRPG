@@ -11,6 +11,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll/roll-parser.h"
 
 using namespace std;
+using namespace ORPG;
 
 int main(int argc, char* argv[]) {
     // TODO roll parser test cases 
