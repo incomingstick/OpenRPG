@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8.4 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+set(CMAKE_MACOSX_RPATH 1)
 
 # Project info
 project(OpenRPG)
@@ -32,10 +33,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "DEBUG" "RELEASE")
 endif()
 
-if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
-    message("debug mode")
-endif (CMAKE_BUILD_TYPE EQUAL "DEBUG")
-
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
 
@@ -49,8 +46,8 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
     set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data/openrpg)
 endif(CMAKE_BUILD_TYPE MATCHES DEBUG)
 
-MESSAGE(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
-MESSAGE(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
+message(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
+message(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
 
 # source directories
 include_directories("include/")
