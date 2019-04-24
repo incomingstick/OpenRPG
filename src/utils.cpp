@@ -2,7 +2,7 @@
 openrpg - utils.cpp
 Created on: Mar 23, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
@@ -115,7 +115,7 @@ string rightpad(string str, int len, char ch) {
     return str;
 }
 
-// Taken from http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
+// Taken from https://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
 std::istream& safeGetline(std::istream& is, std::string& t) {
     t.clear();
 

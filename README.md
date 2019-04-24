@@ -76,4 +76,4 @@ After building, in the `build/` folder, run make install `$ make install`
 After installing, in the `build/` folder, run make uninstall `$ make uninstall`
 
 # License
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
