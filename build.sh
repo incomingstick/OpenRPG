@@ -52,6 +52,7 @@ if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; t
             # Should we rebuild and then install, or install
             # using the last build on the system?
             if [[ $1 == "install" || $2 == "install" ]]; then
+                make check
                 sudo make install
                 popd
 
