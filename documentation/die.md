@@ -8,17 +8,19 @@ group: documentation
 Represents a die with a max number passed at construction.
 
 **Namespace:** ORPG
+
 **Assembly:** _none_  
 
 ## Definition
 Defined in `#include "die.h"`
-````C++
+
+{% highlight c++ %}
 class Die {
     public:
         Die(int max);
         int roll();
 };
-````
+{% endhighlight %}
 
 ## Member functions
 

@@ -10,7 +10,7 @@ group: documentation
 
 ## Definition
 Defined in `#include "names.h"`
-````C++
+{% highlight c++ %}
 class NameGenerator {
     public:
         std::string race;
@@ -22,7 +22,7 @@ class NameGenerator {
         std::string make_first();
         std::string make_last();
 };
-````
+{% endhighlight %}
 
 ## Member fields
 

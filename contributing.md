@@ -56,13 +56,15 @@ file.
 ## Programming Standards
 
 ### File Naming
-````c++
+
+{% highlight c++ %}
 cppFile.cpp
 headerFile.h
-````
+{% endhighlight %}
 
 ### Code Blocks
-````c++
+
+{% highlight c++ %}
 /**
   * @desc function description here
   * @param arg bar - what purpose this arg will serve
@@ -72,10 +74,11 @@ function Class::foo(arg bar) {
     // do stuff
     // 4 space tabbed indent
 }
-````
+{% endhighlight %}
 
 ### Function and Variable Naming
-````c++
+
+{% highlight c++ %}
 /**
   * @desc function description here
   * @param arg variableName - what purpose this arg will serve
@@ -84,10 +87,11 @@ function Class::foo(arg bar) {
 function Class::my_function_name(arg variableName) {
     // do stuff
 }
-````
+{% endhighlight %}
 
 ### Class Naming
-````c++
+
+{% highlight c++ %}
 class ClassName {
 private:
     // private variables and functions here
@@ -95,10 +99,11 @@ private:
 public:
     // public variables and functions here
 };
-````
+{% endhighlight %}
 
 ### Switch Statements
-````c++
+
+{% highlight c++ %}
 /* this should be the standard method for
     writing a switch statement unless switch
     scoping is required */
@@ -119,4 +124,4 @@ default: {
     // catch all code here
 }
 }
-````
+{% endhighlight %}
