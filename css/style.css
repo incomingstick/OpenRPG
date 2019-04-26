@@ -83,6 +83,14 @@ footer li {
     background-color: #444;
 }
 
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 9px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
 .navbar-fixed-bottom,
 .navbar-fixed-top,
 .navbar-static-top {
@@ -441,6 +449,14 @@ pre {
 @media (min-width: 768px) {
     .navbar-logo {
         display: none !important;
+    }
+
+    .navbar-brand {
+        float: left;
+        height: 50px;
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
     }
 
     .pageheader h1 {
