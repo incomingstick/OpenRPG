@@ -20,6 +20,14 @@ group: contributing
 ### Before Submitting an Issue
 First, please do a search in open issues to see if the issue or feature request has already been filed. If there is an issue add your comments to this issue.
 
+## Reporting a Bug
+
+Found something that is broken and needs fixing? Head on over to the [Issues](https://github.com/incomingstick/OpenRPG/issues) page and submit a new issue. When submitting a new issue, make sure you click 'Get Started' next to 'Bug Report' to make sure you are using the proper submission template. Please fill this out as thoroughly as possible so we can get to the bottom of your issue! 
+
+## Request a Feature
+
+Wish OpenRPG did something it doesn't already do? Head on over to the [Issues](https://github.com/incomingstick/OpenRPG/issues) page and submit a new issue. When submitting a new issue, make sure you click 'Get Started' next to 'Feature Request' to make sure you are using the proper submission template. Please fill this out as thoroughly as possible so we can get to the bottom of your issue! 
+
 ## Writing Good Bug Reports and Feature Requests
 
 File a single issue per problem and feature request, do not file combo issues.
@@ -37,17 +45,12 @@ The more information you can provide, the more likely someone will be successful
 First and foremost check the [Issues](https://github.com/incomingstick/OpenRPG/issues) page to see what needs to be done.
 Once you're ready to start programming see the Programming Standards section.
 
-I have broken the goals and needs by the "Difficulty" of the task. Beginner tasks
-will be more specific, such as working on a certain function or method. Intermediate tasks
-will be a little broader, such as creating a specific class or utility. Advanced
-tasks will be major milestones that need to be completed. And should only be attempted
-by someone that understand the language.
+I have broken the goals and needs by the "Difficulty" of the task. Beginner tasks will be more specific, such as working on a certain function or method. Intermediate tasks will be a little broader, such as creating a specific class or utility. Advanced tasks will be major milestones that need to be completed. And should only be attempted by someone that understand the language.
 
 ## Pull Request
 
-For something to be considered for merging into master it must be
-submitted as a Pull Request to a current developement branch first.
-Pull requests must follow the format found in the [Issue Template](https://github.com/incomingstick/OpenRPG/blob/patch-v0.3.0-dev/.github/ISSUE_TEMPLATE.md)
+For something to be considered for merging into master it must be submitted as a Pull Request to a current developement branch first.
+Pull requests must follow the format found in the [Pull Request Template](https://github.com/incomingstick/OpenRPG/blob/patch-v0.5.0-dev/.github/PULL_REQUEST_TEMPLATE.md)
 file.
 
 ## Programming Standards
