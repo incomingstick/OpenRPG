@@ -15,7 +15,7 @@ encoding:         UTF-8
 
 include: [".well-known"]
 
-gems:
+plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-seo-tag

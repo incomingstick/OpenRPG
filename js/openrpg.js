@@ -5,7 +5,7 @@ $(function () {
     }
 
     $("#consent").on('click', function() {
-        document.cookie = "cookies=yes; max-age=" + (365 * 52 * 7 * 24 * 60 * 60);
+        document.cookie = "cookies=yes; max-age=" + (365 * 52 * 7 * 24 * 60 * 60) + ";domain=.openrpg.io;path=/";
         $("#cookie-consent").slideUp('slow');
     });
 
