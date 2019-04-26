@@ -366,6 +366,13 @@ footer a, .navbar a {
     border-color: #2196F3;
 }
 
+.btn-xs {
+    padding: 1px 5px;
+    font-size: .85rem;
+    line-height: 1.5;
+    border-radius: .2rem
+}
+
 .btn-lg {
     padding: .75rem 1.5rem;
     font-size: 1.25rem;
@@ -417,12 +424,16 @@ pre {
 #cookie-consent .btn {
     color: #110628;
     border-color: #110628;
+    background-color: #fff;
 }
 
-.btn-xs {
-    padding: 1px 5px;
-    font-size: 13px;
-    line-height: 1.5;
+#cookie-consent .btn:hover,
+#cookie-consent .btn:active,
+#cookie-consent .btn:focus {
+    text-decoration: none;
+    color: #2196F3;
+    background-color: #110628;
+    border-color: #110628;
 }
 
 /* @media styles */
