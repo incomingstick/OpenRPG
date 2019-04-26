@@ -14,7 +14,7 @@ Represents a die with a max number passed at construction.
 ## Definition
 Defined in `#include "die.h"`
 
-{% highlight c++ %}
+{% highlight cpp %}
 class Die {
     public:
         Die(int max);

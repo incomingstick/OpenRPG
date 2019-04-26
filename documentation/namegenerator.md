@@ -5,12 +5,14 @@ description: Randomly generate names based on race
 group: documentation
 ---
 
-**Namespace:** ORPG, Names
+**Namespace:** ORPG
+
 **Assembly:** _none_  
 
 ## Definition
 Defined in `#include "names.h"`
-{% highlight c++ %}
+
+{% highlight cpp %}
 class NameGenerator {
     public:
         std::string race;

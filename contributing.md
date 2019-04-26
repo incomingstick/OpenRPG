@@ -57,14 +57,14 @@ file.
 
 ### File Naming
 
-{% highlight c++ %}
+{% highlight cpp %}
 cppFile.cpp
 headerFile.h
 {% endhighlight %}
 
 ### Code Blocks
 
-{% highlight c++ %}
+{% highlight cpp %}
 /**
   * @desc function description here
   * @param arg bar - what purpose this arg will serve
@@ -78,7 +78,7 @@ function Class::foo(arg bar) {
 
 ### Function and Variable Naming
 
-{% highlight c++ %}
+{% highlight cpp %}
 /**
   * @desc function description here
   * @param arg variableName - what purpose this arg will serve
@@ -91,7 +91,7 @@ function Class::my_function_name(arg variableName) {
 
 ### Class Naming
 
-{% highlight c++ %}
+{% highlight cpp %}
 class ClassName {
 private:
     // private variables and functions here
@@ -103,7 +103,7 @@ public:
 
 ### Switch Statements
 
-{% highlight c++ %}
+{% highlight cpp %}
 /* this should be the standard method for
     writing a switch statement unless switch
     scoping is required */
