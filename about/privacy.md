@@ -18,7 +18,7 @@ This site makes use of some third party services who also store cookies (Third p
 
 You can click on each of the services to learn how to opt out of accepting cookies from them.
 
-If you would like more general information on controlling cookies, please visit [www.aboutcookies.org](http://www.aboutcookies.org/).
+If you would like more general information on controlling cookies, please visit [www.aboutcookies.org](https://www.aboutcookies.com/).
 
  
 *Note: cookies are browser-specific. If you visit using a different browser or on another machine, you may see the banner again.
