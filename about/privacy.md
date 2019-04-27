@@ -9,7 +9,7 @@ author: nick
 ## Cookies
 When you visit this site, cookies will be placed on your machine for tracking visitor activity anonymously; and remembering user preferences.
 
-We set a cookie to remember that you don't want to see the banner at the bottom of the page that warns you about cookies on this site. If you click the "I'm happy with this" button, you will not see this banner on future visits* and you will opt in to having a cookie placed on your machine by us.
+We set a cookie to remember that you don't want to see the banner at the top of the page that warns you about cookies on this site. If you click the "Ok" button, you will not see this banner on future visits* and you will opt in to having a cookie placed on your machine by us.
 
 This site makes use of some third party services who also store cookies (Third party cookies) on your machine. These services are:
 
