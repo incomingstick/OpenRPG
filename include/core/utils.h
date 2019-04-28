@@ -30,6 +30,11 @@ There is NO WARRANTY, to the extent permitted by law.
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
+typedef char int8;
+typedef unsigned char uint8;
+typedef short int16;
+typedef unsigned short uint16;
+
 extern bool VB_FLAG;
 extern bool QUIET_FLAG;
 

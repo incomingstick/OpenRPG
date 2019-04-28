@@ -58,16 +58,16 @@ int parse_args(int argc, char* argv[]) {
         case 'r': {
             // TODO skip character creator and generate fully random character
         } break;
-
-        /* -V --verbose */
+        
+        /* -v --version */
         case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Characters::print_version_flag();
         } break;
 
-        /* -v --version */
+        /* -V --verbose */
         case 'V': {
-            Characters::print_version_flag();
+            VB_FLAG = true;
+            QUIET_FLAG = false;
         } break;
             
         /* parsing error */
@@ -169,12 +169,12 @@ int request_selection(CharacterFactory factory) {
  * 
  * @return Ability - an Ability containing the users input scores
  */
-Ability request_scores() {    
+AbilityScores request_scores() {    
     printf("\n");
 
-    Ability ret;
+    AbilityScores ret;
     string input;
-    vector<int> stats = ability_vector();
+    vector<int> stats = ability_score_vector();
 
     printf("You generated the following ability scores: \n");
 
@@ -190,7 +190,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.STR = stoi(input);
+                ret.setScore(STR, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -203,7 +203,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.DEX = stoi(input);
+                ret.setScore(DEX, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -216,7 +216,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.CON = stoi(input); 
+                ret.setScore(CON, stoi(input)); 
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -229,7 +229,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.INT = stoi(input);
+                ret.setScore(INT, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -242,7 +242,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.WIS = stoi(input);
+                ret.setScore(WIS, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -255,7 +255,7 @@ Ability request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.CHA = stoi(input);
+                ret.setScore(CHA, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -300,7 +300,7 @@ int main(int argc, char* argv[]) {
         factory.select_option(request_selection(factory)); 
     }
 
-    Ability abil = request_scores();
+    AbilityScores abil = request_scores();
     
     printf("Background\n");                    // TODO background menu
     
@@ -320,7 +320,9 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = name.empty() ? factory.NewCharacter(abil) : factory.NewCharacter(abil, name);
+    Character* character = name.empty() ? 
+        factory.NewCharacter(abil) :
+        factory.NewCharacter(abil, name);
     
     printf("%s", character->to_string().c_str());
 
