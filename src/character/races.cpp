@@ -16,7 +16,10 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 using namespace ORPG;
 
-/*
+/**
+ * Races currently assume 5e. What can we do to abstract outside of
+ * that space?
+ * 
  * TODO(incomingstick): based on how much copy pasting I did, it is clear that
  * setting the name could get ugly quick if we don't turn as much of it into
  * functions.

@@ -46,20 +46,14 @@ namespace ORPG {
 		355000        // Level 20
 	};
 
+	/* An enum containing the traditional alignment grid */
 	enum Alignment {
-		LawfulGood,
-		NeutralGood,
-		ChaoticGood,
-		
-		LawfulNeutral,
-		TrueNeutral,
-		ChaoticNeutral,
-
-		LawfulEvil,
-		NeutralEvil,
-		ChaoticEvil
+		LawfulGood, 	NeutralGood, 	ChaoticGood,
+		LawfulNeutral, 	TrueNeutral, 	ChaoticNeutral,
+		LawfulEvil, 	NeutralEvil, 	ChaoticEvil
 	};
 
+	/* An enum containing the list of D&D 5E languages */
 	enum Language {
 		Common,    Dwarvish,   Elvish,
 		Giant,     Gnomish,    Goblin,
@@ -69,6 +63,12 @@ namespace ORPG {
 		Undercommon
 	};
 
+	/*
+	 * An enum containing genders
+	 * 
+	 * NOTE(incomingstick): How far do we want to take this? We could
+	 * put ourselves in  a tricky place if this is done wrong.
+	 */
 	enum Gender {
 		Male,
 		Female,
