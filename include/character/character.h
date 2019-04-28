@@ -170,12 +170,12 @@ namespace ORPG {
 		int CHA() { return abils.getScore(EnumAbilityScore::CHA); };
 	
 		/* accessor functions for ability score modifiers */
-		int STR_MOD() { return modifier(abils.getMod(EnumAbilityScore::STR)); };
-		int DEX_MOD() { return modifier(abils.getMod(EnumAbilityScore::DEX)); };
-		int CON_MOD() { return modifier(abils.getMod(EnumAbilityScore::CON)); };
-		int INT_MOD() { return modifier(abils.getMod(EnumAbilityScore::INT)); };
-		int WIS_MOD() { return modifier(abils.getMod(EnumAbilityScore::WIS)); };
-		int CHA_MOD() { return modifier(abils.getMod(EnumAbilityScore::CHA)); };
+		int STR_MOD() { return abils.getMod(EnumAbilityScore::STR); };
+		int DEX_MOD() { return abils.getMod(EnumAbilityScore::DEX); };
+		int CON_MOD() { return abils.getMod(EnumAbilityScore::CON); };
+		int INT_MOD() { return abils.getMod(EnumAbilityScore::INT); };
+		int WIS_MOD() { return abils.getMod(EnumAbilityScore::WIS); };
+		int CHA_MOD() { return abils.getMod(EnumAbilityScore::CHA); };
 
 		/* accessor functions for ability score saves */
 		int STR_SAVE() { return modifier(abils.getSave(EnumAbilityScore::STR)); };
