@@ -70,6 +70,7 @@ namespace ORPG {
         HillDwarf();
 
         static const int ID = 0x0011;
+        static const std::string race;
     };
 
     class Elf : public Race {
@@ -96,6 +97,7 @@ namespace ORPG {
         HighElf();
 
         static const int ID = 0x0021;
+        static const std::string race;
     };
 }
 

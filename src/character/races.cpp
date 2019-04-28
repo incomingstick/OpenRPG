@@ -23,8 +23,14 @@ using namespace ORPG;
  */
 
 namespace ORPG {
+    /* The String representation for a Human */
     const string Human::race = "Human";
 
+    /**
+     * @desc Constructor for a Human that is passed no arguments. A base Human
+     * has +1 to all stats. Human::Initialize() is called at the end of the
+     * constructor.
+     */
     Human::Human() {
         abilBonus.setScore(STR, 1);    // Strength
         abilBonus.setScore(DEX, 1);    // Dexterity
@@ -36,14 +42,27 @@ namespace ORPG {
         Initialize();
     }
 
+    /**
+     * @desc Initialization for a Human that is passed no arguments. 
+     * Currently there is no additonal intialization that is done.
+     * 
+     * NOTE(incomingstick): Here we should finish setting up our race,
+     * by doing everything that ALL Races of type Human should do.
+     */
     void Human::Initialize() {
         // TODO
 
-        Race::Initialize();
+        Super::Initialize();
     }
 
+    /* The String representation for a Dwarf */
     const string Dwarf::race = "Dwarf";
 
+    /**
+     * @desc Constructor for a Dwarf that is passed no arguments. A base Dwarf
+     * has +2 to CON. Dwarf::Initialize() is called at the end of the
+     * constructor.
+     */
     Dwarf::Dwarf() {
         abilBonus.setScore(STR, 0);     // Strength
         abilBonus.setScore(DEX, 0);     // Dexterity
@@ -55,12 +74,27 @@ namespace ORPG {
         Initialize();
     }
 
+    /**
+     * @desc Initialization for a Dwarf that is passed no arguments. 
+     * Currently there is no additonal intialization that is done.
+     * 
+     * NOTE(incomingstick): Here we should finish setting up our race,
+     * by doing everything that ALL Races of type Dwarf should do.
+     */
     void Dwarf::Initialize() {
         // TODO
 
-        Race::Initialize();
+        Super::Initialize();
     }
 
+    /* The String representation for a HillDwarf */
+    const string HillDwarf::race = "Hill Dwarf";
+
+    /**
+     * @desc Constructor for a HillDwarf that is passed no arguments. A base
+     * HillDwarf has +2 to CON and +1 to WIS. HillDwarf::Initialize() is
+     * called at the end of the constructor.
+     */
     HillDwarf::HillDwarf() {
         abilBonus.setScore(STR, 0);     // Strength
         abilBonus.setScore(DEX, 0);     // Dexterity
@@ -72,8 +106,14 @@ namespace ORPG {
         Initialize();
     }
 
+    /* The String representation for an Elf */
     const string Elf::race = "Elf";
 
+    /**
+     * @desc Constructor for an Elf that is passed no arguments. A base Elf
+     * has +2 to DEX. Elf::Initialize() is called at the end of the
+     * constructor.
+     */
     Elf::Elf() {
         abilBonus.setScore(STR, 0);      // Strength
         abilBonus.setScore(DEX, 2);      // Dexterity
@@ -85,12 +125,27 @@ namespace ORPG {
         Initialize();
     }
 
-
+    /**
+     * @desc Initialization for an Elf that is passed no arguments. 
+     * Currently there is no additonal intialization that is done.
+     * 
+     * NOTE(incomingstick): Here we should finish setting up our race,
+     * by doing everything that ALL Races of type Elf should do.
+     */
     void Elf::Initialize() {
+        // TODO
 
         Super::Initialize();
     }
 
+    /* The String representation for a HighElf */
+    const string HighElf::race = "High Elf";
+
+    /**
+     * @desc Constructor for a HighElf that is passed no arguments. A base
+     * HighElf has +2 to DEX and +1 to INT. Elf::Initialize() is called at the
+     * end of the constructor.
+     */
     HighElf::HighElf() {
         abilBonus.setScore(STR,0);      // Strength
         abilBonus.setScore(DEX,2);      // Dexterity
