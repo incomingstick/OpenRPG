@@ -23,7 +23,7 @@ using namespace ORPG;
  */
 
 namespace ORPG {
-    /* The String representation for a Human */
+    /* The const string representation for a Human */
     const string Human::race = "Human";
 
     /**
@@ -55,7 +55,7 @@ namespace ORPG {
         Super::Initialize();
     }
 
-    /* The String representation for a Dwarf */
+    /* The const string representation for a Dwarf */
     const string Dwarf::race = "Dwarf";
 
     /**
@@ -87,7 +87,7 @@ namespace ORPG {
         Super::Initialize();
     }
 
-    /* The String representation for a HillDwarf */
+    /* The const string representation for a HillDwarf */
     const string HillDwarf::race = "Hill Dwarf";
 
     /**
@@ -106,7 +106,7 @@ namespace ORPG {
         Initialize();
     }
 
-    /* The String representation for an Elf */
+    /* The const string representation for an Elf */
     const string Elf::race = "Elf";
 
     /**
