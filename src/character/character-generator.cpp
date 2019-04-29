@@ -190,7 +190,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(STR, stoi(input));
+                ret.setScore(EnumAbilityScore::STR, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -203,7 +203,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(DEX, stoi(input));
+                ret.setScore(EnumAbilityScore::DEX, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -216,7 +216,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(CON, stoi(input)); 
+                ret.setScore(EnumAbilityScore::CON, stoi(input)); 
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -229,7 +229,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(INT, stoi(input));
+                ret.setScore(EnumAbilityScore::INT, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -242,7 +242,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(WIS, stoi(input));
+                ret.setScore(EnumAbilityScore::WIS, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -255,7 +255,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(CHA, stoi(input));
+                ret.setScore(EnumAbilityScore::CHA, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
