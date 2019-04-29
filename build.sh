@@ -13,7 +13,7 @@ if [[ $1 == "help" || $1 == "h" ]]; then
 fi
 
 # TODO finish this logics
-if [[ (1 == "clean" || $1 == "rebuild" || $1 == "install" || $2 == "install") && -d "$cwd/build" ]]; then
+if [[ ($1 == "clean" || $1 == "rebuild" || $1 == "install" || $2 == "install") && -d "$cwd/build" ]]; then
     rm -rfv "$cwd/build"
 
     if [[ $1 == "clean" ]]; then

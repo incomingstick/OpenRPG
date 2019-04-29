@@ -56,7 +56,7 @@ The build script now provides some extra assistance with building, installing, u
 Note: `build.sh` has the potential to work on MacOS, but is currently untested. If you happen to use a Mac, please test this!
 
 ### Windows Build Script
-This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR!
+This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR! Please make sure you have at least Visual Studio Build Tools (v141) or higher if compiling natively.
 
 Simply run `> build.bat`
 
