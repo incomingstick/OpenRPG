@@ -14,7 +14,8 @@ fi
 
 # TODO finish this logics
 if [[ ($1 == "clean" || $1 == "rebuild" || $1 == "install" || $2 == "install") && -d "$cwd/build" ]]; then
-    rm -rfv "$cwd/build"
+    rm -rfv $cwd/build
+    rm -rfv $cwd/include/**/exports/
 
     if [[ $1 == "clean" ]]; then
         exit 0
