@@ -9,6 +9,13 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_ROLL_PARSER_H_
 #define SRC_ROLL_PARSER_H_
 
+#ifdef _WIN32
+#   define roll_parser_EXPORTS
+#   include "roll/exports/parser_exports.h"
+#else
+#   define ROLL_PARSER_EXPORT
+#endif
+
 #include "roll/die.h"
 
 #define FUDGE_DIE       -2 // represents a fudge die
@@ -32,14 +39,14 @@ There is NO WARRANTY, to the extent permitted by law.
 
 namespace ORPG {
     namespace Roll {
-        void print_version_flag();
-        void print_help_flag();
-        void print_basic_version();
-        void print_basic_help();
+        void ROLL_PARSER_EXPORT print_version_flag();
+        void ROLL_PARSER_EXPORT print_help_flag();
+        void ROLL_PARSER_EXPORT print_basic_version();
+        void ROLL_PARSER_EXPORT print_basic_help();
     }
 
     /* node of the intermediate representation parse tree */
-    struct parse_node {
+    struct ROLL_PARSER_EXPORT parse_node {
         struct parse_node* left;    // left node
         struct parse_node* right;   // right node
         struct parse_node* parent;  // this nodes parent
@@ -47,7 +54,7 @@ namespace ORPG {
         int value;                  // node value
     };
 
-    class ExpressionTree {
+    class ROLL_PARSER_EXPORT ExpressionTree {
     private:
         parse_node* allocate_node();
         parse_node* new_number(struct parse_node* cur, int* numBytesToRead = 0);

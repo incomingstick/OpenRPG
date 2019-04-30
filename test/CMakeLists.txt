@@ -29,7 +29,7 @@ set(CUR_TEST_SRC
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
-target_link_libraries(${CUR_TEST} utils)
+target_link_libraries(${CUR_TEST} utils names)
 
 macro(do_test test arg1 arg2)
   add_test(${test}-${arg1}-${arg2} ${test} ${arg1} ${arg2})
@@ -53,7 +53,7 @@ set(CUR_TEST_SRC
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
-target_link_libraries(${CUR_TEST} utils)
+target_link_libraries(${CUR_TEST} utils roll-parser)
 
 macro(do_test test)
   add_test(${test}-die ${test})
