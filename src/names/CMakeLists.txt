@@ -1,5 +1,5 @@
 set(NAMES_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
 )
 
 add_library(names SHARED ${NAMES_SOURCE})
@@ -9,8 +9,8 @@ target_link_libraries(names utils)
 set_property(TARGET names PROPERTY CXX_STANDARD 11)
 set_property(TARGET names PROPERTY CXX_STANDARD_REQUIRED ON)
 
-set(NG_SOURCES 
-        ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp  
+set(NG_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
 )
 
 add_executable(name-generator ${NG_SOURCES})

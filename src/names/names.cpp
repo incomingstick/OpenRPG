@@ -21,12 +21,18 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 
 string make_location_valid(const string& loc) {
-    // string ret = loc;
+    string ret = loc;
 
     // TODO: test what location we are looking for
     // to ensure it is a valid list
-    
-    return loc;
+
+    /**
+     * NOTE(incomingstick): For security reasons we likely should look at
+     * setting some form of fallback location in the event that we cannot
+     * fix the given location.
+     **/
+
+    return ret;
 }
 
 namespace ORPG {
@@ -82,7 +88,7 @@ namespace ORPG {
     }
 
     NameGenerator::NameGenerator(string _race):
-        NameGenerator(_race, "")    
+        NameGenerator(_race, "")
     {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
 
@@ -94,7 +100,7 @@ namespace ORPG {
     }
 
     NameGenerator::NameGenerator(string _race, string _gender)
-        :location(ASSET_LOC), race(_race), gender(_gender) 
+        :location(ASSET_LOC), race(_race), gender(_gender)
     {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
         transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
@@ -102,7 +108,7 @@ namespace ORPG {
 
         // this->race = race;
         // this->gender = gender;
-        
+
         // location = ASSET_LOC;
         // location += "/names";
     }
@@ -114,9 +120,9 @@ namespace ORPG {
             ret += make_first();
             ret += " ";
         }
-        
+
         ret += make_last();
-        
+
         return ret;
     }
 
@@ -164,7 +170,7 @@ namespace ORPG {
         string loc = make_location_valid(location +"/"+ race +"/last.lst");
 
         ifstream file(loc.c_str());
-        
+
         if(file.is_open()) {
             string line;
             vector<string> lines;
@@ -187,7 +193,7 @@ namespace ORPG {
             // cannot be opened then something serious has gone wrong
             cerr << "unable to open file " << loc << endl;
         }
-        
+
         return "NULL";
     }
 }
