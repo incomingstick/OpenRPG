@@ -10,7 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #define SRC_CHARACTER_H_
 
 #ifdef _WIN32
-#   define character_EXPORTS
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
 #	include "exports/character_exports.h"
 #else
 #	define CHARACTER_EXPORT
