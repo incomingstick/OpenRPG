@@ -7,6 +7,7 @@ compiler:
 os:
   - linux
   - osx
+  - windows
 
 dist: trusty
 
@@ -126,8 +127,6 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - eval "${MATRIX_EVAL}"
-  - ./build.sh
-  - cd build
 
 script:
-  - make check && sudo make install
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.bat; else ./build.sh; fi
