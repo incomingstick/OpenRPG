@@ -27,13 +27,13 @@ There is NO WARRANTY, to the extent permitted by law.
 #define ERROR_CODE      1
 
 // Any useful keycodes go here
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
+#define KEY_UP      72
+#define KEY_DOWN    80
+#define KEY_LEFT    75
+#define KEY_RIGHT   77
 
-extern bool UTILS_EXPORT VB_FLAG;
-extern bool UTILS_EXPORT QUIET_FLAG;
+bool UTILS_EXPORT VB_FLAG = false;
+bool UTILS_EXPORT QUIET_FLAG = false;
 
 size_t UTILS_EXPORT get_console_width();
 size_t UTILS_EXPORT get_console_height();

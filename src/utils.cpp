@@ -23,9 +23,6 @@ using namespace std;
 
 string asset_loc = ASSET_LOC;
 
-bool VB_FLAG = false;
-bool QUIET_FLAG = false;
-
 /*
  * Loads the menu file of the given type to be used
  * for printing the UI

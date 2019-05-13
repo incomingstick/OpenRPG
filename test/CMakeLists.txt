@@ -24,16 +24,15 @@ add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
 set(CUR_TEST name-generator-test)
 
 set(CUR_TEST_SRC
-        ${CUR_TEST}.cpp
-        ${CMAKE_SOURCE_DIR}/src/names/names.cpp
+    ${CUR_TEST}.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
 target_link_libraries(${CUR_TEST} utils names)
 
 macro(do_test test arg1 arg2)
-  add_test(${test}-${arg1}-${arg2} ${test} ${arg1} ${arg2})
-  add_dependencies(check ${test})
+    add_test(${test}-${arg1}-${arg2} ${test} ${arg1} ${arg2})
+    add_dependencies(check ${test})
 endmacro(do_test)
 
 # dwarf
@@ -48,16 +47,15 @@ do_test(${CUR_TEST} human female)
 set(CUR_TEST roll-parser-test)
 
 set(CUR_TEST_SRC
-        ${CUR_TEST}.cpp
-        ${CMAKE_SOURCE_DIR}/src/roll/roll-parser.cpp
+    ${CUR_TEST}.cpp
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
 target_link_libraries(${CUR_TEST} utils roll-parser)
 
 macro(do_test test)
-  add_test(${test}-die ${test})
-  add_dependencies(check ${test})
+    add_test(${test}-die ${test})
+    add_dependencies(check ${test})
 endmacro(do_test)
 
 do_test(${CUR_TEST})
