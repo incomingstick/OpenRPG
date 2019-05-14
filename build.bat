@@ -24,11 +24,12 @@ goto cmakeFound
 
 :cmakeMissing
 echo cmake not found in PATH
-goto commonExit
+exit 1
 
 :msbuildMissing
 echo msbuild not found in PATH
-goto commonExit
+exit 1
 
 :commonExit
 echo exiting
+exit 0
