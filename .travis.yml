@@ -127,7 +127,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then PATH="$PATH:$TRAVIS_BUILD_DIR/bin"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; ls $TRAVIS_BUILD_DIR fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then ls $TRAVIS_BUILD_DIR fi
   - eval "${MATRIX_EVAL}"
 
 script:
