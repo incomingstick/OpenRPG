@@ -14,7 +14,7 @@ IF exist build/ (
     IF %ERRORLEVEL% NEQ 0 goto msbuildMissing
 
     :msbuildFound
-    msbuild OpenRPG.sln /p:Platform="x64"
+    msbuild OpenRPG.sln
 
     popd
     goto commonExit
