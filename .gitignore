@@ -52,6 +52,11 @@ config.h
 # Rust files
 Cargo.lock
 
+# packages and archive files
+*.zip
+*.tar
+*.tar.*
+
 # Temp until GUI is merged into dev branch
 app/
 *.swp
