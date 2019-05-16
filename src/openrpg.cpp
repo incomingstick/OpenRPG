@@ -336,8 +336,12 @@ int main(int argc, char* argv[]) {
 
         // get user input
         while(status == CONTINUE_CODE) {
-            printf("\33[4morpg\33[0m > ");
-
+#           ifndef _WIN32
+                printf("\33[4morpg\33[0m > ");
+#           else
+                printf("orpg > "); // Windows does not currently support linux style terminal text editing
+#           endif
+            
             getline(cin, in);
             status = parse_input(in);
         }
