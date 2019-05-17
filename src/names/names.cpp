@@ -107,6 +107,33 @@ namespace ORPG {
         // location += "/names";
     }
 
+    /**
+     * CAUTION(incomingstick): By creating this constructor we are allowing an
+     * end user to specify the location the namelist we will read from. It is
+     * extremely important we explore this further. I do think this could prove
+     * a beneficial feature, if we allow end users to specify namelists.
+     * 
+     * NOTE(incomingstick): I am creating this function specifically to help
+     * the test suite. When testing on a fresh system, we are built before we
+     * test, but the release builds defines ASSET_LOC as:
+     *      "/usr/local/data/openrpg"
+     * Because of this, it attempts to check a folder that has not been installed
+     * yet, and we need a way to NameGenerator to our source data folder.
+     **/
+    NameGenerator::NameGenerator(string _race, string _gender, string location)
+        :location(location), race(_race), gender(_gender) 
+    {
+        transform(race.begin(), race.end(), race.begin(), ::tolower);
+        transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        location += "/names";
+
+        // this->race = race;
+        // this->gender = gender;
+        
+        // location = ASSET_LOC;
+        // location += "/names";
+    }
+
     string NameGenerator::make_name() {
         string ret;
 

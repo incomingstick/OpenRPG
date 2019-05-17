@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     std::string race = argv[1];
     std::string gender = argv[2];
 
-    NameGenerator gen(race, gender);
+    NameGenerator gen(race, gender, TESTING_ASSET_LOC + (std::string)"/names");
 
     std::string first("NULL");
     std::string last("NULL");

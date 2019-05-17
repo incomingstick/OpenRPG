@@ -28,6 +28,7 @@ namespace ORPG {
 
         NameGenerator(std::string _race = "dwarf");
         NameGenerator(std::string _race, std::string _gender);
+        NameGenerator(std::string _race, std::string _gender, std::string _location);
 
         std::string make_name();
         std::string make_first();

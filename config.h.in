@@ -24,6 +24,6 @@ edit the original config.h.in file NOT THIS FILE.
 #define AUTHOR "@OpenRPG_AUTHOR@"
 #define COPYRIGHT "(C) 2016-@YEAR@ @OpenRPG_AUTHOR@"
 #define ASSET_LOC "${DATA_DIR}"
-#define ${CMAKE_BUILD_TYPE}
+#define ${CMAKE_BUILD_TYPE} 1
 
 #endif  /* CONFIG_H_ */
