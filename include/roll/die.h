@@ -14,8 +14,17 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "core/utils.h"
 
+#ifdef _WIN32
+#   ifndef roll_parser_EXPORTS
+#       define roll_parser_EXPORTS
+#   endif
+#   include "roll/exports/parser_exports.h"
+#else
+#   define ROLL_PARSER_EXPORT
+#endif
+
 namespace ORPG {
-    class Die {
+    class ROLL_PARSER_EXPORT Die {
         private:
             const int MAX = 20;
         public:
@@ -26,6 +35,7 @@ namespace ORPG {
                     (max < 2) ? 2
                             : max
                     ){};
+
             int roll() {
                 std::random_device rd;
                 std::mt19937 mt(rd());

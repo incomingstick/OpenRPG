@@ -1,5 +1,6 @@
-# require cmake v2.8.4
-cmake_minimum_required(VERSION 2.8.4 FATAL_ERROR)
+# require cmake v3.0
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+include(GenerateExportHeader)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
@@ -17,37 +18,56 @@ string(TIMESTAMP DATE UTC)
 
 # default compiler flags
 # Set a default build type if none was specified
-set(default_build_type "RELEASE")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+set(DEFAULT_BUILD_TYPE "RELEASE")
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-  set(default_build_type "DEBUG")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+  set(DEFAULT_BUILD_TYPE "DEBUG")
 endif()
- 
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  message(STATUS "Setting build type to '${default_build_type}' as none were specified.")
-  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+
+if(NOT CMAKE_BUILD_TYPE)
+  message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE}' as none were specified.")
+  set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE
       STRING "Choose the type of build." FORCE)
   # Set the possible values of build type for cmake-gui
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
     "DEBUG" "RELEASE")
 endif()
 
+if(MSVC OR WIN32)
+  # Force to always compile with W1
+  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    string(REGEX REPLACE "/W[0-4]" "/W1" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
+  endif()
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+  if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+  endif()
+endif()
+
+message(STATUS "CMAKE_CXX_FLAGS:\t" ${CMAKE_CXX_FLAGS})
+message(STATUS "DEFAULT_BUILD_TYPE:\t" ${DEFAULT_BUILD_TYPE})
+message(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
+
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
+
+message(STATUS "INCLUDE:\t\t" ${INCLUDE})
 
 set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib/openrpg)
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # used to pass the location to use for data into config.h.in
-if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(DATA_DIR ${DATA})
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
     set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data/openrpg)
-endif(CMAKE_BUILD_TYPE MATCHES DEBUG)
+endif()
 
-message(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
 message(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
+
+# message( FATAL_ERROR "Exiting.." )
 
 # source directories
 include_directories("include/")
