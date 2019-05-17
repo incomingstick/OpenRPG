@@ -1,8 +1,14 @@
+set(NAMES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/names/)
+
 set(NAMES_SOURCE
         ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
 )
 
 add_library(names SHARED ${NAMES_SOURCE})
+GENERATE_EXPORT_HEADER(names           
+    EXPORT_FILE_NAME ${NAMES_INCLUDE_DIR}/exports/names_exports.h
+    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
+
 target_link_libraries(names utils)
 
 # if the names library needs a higher standard than C++11 please update here

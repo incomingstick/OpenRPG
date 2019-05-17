@@ -2,7 +2,7 @@
 openrpg - openrpg.cpp
 Created on: Nov 7, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -24,7 +24,7 @@ using namespace ORPG;
   */
 static void print_version_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -38,7 +38,7 @@ static void print_version_flag() {
   */
 static void print_help_flag() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n"
           "Usage: openrpg [options]\n"
@@ -50,8 +50,8 @@ static void print_help_flag() {
                 "\t-V --version                Print version info\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
-          "OpenRPG home page: < https://www.openrpg.io >\n"
-          "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
+          "OpenRPG home page: <https://openrpg.io>\n"
+          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
     exit(EXIT_SUCCESS);
@@ -63,7 +63,7 @@ static void print_help_flag() {
   */
 static void print_basic_version() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
           "There is NO WARRANTY, to the extent permitted by law.\n\n",
           stdout);
@@ -75,21 +75,24 @@ static void print_basic_version() {
   */
 static void print_basic_help() {
     fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
           "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n"
+          "There is NO WARRANTY, to the extent permitted by law.\n"
+          "\n"
           "Usage: orpg > [command]\n"
           "\n"
           "Available commands:\n"
-                "\thelp (h) [COMMAND]                  Print the help screen for the given module. Omitting a\n"
-                "\t                                      command prints this help menu.\n" 
-                "\tgenerate (gen, ng) [RACE | GENDER]  Generate a random name of the given RACE and GENDER\n"
-                "\troll (r) [XdY]                      Simulates rolling dice with Y sides X number of times\n"
-                "\tversion (ver, v | V)                Print version info\n"
+                "\thelp (h) [module]                    Print the help screen for the given module. Omitting a\n"
+                "\t                                         module prints this help menu.\n" 
+                "\tversion (ver, v | V)                 Print version info\n"
+          "\n"
+          "Available modules:\n"
+                "\tgenerate (gen, ng) [RACE | GENDER]   Generate a random name of the given RACE and GENDER\n"
+                "\troll (r) [XdY]                       Simulates rolling dice with Y sides X number of times\n"
           "\n"
           "Long options may not be passed with a single dash.\n"
-          "OpenRPG home page: < https://www.openrpg.io >\n"
-          "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues>\n"
+          "OpenRPG home page: <https://openrpg.io>\n"
+          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
           "See 'man openrpg' for more information [TODO add man pages].\n",
           stdout);
 }
@@ -285,6 +288,10 @@ int parse_input(string in) {
                         Names::print_basic_help();
 
                         return CONTINUE_CODE;
+                    } else {
+                        print_basic_help();
+
+                        return CONTINUE_CODE;
                     }
                 } else {
                     print_basic_help();
@@ -329,15 +336,20 @@ int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
     
     if(status == CONTINUE_CODE) {
-        // TODO - clgui for program
         if(!QUIET_FLAG)
+            // TODO - add more banners and randomly pick one
             print_file("banners/welcome_mat1");
         string in("");
 
         // get user input
         while(status == CONTINUE_CODE) {
-            printf("\33[4morpg\33[0m > ");
-
+#           ifndef _WIN32
+                printf("\33[4morpg\33[0m > ");
+#           else
+                // Windows does not currently support linux style terminal text editing
+                printf("orpg > ");
+#           endif
+            
             getline(cin, in);
             status = parse_input(in);
         }

@@ -2,7 +2,7 @@
 roll-parser-test.cpp - Test program for roll-parser
 Created on: Dec 1, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -32,13 +32,13 @@ int main(int argc, char* argv[]) {
     tree_d20.set_expression("1d20");
     tree_d100.set_expression("1d100");
     
-    int d4      = tree_d4.parse_expression();
-    int d6      = tree_d6.parse_expression();
-    int d8      = tree_d8.parse_expression();
-    int d10     = tree_d10.parse_expression();
-    int d12     = tree_d12.parse_expression();
-    int d20     = tree_d20.parse_expression();
-    int d100    = tree_d100.parse_expression();
+    auto d4      = tree_d4.parse_expression();
+    auto d6      = tree_d6.parse_expression();
+    auto d8      = tree_d8.parse_expression();
+    auto d10     = tree_d10.parse_expression();
+    auto d12     = tree_d12.parse_expression();
+    auto d20     = tree_d20.parse_expression();
+    auto d100    = tree_d100.parse_expression();
     
     if(d4 > 4 || d4 < 0)        return 1;
     if(d6 > 6 || d6 < 0)        return 1;

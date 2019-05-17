@@ -3,15 +3,24 @@
 character-generator - race.h
 Created on: Apr 29, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef RACE_H_
 #define RACE_H_
 
+#ifdef _WIN32
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
+#	include "exports/character_exports.h"
+#else
+#	define CHARACTER_EXPORT
+#endif
+
 namespace ORPG {
-    class Human : public Character {
+    class CHARACTER_EXPORT Human : public Character {
     private:
         typedef Character super;
 
@@ -27,7 +36,7 @@ namespace ORPG {
         static const std::string race;
     };
 
-    class Dwarf : public Character {
+    class CHARACTER_EXPORT Dwarf : public Character {
     private:
         typedef Character super;
         
@@ -43,7 +52,7 @@ namespace ORPG {
         static const std::string race;
     };
 
-    class HillDwarf : public Dwarf {
+    class CHARACTER_EXPORT HillDwarf : public Dwarf {
     private:
         typedef Dwarf super;
     public:
@@ -54,7 +63,7 @@ namespace ORPG {
         static const int ID = 0x0011;
     };
 
-    class Elf : public Character {
+    class CHARACTER_EXPORT Elf : public Character {
     protected:
         void Initialize();
 
@@ -67,7 +76,7 @@ namespace ORPG {
         static const std::string race;
     };
 
-    class HighElf : public Elf {
+    class CHARACTER_EXPORT HighElf : public Elf {
     public:
         HighElf();
         HighElf(Ability ab);
@@ -76,7 +85,7 @@ namespace ORPG {
         static const int ID = 0x0021;
     };
 
-    class CharacterFactory {
+    class CHARACTER_EXPORT CharacterFactory {
     private:
         struct race_node {
             int raceID;

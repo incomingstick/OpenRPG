@@ -1,6 +1,6 @@
 
 # OpenRPG
-[![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
+[![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=patch-v0.5.0-dev)](https://travis-ci.org/incomingstick/OpenRPG)
 ![Version Number](https://img.shields.io/badge/version-v0.5.0--dev-blue.svg)
 [![Discord Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/xEwaYE5)
 [![Build status](https://ci.appveyor.com/api/projects/status/jhcr2ebcws32bs2m?svg=true)](https://ci.appveyor.com/project/incomingstick/openrpg)
@@ -56,7 +56,7 @@ The build script now provides some extra assistance with building, installing, u
 Note: `build.sh` has the potential to work on MacOS, but is currently untested. If you happen to use a Mac, please test this!
 
 ### Windows Build Script
-This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR!
+This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR! Please make sure you have at least Visual Studio Build Tools (v141) or higher if compiling natively.
 
 Simply run `> build.bat`
 
@@ -76,4 +76,4 @@ After building, in the `build/` folder, run make install `$ make install`
 After installing, in the `build/` folder, run make uninstall `$ make uninstall`
 
 # License
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
