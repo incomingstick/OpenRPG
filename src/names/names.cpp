@@ -2,7 +2,7 @@
 name-generator - names.cpp
 Created on: Nov 10, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -39,7 +39,7 @@ namespace ORPG {
     namespace Names {
         void print_version_flag() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -48,7 +48,7 @@ namespace ORPG {
 
         void print_help_flag() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: name-generator [options] [RACE | SUBRACE] [GENDER]\n"
@@ -66,7 +66,7 @@ namespace ORPG {
 
         void print_basic_version() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -74,7 +74,7 @@ namespace ORPG {
 
         void print_basic_help() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: name-generator [RACE | SUBRACE] [GENDER]\n"
@@ -109,6 +109,33 @@ namespace ORPG {
         // this->race = race;
         // this->gender = gender;
 
+        // location = ASSET_LOC;
+        // location += "/names";
+    }
+
+    /**
+     * CAUTION(incomingstick): By creating this constructor we are allowing an
+     * end user to specify the location the namelist we will read from. It is
+     * extremely important we explore this further. I do think this could prove
+     * a beneficial feature, if we allow end users to specify namelists.
+     * 
+     * NOTE(incomingstick): I am creating this function specifically to help
+     * the test suite. When testing on a fresh system, we are built before we
+     * test, but the release builds defines ASSET_LOC as:
+     *      "/usr/local/data/openrpg"
+     * Because of this, it attempts to check a folder that has not been installed
+     * yet, and we need a way to NameGenerator to our source data folder.
+     **/
+    NameGenerator::NameGenerator(string _race, string _gender, string location)
+        :location(location), race(_race), gender(_gender) 
+    {
+        transform(race.begin(), race.end(), race.begin(), ::tolower);
+        transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        location += "/names";
+
+        // this->race = race;
+        // this->gender = gender;
+        
         // location = ASSET_LOC;
         // location += "/names";
     }

@@ -24,11 +24,11 @@ add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
 set(CUR_TEST name-generator-test)
 
 set(CUR_TEST_SRC
-        ${CUR_TEST}.cpp
-        ${CMAKE_SOURCE_DIR}/src/names/names.cpp
+    ${CUR_TEST}.cpp
+    ${CMAKE_SOURCE_DIR}/src/names/names.cpp
 )
 
-add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
+add_executable(${CUR_TEST} ${CUR_TEST_SRC})
 target_link_libraries(${CUR_TEST} utils)
 
 macro(do_test test arg1 arg2)
@@ -52,7 +52,7 @@ set(CUR_TEST_SRC
         ${CMAKE_SOURCE_DIR}/src/roll/roll-parser.cpp
 )
 
-add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
+add_executable(${CUR_TEST} ${CUR_TEST_SRC})
 target_link_libraries(${CUR_TEST} utils)
 
 macro(do_test test)

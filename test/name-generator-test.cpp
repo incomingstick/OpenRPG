@@ -2,7 +2,7 @@
 generator-test.cpp - Test program for name-generator
 Created on: Dec 1, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     std::string race = argv[1];
     std::string gender = argv[2];
 
-    NameGenerator gen(race, gender);
+    NameGenerator gen(race, gender, TESTING_ASSET_LOC + (std::string)"/names");
 
     std::string first("NULL");
     std::string last("NULL");
