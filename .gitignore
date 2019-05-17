@@ -31,8 +31,10 @@
 # Project generated files
 Makefile.*
 config.h
+*_exports.h
 
 # Folders and other files
+exports/
 [Dd]ebug/
 .settings/
 .project
