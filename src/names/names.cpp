@@ -176,7 +176,7 @@ namespace ORPG {
             // while(safeGetline(file, line)) lines.push_back(line);
             // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-            const int select = randomInt(0, lines.size() - 1);
+            auto select = randomInt(0, lines.size() - 1);
 
             file.close();
 
@@ -210,7 +210,7 @@ namespace ORPG {
             // while(safeGetline(file, line)) lines.push_back(line);
             // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-            const int select = randomInt(0, lines.size() - 1);
+            auto select = randomInt(0, lines.size() - 1);
 
             file.close();
 

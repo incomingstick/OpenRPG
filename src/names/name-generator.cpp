@@ -22,10 +22,10 @@ using namespace ORPG;
   *
   * @param int argc - the number of arguments passed / the length of argv[]
   * @param char* argv[] - the arguments passed from the command line
-  * @return int - an integer code following the C/C++ standard for program success
+  * @return auto - an integer code following the C/C++ standard for program success
   */
-int parse_args(int argc, char* argv[], string* race, string* gender) {
-    int status = EXIT_SUCCESS;
+auto parse_args(int argc, char* argv[], string* race, string* gender) {
+    auto status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -110,7 +110,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
     default: {
         // TODO: What if the race is genderless? (i.e Changeling)
-        fprintf(stderr, "Error: Invalid number of arguements (expects 1 or 2 arguments)\n");
+        fprintf(stderr, "Error: Invalid number of arguments (expects 1 or 2 arguments)\n");
     }
     }
 
@@ -126,8 +126,8 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
   * @return int - an integer code following the C/C++ standard for program success
   */
 int main(int argc, char* argv[]) {
-    string race = "", gender = "";
-    int status = parse_args(argc, argv, &race, &gender); // may exit
+    string race, gender;
+    auto status = parse_args(argc, argv, &race, &gender); // may exit
 
     if(race.empty()) {
         printf("race cannot be empty\n");
