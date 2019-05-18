@@ -31,8 +31,10 @@
 # Project generated files
 Makefile.*
 config.h
+*_exports.h
 
 # Folders and other files
+exports/
 [Dd]ebug/
 .settings/
 .project
@@ -51,6 +53,11 @@ config.h
 
 # Rust files
 Cargo.lock
+
+# packages and archive files
+*.zip
+*.tar
+*.tar.*
 
 # Temp until GUI is merged into dev branch
 app/

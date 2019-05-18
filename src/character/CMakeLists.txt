@@ -1,16 +1,15 @@
+set(CHARACTER_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/character/)
+
 set(CHARACTER_SOURCE
         ${CMAKE_CURRENT_SOURCE_DIR}/races.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/character.cpp
 )
 
-set(CHARACTER_INCLUDE
-        ${CMAKE_SOURCE_DIR}/include/ability-scores.h
-        ${CMAKE_SOURCE_DIR}/include/races.h
-        ${CMAKE_SOURCE_DIR}/include/skills.h
-        ${CMAKE_SOURCE_DIR}/include/character.h
-)
-
 add_library(character SHARED ${CHARACTER_SOURCE})
+GENERATE_EXPORT_HEADER(character           
+    EXPORT_FILE_NAME ${CHARACTER_INCLUDE_DIR}/exports/character_exports.h
+    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
+
 target_link_libraries(character utils roll-parser names)
 
 # if the character library needs a higher standard than C++11 please update here

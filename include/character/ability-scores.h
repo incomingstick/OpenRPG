@@ -9,8 +9,17 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_ABILITY_SCORES_H_
 #define SRC_ABILITY_SCORES_H_
 
+#ifdef _WIN32
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
+#	include "exports/character_exports.h"
+#else
+#	define CHARACTER_EXPORT
+#endif
+
 #include <map>
-#include "core/utils.h"
+#include "core/types.h"
 
 namespace ORPG {
     /**
@@ -25,7 +34,7 @@ namespace ORPG {
      * This currently assumes 5e. What can we do to abstract outside of
      * that space?
      */
-    class AbilityScore {
+    class CHARACTER_EXPORT AbilityScore {
     public:
         /**
          * @desc Constructor for AbilityScore that is passed no arguments.
@@ -121,7 +130,7 @@ namespace ORPG {
      * An enum containing the 3-char representation of the standard
      * pen and paper ability system: STR, DEX, CON, INT, WIS, CHA
      */
-	enum EnumAbilityScore {
+	enum CHARACTER_EXPORT EnumAbilityScore {
 		STR, DEX, CON,
 		INT, WIS, CHA
 	};
@@ -131,7 +140,7 @@ namespace ORPG {
      * class. It creates a map, pairing EnumAbilityScore's to AbilityScore's.
      * Currently this follows 5e rules.
      */
-	class AbilityScores {
+	class CHARACTER_EXPORT AbilityScores {
     public:
         /**
          * @desc Constructor for AbilityScores that is passed no arguments.

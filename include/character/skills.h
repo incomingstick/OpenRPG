@@ -9,11 +9,20 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifndef SRC_SKILLS_H_
 #define SRC_SKILLS_H_
 
+#ifdef _WIN32
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
+#	include "exports/character_exports.h"
+#else
+#	define CHARACTER_EXPORT
+#endif
+
 #include <map>
-#include "core/utils.h"
+#include "core/types.h"
 
 namespace ORPG {
-    class Skill {
+    class CHARACTER_EXPORT Skill {
     public:
         Skill();
         Skill(int8 modifier, uint8 proficiencyBonus);
@@ -40,14 +49,14 @@ namespace ORPG {
         uint8 profBonus = 0;
     };
 
-    enum EnumSkill {
+    enum CHARACTER_EXPORT EnumSkill {
         ACR, ANM, ARC, ATH, DEC,
         HIS, INS, ITM, INV, MED,
         NAT, PRC, PRF, PRS, REL,
         SLE, STL, SUR
     };
 
-    class Skills {
+    class CHARACTER_EXPORT Skills {
         public:
         Skills();
         ~Skills();

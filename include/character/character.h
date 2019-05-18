@@ -2,12 +2,23 @@
 characters - character.h
 Created on: Jan 30, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
+
+#ifdef _WIN32
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
+#	include "exports/character_exports.h"
+#else
+#	define CHARACTER_EXPORT
+#endif
+
+#include <map>
 
 #include "ability-scores.h"
 #include "skills.h"
@@ -15,46 +26,25 @@ There is NO WARRANTY, to the extent permitted by law.
 
 namespace ORPG {
 	namespace Characters {
-		void print_version_flag();
-		void print_help_flag();
-		void print_basic_version();
-		void print_basic_help();
+		void CHARACTER_EXPORT print_version_flag();
+		void CHARACTER_EXPORT print_help_flag();
+		void CHARACTER_EXPORT print_basic_version();
+		void CHARACTER_EXPORT print_basic_help();
 	}
 
 	/* NOTE: These are just the 5E character requirements */
 
 	/* an arrray that holds the EXP needed for each level */
-	const int levels[] = {
-		300,          // Level 2
-		900,          // Level 3
-		2700,         // Level 4
-		6500,         // Level 5
-		14000,        // Level 6
-		23000,        // Level 7
-		34000,        // Level 8
-		48000,        // Level 9
-		64000,        // Level 10
-		85000,        // Level 11
-		100000,       // Level 12
-		120000,       // Level 13
-		140000,       // Level 14
-		165000,       // Level 15
-		195000,       // Level 16
-		225000,       // Level 17
-		265000,       // Level 18
-		305000,       // Level 19
-		355000        // Level 20
-	};
+	extern const int CHARACTER_EXPORT levels[];
 
-	/* An enum containing the traditional alignment grid */
-	enum Alignment {
+	enum CHARACTER_EXPORT Alignment {
 		LawfulGood, 	NeutralGood, 	ChaoticGood,
 		LawfulNeutral, 	TrueNeutral, 	ChaoticNeutral,
 		LawfulEvil, 	NeutralEvil, 	ChaoticEvil
 	};
 
 	/* An enum containing the list of D&D 5E languages */
-	enum Language {
+	enum CHARACTER_EXPORT Language {
 		Common,    Dwarvish,   Elvish,
 		Giant,     Gnomish,    Goblin,
 		Halfling,  Orc,        Abyssal,
@@ -69,13 +59,13 @@ namespace ORPG {
 	 * NOTE(incomingstick): How far do we want to take this? We could
 	 * put ourselves in  a tricky place if this is done wrong.
 	 */
-	enum Gender {
+	enum CHARACTER_EXPORT Gender {
 		Male,
 		Female,
 		Agender
 	};
 
-	enum Size {
+	enum CHARACTER_EXPORT Size {
 		Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
 		Small,       // 5 by 5 ft.            [2 to 4 feet tall]
 		Medium,      // 5 by 5 ft.            [4 to 8 feet tall]
@@ -84,33 +74,33 @@ namespace ORPG {
 		Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
 	};
 
-	enum VisionType {
+	enum CHARACTER_EXPORT VisionType {
 		Normal,
 		Blindsight,
 		DarkVision,
 		TrueSight
 	};
 
-	struct Vision {
+	struct CHARACTER_EXPORT Vision {
 		VisionType type;    // type of sight
 		int radius;         // radius of vision in feet (-1 == infinite IF unobstructed)
 	};
 
 	/* Generates a stat > 1 && < 20 */
-	int gen_stat();
+	int CHARACTER_EXPORT gen_stat();
 
 	/* Generates an array of stats > 1 && < 20 */
-	std::vector<int> ability_score_vector();
+	std::vector<int> CHARACTER_EXPORT ability_score_vector();
 
 	/* 
 	* returns an integer representation of the passed abilities modifier 
 	* 
 	* NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
 	*/
-	inline int modifier(int abil) { return (abil - 10) / 2; };
+	inline int CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
 
 	// TODO take an in depth look at what should and should not be public here
-	class Character {
+	class CHARACTER_EXPORT Character {
 	private:
 		Race* race;							// The race of our character
 		struct Vision vision;               // information about the characters vision
@@ -192,8 +182,8 @@ namespace ORPG {
 		std::string to_sheet();
 	};
 
-	/*  */
-	class CharacterFactory {
+	/* TODO coments */
+	class CHARACTER_EXPORT CharacterFactory {
     private:
         struct race_node {
             int raceID;

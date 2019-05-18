@@ -2,22 +2,26 @@
 characters - race.h
 Created on: Apr 29, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #ifndef SRC_RACE_H_
 #define SRC_RACE_H_
 
+#ifdef _WIN32
+#	ifndef character_EXPORTS
+#   	define character_EXPORTS
+#	endif
+#	include "exports/character_exports.h"
+#else
+#	define CHARACTER_EXPORT
+#endif
+
 #include "ability-scores.h"
 
-/*
- * This can be abstracted more, as we will need to account
- * for more than 5e as well as what if they want to do something
- * more custom?
- */
 namespace ORPG {
-    class Race {
+    class CHARACTER_EXPORT Race {
     private:
     
     protected:
@@ -50,8 +54,9 @@ namespace ORPG {
 		static const std::string race;
     };
 
+
     /* TODO(incomingstick): Fully define Human comments */
-    class Human : public Race {
+    class CHARACTER_EXPORT Human : public Race {
     private:
         /* Allows Java like use of Super */
         typedef Race Super;
@@ -85,7 +90,7 @@ namespace ORPG {
     };
 
     /* TODO(incomingstick): Fully define Dwarf comments */
-    class Dwarf : public Race {
+    class CHARACTER_EXPORT Dwarf : public Race {
     private:
         /* Allows Java like use of Super */
         typedef Race Super;
@@ -119,7 +124,7 @@ namespace ORPG {
     };
 
     /* TODO(incomingstick): Fully define HillDwarf comments */
-    class HillDwarf : public Dwarf {
+    class CHARACTER_EXPORT HillDwarf : public Dwarf {
     private:
         /* Allows Java like use of Super */
         typedef Dwarf Super;
@@ -140,11 +145,10 @@ namespace ORPG {
     };
 
     /* TODO(incomingstick): Fully define Elf comments */
-    class Elf : public Race {
+    class CHARACTER_EXPORT Elf : public Race {
     private:
         /* Allows Java like use of Super */
         typedef Race Super;
-
     protected:
         /* The bonuses to Ability Scores that being an Elf provides */
         AbilityScores abilBonus;
@@ -174,11 +178,10 @@ namespace ORPG {
     };
 
     /* TODO(incomingstick): Fully define HighElf comments */
-    class HighElf : public Elf {
+    class CHARACTER_EXPORT HighElf : public Elf {
     private:
         /* Allows Java like use of Super */
         typedef Elf Super;
-
     public:
         /**
          * @desc Constructor for a HighElf that is passed no arguments. A base

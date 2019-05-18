@@ -2,7 +2,7 @@
 characters - character.cpp
 Created on: Jan 30, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -10,7 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <vector>
 
 #include "core/config.h"
-#include "core/utils.h"
 #include "roll.h"
 #include "names.h"
 #include "character.h"
@@ -22,7 +21,7 @@ namespace ORPG {
     namespace Characters {
         void print_version_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -31,7 +30,7 @@ namespace ORPG {
 
         void print_help_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -50,7 +49,7 @@ namespace ORPG {
 
         void print_basic_version() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -58,7 +57,7 @@ namespace ORPG {
 
         void print_basic_help() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -75,33 +74,59 @@ namespace ORPG {
         }
     }
 
-    /* 
-     * TODO(incomingstick): Should Skills and Abilities get thier own .cpp's?
-     */
-    Skill::Skill() {
+    /* an arrray that holds the EXP needed for each level */
+    const int levels[] = {
+		300,          // Level 2
+		900,          // Level 3
+		2700,         // Level 4
+		6500,         // Level 5
+		14000,        // Level 6
+		23000,        // Level 7
+		34000,        // Level 8
+		48000,        // Level 9
+		64000,        // Level 10
+		85000,        // Level 11
+		100000,       // Level 12
+		120000,       // Level 13
+		140000,       // Level 14
+		165000,       // Level 15
+		195000,       // Level 16
+		225000,       // Level 17
+		265000,       // Level 18
+		305000,       // Level 19
+		355000        // Level 20
+	};
+
+    /*
+    * mod is what is added to rolls
+    * Prof is number of proficiencies, 0 if unproficient, 1 if proficient, 2 if doubly proficient
+    * 
+    * both are chars to reduce memory usage
+    */
+    Skill::Skill(void) {
         this->mod = 0;
         this->profBonus = 0;
     }
 
-    Skill::Skill(char modifier, unsigned char proficiencyBonus) {
+    Skill::Skill(int8 modifier, uint8 proficiencyBonus) {
         this->mod = modifier;
         this->profBonus = proficiencyBonus;
     }
     
-    void Skill::set(char modifier, unsigned char proficiencyBonus) {
+    void Skill::set(int8 modifier, uint8 proficiencyBonus) {
         this->mod = modifier;
         this->profBonus = proficiencyBonus;
     }
 
-    void Skill::setMod(char modifier) {
+    void Skill::setMod(int8 modifier) {
         this->mod = modifier;
     }
 
-    void Skill::setProfBonus(unsigned char modifier) {
+    void Skill::setProfBonus(uint8 modifier) {
         this->profBonus = modifier;
     }
 
-    char Skill::getMod() {
+    int8 Skill::getMod() {
         return this->mod;
     }
 
