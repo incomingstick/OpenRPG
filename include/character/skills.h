@@ -19,6 +19,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #endif
 
 #include <map>
+
 #include "core/types.h"
 
 namespace ORPG {

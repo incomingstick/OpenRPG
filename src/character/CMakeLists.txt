@@ -23,8 +23,8 @@ set(CG_SOURCES
 add_executable(character-generator ${CG_SOURCES})
 target_link_libraries(character-generator utils character roll-parser names)
 
-# if the character-generator executable needs a higher standard than C++11 please update here
-set_property(TARGET character-generator PROPERTY CXX_STANDARD 11)
+# if the character-generator executable needs a higher standard than C++14 please update here
+set_property(TARGET character-generator PROPERTY CXX_STANDARD 14)
 set_property(TARGET character-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS character-generator DESTINATION bin)

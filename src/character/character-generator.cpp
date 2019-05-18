@@ -24,8 +24,8 @@ using namespace ORPG;
   * @param char* argv[] - the arguments passed from the command line
   * @return int - an integer code following the C/C++ standard for program success
   */
-int parse_args(int argc, char* argv[]) {
-    int status = EXIT_SUCCESS;
+auto parse_args(int argc, char* argv[]) {
+    auto status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -118,9 +118,9 @@ bool purity_check_string(string check) {
  * user.
  * 
  * @param: CharacterFactory factory - the factory to check and prompt from
- * @return int - the selected input
+ * @return auto - the selected input
  */
-int request_selection(CharacterFactory factory) {
+auto request_selection(CharacterFactory factory) {
     int index = -1;
     string input;
 
@@ -174,15 +174,15 @@ AbilityScores request_scores() {
 
     AbilityScores ret;
     string input;
-    vector<int> stats = ability_score_vector();
+    vector<int8> stats = ability_score_vector();
 
     printf("You generated the following ability scores: \n");
 
-    for(int num : stats) printf("%i (%i)\n", num, modifier(num));
+    for(auto num : stats) printf("%i (%i)\n", num, modifier(num));
 
     printf("\n");
 
-    for(size_t i = 0; i < stats.size(); i++) {
+    for(int8 i = 0; i < (int8)stats.size(); i++) {
         switch(i) {
         case 0: {
             printf("Set Strength\t (STR): ");
@@ -284,7 +284,7 @@ AbilityScores request_scores() {
   * @return int - an integer code following the C/C++ standard for program success
   */
 int main(int argc, char* argv[]) {
-    int status = parse_args(argc, argv); // may exit
+    auto status = parse_args(argc, argv); // may exit
     
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
@@ -320,7 +320,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    Character* character = name.empty() ? 
+    auto* character = name.empty() ? 
         factory.NewCharacter(abil) :
         factory.NewCharacter(abil, name);
     

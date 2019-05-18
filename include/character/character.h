@@ -18,8 +18,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #	define CHARACTER_EXPORT
 #endif
 
-#include <map>
-
 #include "ability-scores.h"
 #include "skills.h"
 #include "races.h"
@@ -87,17 +85,17 @@ namespace ORPG {
 	};
 
 	/* Generates a stat > 1 && < 20 */
-	int CHARACTER_EXPORT gen_stat();
+	int8 CHARACTER_EXPORT gen_stat();
 
 	/* Generates an array of stats > 1 && < 20 */
-	std::vector<int> CHARACTER_EXPORT ability_score_vector();
+	std::vector<int8> CHARACTER_EXPORT ability_score_vector();
 
 	/* 
 	* returns an integer representation of the passed abilities modifier 
 	* 
 	* NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
 	*/
-	inline int CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
+	inline int8 CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
 
 	// TODO take an in depth look at what should and should not be public here
 	class CHARACTER_EXPORT Character {
@@ -142,7 +140,7 @@ namespace ORPG {
 		void update_skills();
 
 		// an integer that represents the Character class
-		static const int ID = 0x0000;    
+		static const int8 ID = 0x0000;    
 
 		// Returns a copy of our Ability abils struct
 		AbilityScores get_ability_copy() { return abils; };
@@ -152,31 +150,31 @@ namespace ORPG {
 		// Skills get_skills_copy() { return skills; };
 	
 		/* accessor functions for ability score modifiers */
-		int STR() { return abils.getScore(EnumAbilityScore::STR); };
-		int DEX() { return abils.getScore(EnumAbilityScore::DEX); };
-		int CON() { return abils.getScore(EnumAbilityScore::CON); };
-		int INT() { return abils.getScore(EnumAbilityScore::INT); };
-		int WIS() { return abils.getScore(EnumAbilityScore::WIS); };
-		int CHA() { return abils.getScore(EnumAbilityScore::CHA); };
+		int8 STR() { return abils.getScore(EnumAbilityScore::STR); };
+		int8 DEX() { return abils.getScore(EnumAbilityScore::DEX); };
+		int8 CON() { return abils.getScore(EnumAbilityScore::CON); };
+		int8 INT() { return abils.getScore(EnumAbilityScore::INT); };
+		int8 WIS() { return abils.getScore(EnumAbilityScore::WIS); };
+		int8 CHA() { return abils.getScore(EnumAbilityScore::CHA); };
 	
 		/* accessor functions for ability score modifiers */
-		int STR_MOD() { return abils.getMod(EnumAbilityScore::STR); };
-		int DEX_MOD() { return abils.getMod(EnumAbilityScore::DEX); };
-		int CON_MOD() { return abils.getMod(EnumAbilityScore::CON); };
-		int INT_MOD() { return abils.getMod(EnumAbilityScore::INT); };
-		int WIS_MOD() { return abils.getMod(EnumAbilityScore::WIS); };
-		int CHA_MOD() { return abils.getMod(EnumAbilityScore::CHA); };
+		int8 STR_MOD() { return abils.getMod(EnumAbilityScore::STR); };
+		int8 DEX_MOD() { return abils.getMod(EnumAbilityScore::DEX); };
+		int8 CON_MOD() { return abils.getMod(EnumAbilityScore::CON); };
+		int8 INT_MOD() { return abils.getMod(EnumAbilityScore::INT); };
+		int8 WIS_MOD() { return abils.getMod(EnumAbilityScore::WIS); };
+		int8 CHA_MOD() { return abils.getMod(EnumAbilityScore::CHA); };
 
 		/* accessor functions for ability score saves */
-		int STR_SAVE() { return modifier(abils.getSave(EnumAbilityScore::STR)); };
-		int DEX_SAVE() { return modifier(abils.getSave(EnumAbilityScore::DEX)); };
-		int CON_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CON)); };
-		int INT_SAVE() { return modifier(abils.getSave(EnumAbilityScore::INT)); };
-		int WIS_SAVE() { return modifier(abils.getSave(EnumAbilityScore::WIS)); };
-		int CHA_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CHA)); };
+		int8 STR_SAVE() { return modifier(abils.getSave(EnumAbilityScore::STR)); };
+		int8 DEX_SAVE() { return modifier(abils.getSave(EnumAbilityScore::DEX)); };
+		int8 CON_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CON)); };
+		int8 INT_SAVE() { return modifier(abils.getSave(EnumAbilityScore::INT)); };
+		int8 WIS_SAVE() { return modifier(abils.getSave(EnumAbilityScore::WIS)); };
+		int8 CHA_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CHA)); };
 	
 		// allows quick conversion of a skill for its passive check
-		int passive_stat(int stat) { return 8 + prof + stat; };
+		int8 passive_stat(int stat) { return 8 + prof + stat; };
 	
 		std::string to_string();
 		std::string to_sheet();
@@ -195,7 +193,7 @@ namespace ORPG {
 
         race_node* head;
         race_node* current;
-        race_node* allocate_node(int raceID,
+        race_node* allocate_node(int8 raceID,
                                 bool required,
                                 race_node* parent);
     public:
@@ -203,15 +201,15 @@ namespace ORPG {
         ~CharacterFactory();
 
         Character* NewCharacter(AbilityScores ab = AbilityScores());
-        Character* NewCharacter(int identifier);
-        Character* NewCharacter(int identifier, AbilityScores ab);
+        Character* NewCharacter(int8 identifier);
+        Character* NewCharacter(int8 identifier, AbilityScores ab);
         Character* NewCharacter(AbilityScores ab,std::string name);
 
         void reset() { current = head; };
         std::vector<std::string> current_options();
         bool has_options();
-        void select_option(int index);
-        int current_id();
+        void select_option(int8 index);
+        int8 current_id();
     };
 }
 

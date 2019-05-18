@@ -1,10 +1,13 @@
 # require cmake v3.0
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 include(GenerateExportHeader)
-set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 set(CMAKE_MACOSX_RPATH 1)
+
+# this is the minimum c++std to require across the whole project
+# however each module is built with its own specified std
+set(CMAKE_CXX_STANDARD 11)
 
 # Project info
 project(OpenRPG)

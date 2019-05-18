@@ -696,7 +696,7 @@ namespace ORPG {
         return ret;
     }
 
-    int gen_stat() {
+    int8 gen_stat() {
         /* 
          * TODO accept different types of stat generation
          * i.e 4d4+4 or 4d6h3+2
@@ -709,10 +709,10 @@ namespace ORPG {
 
     /* Generates a vector of ability scores base on the used type
         TODO allow multiple types of ability score generation */
-    vector<int> ability_score_vector() {
-        vector<int> ret;
+    vector<int8> ability_score_vector() {
+        vector<int8> ret;
 
-        for(int i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
+        for(int8 i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
 
         return ret;
     }
@@ -750,7 +750,7 @@ namespace ORPG {
         //TODO clean up here
     }
 
-    CharacterFactory::race_node* CharacterFactory::allocate_node(int raceID,
+    CharacterFactory::race_node* CharacterFactory::allocate_node(int8 raceID,
                                                                 bool required,
                                                                 race_node* parent) {
         race_node* node = new race_node;
@@ -795,7 +795,7 @@ namespace ORPG {
         }
     }
 
-    Character* CharacterFactory::NewCharacter(int identifier) {
+    Character* CharacterFactory::NewCharacter(int8 identifier) {
         switch(identifier) {
         case Human::ID : {
             return new Character(Human::ID);
@@ -822,7 +822,7 @@ namespace ORPG {
         }
     }
 
-    Character* CharacterFactory::NewCharacter(int identifier, AbilityScores ab) {
+    Character* CharacterFactory::NewCharacter(int8 identifier, AbilityScores ab) {
         switch(identifier) {
         case Human::ID : {
             return new Character(ab, Human::ID);
@@ -917,7 +917,7 @@ namespace ORPG {
         else return false;
     }
 
-    void CharacterFactory::select_option(int index) {
+    void CharacterFactory::select_option(int8 index) {
         if(current == NULL) return;
 
         if(index < 0 || (size_t)index > current->children.size())
@@ -927,7 +927,7 @@ namespace ORPG {
             current = current->children[index];
     }
 
-    int CharacterFactory::current_id() {
+    int8 CharacterFactory::current_id() {
         if(current != NULL) return current->raceID;
         return -1;
     }
