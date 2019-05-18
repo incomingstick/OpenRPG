@@ -2,7 +2,7 @@
 openrpg - utils.cpp
 Created on: Mar 23, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
@@ -17,14 +17,11 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 
 #ifdef TESTING_FLAG
-#undef ASSET_LOC
-#define ASSET_LOC TESTING_ASSET_LOC
+#   undef ASSET_LOC
+#   define ASSET_LOC TESTING_ASSET_LOC
 #endif
 
 string asset_loc = ASSET_LOC;
-
-bool QUIET_FLAG = false;
-bool VB_FLAG = false;
 
 /*
  * Loads the menu file of the given type to be used

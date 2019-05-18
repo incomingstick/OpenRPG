@@ -2,7 +2,7 @@
 character-generator - character.cpp
 Created on: Jan 30, 2017
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
@@ -22,7 +22,7 @@ namespace ORPG {
     namespace Characters {
         void print_version_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -31,7 +31,7 @@ namespace ORPG {
 
         void print_help_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -50,7 +50,7 @@ namespace ORPG {
 
         void print_basic_version() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n",
                 stdout);
@@ -58,7 +58,7 @@ namespace ORPG {
 
         void print_basic_help() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >\n"
+                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
@@ -74,6 +74,29 @@ namespace ORPG {
                 stdout);
         }
     }
+
+    /* an arrray that holds the EXP needed for each level */
+    const int levels[] = {
+		300,          // Level 2
+		900,          // Level 3
+		2700,         // Level 4
+		6500,         // Level 5
+		14000,        // Level 6
+		23000,        // Level 7
+		34000,        // Level 8
+		48000,        // Level 9
+		64000,        // Level 10
+		85000,        // Level 11
+		100000,       // Level 12
+		120000,       // Level 13
+		140000,       // Level 14
+		165000,       // Level 15
+		195000,       // Level 16
+		225000,       // Level 17
+		265000,       // Level 18
+		305000,       // Level 19
+		355000        // Level 20
+	};
 
     /*
     * mod is what is added to rolls

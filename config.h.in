@@ -2,7 +2,7 @@
 openrpg - config.h
 Created on: Dec 1, 2016
 
-OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://www.openrpg.io/about/license/>
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
 This is free software: you are free to change and redistribute it.
 here is NO WARRANTY, to the extent permitted by law.
 
@@ -24,6 +24,6 @@ edit the original config.h.in file NOT THIS FILE.
 #define AUTHOR "@OpenRPG_AUTHOR@"
 #define COPYRIGHT "(C) 2016-@YEAR@ @OpenRPG_AUTHOR@"
 #define ASSET_LOC "${DATA_DIR}"
-#define ${CMAKE_BUILD_TYPE}
+#define ${CMAKE_BUILD_TYPE} 1
 
 #endif  /* CONFIG_H_ */
