@@ -49,16 +49,22 @@ The build script now provides some extra assistance with building, installing, u
 
 **Install release build:** `$ ./build.sh release install`
 
-**Linux clean build:** `$ ./build.sh clean`
+**Clean build files:** `$ ./build.sh clean`
 
-**Linux clean and rebuild:** `$ ./build.sh rebuild`
+**Clean build files and rebuild:** `$ ./build.sh rebuild`
 
 Note: `build.sh` has the potential to work on MacOS, but is currently untested. If you happen to use a Mac, please test this!
 
 ### Windows Build Script
-This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR! Please make sure you have at least Visual Studio Build Tools (v141) or higher if compiling natively.
+This script is VERY minimal compared to its bash counterpart. It could use a ton of improvements, so if that is something you are interested in, open a PR! Please make sure you have Visual Studio Build Tools (i.e msbuild) in your `%PATH%`.
 
-Simply run `> build.bat`
+**Debug build:** `> .\build.bat`
+
+**Release build:** `> .\build.bat release`
+
+**Clean build files:** `> .\build.bat clean`
+
+**Clean build files and rebuild:** `> .\build.bat rebuild`
 
 
 ### Manual Build
@@ -70,6 +76,14 @@ Run make `$ make`
 In the `build/` folder, run make check `$ make check` 
 
 # Installing
+## Arch Linux Install
+We are now on the Arch User Repository! You can use your favorite AUR wrapper, or simply makepkg.
+
+**AUR Wrapper Example:** `$ yay -S openrpg-git`
+
+**Makepkg Example:** `$ git clone https://aur.archlinux.org/openrpg-git.git && cd openrpg-git && makepkg -si`
+
+## Installing from Source
 After building, in the `build/` folder, run make install `$ make install`
 
 # Uninstalling
