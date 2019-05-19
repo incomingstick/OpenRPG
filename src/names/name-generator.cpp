@@ -15,11 +15,18 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 using namespace ORPG;
+using namespace ORPG::Names;
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
-int parse_args(int argc, char* argv[], string* race, string* gender) {
-    int status = EXIT_SUCCESS;
+/**
+  * @desc This function parses all cla's passed to argv from the command line.
+  * This function may terminate the program.
+  *
+  * @param int argc - the number of arguments passed / the length of argv[]
+  * @param char* argv[] - the arguments passed from the command line
+  * @return auto - an integer code following the C/C++ standard for program success
+  */
+auto parse_args(int argc, char* argv[], string* race, string* gender) {
+    auto status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -30,8 +37,8 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     /* these are the long cla's and their corresponding chars */
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -43,26 +50,26 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            ORPG::Names::print_help_flag();
+            print_help_flag();
          } break;
 
-        /* -v --version */
+        /* -v --verbose */
         case 'v': {
-            ORPG::Names::print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
-        
+
+        /* -V --version */
+        case 'V': {
+            print_version_flag();
+        } break;
+
         /* parsing error */
         case ':':
         case '?': {
-            ORPG::Names::print_help_flag();
+            print_help_flag();
         } break;
-        
+
         /* if we get here something very bad happened */
         default: {
             printf("Aborting...\n");
@@ -71,15 +78,22 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         }
     }
 
-    /* check to make sure there are at least 
-        two "unknown" args to parse throug*/
+    /**
+     * Check remaining agrs to make sure there are at least two "unknown" args
+     * to parse through. These should in general be our race and gender params
+     *
+     * NOTE(incomingstick): Should we just turn these into flags too? Such as
+     * first name being -f / --first or last name being -l / --last. How does
+     * this affect a flag like -r / --random?
+     **/
     switch(argc - optind) {
     case 1: {
         string opt0 = argv[optind++];
+        *gender = "";
         *race = opt0;
     } break;
-        
-    case 2: { 
+
+    case 2: {
         string opt0 = argv[optind++];
         string opt1 = argv[optind++];
 
@@ -97,30 +111,36 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     } break;
 
     default: {
-        // TODO: What if the race is genderless? (i.e Changeling)
-        fprintf(stderr, "Error: Invalid number of arguements (expects 1 or 2 arguments)\n");
+        fprintf(stderr, "Error: Invalid number of arguments (expects 1 or 2 arguments)\n");
     }
     }
 
     return status;
 }
 
-/* TODO handle tab completion */
+/**
+  * @desc entry point for the name-generator program. All command line
+  * arguments are parsed before entering the name-generator program, and
+  * the program may terminate before generating a name.
+  *
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int main(int argc, char* argv[]) {
-    string race = "", gender = "";
-    int status = parse_args(argc, argv, &race, &gender); // may exit
+    string race, gender;
+    auto status = parse_args(argc, argv, &race, &gender); // may exit
 
     if(race.empty()) {
         printf("race cannot be empty\n");
         status = EXIT_FAILURE;
-        ORPG::Names::print_help_flag();
+        print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {
         NameGenerator gen(race, gender);
 
         string name = gen.make_name();
-        
+
         printf("%s\n", name.c_str());
     }
 

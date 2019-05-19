@@ -46,6 +46,7 @@ std::string UTILS_EXPORT rightpad(std::string str, int len = 0, char ch = ' ');
 std::istream UTILS_EXPORT & safeGetline(std::istream& is, std::string& t);
 bool UTILS_EXPORT print_file(std::string file);
 int UTILS_EXPORT randomInt(int min, int max);
+bool UTILS_EXPORT randomBool();
 int UTILS_EXPORT gcd(int a, int b);
 
 #endif /* SRC_UTILS_H_ */
