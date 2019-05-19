@@ -171,6 +171,14 @@ int randomInt(int min, int max) {
     return dist(mt);
 }
 
+bool randomBool() {
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_int_distribution<int> dist(-sizeof(int), sizeof(int));
+
+    return dist(mt) % 2 ? true : false;
+}
+
 /* Compute the greatest common divisor of a and b. */
 int gcd(int a, int b) {
     int c;

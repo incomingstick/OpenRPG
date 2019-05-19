@@ -15,6 +15,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 using namespace ORPG;
+using namespace ORPG::Names;
 
 /**
   * @desc This function parses all cla's passed to argv from the command line.
@@ -49,7 +50,7 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            Names::print_help_flag();
+            print_help_flag();
          } break;
 
         /* -v --verbose */
@@ -60,13 +61,13 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
 
         /* -V --version */
         case 'V': {
-            Names::print_version_flag();
+            print_version_flag();
         } break;
 
         /* parsing error */
         case ':':
         case '?': {
-            ORPG::Names::print_help_flag();
+            print_help_flag();
         } break;
 
         /* if we get here something very bad happened */
@@ -88,6 +89,7 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
     switch(argc - optind) {
     case 1: {
         string opt0 = argv[optind++];
+        *gender = "";
         *race = opt0;
     } break;
 
@@ -109,7 +111,6 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
     } break;
 
     default: {
-        // TODO: What if the race is genderless? (i.e Changeling)
         fprintf(stderr, "Error: Invalid number of arguments (expects 1 or 2 arguments)\n");
     }
     }
@@ -132,7 +133,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) {
         printf("race cannot be empty\n");
         status = EXIT_FAILURE;
-        ORPG::Names::print_help_flag();
+        print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {
