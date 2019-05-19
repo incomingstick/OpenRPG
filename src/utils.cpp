@@ -172,11 +172,7 @@ int randomInt(int min, int max) {
 }
 
 bool randomBool() {
-    random_device rd;
-    mt19937 mt(rd());
-    uniform_int_distribution<int> dist(-sizeof(int), sizeof(int));
-
-    return dist(mt) % 2 ? true : false;
+    return randomInt(0, sizeof(int)) % 2 ? true : false;
 }
 
 /* Compute the greatest common divisor of a and b. */
