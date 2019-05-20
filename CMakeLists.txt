@@ -61,8 +61,11 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 # used to pass the location to use for data into config.h.in
 if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(DATA_DIR ${DATA})
-elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
-    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data/openrpg)
+# better conform to Linux filesystem standards
+elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
+    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/share/openrpg)
+elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND (MSVC OR WIN32))
+    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data)
 endif()
 
 message(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
@@ -83,7 +86,7 @@ configure_file (
 )
 
 # install targets
-install(DIRECTORY ${DATA}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/data/openrpg)
+install(DIRECTORY ${DATA}/ DESTINATION ${DATA_DIR})
 install(DIRECTORY ${INCLUDE}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/openrpg)
 
 # uninstall target
