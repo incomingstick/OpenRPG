@@ -35,7 +35,7 @@ namespace ORPG {
         uint8 getProfBonus();
 
     private:
-        /*
+        /**
          * mod is what is added to rolls
          * profBonus is number of proficiencies, 
          *      0 if unproficient, 
@@ -45,7 +45,7 @@ namespace ORPG {
          * NOTE(incomingstick): What about half proficiency, like Bards?
          * 
          * both are chars to reduce memory usage
-         */
+         **/
         int8 mod = 0;
         uint8 profBonus = 0;
     };

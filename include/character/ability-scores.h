@@ -34,14 +34,14 @@ namespace ORPG {
      * 
      * This currently assumes 5e. What can we do to abstract outside of
      * that space?
-     */
+     **/
     class CHARACTER_EXPORT AbilityScore {
     public:
         /**
          * @desc Constructor for AbilityScore that is passed no arguments.
          * It sets score equal to a randomly generated number between 8 and 18,
          * and sets isProf to false.
-         */
+         **/
         AbilityScore();
         
         /**
@@ -51,13 +51,13 @@ namespace ORPG {
          * @param uint8 score - the unsigned 8-bit integer score value to set. 
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
-         */
+         **/
         AbilityScore(uint8 score, bool isProf);
         
         /**
          * @desc Deconstructor for AbilityScore that is passed no arguments.
          * Currently does nothing, and the compiler handles deconstruction.
-         */
+         **/
         ~AbilityScore();
         
         /**
@@ -68,14 +68,14 @@ namespace ORPG {
          * @param uint8 score - the unsigned 8-bit integer score value to set. 
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
-         */
+         **/
         void set(uint8 newScore, bool isProf);
         
         /**
          * @desc Setter method for an AbilityScore's score.
          * 
          * @param uint8 score - the unsigned 8-bit integer score value to set. 
-         */
+         **/
         void setScore(uint8 newScore);
         
         /**
@@ -85,14 +85,14 @@ namespace ORPG {
          * 
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
-         */
+         **/
         void setIsProf(bool isProf);
         
         /**
          * @desc Accessor method for an AbilityScore's score.
          * 
          * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
-         */
+         **/
         uint8 getScore();
         
         /**
@@ -102,7 +102,7 @@ namespace ORPG {
          * Mod = floor((Score - 10) / 2);
          * 
          * @return int8 - an 8-bit integer of the AbilityScore's modifier
-         */
+         **/
         int8 getMod();
 
         /**
@@ -113,7 +113,7 @@ namespace ORPG {
          * 
          * @return bool - a boolean value denoting whether or not a proficiency
          * bonus should be added to the save of this AbilityScore
-         */
+         **/
         bool isProf();
 
     private:
@@ -123,36 +123,36 @@ namespace ORPG {
         /** 
          * A boolean value denoting whether or not a proficiency bonus should
          * be added to the score.
-         */
+         **/
         bool prof = false;
-	};
+    };
 
     /**
      * An enum containing the 3-char representation of the standard
      * pen and paper ability system: STR, DEX, CON, INT, WIS, CHA
-     */
-	enum CHARACTER_EXPORT EnumAbilityScore {
-		STR, DEX, CON,
-		INT, WIS, CHA
-	};
+     **/
+    enum CHARACTER_EXPORT EnumAbilityScore {
+        STR, DEX, CON,
+        INT, WIS, CHA
+    };
 
     /**
      * AbilityScores is a class to assist in working with the AbilityScore
      * class. It creates a map, pairing EnumAbilityScore's to AbilityScore's.
      * Currently this follows 5e rules.
-     */
-	class CHARACTER_EXPORT AbilityScores {
+     **/
+    class CHARACTER_EXPORT AbilityScores {
     public:
         /**
          * @desc Constructor for AbilityScores that is passed no arguments.
          * It sets all ability scores equal to 10 and isProf to false.
-         */
+         **/
         AbilityScores();
 
         /**
          * @desc Deconstructor for AbilityScores that is passed no arguments.
          * Currently does nothing, and the compiler handles deconstruction.
-         */
+         **/
         ~AbilityScores();
 
         /**
@@ -165,7 +165,7 @@ namespace ORPG {
          * @param uint8 score - the unsigned 8-bit integer score value to set. 
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
-         */
+         **/
         void set(EnumAbilityScore ability, uint8 newScore, bool isProf);
 
         /**
@@ -177,7 +177,7 @@ namespace ORPG {
          * 
          * @return AbilityScore* - an pointer to the AbilityScore's denoted by
          * EnumAbilityScore ability
-         */
+         **/
         AbilityScore* get(EnumAbilityScore ability);
 
         /**
@@ -188,7 +188,7 @@ namespace ORPG {
          * 
          * @param EnumAbilityScore ability - the AbilityScore score to query
          * @param uint8 score - the unsigned 8-bit integer score value to set. 
-         */
+         **/
         void setScore(EnumAbilityScore ability, uint8 score);
 
         /**
@@ -200,7 +200,7 @@ namespace ORPG {
          * @param EnumAbilityScore ability - the AbilityScore score to query
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
-         */
+         **/
         void setIsProf(EnumAbilityScore ability, bool isProf);
 
         /**
@@ -210,7 +210,7 @@ namespace ORPG {
          * @param uint8 newProf - a unsigned 8-bit integer containing the current
          * Proficiency bonus that is added to any AbilityScore that has isProf
          * set to true
-         */
+         **/
         void setCurrentProf(uint8 newProf);
 
         /**
@@ -220,7 +220,7 @@ namespace ORPG {
          * @param EnumAbilityScore ability - the AbilityScore score to query
          * 
          * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
-         */
+         **/
         uint8 getScore(EnumAbilityScore ability) {
             return scoresMap[ability]->getScore();
         };
@@ -234,7 +234,7 @@ namespace ORPG {
          * @param EnumAbilityScore ability - the ability score modifier to query
          * 
          * @return int8 - an 8-bit integer of the AbilityScore's modifier
-         */
+         **/
         int8 getMod(EnumAbilityScore ability) {
             return scoresMap[ability]->getMod();
         };
@@ -249,7 +249,7 @@ namespace ORPG {
          * 
          * @return bool - a boolean value denoting whether or not a proficiency
          * bonus should be added to the save of the given AbilityScore
-         */
+         **/
         bool isProf(EnumAbilityScore ability) {
             return scoresMap[ability]->isProf();
         }
@@ -263,7 +263,7 @@ namespace ORPG {
          * @param EnumAbilityScore ability - the AbilityScore save to query
          * 
          * @return int8 - an 8-bit integer of the AbilityScore's save modifier
-         */
+         **/
         int8 getSave(EnumAbilityScore ability) {
             return scoresMap[ability]->isProf() ?
                     this->getMod(ability) + curProf :
@@ -277,7 +277,7 @@ namespace ORPG {
          * @return uint8 - a unsigned 8-bit integer containing the current
          * Proficiency bonus that is added to any AbilityScore that has isProf
          * set to true.
-         */
+         **/
         uint8 getCurrentProf() {
             return curProf;
         };
@@ -288,7 +288,7 @@ namespace ORPG {
 
         /* The map relating EnumAbilityScore to their respective AbilityScore */
         std::map <EnumAbilityScore, AbilityScore*> scoresMap;
-	};
+    };
 }
 
 #endif /* SRC_ABILITY_SCORES_H_ */

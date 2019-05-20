@@ -19,7 +19,7 @@ using namespace ORPG;
 /**
   * @desc This function parses all cla's passed to argv from the command line.
   * This function may terminate the program.
-  * 
+  *
   * @param int argc - the number of arguments passed / the length of argv[]
   * @param char* argv[] - the arguments passed from the command line
   * @return int - an integer code following the C/C++ standard for program success
@@ -58,7 +58,7 @@ auto parse_args(int argc, char* argv[]) {
         case 'r': {
             // TODO skip character creator and generate fully random character
         } break;
-        
+
         /* -v --version */
         case 'v': {
             Characters::print_version_flag();
@@ -69,7 +69,7 @@ auto parse_args(int argc, char* argv[]) {
             VB_FLAG = true;
             QUIET_FLAG = false;
         } break;
-            
+
         /* parsing error */
         case ':':
         case '?': {
@@ -87,15 +87,15 @@ auto parse_args(int argc, char* argv[]) {
     return status;
 }
 
-/* 
+/*
  * Currently this function only checks to ensure the string contains
  * only digits, and returns true. It will return false otherwise.
- * 
+ *
  * NOTE(incomingsting): This could, and probably should, be improved
  * to also ensure we are within the bounds on the "question" being asked.
- * 
+ *
  * TODO(incomingstick): ensure we are at least coming in as an int32.
- * 
+ *
  * @param: string check - this string to be checked
  * @return bool - returns true if check contains only numbers
  */
@@ -107,16 +107,16 @@ bool purity_check_string(string check) {
     return true;
 }
 
-/* 
+/*
  * This function is built to work in tandem specifically with the character
  * module. It takes in a CharacterFactory and checks what stage it is
  * currently in, prompting the user for any required input from cin.
- * 
+ *
  * NOTE(incomingsting): currently, we are only using numbered input
- * (i.e '1') so the above purity check function strictly ensures the input 
+ * (i.e '1') so the above purity check function strictly ensures the input
  * will only contain digits. If it does not, it will continue to prompt the
  * user.
- * 
+ *
  * @param: CharacterFactory factory - the factory to check and prompt from
  * @return auto - the selected input
  */
@@ -125,22 +125,22 @@ auto request_selection(CharacterFactory factory) {
     string input;
 
     vector<string> list;
-    
+
     if(factory.has_options())
         list = factory.current_options();
-    
+
     while(index < 0 || index > (signed)list.size()) {
-        
+
         int tick = 0;
 
         for(string str : list) {
             cout << "\t" << (tick++) << ") " << str;
-            
+
             if(tick % 3 == 0) cout << endl;
         }
-        
+
         tick = 0;
-        
+
         cout << "\n#? ";
         cin >> input;
 
@@ -154,22 +154,22 @@ auto request_selection(CharacterFactory factory) {
     return index;
 }
 
-/* 
+/*
  * This function prompts the user for 6 numbers to use as their characters
  * abilities. It specifically request their ability scores in the following
  * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
- * 
+ *
  * NOTE(incomingsting): currently, we are only using numbered input
- * (i.e '12') so the above purity check function strictly ensures the input 
+ * (i.e '12') so the above purity check function strictly ensures the input
  * will only contain digits. If it does not, it will continue to prompt the
  * user.
- * 
+ *
  * This function could likely also be cleaner. Its just a giant switch
  * currently, which looks kinda ungly, and takes up space. Like this comment.
- * 
+ *
  * @return Ability - an Ability containing the users input scores
  */
-AbilityScores request_scores() {    
+AbilityScores request_scores() {
     printf("\n");
 
     AbilityScores ret;
@@ -216,7 +216,7 @@ AbilityScores request_scores() {
             cin >> input;
 
             if(purity_check_string(input)) {
-                ret.setScore(EnumAbilityScore::CON, stoi(input)); 
+                ret.setScore(EnumAbilityScore::CON, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -270,44 +270,44 @@ AbilityScores request_scores() {
     }
 
     printf("\n");
-    
+
     return ret;
 }
 
 /**
-  * @desc entry point for the character-generator program. This contains the 
-  * main logic for creating a character via the character-generator. All 
+  * @desc entry point for the character-generator program. This contains the
+  * main logic for creating a character via the character-generator. All
   * command line arguments are parsed before character creation begins, and
   * the program may terminate before allowing user input.
-  * 
+  *
   * @param string in - the users input to be parsed
   * @return int - an integer code following the C/C++ standard for program success
   */
 int main(int argc, char* argv[]) {
     auto status = parse_args(argc, argv); // may exit
-    
+
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
 
     CharacterFactory factory;
-    
+
     printf("Choose Race:\n");
-    
+
     factory.select_option(request_selection(factory));
 
     if(factory.has_options()) {
         printf("Choose Subrace:\n");
-        factory.select_option(request_selection(factory)); 
+        factory.select_option(request_selection(factory));
     }
 
     AbilityScores abil = request_scores();
-    
+
     printf("Background\n");                    // TODO background menu
-    
+
     printf("Class\n");                         // TODO class menu.
     printf("Skill select based on class\n");   // TODO Skill select based on class
     printf("Hit points\n");                    // TODO hit points max, avg, or roll + con mod
-    
+
     printf("Equipment\n\n");                   // TODO select equipment based on class and background
 
     printf("(leave blank for random name)\n");
@@ -320,10 +320,10 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    auto* character = name.empty() ? 
+    auto* character = name.empty() ?
         factory.NewCharacter(abil) :
-        factory.NewCharacter(abil, name);
-    
+        factory.NewCharacter(name, abil);
+
     printf("%s", character->to_string().c_str());
 
     return status;

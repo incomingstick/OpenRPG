@@ -76,31 +76,31 @@ namespace ORPG {
 
     /* an arrray that holds the EXP needed for each level */
     const int levels[] = {
-		300,          // Level 2
-		900,          // Level 3
-		2700,         // Level 4
-		6500,         // Level 5
-		14000,        // Level 6
-		23000,        // Level 7
-		34000,        // Level 8
-		48000,        // Level 9
-		64000,        // Level 10
-		85000,        // Level 11
-		100000,       // Level 12
-		120000,       // Level 13
-		140000,       // Level 14
-		165000,       // Level 15
-		195000,       // Level 16
-		225000,       // Level 17
-		265000,       // Level 18
-		305000,       // Level 19
-		355000        // Level 20
-	};
+        300,          // Level 2
+        900,          // Level 3
+        2700,         // Level 4
+        6500,         // Level 5
+        14000,        // Level 6
+        23000,        // Level 7
+        34000,        // Level 8
+        48000,        // Level 9
+        64000,        // Level 10
+        85000,        // Level 11
+        100000,       // Level 12
+        120000,       // Level 13
+        140000,       // Level 14
+        165000,       // Level 15
+        195000,       // Level 16
+        225000,       // Level 17
+        265000,       // Level 18
+        305000,       // Level 19
+        355000        // Level 20
+    };
 
     /*
     * mod is what is added to rolls
     * Prof is number of proficiencies, 0 if unproficient, 1 if proficient, 2 if doubly proficient
-    * 
+    *
     * both are chars to reduce memory usage
     */
     Skill::Skill(void) {
@@ -112,7 +112,7 @@ namespace ORPG {
         this->mod = modifier;
         this->profBonus = proficiencyBonus;
     }
-    
+
     void Skill::set(int8 modifier, uint8 proficiencyBonus) {
         this->mod = modifier;
         this->profBonus = proficiencyBonus;
@@ -178,8 +178,8 @@ namespace ORPG {
     /**
      * @desc Constructor for AbilityScore that is passed two arguments.
      * It sets this->score equal to score and sets this->isProf to isProf.
-     * 
-     * @param uint8 score - the unsigned 8-bit integer score value to set. 
+     *
+     * @param uint8 score - the unsigned 8-bit integer score value to set.
      * @param bool isProf - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
@@ -200,8 +200,8 @@ namespace ORPG {
      * @desc Setter method for score and isProf. isProf is a boolean
      * representation of whether or not a proficiency bonus should be added to
      * the save of the given AbilityScore.
-     * 
-     * @param uint8 score - the unsigned 8-bit integer score value to set. 
+     *
+     * @param uint8 score - the unsigned 8-bit integer score value to set.
      * @param bool isProf - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
@@ -212,8 +212,8 @@ namespace ORPG {
 
     /**
      * @desc Setter method for an AbilityScore's score.
-     * 
-     * @param uint8 score - the unsigned 8-bit integer score value to set. 
+     *
+     * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
     void AbilityScore::setScore(uint8 score) {
         this->score = score;
@@ -223,7 +223,7 @@ namespace ORPG {
      * @desc Setter method for the isProf property. isProf is a boolean
      * representation of whether or not a proficiency bonus should be
      * added for the save of the given AbilityScore.
-     * 
+     *
      * @param bool isProf - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
@@ -233,7 +233,7 @@ namespace ORPG {
 
     /**
      * @desc Accessor method for an AbilityScore's score.
-     * 
+     *
      * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
      */
     uint8 AbilityScore::getScore() {
@@ -243,9 +243,9 @@ namespace ORPG {
     /**
      * @desc Accessor method for the AbilityScore's modifier.
      * A modifier is defined as:
-     * 
+     *
      * Mod = floor((Score - 10) / 2);
-     * 
+     *
      * @return int8 - an 8-bit integer of the AbilityScore's modifier
      */
     int8 AbilityScore::getMod() {
@@ -257,7 +257,7 @@ namespace ORPG {
      * bonus should be added to any AbilityScore's modifier that has isProf
      * set to true, otherwise it is just the AbilityScore's modifier. It is
      * up to the implementer to handle that addition.
-     * 
+     *
      * @return bool - a boolean value denoting whether or not a proficiency
      * bonus should be added to the save of this AbilityScore
      */
@@ -293,9 +293,9 @@ namespace ORPG {
      * by EnumAbilityScore ability. isProf is a boolean representation of
      * whether or not a proficiency bonus should be added to the save of the
      * given AbilityScore.
-     * 
+     *
      * @param EnumAbilityScore ability - the AbilityScore score to query
-     * @param uint8 score - the unsigned 8-bit integer score value to set. 
+     * @param uint8 score - the unsigned 8-bit integer score value to set.
      * @param bool isProf - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
@@ -307,9 +307,9 @@ namespace ORPG {
      * @desc Accessor method for an AbilityScore, denoted by
      * EnumAbilityScore ability. This returns the pointer of the queried
      * AbilityScore.
-     * 
+     *
      * @param EnumAbilityScore ability - the AbilityScore score to query
-     * 
+     *
      * @return AbilityScore* - an pointer to the AbilityScore's denoted by
      * EnumAbilityScore ability
      */
@@ -320,11 +320,11 @@ namespace ORPG {
     /**
      * @desc Setter method for an AbilityScore's score, denoted
      * by EnumAbilityScore ability. A modifier is defined as:
-     * 
+     *
      * Mod = floor((Score - 10) / 2);
-     * 
+     *
      * @param EnumAbilityScore ability - the AbilityScore score to query
-     * @param uint8 score - the unsigned 8-bit integer score value to set. 
+     * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
     void AbilityScores::setScore(EnumAbilityScore ability, uint8 score) {
         scoresMap[ability]->setScore(score);
@@ -335,7 +335,7 @@ namespace ORPG {
      * EnumAbilityScore ability. isProf is a boolean representation of whether
      * or not a proficiency bonus should be added to the save of the given
      * AbilityScore.
-     * 
+     *
      * @param EnumAbilityScore ability - the AbilityScore score to query
      * @param bool isProf - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
@@ -347,7 +347,7 @@ namespace ORPG {
     /**
      * @desc Setter method for curProf, the current Proficiency Bonus
      * that is added to any AbilityScore that has isProf set to true.
-     * 
+     *
      * @param uint8 - a unsigned 8-bit integer containing the current
      * Proficiency bonus that is added to any AbilityScore that has isProf
      * set to true.
@@ -356,35 +356,51 @@ namespace ORPG {
         curProf = newProf;
     }
 
-    /* should this be accessable to the library at large? */
-    Race* raceSelector(const int identifier = -1) {
+    /**
+     * TODO(incomingstick): Solve this before releasing v0.5.0-dev
+     * NOTE(incomingstick): Should this be accessable to the library at large?
+     * NOTE(incomingstick): Due to Object Slicing, when raceSelector is
+     * returning, it ALWAYS is a new Race object, reguardless of what child
+     * Race (i.e HillDwarf) is returned from the function. This is the cause
+     * of the NameGenerator not finding the proper name file.
+     **/
+    void raceSelector(Race* race, const int identifier = -1) {
         switch(identifier) {
         case Human::ID : {
-            return new Human();
+            race = new Human();
+            return;
         }
-            
+
         case Dwarf::ID : {
-            return new Dwarf();
+            race = new Dwarf();
+            return;
         }
-        
+
         case HillDwarf::ID : {
-            return new HillDwarf();
+            race = new HillDwarf();
+            return;
         }
-            
+
         case Elf::ID : {
-            return new Elf();
+            race = new Elf();
+            return;
         }
-            
+
         case HighElf::ID : {
-            return new HighElf();
+            race = new HighElf();
+            return;
         }
+
         default: {
-            return new Race();
+            race = NULL;
+            return;
         }
         }
     }
 
     Character::Character() {
+        raceSelector(race);
+        
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
         abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
@@ -399,12 +415,13 @@ namespace ORPG {
         firstName = ng.make_first();
         lastName = ng.make_last();
 
-        race = raceSelector();
 
         Initialize();
     }
 
     Character::Character(const int raceID) {
+        raceSelector(race, raceID);
+
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
         abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
@@ -413,52 +430,49 @@ namespace ORPG {
         abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
         abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
 
-        // TODO Gender??? What about asexual races? What if they want to enter a name?
-        NameGenerator ng;
+        NameGenerator ng(race->race_str);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
-
-        race = raceSelector(raceID);
 
         Initialize();
     }
 
     Character::Character(AbilityScores ab):abils(ab) {
-        // TODO Gender??? What about asexual races? What if they want to enter a name?
-        NameGenerator ng;
+        raceSelector(race);
+
+        NameGenerator ng(race->race_str);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
-
-        race = raceSelector();
 
         Initialize();
     }
 
     Character::Character(AbilityScores ab, const int raceID):abils(ab) {
-        // TODO Gender??? What about asexual races? What if they want to enter a name?
-        NameGenerator ng;
+        raceSelector(race, raceID);
+
+        NameGenerator ng(race->race_str);
 
         firstName = ng.make_first();
         lastName = ng.make_last();
-
-        race = raceSelector(raceID);
 
         Initialize();
     }
 
     Character::Character(AbilityScores ab, std::string name):abils(ab) {
+        raceSelector(race);
+
         /* TODO make this work by parsing the name into a first and last */
         firstName = name;
         lastName = name;
-
-        race = raceSelector();
 
         Initialize();
     }
 
     Character::Character(std::string name) {
+        raceSelector(race);
+
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
         abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
@@ -470,13 +484,13 @@ namespace ORPG {
         /* TODO make this work by parsing the name into a first and last */
         firstName = name;
         lastName = name;
-
-        race = raceSelector();
 
         Initialize();
     }
 
     Character::Character(std::string name, const int raceID) {
+        raceSelector(race, raceID);
+
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
         abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
@@ -489,17 +503,15 @@ namespace ORPG {
         firstName = name;
         lastName = name;
 
-        race = raceSelector(raceID);
-
         Initialize();
     }
 
-	Character::Character(AbilityScores ab, std::string name, const int raceID):abils(ab) {
+    Character::Character(AbilityScores ab, std::string name, const int raceID):abils(ab) {
+        raceSelector(race, raceID);
+
         /* TODO make this work by parsing the name into a first and last */
         firstName = name;
         lastName = name;
-
-        race = raceSelector(raceID);
     }
 
     Character::~Character() {
@@ -554,7 +566,7 @@ namespace ORPG {
         ret += "INT: "+ std::to_string(INT()) + " (" + std::to_string(INT_MOD()) + ")\n";
         ret += "WIS: "+ std::to_string(WIS()) + " (" + std::to_string(WIS_MOD()) + ")\n";
         ret += "CHA: "+ std::to_string(CHA()) + " (" + std::to_string(CHA_MOD()) + ")\n";
-        
+
         return ret;
     }
 
@@ -563,10 +575,10 @@ namespace ORPG {
         if(mod > 0) {
             ret += "+";
         }
-        
+
         ret += std::to_string(mod);
         ret = rightpad(ret, spaces, ' ');
-        
+
         return ret;
     }
 
@@ -574,9 +586,9 @@ namespace ORPG {
         string ret("");
 
         const int SPACES_PER_MOD = 3;
-        
+
         update_skills();
-        
+
         //TODO A couple magic numbers in this function, possibly replace later
 
         //Second argument is 23 because there are 23 allotted spaces for the first name
@@ -586,22 +598,22 @@ namespace ORPG {
 
         string sSTR = rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
         string sSTRMod = format_mod(STR_MOD(), SPACES_PER_MOD);
-        
+
         string sDEX = rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sDEXMod = format_mod(DEX_MOD(), SPACES_PER_MOD);
-        
+
         string sCON = rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sCONMod = format_mod(CON_MOD(), SPACES_PER_MOD);
-        
+
         string sINT = rightpad(std::to_string(INT()), SPACES_PER_MOD, ' ');
         string sINTMod = format_mod(INT_MOD(), SPACES_PER_MOD);
-        
+
         string sWIS = rightpad(std::to_string(WIS()), SPACES_PER_MOD, ' ');
         string sWISMod = format_mod(WIS_MOD(), SPACES_PER_MOD);
-        
+
         string sCHA = rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
         string sCHAMod = format_mod(CHA_MOD(), SPACES_PER_MOD);
-        
+
         string sACR = format_mod(skills.getMod(ACR), SPACES_PER_MOD);
         string sANM = format_mod(skills.getMod(ANM), SPACES_PER_MOD);
         string sARC = format_mod(skills.getMod(ARC), SPACES_PER_MOD);
@@ -627,7 +639,7 @@ namespace ORPG {
         * placeholders for the different variables. That would pull this out from cluttering the
         * source code, as well as allowing for people to create their own styles with our predefined tags
         */
-        
+
     ret += "                         ╭────────────────────────────────────────────────────╮\n";
     ret += " ────────────────────────┤                                                    │\n";
     ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
@@ -697,7 +709,7 @@ namespace ORPG {
     }
 
     int8 gen_stat() {
-        /* 
+        /*
          * TODO accept different types of stat generation
          * i.e 4d4+4 or 4d6h3+2
          */
@@ -720,15 +732,15 @@ namespace ORPG {
     // TODO Find cleaner way to do this factory, things get entered in too many places!!!
     CharacterFactory::CharacterFactory() {
         head = allocate_node(Character::ID, false, NULL);
-        
+
         race_node* human = allocate_node(Human::ID, true, head);
-        
+
         race_node* dwarf = allocate_node(Dwarf::ID, true, head);
         race_node* hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
-        
+
         race_node* elf = allocate_node(Elf::ID, true, head);
         race_node* highElf = allocate_node(HighElf::ID, true, elf);
-        
+
         dwarf->children = {
             hillDwarf
         };
@@ -736,7 +748,7 @@ namespace ORPG {
         elf->children = {
             highElf
         };
-        
+
         head->children = {
             human,
             dwarf,
@@ -754,12 +766,12 @@ namespace ORPG {
                                                                 bool required,
                                                                 race_node* parent) {
         race_node* node = new race_node;
-            
+
         if(node == NULL) {
             printf("out of memory");
             exit(EXIT_FAILURE);
         }
-        
+
         node->raceID = raceID;
         node->required = required;
         node->parent = parent;
@@ -767,57 +779,30 @@ namespace ORPG {
         return node;
     }
 
-    // TODO Combine these three functions??
     Character* CharacterFactory::NewCharacter(AbilityScores ab) {
         switch(current->raceID) {
         case Human::ID : {
             return new Character(ab, Human::ID);
         }
-            
+
         case Dwarf::ID : {
             return new Character(ab, Dwarf::ID);
         }
-    
+
         case HillDwarf::ID : {
             return new Character(ab, HillDwarf::ID);
         }
-            
+
         case Elf::ID : {
             return new Character(ab, Elf::ID);
         }
-            
+
         case HighElf::ID : {
             return new Character(ab, HighElf::ID);
         }
-        default: {
-            return NULL;
-        }
-        }
-    }
 
-    Character* CharacterFactory::NewCharacter(int8 identifier) {
-        switch(identifier) {
-        case Human::ID : {
-            return new Character(Human::ID);
-        }
-            
-        case Dwarf::ID : {
-            return new Character(Dwarf::ID);
-        }
-            
-        case HillDwarf::ID : {
-            return new Character(HillDwarf::ID);
-        }
-        
-        case Elf::ID : {
-            return new Character(Elf::ID);
-        }
-            
-        case HighElf::ID : {
-            return new Character(HighElf::ID);
-        }
         default: {
-            return NULL;
+            return new Character(ab, Race::ID);
         }
         }
     }
@@ -827,51 +812,53 @@ namespace ORPG {
         case Human::ID : {
             return new Character(ab, Human::ID);
         }
-            
+
         case Dwarf::ID : {
             return new Character(ab, Dwarf::ID);
         }
-        
+
         case HillDwarf::ID : {
             return new Character(ab, HillDwarf::ID);
         }
-            
+
         case Elf::ID : {
             return new Character(ab, Elf::ID);
         }
-            
+
         case HighElf::ID : {
             return new Character(ab, HighElf::ID);
         }
+
         default: {
-            return NULL;
+            return new Character(ab, Race::ID);
         }
         }
     }
 
-    Character* CharacterFactory::NewCharacter(AbilityScores ab, string name) {
+    Character* CharacterFactory::NewCharacter(string name, AbilityScores ab) {
         switch(current->raceID) {
         case Human::ID : {
             return new Character(ab, name, Human::ID);
         }
-            
+
         case Dwarf::ID : {
             return new Character(ab, name, Dwarf::ID);
         }
-    
+
         case HillDwarf::ID : {
             return new Character(ab, name, HillDwarf::ID);
         }
-            
+
         case Elf::ID : {
             return new Character(ab, name, Elf::ID);
         }
-            
+
         case HighElf::ID : {
             return new Character(ab, name, HighElf::ID);
         }
+
         default: {
-            return NULL;
+            return new Character(ab, name, Race::ID);
         }
         }
     }
@@ -890,24 +877,24 @@ namespace ORPG {
                 ret.push_back("Dwarf");
                 break;
             }
-    
+
             case HillDwarf::ID : {
                 ret.push_back("Hill Dwarf");
                 break;
             }
-        
+
             case Elf::ID : {
                 ret.push_back("Elf");
                 break;
             }
-        
+
             case HighElf::ID : {
                 ret.push_back("High Elf");
                 break;
             }
             }
         }
-        
+
         return ret;
     }
 
@@ -922,7 +909,7 @@ namespace ORPG {
 
         if(index < 0 || (size_t)index > current->children.size())
             return;
-        
+
         if(current->children[index] != NULL)
             current = current->children[index];
     }

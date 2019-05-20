@@ -19,16 +19,13 @@ using namespace ORPG;
 /**
  * Races currently assume 5e. What can we do to abstract outside of
  * that space?
- * 
+ *
  * TODO(incomingstick): based on how much copy pasting I did, it is clear that
  * setting the name could get ugly quick if we don't turn as much of it into
  * functions.
  */
 
 namespace ORPG {
-    /* The const string representation for a Human */
-    const string Human::race = "Human";
-
     /**
      * @desc Constructor for a Human that is passed no arguments. A base Human
      * has +1 to all stats. Human::Initialize() is called at the end of the
@@ -46,20 +43,15 @@ namespace ORPG {
     }
 
     /**
-     * @desc Initialization for a Human that is passed no arguments. 
+     * @desc Initialization for a Human that is passed no arguments.
      * Currently there is no additonal intialization that is done.
-     * 
+     *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Human should do.
      */
     void Human::Initialize() {
-        // TODO
-
-        Super::Initialize();
+         // TODO Initialize the Human
     }
-
-    /* The const string representation for a Dwarf */
-    const string Dwarf::race = "Dwarf";
 
     /**
      * @desc Constructor for a Dwarf that is passed no arguments. A base Dwarf
@@ -78,20 +70,15 @@ namespace ORPG {
     }
 
     /**
-     * @desc Initialization for a Dwarf that is passed no arguments. 
+     * @desc Initialization for a Dwarf that is passed no arguments.
      * Currently there is no additonal intialization that is done.
-     * 
+     *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Dwarf should do.
      */
     void Dwarf::Initialize() {
-        // TODO
-
-        Super::Initialize();
+        // TODO Initialize the Dwarf
     }
-
-    /* The const string representation for a HillDwarf */
-    const string HillDwarf::race = "Hill Dwarf";
 
     /**
      * @desc Constructor for a HillDwarf that is passed no arguments. A base
@@ -108,9 +95,6 @@ namespace ORPG {
 
         Initialize();
     }
-
-    /* The const string representation for an Elf */
-    const string Elf::race = "Elf";
 
     /**
      * @desc Constructor for an Elf that is passed no arguments. A base Elf
@@ -129,20 +113,15 @@ namespace ORPG {
     }
 
     /**
-     * @desc Initialization for an Elf that is passed no arguments. 
+     * @desc Initialization for an Elf that is passed no arguments.
      * Currently there is no additonal intialization that is done.
-     * 
+     *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Elf should do.
      */
     void Elf::Initialize() {
-        // TODO
-
-        Super::Initialize();
+        // TODO Initialize the Elf
     }
-
-    /* The String representation for a HighElf */
-    const string HighElf::race = "High Elf";
 
     /**
      * @desc Constructor for a HighElf that is passed no arguments. A base
