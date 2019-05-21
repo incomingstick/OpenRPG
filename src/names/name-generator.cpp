@@ -51,7 +51,7 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
         /* -h --help */
         case 'h': {
             print_help_flag();
-         } break;
+        } break;
 
         /* -v --verbose */
         case 'v': {
