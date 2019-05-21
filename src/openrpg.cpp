@@ -251,7 +251,7 @@ int parse_input(string in) {
                         fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
                     printf("%s\n", name.make_name().c_str());
-                    return CONTINUE_CODE;;
+                    return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments!\n");
                 }

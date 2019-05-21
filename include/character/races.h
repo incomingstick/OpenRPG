@@ -36,6 +36,13 @@ namespace ORPG {
         virtual void Initialize() = 0;
 
     public:
+        /**
+         * @desc A function that returns the Race::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        virtual const int id() = 0;
+
         /* The const int ID for a generic Race */
         static const int ID = 0x0000;
 
@@ -67,6 +74,13 @@ namespace ORPG {
          **/
         Human();
 
+        /**
+         * @desc A function that returns the Human::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        const int id() { return Human::ID; };
+
         /* The const int ID for a Human */
         static const int ID = 0x0001;
 
@@ -97,6 +111,13 @@ namespace ORPG {
          **/
         Dwarf();
 
+        /**
+         * @desc A function that returns the Dwarf::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        const int id() { return Dwarf::ID; };
+
         /* The const int ID for a Dwarf */
         static const int ID = 0x0010;
 
@@ -113,6 +134,13 @@ namespace ORPG {
          * called at the end of the constructor.
          **/
         HillDwarf();
+
+        /**
+         * @desc A function that returns the HillDwarf::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        const int id() { return HillDwarf::ID; };
 
         /* The const int ID for a HillDwarf */
         static const int ID = 0x0011;
@@ -144,6 +172,13 @@ namespace ORPG {
          **/
         Elf();
 
+        /**
+         * @desc A function that returns the Elf::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        const int id() { return Elf::ID; }
+
         /* The const int ID for an Elf */
         static const int ID = 0x0020;
         
@@ -160,6 +195,13 @@ namespace ORPG {
          * end of the constructor.
          **/
         HighElf();
+
+        /**
+         * @desc A function that returns the Elf::ID static property
+         * 
+         * @return const int - the ID value of the calling class
+         **/
+        const int id() { return HighElf::ID; }
 
         /* The const int ID for a HighElf */
         static const int ID = 0x0021;

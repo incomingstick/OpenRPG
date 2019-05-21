@@ -362,44 +362,68 @@ namespace ORPG {
      * NOTE(incomingstick): Due to Object Slicing, when raceSelector is
      * returning, it ALWAYS is a new Race object, reguardless of what child
      * Race (i.e HillDwarf) is returned from the function. This is the cause
-     * of the NameGenerator not finding the proper name file.
+     * of the NameGenerator not finding the proper name file. The constructor data
+     * is still allocated for the retruned Race child, however to access that data
+     * safely you must use dynamic_cast<Child*>(Parent rent) to downcast into it.
      **/
-    void raceSelector(Race* race, const int identifier = -1) {
+    Race* raceSelector(const int identifier = -1) {
         switch(identifier) {
         case Human::ID : {
-            race = new Human();
-            return;
+            return new Human();
         }
 
         case Dwarf::ID : {
-            race = new Dwarf();
-            return;
+            return new Dwarf();
         }
 
         case HillDwarf::ID : {
-            race = new HillDwarf();
-            return;
+            return new HillDwarf();
         }
 
         case Elf::ID : {
-            race = new Elf();
-            return;
+            return new Elf();
         }
 
         case HighElf::ID : {
-            race = new HighElf();
-            return;
+            return new HighElf();
         }
 
         default: {
-            race = NULL;
-            return;
+            return nullptr;
+        }
+        }
+    }
+
+    string raceString(Race* race) {
+        switch(race->id()) {
+        case Human::ID : {
+            return dynamic_cast<Human*>(race)->race_str;
+        }
+
+        case Dwarf::ID : {
+            return dynamic_cast<Dwarf*>(race)->race_str;
+        }
+
+        case HillDwarf::ID : {
+            return dynamic_cast<HillDwarf*>(race)->race_str;
+        }
+
+        case Elf::ID : {
+            return dynamic_cast<Elf*>(race)->race_str;
+        }
+
+        case HighElf::ID : {
+            return dynamic_cast<HighElf*>(race)->race_str;
+        }
+
+        default: {
+            return race->race_str;
         }
         }
     }
 
     Character::Character() {
-        raceSelector(race);
+        race = raceSelector();
         
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
@@ -420,7 +444,7 @@ namespace ORPG {
     }
 
     Character::Character(const int raceID) {
-        raceSelector(race, raceID);
+        race = raceSelector(raceID);
 
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
@@ -439,7 +463,7 @@ namespace ORPG {
     }
 
     Character::Character(AbilityScores ab):abils(ab) {
-        raceSelector(race);
+        race = raceSelector();
 
         NameGenerator ng(race->race_str);
 
@@ -450,9 +474,9 @@ namespace ORPG {
     }
 
     Character::Character(AbilityScores ab, const int raceID):abils(ab) {
-        raceSelector(race, raceID);
+        race = raceSelector(raceID);
 
-        NameGenerator ng(race->race_str);
+        NameGenerator ng(raceString(race));
 
         firstName = ng.make_first();
         lastName = ng.make_last();
@@ -461,7 +485,7 @@ namespace ORPG {
     }
 
     Character::Character(AbilityScores ab, std::string name):abils(ab) {
-        raceSelector(race);
+        race = raceSelector();
 
         /* TODO make this work by parsing the name into a first and last */
         firstName = name;
@@ -471,7 +495,7 @@ namespace ORPG {
     }
 
     Character::Character(std::string name) {
-        raceSelector(race);
+        race = raceSelector();
 
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
@@ -489,7 +513,7 @@ namespace ORPG {
     }
 
     Character::Character(std::string name, const int raceID) {
-        raceSelector(race, raceID);
+        race = raceSelector(raceID);
 
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
@@ -507,7 +531,7 @@ namespace ORPG {
     }
 
     Character::Character(AbilityScores ab, std::string name, const int raceID):abils(ab) {
-        raceSelector(race, raceID);
+        race = raceSelector(raceID);
 
         /* TODO make this work by parsing the name into a first and last */
         firstName = name;
