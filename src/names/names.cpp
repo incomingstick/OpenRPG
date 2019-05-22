@@ -22,7 +22,7 @@ using namespace std;
 
 /**
  * TODO: test what location we are looking for to ensure it is a valid list
- * 
+ *
  * NOTE(incomingstick): For security reasons we likely should look at
  * setting some form of fallback location in the event that we cannot
  * fix the given location.
@@ -43,10 +43,10 @@ string make_valid_location(const string baseLoc, string nameList, string raceFol
  * @desc this function takes in a string value representing a race and checks
  * against a hard coded list of races without last names, to determine if it
  * would have a last name list in our data folder.
- * 
+ *
  * NOTE(incomingstick): Is is worth putting this in a header and making it a
  * part of the public lib?
- * 
+ *
  * @param string race - the race to check if it would have a last name list
  * @return bool - a boolean value containing weather the given race would
  *                  have a last name list
@@ -63,10 +63,10 @@ bool race_has_last(string race) {
  * @desc this function takes in a string value representing a race and checks
  * against a hard coded list of races with gendered lists, to determine if it
  * would have a gendered name list in our data folder.
- * 
+ *
  * NOTE(incomingstick): Is is worth putting this in a header and making it a
  * part of the public lib?
- * 
+ *
  * @param string race - the race to check if it would have a gendered name list
  * @return bool - a boolean value containing weather the given race would
  *                  have a gendered name list
@@ -86,10 +86,10 @@ bool race_is_gendered(string race) {
  * @desc this function takes in a file path as a string, opens an input file
  * stream, and reads a random line from it. If it cannot open the filePath it
  * returns "\0".
- * 
+ *
  * NOTE(incomingstick): Is is worth putting this in a header and making it a
  * part of the public lib?
- * 
+ *
  * @param string filePath - the file path to read a random line from
  * @return string - a string containing the random line read from. If the file
  * could not be opened, it returns "\0"
@@ -173,24 +173,27 @@ namespace ORPG {
     }
 
     /**
-     * @desc Constructor for NameGenerator that is passed two optional 
+     * @desc Constructor for NameGenerator that is passed two optional
      * arguments. It sets race equal to _race and sets gender to _gender.
-     * 
-     * @param string _race = "dwarf" - the race to use. defaults to dwarf 
+     *
+     * @param string _race = "dwarf" - the race to use. defaults to dwarf
      * @param string _gender = "" - the gender of our race. defaults to empty
      **/
     NameGenerator::NameGenerator(string _race, string _gender)
         :location(ASSET_LOC), race(_race), gender(_gender) {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
         transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        
         location += "/names";
+
+        Initialize();
     }
 
     /**
      * @desc Constructor for NameGenerator that is passed three arguments.
      * It sets race equal to _race, gender to _gender, and location to
      * _location
-     * 
+     *
      * CAUTION(incomingstick): By creating this constructor we are allowing an
      * end user to specify the location the namelist we will read from. It is
      * extremely important we explore this further. I do think this could prove
@@ -202,8 +205,8 @@ namespace ORPG {
      *      "/usr/local/data/openrpg"
      * Because of this, it attempts to check a folder that has not been installed
      * yet, and we need a way for NameGenerator to use our source data folder.
-     * 
-     * @param string _race - the race to use 
+     *
+     * @param string _race - the race to use
      * @param string _gender - the gender of our race
      * @param string _location - the toplevel location to check for lst files.
      * note that /names will be appended to this location
@@ -212,7 +215,25 @@ namespace ORPG {
         :location(location), race(_race), gender(_gender) {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
         transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        
         location += "/names";
+
+        Initialize();
+    }
+
+    /**
+     * @desc Initialization for a NameGenerator that is passed no arguments. 
+     * Initialize cleans up some of the data passed to NameGenerator to ensure
+     * we conform to the naming of know races
+     **/
+    void NameGenerator::Initialize() {
+        /**
+         * TODO(incomingstick): improve this logic so it scales, and by doing it this
+         * way we are preventing someone from using their own provided "hill dwarf"
+         * or "high elf" namelists
+         **/
+        if(race == "hill dwarf") race = "dwarf";
+        if(race == "high elf") race = "elf";
     }
 
     /**
@@ -220,7 +241,7 @@ namespace ORPG {
      * checking their outputs, and concatenating a string together. If either
      * make_first or make_last return "\0", it is not added to the string.
      * If the string would be empty, this function returns "\0"
-     * 
+     *
      * @return string - a concatenated string containing a full name. If no
      * string could be produced it will return "\0"
      **/
@@ -237,7 +258,7 @@ namespace ORPG {
         if(last != "\0") {
             ret += last;
         }
-        
+
         if(ret.empty()) {
             return "\0";
         } else return ret;
@@ -248,7 +269,7 @@ namespace ORPG {
      * in the given location with the given race. If the race is gendered, but
      * no gender is currently set, we will randomly set gender to either female
      * or male. If no name can be generated this function will return "\0"
-     * 
+     *
      * @return string - a string containing a first name. If no name could be
      * produced it will return "\0" as a string.
      **/
@@ -273,7 +294,7 @@ namespace ORPG {
      * @desc Generates a random last name by reading from a random namelist
      * in the given location with the given race. If no name can be generated
      * this function will return "\0"
-     * 
+     *
      * @return string - a string containing a last name. If no name could be
      * produced it will return "\0" as a string.
      **/

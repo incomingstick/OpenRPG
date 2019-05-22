@@ -38,6 +38,12 @@ namespace ORPG {
         /* the toplevel location to use when building our namelist */
         std::string location;
 
+        /**
+         * @desc Initialization for a NameGenerator that is passed no arguments. 
+         * Initialize cleans up some of the data passed to NameGenerator to ensure
+         * we conform to the naming of know races
+         **/
+        void Initialize();
     public:
         /* the race to use when selecting our namelist */
         std::string race;
