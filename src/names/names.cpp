@@ -183,7 +183,10 @@ namespace ORPG {
         :location(ASSET_LOC), race(_race), gender(_gender) {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
         transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        
         location += "/names";
+
+        Initialize();
     }
 
     /**
@@ -212,7 +215,25 @@ namespace ORPG {
         :location(location), race(_race), gender(_gender) {
         transform(race.begin(), race.end(), race.begin(), ::tolower);
         transform(gender.begin(), gender.end(), gender.begin(), ::tolower);
+        
         location += "/names";
+
+        Initialize();
+    }
+
+    /**
+     * @desc Initialization for a NameGenerator that is passed no arguments. 
+     * Initialize cleans up some of the data passed to NameGenerator to ensure
+     * we conform to the naming of know races
+     **/
+    void NameGenerator::Initialize() {
+        /**
+         * TODO(incomingstick): improve this logic so it scales, and by doing it this
+         * way we are preventing someone from using their own provided "hill dwarf"
+         * or "high elf" namelists
+         **/
+        if(race == "hill dwarf") race = "dwarf";
+        if(race == "high elf") race = "elf";
     }
 
     /**
