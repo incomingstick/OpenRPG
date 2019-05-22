@@ -37,8 +37,8 @@ auto parse_args(int argc, char* argv[]) {
     static struct option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
-        {"verbose", no_argument,        0,  'v'},
-        {"version", no_argument,        0,  'V'},
+        {"version", no_argument,        0,  'v'},
+        {"verbose", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -59,15 +59,15 @@ auto parse_args(int argc, char* argv[]) {
             // TODO skip character creator and generate fully random character
         } break;
 
-        /* -v --version */
+        /* -v --verbose */
         case 'v': {
-            Characters::print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             VB_FLAG = true;
             QUIET_FLAG = false;
+        } break;
+
+        /* -V --version */
+        case 'V': {
+            Characters::print_version_flag();
         } break;
 
         /* parsing error */
