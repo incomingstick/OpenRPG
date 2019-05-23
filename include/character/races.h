@@ -26,6 +26,9 @@ namespace ORPG {
         /* The bonuses to Ability Scores that being a Human provides */
         AbilityScores abilBonus;
 
+        /* The const string representation for a Race */
+        const std::string race_str;
+
         /**
          * @desc Initialization for a generic Race that is passed no arguments. 
          * Currently there is no additonal intialization that is done.
@@ -43,11 +46,21 @@ namespace ORPG {
          **/
         virtual const int id() = 0;
 
+        /**
+         * @desc apply the current Race's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        virtual void applyRacialBonus(AbilityScores* base) = 0;
+
+        /**
+         * @desc A function that returns the Race as its string representation
+         * 
+         * @return const std::string - the string representation of a Race
+         **/
+        virtual const std::string to_string() = 0;
+
         /* The const int ID for a generic Race */
         static const int ID = 0x0000;
-
-        /* The const string representation for a Race */
-        const std::string race_str;
     };
 
 
@@ -56,6 +69,9 @@ namespace ORPG {
     protected:
         /* The bonuses to Ability Scores that being a Human provides */
         AbilityScores abilBonus;
+
+        /* The const string representation for a Human */
+        const std::string race_str = "Human";
 
         /**
          * @desc Initialization for a Human that is passed no arguments. 
@@ -81,11 +97,22 @@ namespace ORPG {
          **/
         const int id() { return Human::ID; };
 
+        /**
+         * @desc apply the current Human's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        void applyRacialBonus(AbilityScores* base);
+
+        /**
+         * @desc A function that returns the Human as its string representation
+         * Should always return "Human"
+         * 
+         * @return const std::string - a string representation of a Human
+         **/
+        const std::string to_string() { return race_str; };
+
         /* The const int ID for a Human */
         static const int ID = 0x0001;
-
-        /* The const string representation for a Human */
-        const std::string race_str = "Human";
     };
 
     /* TODO(incomingstick): Fully define Dwarf comments */
@@ -93,6 +120,9 @@ namespace ORPG {
     protected:
         /* The bonuses to Ability Scores that being a Dwarf provides */
         AbilityScores abilBonus;
+
+        /* The const string representation for a Dwarf */
+        const std::string race_str = "Dwarf";
 
         /**
          * @desc Initialization for a Dwarf that is passed no arguments. 
@@ -118,15 +148,30 @@ namespace ORPG {
          **/
         const int id() { return Dwarf::ID; };
 
+        /**
+         * @desc apply the current Dwarf's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        void applyRacialBonus(AbilityScores* base);
+
+        /**
+         * @desc A function that returns the Dwarf as its string representation
+         * Should always return "Dwarf"
+         * 
+         * @return const std::string - a string representation of a Dwarf
+         **/
+        const std::string to_string() { return race_str; };
+
         /* The const int ID for a Dwarf */
         static const int ID = 0x0010;
-
-        /* The const string representation for a Dwarf */
-        const std::string race_str = "Dwarf";
     };
 
     /* TODO(incomingstick): Fully define HillDwarf comments */
     class CHARACTER_EXPORT HillDwarf : public Dwarf {
+    protected:
+        /* The const string representation for a HillDwarf */
+        const std::string race_str = "Hill Dwarf";
+
     public:
         /**
          * @desc Constructor for a HillDwarf that is passed no arguments. A base
@@ -141,12 +186,23 @@ namespace ORPG {
          * @return const int - the ID value of the calling class
          **/
         const int id() { return HillDwarf::ID; };
+        
+        /**
+         * @desc apply the current HillDwarf's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        void applyRacialBonus(AbilityScores* base);
+
+        /**
+         * @desc A function that returns the Hill Dwarf as its string representation
+         * Should always return "Hill Dwarf"
+         * 
+         * @return const std::string - a string representation of a Hill Dwarf
+         **/
+        const std::string to_string() { return race_str; };
 
         /* The const int ID for a HillDwarf */
         static const int ID = 0x0011;
-
-        /* The const string representation for a HillDwarf */
-        const std::string race_str = "Hill Dwarf";
     };
 
     /* TODO(incomingstick): Fully define Elf comments */
@@ -154,6 +210,9 @@ namespace ORPG {
     protected:
         /* The bonuses to Ability Scores that being an Elf provides */
         AbilityScores abilBonus;
+
+        /* The const string representation for an Elf */
+        const std::string race_str = "Elf";
 
         /**
          * @desc Initialization for an Elf that is passed no arguments. 
@@ -177,17 +236,32 @@ namespace ORPG {
          * 
          * @return const int - the ID value of the calling class
          **/
-        const int id() { return Elf::ID; }
+        const int id() { return Elf::ID; };
+
+        /**
+         * @desc apply the current Elf's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        void applyRacialBonus(AbilityScores* base);
+
+        /**
+         * @desc A function that returns the Elf as its string representation
+         * Should always return "Elf"
+         * 
+         * @return const std::string - a string representation of an Elf
+         **/
+        const std::string to_string() { return race_str; };
 
         /* The const int ID for an Elf */
         static const int ID = 0x0020;
-        
-        /* The const string representation for an Elf */
-        const std::string race_str = "Elf";
     };
 
     /* TODO(incomingstick): Fully define HighElf comments */
     class CHARACTER_EXPORT HighElf : public Elf {
+    protected:
+        /* The String representation for a HighElf */
+        const std::string race_str = "High Elf";
+
     public:
         /**
          * @desc Constructor for a HighElf that is passed no arguments. A base
@@ -201,13 +275,24 @@ namespace ORPG {
          * 
          * @return const int - the ID value of the calling class
          **/
-        const int id() { return HighElf::ID; }
+        const int id() { return HighElf::ID; };
+
+        /**
+         * @desc apply the current HighElf's AbilityScores to the passed set
+         * of AbilityScores located at the provided pointer location
+         **/
+        void applyRacialBonus(AbilityScores* base);
+
+        /**
+         * @desc A function that returns the High Elf as its string representation.
+         * Should always return "High Elf"
+         * 
+         * @return const std::string - a string representation of a High Elf
+         **/
+        const std::string to_string() { return race_str; };
 
         /* The const int ID for a HighElf */
         static const int ID = 0x0021;
-
-        /* The String representation for a HighElf */
-        const std::string race_str = "High Elf";
     };
 }
 

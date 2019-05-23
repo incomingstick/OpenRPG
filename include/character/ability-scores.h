@@ -36,6 +36,16 @@ namespace ORPG {
      * that space?
      **/
     class CHARACTER_EXPORT AbilityScore {
+    private:
+        /* An unsigned 8-bit integer value representing the score of this ability */
+        uint8 score = 0;
+
+        /** 
+         * A boolean value denoting whether or not a proficiency bonus should
+         * be added to the score.
+         **/
+        bool prof = false;
+
     public:
         /**
          * @desc Constructor for AbilityScore that is passed no arguments.
@@ -115,16 +125,6 @@ namespace ORPG {
          * bonus should be added to the save of this AbilityScore
          **/
         bool isProf();
-
-    private:
-        /* An unsigned 8-bit integer value representing the score of this ability */
-        uint8 score = 0;
-
-        /** 
-         * A boolean value denoting whether or not a proficiency bonus should
-         * be added to the score.
-         **/
-        bool prof = false;
     };
 
     /**
@@ -142,6 +142,13 @@ namespace ORPG {
      * Currently this follows 5e rules.
      **/
     class CHARACTER_EXPORT AbilityScores {
+    private:
+        /* The current unsigned 8-bit integer proficiency bonus to add */
+        uint8 curProf = 0;
+
+        /* The map relating EnumAbilityScore to their respective AbilityScore */
+        std::map <EnumAbilityScore, AbilityScore*> scoresMap;
+
     public:
         /**
          * @desc Constructor for AbilityScores that is passed no arguments.
@@ -154,6 +161,17 @@ namespace ORPG {
          * Currently does nothing, and the compiler handles deconstruction.
          **/
         ~AbilityScores();
+
+        /**
+         * @desc Operator overload for adding two AbilityScores objects together.
+         * 
+         * @param const AbilityScores obj - the LHS AbilityScores object during the
+         * addition operator.
+         * 
+         * @return AbilityScores& - an AbilityScores object containing the addition of
+         * the calling object and the passed AbilityScores object
+         **/
+        AbilityScores operator+(const AbilityScores);
 
         /**
          * @desc Setter method for an AbilityScore's score and isProf, denoted
@@ -281,13 +299,6 @@ namespace ORPG {
         uint8 getCurrentProf() {
             return curProf;
         };
-
-    private:
-        /* The current unsigned 8-bit integer proficiency bonus to add */
-        uint8 curProf = 0;
-
-        /* The map relating EnumAbilityScore to their respective AbilityScore */
-        std::map <EnumAbilityScore, AbilityScore*> scoresMap;
     };
 }
 

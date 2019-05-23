@@ -54,6 +54,14 @@ namespace ORPG {
     }
 
     /**
+     * @desc apply the current Human's AbilityScores to the passed set
+     * of AbilityScores located at the provided pointer location
+     **/
+    void Human::applyRacialBonus(AbilityScores* base) {
+        *base = *base + abilBonus;
+    }
+
+    /**
      * @desc Constructor for a Dwarf that is passed no arguments. A base Dwarf
      * has +2 to CON. Dwarf::Initialize() is called at the end of the
      * constructor.
@@ -81,6 +89,14 @@ namespace ORPG {
     }
 
     /**
+     * @desc apply the current Dwarf's AbilityScores to the passed set
+     * of AbilityScores located at the provided pointer location
+     **/
+    void Dwarf::applyRacialBonus(AbilityScores* base) {
+        *base = *base + abilBonus;
+    }
+
+    /**
      * @desc Constructor for a HillDwarf that is passed no arguments. A base
      * HillDwarf has +2 to CON and +1 to WIS. HillDwarf::Initialize() is
      * called at the end of the constructor.
@@ -94,6 +110,14 @@ namespace ORPG {
         abilBonus.setScore(CHA, 0);     // Charisma
 
         Initialize();
+    }
+
+    /**
+     * @desc apply the current HillDwarf's AbilityScores to the passed set
+     * of AbilityScores located at the provided pointer location
+     **/
+    void HillDwarf::applyRacialBonus(AbilityScores* base) {
+        *base = *base + abilBonus;
     }
 
     /**
@@ -124,6 +148,14 @@ namespace ORPG {
     }
 
     /**
+     * @desc apply the current Elf's AbilityScores to the passed set
+     * of AbilityScores located at the provided pointer location
+     **/
+    void Elf::applyRacialBonus(AbilityScores* base) {
+        *base = *base + abilBonus;
+    }
+
+    /**
      * @desc Constructor for a HighElf that is passed no arguments. A base
      * HighElf has +2 to DEX and +1 to INT. Elf::Initialize() is called at the
      * end of the constructor.
@@ -137,5 +169,13 @@ namespace ORPG {
         abilBonus.setScore(CHA,0);      // Charisma
 
         Initialize();
+    }
+
+    /**
+     * @desc apply the current Elf's AbilityScores to the passed set
+     * of AbilityScores located at the provided pointer location
+     **/
+    void HighElf::applyRacialBonus(AbilityScores* base) {
+        *base = *base + abilBonus;
     }
 }

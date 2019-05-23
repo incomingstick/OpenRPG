@@ -281,6 +281,51 @@ namespace ORPG {
     }
 
     /**
+     * @desc Operator overload for adding two AbilityScores objects together.
+     * 
+     * @param const AbilityScores obj - the LHS AbilityScores object during the
+     * addition operator.
+     * 
+     * @return AbilityScores& - an AbilityScores object containing the addition of
+     * the calling object and the passed AbilityScores object
+     **/
+    AbilityScores AbilityScores::operator+(AbilityScores obj) {
+        AbilityScores ret;
+
+        ret.set(EnumAbilityScore::STR,
+                scoresMap[EnumAbilityScore::STR]->getScore()
+                + obj.getScore(EnumAbilityScore::STR),
+                scoresMap[EnumAbilityScore::STR]->isProf() || obj.isProf(EnumAbilityScore::STR));
+        
+        ret.set(EnumAbilityScore::DEX,
+                scoresMap[EnumAbilityScore::DEX]->getScore()
+                + obj.getScore(EnumAbilityScore::DEX),
+                scoresMap[EnumAbilityScore::DEX]->isProf() || obj.isProf(EnumAbilityScore::DEX));
+        
+        ret.set(EnumAbilityScore::CON,
+                scoresMap[EnumAbilityScore::CON]->getScore()
+                + obj.getScore(EnumAbilityScore::CON),
+                scoresMap[EnumAbilityScore::CON]->isProf() || obj.isProf(EnumAbilityScore::CON));
+
+        ret.set(EnumAbilityScore::INT,
+                scoresMap[EnumAbilityScore::INT]->getScore()
+                + obj.getScore(EnumAbilityScore::INT),
+                scoresMap[EnumAbilityScore::INT]->isProf() || obj.isProf(EnumAbilityScore::INT));
+
+        ret.set(EnumAbilityScore::WIS,
+                scoresMap[EnumAbilityScore::WIS]->getScore()
+                + obj.getScore(EnumAbilityScore::WIS),
+                scoresMap[EnumAbilityScore::WIS]->isProf() || obj.isProf(EnumAbilityScore::WIS));
+
+        ret.set(EnumAbilityScore::CHA,
+                scoresMap[EnumAbilityScore::CHA]->getScore()
+                + obj.getScore(EnumAbilityScore::CHA),
+                scoresMap[EnumAbilityScore::CHA]->isProf() || obj.isProf(EnumAbilityScore::CHA));
+
+        return ret;
+    }
+
+    /**
      * @desc Deconstructor for AbilityScores that is passed no arguments.
      * Currently does nothing, and the compiler handles deconstruction.
      */
@@ -357,14 +402,7 @@ namespace ORPG {
     }
 
     /**
-     * TODO(incomingstick): Solve this before releasing v0.5.0-dev
      * NOTE(incomingstick): Should this be accessable to the library at large?
-     * NOTE(incomingstick): Due to Object Slicing, when raceSelector is
-     * returning, it ALWAYS is a new Race object, reguardless of what child
-     * Race (i.e HillDwarf) is returned from the function. This is the cause
-     * of the NameGenerator not finding the proper name file. The constructor data
-     * is still allocated for the retruned Race child, however to access that data
-     * safely you must use dynamic_cast<Child*>(Parent rent) to downcast into it.
      **/
     Race* raceSelector(const int identifier = -1) {
         switch(identifier) {
@@ -390,34 +428,6 @@ namespace ORPG {
 
         default: {
             return nullptr;
-        }
-        }
-    }
-
-    string raceString(Race* race) {
-        switch(race->id()) {
-        case Human::ID : {
-            return dynamic_cast<Human*>(race)->race_str;
-        }
-
-        case Dwarf::ID : {
-            return dynamic_cast<Dwarf*>(race)->race_str;
-        }
-
-        case HillDwarf::ID : {
-            return dynamic_cast<HillDwarf*>(race)->race_str;
-        }
-
-        case Elf::ID : {
-            return dynamic_cast<Elf*>(race)->race_str;
-        }
-
-        case HighElf::ID : {
-            return dynamic_cast<HighElf*>(race)->race_str;
-        }
-
-        default: {
-            return race->race_str;
         }
         }
     }
@@ -454,7 +464,7 @@ namespace ORPG {
         abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
         abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
 
-        NameGenerator ng(race->race_str);
+        NameGenerator ng(race->to_string());
 
         firstName = ng.make_first();
         lastName = ng.make_last();
@@ -465,7 +475,7 @@ namespace ORPG {
     Character::Character(AbilityScores ab):abils(ab) {
         race = raceSelector();
 
-        NameGenerator ng(race->race_str);
+        NameGenerator ng(race->to_string());
 
         firstName = ng.make_first();
         lastName = ng.make_last();
@@ -476,7 +486,7 @@ namespace ORPG {
     Character::Character(AbilityScores ab, const int raceID):abils(ab) {
         race = raceSelector(raceID);
 
-        NameGenerator ng(raceString(race));
+        NameGenerator ng(race->to_string());
 
         firstName = ng.make_first();
         lastName = ng.make_last();
@@ -543,6 +553,8 @@ namespace ORPG {
     }
 
     void Character::Initialize() {
+        race->applyRacialBonus(&abils);
+
         curr_hp = 10;                   // TODO current hit points
         temp_hp = 0;                    // TODO temporary hit points
         max_hp = curr_hp;               // TODO maximum hit points
