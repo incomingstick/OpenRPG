@@ -178,10 +178,10 @@ namespace ORPG {
         int8 passive_stat(int stat) { return 8 + prof + stat; };
     
         std::string to_string();
-        std::string to_sheet();
+        std::string to_ascii_sheet();
     };
 
-    /* TODO coments */
+    /* TODO comments */
     class CHARACTER_EXPORT CharacterFactory {
     private:
         struct race_node {

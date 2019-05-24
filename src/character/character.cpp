@@ -618,7 +618,7 @@ namespace ORPG {
         return ret;
     }
 
-    string Character::to_sheet() {
+    string Character::to_ascii_sheet() {
         string ret("");
 
         const int SPACES_PER_MOD = 3;
