@@ -54,7 +54,9 @@ string make_valid_location(const string baseLoc, string nameList, string raceFol
 bool race_has_last(string race) {
     if(race == "aarakocra")     return false;
     if(race == "changeling")    return false;
+    if(race == "half-orc")      return false;
     if(race == "kor")           return false;
+    if(race == "shifter")       return false;
     if(race == "warforged")     return false;
     else return true;
 }
@@ -72,14 +74,11 @@ bool race_has_last(string race) {
  *                  have a gendered name list
  **/
 bool race_is_gendered(string race) {
-    if(race == "dwarf")     return true;
-    if(race == "goliath")   return true;
-    if(race == "halfling")  return true;
-    if(race == "human")     return true;
-    if(race == "kor")       return true;
-    if(race == "minotaur")  return true;
-    if(race == "tiefling")  return true;
-    else return false;
+    if(race == "aarakocra")     return false;
+    if(race == "changeling")    return false;
+    if(race == "shifter")       return false;
+    if(race == "warforged")     return false;
+    else return true;
 }
 
 /**
