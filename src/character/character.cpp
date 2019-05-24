@@ -269,14 +269,14 @@ namespace ORPG {
      * @desc Constructor for AbilityScores that is passed no arguments.
      * It sets all ability scores equal to 10 and isProf to false.
      */
-    AbilityScores::AbilityScores() {
+    AbilityScores::AbilityScores(uint8 def) {
         this->scoresMap = {
-            { STR, new AbilityScore(10, false) },
-            { DEX, new AbilityScore(10, false) },
-            { CON, new AbilityScore(10, false) },
-            { INT, new AbilityScore(10, false) },
-            { WIS, new AbilityScore(10, false) },
-            { CHA, new AbilityScore(10, false) }
+            { STR, new AbilityScore(def, false) },
+            { DEX, new AbilityScore(def, false) },
+            { CON, new AbilityScore(def, false) },
+            { INT, new AbilityScore(def, false) },
+            { WIS, new AbilityScore(def, false) },
+            { CHA, new AbilityScore(def, false) }
         };
     }
 

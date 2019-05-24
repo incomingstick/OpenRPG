@@ -49,6 +49,9 @@ namespace ORPG {
         /**
          * @desc apply the current Race's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
+         * 
+         * @param AbilityScores* - a pointer the base AbilityScores to
+         * add to
          **/
         virtual void applyRacialBonus(AbilityScores* base) = 0;
 
@@ -75,7 +78,6 @@ namespace ORPG {
 
         /**
          * @desc Initialization for a Human that is passed no arguments. 
-         * Currently there is no additonal intialization that is done.
          * 
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Human should do.
@@ -100,6 +102,9 @@ namespace ORPG {
         /**
          * @desc apply the current Human's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
+         * 
+         * @param AbilityScores* - a pointer the base AbilityScores to
+         * add to
          **/
         void applyRacialBonus(AbilityScores* base);
 
@@ -126,7 +131,6 @@ namespace ORPG {
 
         /**
          * @desc Initialization for a Dwarf that is passed no arguments. 
-         * Currently there is no additonal intialization that is done.
          * 
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Dwarf should do.
@@ -151,6 +155,9 @@ namespace ORPG {
         /**
          * @desc apply the current Dwarf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
+         * 
+         * @param AbilityScores* - a pointer the base AbilityScores to
+         * add to
          **/
         void applyRacialBonus(AbilityScores* base);
 
@@ -190,6 +197,9 @@ namespace ORPG {
         /**
          * @desc apply the current HillDwarf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
+         * 
+         * @param AbilityScores* - a pointer the base AbilityScores to
+         * add to
          **/
         void applyRacialBonus(AbilityScores* base);
 
@@ -216,7 +226,6 @@ namespace ORPG {
 
         /**
          * @desc Initialization for an Elf that is passed no arguments. 
-         * Currently there is no additonal intialization that is done.
          * 
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Elf should do.
@@ -241,6 +250,9 @@ namespace ORPG {
         /**
          * @desc apply the current Elf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
+         * 
+         * @param AbilityScores* - a pointer the base AbilityScores to
+         * add to
          **/
         void applyRacialBonus(AbilityScores* base);
 

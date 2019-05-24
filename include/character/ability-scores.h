@@ -154,7 +154,7 @@ namespace ORPG {
          * @desc Constructor for AbilityScores that is passed no arguments.
          * It sets all ability scores equal to 10 and isProf to false.
          **/
-        AbilityScores();
+        AbilityScores(uint8 def = 10);
 
         /**
          * @desc Deconstructor for AbilityScores that is passed no arguments.

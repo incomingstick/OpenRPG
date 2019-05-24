@@ -88,8 +88,9 @@ auto parse_args(int argc, char* argv[]) {
 }
 
 /*
- * Currently this function only checks to ensure the string contains
+ * Currently this function just checks to ensure the string contains
  * only digits, and returns true. It will return false otherwise.
+ * If the provided string is empty, this function returns false.
  *
  * NOTE(incomingsting): This could, and probably should, be improved
  * to also ensure we are within the bounds on the "question" being asked.
@@ -99,12 +100,12 @@ auto parse_args(int argc, char* argv[]) {
  * @param: string check - this string to be checked
  * @return bool - returns true if check contains only numbers
  */
-bool purity_check_string(string check) {
-    for(char c : check) {
-        if(!isdigit((unsigned char)c)) return false;
+bool safety_check_stoi(string check) {
+    for(auto c : check) {
+        if(!isdigit((unsigned)c)) return false;
     }
 
-    return true;
+    return check.empty() ? false : true;
 }
 
 /*
@@ -142,14 +143,17 @@ auto request_selection(CharacterFactory factory) {
         tick = 0;
 
         cout << "\n#? ";
-        cin >> input;
+        safeGetline(cin, input);
 
-        if(purity_check_string(input)) {
+        if(safety_check_stoi(input)) {
             index = stoi(input);
         } else {
             cout << "invalid input!" << endl;
         }
+
+        cin.clear();
     }
+
 
     return index;
 }
@@ -174,7 +178,7 @@ AbilityScores request_scores() {
 
     AbilityScores ret;
     string input;
-    vector<int8> stats = ability_score_vector();
+    auto stats = ability_score_vector();
 
     printf("You generated the following ability scores: \n");
 
@@ -182,27 +186,30 @@ AbilityScores request_scores() {
 
     printf("\n");
 
+    printf("(leave blank to randomly assign from the list above)\n");
+
     for(int8 i = 0; i < (int8)stats.size(); i++) {
         switch(i) {
         case 0: {
             printf("Set Strength\t (STR): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::STR, stoi(input));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
+                cin.clear();
             }
         } break;
 
         case 1: {
             printf("Set Dexterity\t (DEX): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::DEX, stoi(input));
             } else {
                 i--;
@@ -213,9 +220,9 @@ AbilityScores request_scores() {
         case 2: {
             printf("Set Constitution (CON): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CON, stoi(input));
             } else {
                 i--;
@@ -226,9 +233,9 @@ AbilityScores request_scores() {
         case 3: {
             printf("Set Intelligence (INT): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::INT, stoi(input));
             } else {
                 i--;
@@ -239,9 +246,9 @@ AbilityScores request_scores() {
         case 4: {
             printf("Set Wisdom\t (WIS): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::WIS, stoi(input));
             } else {
                 i--;
@@ -252,9 +259,9 @@ AbilityScores request_scores() {
         case 5: {
             printf("Set Charisma\t (CHA): ");
 
-            cin >> input;
+            safeGetline(cin, input);
 
-            if(purity_check_string(input)) {
+            if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CHA, stoi(input));
             } else {
                 i--;
@@ -267,6 +274,8 @@ AbilityScores request_scores() {
             exit(EXIT_FAILURE);
         }
         }
+
+        cin.clear();
     }
 
     printf("\n");
@@ -315,8 +324,7 @@ int main(int argc, char* argv[]) {
 
     string name;
 
-    cin.ignore();
-    getline(cin, name);
+    safeGetline(cin, name);
 
     printf("\n");
 

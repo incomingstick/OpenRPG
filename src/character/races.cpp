@@ -32,19 +32,13 @@ namespace ORPG {
      * constructor.
      */
     Human::Human() {
-        abilBonus.setScore(STR, 1);    // Strength
-        abilBonus.setScore(DEX, 1);    // Dexterity
-        abilBonus.setScore(CON, 1);    // Constitution
-        abilBonus.setScore(INT, 1);    // Intelligence
-        abilBonus.setScore(WIS, 1);    // Wisdom
-        abilBonus.setScore(CHA, 1);    // Charisma
+        abilBonus = AbilityScores(1);
 
         Initialize();
     }
 
     /**
      * @desc Initialization for a Human that is passed no arguments.
-     * Currently there is no additonal intialization that is done.
      *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Human should do.
@@ -56,6 +50,9 @@ namespace ORPG {
     /**
      * @desc apply the current Human's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
+     * 
+     * @param AbilityScores* - a pointer the base AbilityScores to
+     * add to
      **/
     void Human::applyRacialBonus(AbilityScores* base) {
         *base = *base + abilBonus;
@@ -67,30 +64,28 @@ namespace ORPG {
      * constructor.
      */
     Dwarf::Dwarf() {
-        abilBonus.setScore(STR, 0);     // Strength
-        abilBonus.setScore(DEX, 0);     // Dexterity
+        abilBonus = AbilityScores(0);
         abilBonus.setScore(CON, 2);     // Constitution
-        abilBonus.setScore(INT, 0);     // Intelligence
-        abilBonus.setScore(WIS, 0);     // Wisdom
-        abilBonus.setScore(CHA, 0);     // Charisma
 
         Initialize();
     }
 
     /**
      * @desc Initialization for a Dwarf that is passed no arguments.
-     * Currently there is no additonal intialization that is done.
      *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Dwarf should do.
      */
     void Dwarf::Initialize() {
-        // TODO Initialize the Dwarf
+        abilBonus.setScore(CON, 2);     // Constitution
     }
 
     /**
      * @desc apply the current Dwarf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
+     * 
+     * @param AbilityScores* - a pointer the base AbilityScores to
+     * add to
      **/
     void Dwarf::applyRacialBonus(AbilityScores* base) {
         *base = *base + abilBonus;
@@ -102,12 +97,8 @@ namespace ORPG {
      * called at the end of the constructor.
      */
     HillDwarf::HillDwarf() {
-        abilBonus.setScore(STR, 0);     // Strength
-        abilBonus.setScore(DEX, 0);     // Dexterity
-        abilBonus.setScore(CON, 2);     // Constitution
-        abilBonus.setScore(INT, 0);     // Intelligence
+        abilBonus = AbilityScores(0);
         abilBonus.setScore(WIS, 1);     // Wisdom
-        abilBonus.setScore(CHA, 0);     // Charisma
 
         Initialize();
     }
@@ -115,6 +106,9 @@ namespace ORPG {
     /**
      * @desc apply the current HillDwarf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
+     * 
+     * @param AbilityScores* - a pointer the base AbilityScores to
+     * add to
      **/
     void HillDwarf::applyRacialBonus(AbilityScores* base) {
         *base = *base + abilBonus;
@@ -126,30 +120,27 @@ namespace ORPG {
      * constructor.
      */
     Elf::Elf() {
-        abilBonus.setScore(STR, 0);      // Strength
-        abilBonus.setScore(DEX, 2);      // Dexterity
-        abilBonus.setScore(CON, 0);      // Constitution
-        abilBonus.setScore(INT, 0);      // Intelligence
-        abilBonus.setScore(WIS, 0);      // Wisdom
-        abilBonus.setScore(CHA, 0);      // Charisma
+        abilBonus = AbilityScores(0);
 
         Initialize();
     }
 
     /**
      * @desc Initialization for an Elf that is passed no arguments.
-     * Currently there is no additonal intialization that is done.
      *
      * NOTE(incomingstick): Here we should finish setting up our race,
      * by doing everything that ALL Races of type Elf should do.
      */
     void Elf::Initialize() {
-        // TODO Initialize the Elf
+        abilBonus.setScore(DEX, 2);      // Dexterity
     }
 
     /**
      * @desc apply the current Elf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
+     * 
+     * @param AbilityScores* - a pointer the base AbilityScores to
+     * add to
      **/
     void Elf::applyRacialBonus(AbilityScores* base) {
         *base = *base + abilBonus;
@@ -161,12 +152,8 @@ namespace ORPG {
      * end of the constructor.
      */
     HighElf::HighElf() {
-        abilBonus.setScore(STR,0);      // Strength
-        abilBonus.setScore(DEX,2);      // Dexterity
-        abilBonus.setScore(CON,0);      // Constitution
-        abilBonus.setScore(INT,1);      // Intelligence
-        abilBonus.setScore(WIS,0);      // Wisdom
-        abilBonus.setScore(CHA,0);      // Charisma
+        abilBonus = AbilityScores(0);
+        abilBonus.setScore(INT, 1);      // Intelligence
 
         Initialize();
     }
@@ -174,6 +161,9 @@ namespace ORPG {
     /**
      * @desc apply the current Elf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
+     * 
+     * @param AbilityScores* - a pointer the base AbilityScores to
+     * add to
      **/
     void HighElf::applyRacialBonus(AbilityScores* base) {
         *base = *base + abilBonus;
