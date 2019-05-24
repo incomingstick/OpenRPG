@@ -97,43 +97,93 @@ namespace ORPG {
         355000        // Level 20
     };
 
-    /*
-    * mod is what is added to rolls
-    * Prof is number of proficiencies, 0 if unproficient, 1 if proficient, 2 if doubly proficient
-    *
-    * both are chars to reduce memory usage
-    */
-    Skill::Skill(void) {
+    /**
+     * mod is what is added to rolls
+     * Prof is number of proficiencies, 0 if unproficient, 1 if proficient, 2 if doubly proficient
+     *
+     * both are chars to reduce memory usage
+     **/
+    Skill::Skill() {
         this->mod = 0;
         this->profBonus = 0;
     }
 
-    Skill::Skill(int8 modifier, uint8 proficiencyBonus) {
-        this->mod = modifier;
-        this->profBonus = proficiencyBonus;
+    /**
+     * @desc Constructor for a new Skill object that takes an int8 and to set
+     * as the modifier, and a uint8 to set as the proficiencyBonus
+     *
+     * @param int8 modifier - an int8 to set as the mod (modifier)
+     * @param uint8 proficiencyBonus - a uint8 to set as the proficiency level
+     **/
+    Skill::Skill(int8 modifier, uint8 proficiencyBonus):
+        mod(modifier),
+        profBonus(proficiencyBonus) {
+        /* Does nothing else currently */
     }
 
+    /**
+     * @desc Setter function that combines the setting of the modifier and
+     * proficiency bonus into a single function. To set the values it just
+     * calls their own individual setters.
+     *
+     * @param int8 modifier - the int8 to set as the new mod
+     * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
+     **/
     void Skill::set(int8 modifier, uint8 proficiencyBonus) {
-        this->mod = modifier;
-        this->profBonus = proficiencyBonus;
+        setMod(modifier);
+        setProfBonus(proficiencyBonus);
     }
 
+    /**
+     * @desc Setter function for the mod (modifier) this Skill provides
+     *
+     * @param int8 modifier - the int8 to set as the new mod
+     **/
     void Skill::setMod(int8 modifier) {
         this->mod = modifier;
     }
 
-    void Skill::setProfBonus(uint8 modifier) {
-        this->profBonus = modifier;
+    /**
+     * @desc Setter function for the profBonus of this Skill
+     *
+     * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
+     **/
+    void Skill::setProfBonus(uint8 newProficiencyBonus) {
+        this->profBonus = newProficiencyBonus;
     }
 
+    /**
+     * @desc Get the modifier bonus of the given EnumSkill contained
+     * within this Skill object
+     *
+     * @return int8 - the modifier bonus of the queried skill
+     **/
     int8 Skill::getMod() {
         return this->mod;
     }
 
+    /**
+     * @desc Get the proficiency bonus level that is to be used when
+     * calculating the amount proficiency to add to this skills
+     * modifier bonus.
+     *
+     * Currently proficiency bonus levels are defined as follows:
+     *      0 - if unproficient
+     *      1 - if proficient
+     *      2 - if double proficient
+     *
+     * @return uint8 - the proficiency bonus level that is used when calculating
+     * the amount proficiency to add to this skills modifier bonus
+     **/
     unsigned char Skill::getProfBonus() {
         return this->profBonus;
     }
 
+    /**
+     * @desc Constructor for the Skills class that maps Skill classes to
+     * their respective EnumSkill, with a modifier of 0 and proficiency
+     * bonus level of 0.
+     **/
     Skills::Skills() {
         this->skillsMap = {
             { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
@@ -157,12 +207,12 @@ namespace ORPG {
         };
     }
 
+    /**
+     * @desc Desctructor function for the Skills class that ensures
+     * the internal std::map skillsMap is deleted
+     **/
     Skills::~Skills() {
         delete[] &skillsMap;
-    }
-
-    Skill* Skills::get(EnumSkill skill) {
-        return skillsMap[skill];
     }
 
     /**
@@ -282,10 +332,10 @@ namespace ORPG {
 
     /**
      * @desc Operator overload for adding two AbilityScores objects together.
-     * 
+     *
      * @param const AbilityScores obj - the LHS AbilityScores object during the
      * addition operator.
-     * 
+     *
      * @return AbilityScores& - an AbilityScores object containing the addition of
      * the calling object and the passed AbilityScores object
      **/
@@ -296,12 +346,12 @@ namespace ORPG {
                 scoresMap[EnumAbilityScore::STR]->getScore()
                 + obj.getScore(EnumAbilityScore::STR),
                 scoresMap[EnumAbilityScore::STR]->isProf() || obj.isProf(EnumAbilityScore::STR));
-        
+
         ret.set(EnumAbilityScore::DEX,
                 scoresMap[EnumAbilityScore::DEX]->getScore()
                 + obj.getScore(EnumAbilityScore::DEX),
                 scoresMap[EnumAbilityScore::DEX]->isProf() || obj.isProf(EnumAbilityScore::DEX));
-        
+
         ret.set(EnumAbilityScore::CON,
                 scoresMap[EnumAbilityScore::CON]->getScore()
                 + obj.getScore(EnumAbilityScore::CON),
@@ -434,7 +484,7 @@ namespace ORPG {
 
     Character::Character() {
         race = raceSelector();
-        
+
         // NOTE(incomginstick): there are better ways to do this
         abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
         abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
@@ -744,7 +794,7 @@ namespace ORPG {
         return ret;
     }
 
-    int8 gen_stat() {
+    uint8 gen_stat() {
         /*
          * TODO accept different types of stat generation
          * i.e 4d4+4 or 4d6h3+2
@@ -757,10 +807,10 @@ namespace ORPG {
 
     /* Generates a vector of ability scores base on the used type
         TODO allow multiple types of ability score generation */
-    vector<int8> ability_score_vector() {
-        vector<int8> ret;
+    vector<uint8> ability_score_vector() {
+        vector<uint8> ret;
 
-        for(int8 i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
+        for(uint8 i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
 
         return ret;
     }

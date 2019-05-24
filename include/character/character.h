@@ -53,7 +53,7 @@ namespace ORPG {
 
     /**
      * An enum containing genders
-     * 
+     *
      * NOTE(incomingstick): How far do we want to take this? We could
      * put ourselves in  a tricky place if this is done wrong.
      **/
@@ -85,14 +85,14 @@ namespace ORPG {
     };
 
     /* Generates a stat > 1 && < 20 */
-    int8 CHARACTER_EXPORT gen_stat();
+    uint8 CHARACTER_EXPORT gen_stat();
 
     /* Generates an array of stats > 1 && < 20 */
-    std::vector<int8> CHARACTER_EXPORT ability_score_vector();
+    std::vector<uint8> CHARACTER_EXPORT ability_score_vector();
 
-    /** 
-     * returns an integer representation of the passed abilities modifier 
-     * 
+    /**
+     * returns an integer representation of the passed abilities modifier
+     *
      * NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
      **/
     inline int8 CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
@@ -118,7 +118,7 @@ namespace ORPG {
         int max_exp;                        // experience needed for next level
         std::vector<Language> languages;    // the array of known languages
         Gender gender;                      // the characters gender
-    
+
         void Initialize();
 
     public:
@@ -134,14 +134,14 @@ namespace ORPG {
         Character(std::string name, const int raceID);
         Character(AbilityScores ab, std::string name, const int raceID);
         ~Character();
-    
+
         std::string format_mod(int mod, int spaces);
-    
+
         void update_skills();
 
-        // an integer that represents the Character 
+        // an integer that represents the Character
         // NOTE(incomingstick): this is the same ID as a generic Race...
-        static const int8 ID = 0x0000;    
+        static const int8 ID = 0x0000;
 
         // Returns a copy of our Ability abils struct
         AbilityScores get_ability_copy() { return abils; };
@@ -149,7 +149,7 @@ namespace ORPG {
         // Returns a copy of our Skills skills struct
         // NOTE(var_username): Commented out because I broke it
         // Skills get_skills_copy() { return skills; };
-    
+
         /* accessor functions for ability score modifiers */
         int8 STR() { return abils.getScore(EnumAbilityScore::STR); };
         int8 DEX() { return abils.getScore(EnumAbilityScore::DEX); };
@@ -157,7 +157,7 @@ namespace ORPG {
         int8 INT() { return abils.getScore(EnumAbilityScore::INT); };
         int8 WIS() { return abils.getScore(EnumAbilityScore::WIS); };
         int8 CHA() { return abils.getScore(EnumAbilityScore::CHA); };
-    
+
         /* accessor functions for ability score modifiers */
         int8 STR_MOD() { return abils.getMod(EnumAbilityScore::STR); };
         int8 DEX_MOD() { return abils.getMod(EnumAbilityScore::DEX); };
@@ -173,10 +173,10 @@ namespace ORPG {
         int8 INT_SAVE() { return modifier(abils.getSave(EnumAbilityScore::INT)); };
         int8 WIS_SAVE() { return modifier(abils.getSave(EnumAbilityScore::WIS)); };
         int8 CHA_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CHA)); };
-    
+
         // allows quick conversion of a skill for its passive check
         int8 passive_stat(int stat) { return 8 + prof + stat; };
-    
+
         std::string to_string();
         std::string to_ascii_sheet();
     };
@@ -187,7 +187,7 @@ namespace ORPG {
         struct race_node {
             int raceID;
             bool required;
-            
+
             race_node* parent;
             std::vector<race_node* > children;
         };

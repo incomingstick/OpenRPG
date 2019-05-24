@@ -30,9 +30,9 @@ namespace ORPG {
         const std::string race_str;
 
         /**
-         * @desc Initialization for a generic Race that is passed no arguments. 
+         * @desc Initialization for a generic Race that is passed no arguments.
          * Currently there is no additonal intialization that is done.
-         * 
+         *
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races should do.
          **/
@@ -41,7 +41,7 @@ namespace ORPG {
     public:
         /**
          * @desc A function that returns the Race::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         virtual const int id() = 0;
@@ -49,7 +49,7 @@ namespace ORPG {
         /**
          * @desc apply the current Race's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
-         * 
+         *
          * @param AbilityScores* - a pointer the base AbilityScores to
          * add to
          **/
@@ -57,7 +57,7 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the Race as its string representation
-         * 
+         *
          * @return const std::string - the string representation of a Race
          **/
         virtual const std::string to_string() = 0;
@@ -77,8 +77,8 @@ namespace ORPG {
         const std::string race_str = "Human";
 
         /**
-         * @desc Initialization for a Human that is passed no arguments. 
-         * 
+         * @desc Initialization for a Human that is passed no arguments.
+         *
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Human should do.
          **/
@@ -94,7 +94,7 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the Human::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         const int id() { return Human::ID; };
@@ -102,7 +102,7 @@ namespace ORPG {
         /**
          * @desc apply the current Human's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
-         * 
+         *
          * @param AbilityScores* - a pointer the base AbilityScores to
          * add to
          **/
@@ -111,7 +111,7 @@ namespace ORPG {
         /**
          * @desc A function that returns the Human as its string representation
          * Should always return "Human"
-         * 
+         *
          * @return const std::string - a string representation of a Human
          **/
         const std::string to_string() { return race_str; };
@@ -130,8 +130,8 @@ namespace ORPG {
         const std::string race_str = "Dwarf";
 
         /**
-         * @desc Initialization for a Dwarf that is passed no arguments. 
-         * 
+         * @desc Initialization for a Dwarf that is passed no arguments.
+         *
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Dwarf should do.
          **/
@@ -147,7 +147,7 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the Dwarf::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         const int id() { return Dwarf::ID; };
@@ -155,7 +155,7 @@ namespace ORPG {
         /**
          * @desc apply the current Dwarf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
-         * 
+         *
          * @param AbilityScores* - a pointer the base AbilityScores to
          * add to
          **/
@@ -164,7 +164,7 @@ namespace ORPG {
         /**
          * @desc A function that returns the Dwarf as its string representation
          * Should always return "Dwarf"
-         * 
+         *
          * @return const std::string - a string representation of a Dwarf
          **/
         const std::string to_string() { return race_str; };
@@ -189,15 +189,15 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the HillDwarf::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         const int id() { return HillDwarf::ID; };
-        
+
         /**
          * @desc apply the current HillDwarf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
-         * 
+         *
          * @param AbilityScores* - a pointer the base AbilityScores to
          * add to
          **/
@@ -206,7 +206,7 @@ namespace ORPG {
         /**
          * @desc A function that returns the Hill Dwarf as its string representation
          * Should always return "Hill Dwarf"
-         * 
+         *
          * @return const std::string - a string representation of a Hill Dwarf
          **/
         const std::string to_string() { return race_str; };
@@ -225,8 +225,8 @@ namespace ORPG {
         const std::string race_str = "Elf";
 
         /**
-         * @desc Initialization for an Elf that is passed no arguments. 
-         * 
+         * @desc Initialization for an Elf that is passed no arguments.
+         *
          * NOTE(incomingstick): Here we should finish setting up our race,
          * by doing everything that ALL Races of type Elf should do.
          **/
@@ -242,7 +242,7 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the Elf::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         const int id() { return Elf::ID; };
@@ -250,7 +250,7 @@ namespace ORPG {
         /**
          * @desc apply the current Elf's AbilityScores to the passed set
          * of AbilityScores located at the provided pointer location
-         * 
+         *
          * @param AbilityScores* - a pointer the base AbilityScores to
          * add to
          **/
@@ -259,7 +259,7 @@ namespace ORPG {
         /**
          * @desc A function that returns the Elf as its string representation
          * Should always return "Elf"
-         * 
+         *
          * @return const std::string - a string representation of an Elf
          **/
         const std::string to_string() { return race_str; };
@@ -284,7 +284,7 @@ namespace ORPG {
 
         /**
          * @desc A function that returns the Elf::ID static property
-         * 
+         *
          * @return const int - the ID value of the calling class
          **/
         const int id() { return HighElf::ID; };
@@ -298,7 +298,7 @@ namespace ORPG {
         /**
          * @desc A function that returns the High Elf as its string representation.
          * Should always return "High Elf"
-         * 
+         *
          * @return const std::string - a string representation of a High Elf
          **/
         const std::string to_string() { return race_str; };

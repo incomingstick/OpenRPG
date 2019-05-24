@@ -50,7 +50,7 @@ namespace ORPG {
     /**
      * @desc apply the current Human's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
-     * 
+     *
      * @param AbilityScores* - a pointer the base AbilityScores to
      * add to
      **/
@@ -83,7 +83,7 @@ namespace ORPG {
     /**
      * @desc apply the current Dwarf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
-     * 
+     *
      * @param AbilityScores* - a pointer the base AbilityScores to
      * add to
      **/
@@ -106,7 +106,7 @@ namespace ORPG {
     /**
      * @desc apply the current HillDwarf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
-     * 
+     *
      * @param AbilityScores* - a pointer the base AbilityScores to
      * add to
      **/
@@ -138,7 +138,7 @@ namespace ORPG {
     /**
      * @desc apply the current Elf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
-     * 
+     *
      * @param AbilityScores* - a pointer the base AbilityScores to
      * add to
      **/
@@ -161,7 +161,7 @@ namespace ORPG {
     /**
      * @desc apply the current Elf's AbilityScores to the passed set
      * of AbilityScores located at the provided pointer location
-     * 
+     *
      * @param AbilityScores* - a pointer the base AbilityScores to
      * add to
      **/

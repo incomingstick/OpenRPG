@@ -17,13 +17,13 @@ using namespace std;
 using namespace ORPG;
 
 /**
-  * @desc This function parses all cla's passed to argv from the command line.
-  * This function may terminate the program.
-  *
-  * @param int argc - the number of arguments passed / the length of argv[]
-  * @param char* argv[] - the arguments passed from the command line
-  * @return int - an integer code following the C/C++ standard for program success
-  */
+ * @desc This function parses all cla's passed to argv from the command line.
+ * This function may terminate the program.
+ *
+ * @param int argc - the number of arguments passed / the length of argv[]
+ * @param char* argv[] - the arguments passed from the command line
+ * @return int - an integer code following the C/C++ standard for program success
+ **/
 auto parse_args(int argc, char* argv[]) {
     auto status = EXIT_SUCCESS;
 
@@ -87,8 +87,8 @@ auto parse_args(int argc, char* argv[]) {
     return status;
 }
 
-/*
- * Currently this function just checks to ensure the string contains
+/**
+ * @desc Currently this function just checks to ensure the string contains
  * only digits, and returns true. It will return false otherwise.
  * If the provided string is empty, this function returns false.
  *
@@ -99,7 +99,7 @@ auto parse_args(int argc, char* argv[]) {
  *
  * @param: string check - this string to be checked
  * @return bool - returns true if check contains only numbers
- */
+ **/
 bool safety_check_stoi(string check) {
     for(auto c : check) {
         if(!isdigit((unsigned)c)) return false;
@@ -108,8 +108,8 @@ bool safety_check_stoi(string check) {
     return check.empty() ? false : true;
 }
 
-/*
- * This function is built to work in tandem specifically with the character
+/**
+ * @desc This function is built to work in tandem specifically with the character
  * module. It takes in a CharacterFactory and checks what stage it is
  * currently in, prompting the user for any required input from cin.
  *
@@ -120,7 +120,7 @@ bool safety_check_stoi(string check) {
  *
  * @param: CharacterFactory factory - the factory to check and prompt from
  * @return auto - the selected input
- */
+ **/
 auto request_selection(CharacterFactory factory) {
     int index = -1;
     string input;
@@ -158,8 +158,26 @@ auto request_selection(CharacterFactory factory) {
     return index;
 }
 
-/*
- * This function prompts the user for 6 numbers to use as their characters
+/**
+ * @desc Takes a point to an array of unit8's, randomly selects an index
+ * from within that array, gets the value of that index to return, and
+ * removes it from the vector. Do note that the vectors size is reduced
+ * by one.
+ *
+ * @param vector<uint8> *arr - the pointer of the vectory array to operate on
+ * @return auto - the extracted value from the randomly selected element
+ **/
+auto extract_random_element(vector<uint8>* arr) {
+    auto randIndex = randomInt(0, arr->size()-1);
+    auto ret = arr->at(randIndex);
+
+    arr->erase(arr->begin()+randIndex);
+
+    return ret;
+}
+
+/**
+ * @desc This function prompts the user for 6 numbers to use as their characters
  * abilities. It specifically request their ability scores in the following
  * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
  *
@@ -172,7 +190,7 @@ auto request_selection(CharacterFactory factory) {
  * currently, which looks kinda ungly, and takes up space. Like this comment.
  *
  * @return Ability - an Ability containing the users input scores
- */
+ **/
 AbilityScores request_scores() {
     printf("\n");
 
@@ -188,7 +206,7 @@ AbilityScores request_scores() {
 
     printf("(leave blank to randomly assign from the list above)\n");
 
-    for(int8 i = 0; i < (int8)stats.size(); i++) {
+    for(int8 i = 0; i < 6; i++) {
         switch(i) {
         case 0: {
             printf("Set Strength\t (STR): ");
@@ -197,6 +215,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::STR, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::STR,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -211,6 +232,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::DEX, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::DEX,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -224,6 +248,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CON, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::CON,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -237,6 +264,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::INT, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::INT,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -250,6 +280,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::WIS, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::WIS,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -263,6 +296,9 @@ AbilityScores request_scores() {
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CHA, stoi(input));
+            } else if(input.empty()) {
+                ret.setScore(EnumAbilityScore::CHA,
+                             extract_random_element(&stats));
             } else {
                 i--;
                 cout << "invalid input!" << endl;
@@ -284,14 +320,14 @@ AbilityScores request_scores() {
 }
 
 /**
-  * @desc entry point for the character-generator program. This contains the
-  * main logic for creating a character via the character-generator. All
-  * command line arguments are parsed before character creation begins, and
-  * the program may terminate before allowing user input.
-  *
-  * @param string in - the users input to be parsed
-  * @return int - an integer code following the C/C++ standard for program success
-  */
+ * @desc entry point for the character-generator program. This contains the
+ * main logic for creating a character via the character-generator. All
+ * command line arguments are parsed before character creation begins, and
+ * the program may terminate before allowing user input.
+ *
+ * @param string in - the users input to be parsed
+ * @return int - an integer code following the C/C++ standard for program success
+ **/
 int main(int argc, char* argv[]) {
     auto status = parse_args(argc, argv); // may exit
 
