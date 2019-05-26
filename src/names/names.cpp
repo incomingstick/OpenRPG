@@ -52,6 +52,7 @@ string make_valid_location(const string baseLoc, string nameList, string raceFol
  *                  have a last name list
  **/
 bool race_has_last(string race) {
+    /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
     if(race == "aarakocra")     return false;
     if(race == "changeling")    return false;
     if(race == "half-orc")      return false;
@@ -74,6 +75,7 @@ bool race_has_last(string race) {
  *                  have a gendered name list
  **/
 bool race_is_gendered(string race) {
+    /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
     if(race == "aarakocra")     return false;
     if(race == "changeling")    return false;
     if(race == "shifter")       return false;
@@ -97,17 +99,17 @@ string rand_line_from_file(string filePath) {
     ifstream file(filePath.c_str());
 
     if(file.is_open()) {
-        string line;
-        vector<string> lines;
+        string read;
+        vector<string> buff;
 
-        while(safeGetline(file, line)) {
-            if(!line.empty())
-                lines.push_back(line);
+        while(safeGetline(file, read)) {
+            if(!read.empty())
+                buff.push_back(read);
         }
 
         file.close();
 
-        return lines[randomInt(0, lines.size() - 1)];
+        return buff[randomInt(0, buff.size() - 1)];
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
@@ -198,7 +200,8 @@ namespace ORPG {
      * NOTE(incomingstick): I am creating this function specifically to help
      * the test suite. When testing on a fresh system, we are built before we
      * test, but the release builds defines ASSET_LOC as:
-     *      "/usr/local/data/openrpg"
+     *      *nix systems: "/usr/local/data/openrpg"
+     *      Windows systems: TODO(incomingstick)
      * Because of this, it attempts to check a folder that has not been installed
      * yet, and we need a way for NameGenerator to use our source data folder.
      *
@@ -209,9 +212,11 @@ namespace ORPG {
      **/
     NameGenerator::NameGenerator(string _race, string _gender, string _location)
         :location(_location), race(_race), raceFile(_race), gender(_gender) {
-        
-        if(location.empty()) location = ASSET_LOC;
-        
+
+        if(location.empty()) {
+            location = ASSET_LOC;
+        }
+
         location += "/names";
 
         Initialize();
@@ -242,7 +247,7 @@ namespace ORPG {
     }
 
     /**
-     * @desc Initialization for a NameGenerator that is passed no arguments. 
+     * @desc Initialization for a NameGenerator that is passed no arguments.
      * Initialize cleans up some of the data passed to NameGenerator to ensure
      * we conform to the naming of know races
      **/
@@ -254,10 +259,17 @@ namespace ORPG {
          * TODO(incomingstick): improve this logic so it scales, and by doing it this
          * way we are preventing someone from using their own provided "hill dwarf"
          * or "high elf" namelists
+         *
+         * NOTE(incomingstsick): lets try and keep this in alphabetical order
          **/
         if(raceFile == "half orc")      raceFile = "half-orc";
         if(raceFile == "hill dwarf")    raceFile = "dwarf";
         if(raceFile == "high elf")      raceFile = "elf";
+
+        if(raceFile == "half-elf" || raceFile == "half elf") {
+            if(randomBool()) raceFile = "human";
+            else             raceFile = "elf";
+        }
     }
 
     /**
