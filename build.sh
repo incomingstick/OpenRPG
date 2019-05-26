@@ -49,12 +49,16 @@ if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; t
             if [[ ! -a "Makefile" ]]; then
                 cmake  $buildVars  ..
             fi
-            
+
             # Should we rebuild and then install, or install
             # using the last build on the system?
-            if [[ $1 == "install" || $2 == "install" ]]; then
+            if [[ $1 == "check" || $2 == "check" || $1 == "install" || $2 == "install" ]]; then
                 make check
-                sudo make install
+                
+                if [[ $1 == "install" || $2 == "install" ]]; then
+                    sudo make install
+                fi
+                
                 popd
 
                 exit 0

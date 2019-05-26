@@ -27,6 +27,34 @@ namespace ORPG {
     }
 
     /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races without last names, to determine if it
+     * would have a last name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a last name list
+     * @return bool - a boolean value containing weather the given race would
+     *                  have a last name list
+     **/
+    bool NAMES_EXPORT race_has_last(std::string race);
+
+    /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races with gendered lists, to determine if it
+     * would have a gendered name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a gendered name list
+     * @return bool - a boolean value containing weather the given race would
+     *                  have a gendered name list
+     **/
+    bool NAMES_EXPORT race_is_gendered(std::string race);
+
+    /**
      * A NameGenerator allows for the random generation of names. A name is
      * determined by a given race and optionally a gender and produces a name
      * with both a first and last name by calling make_name(). You can get an

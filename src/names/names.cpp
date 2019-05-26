@@ -40,50 +40,6 @@ string make_valid_location(const string baseLoc, string nameList, string raceFol
 }
 
 /**
- * @desc this function takes in a string value representing a race and checks
- * against a hard coded list of races without last names, to determine if it
- * would have a last name list in our data folder.
- *
- * NOTE(incomingstick): Is is worth putting this in a header and making it a
- * part of the public lib?
- *
- * @param string race - the race to check if it would have a last name list
- * @return bool - a boolean value containing weather the given race would
- *                  have a last name list
- **/
-bool race_has_last(string race) {
-    /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
-    if(race == "aarakocra")     return false;
-    if(race == "changeling")    return false;
-    if(race == "half-orc")      return false;
-    if(race == "kor")           return false;
-    if(race == "shifter")       return false;
-    if(race == "warforged")     return false;
-    else return true;
-}
-
-/**
- * @desc this function takes in a string value representing a race and checks
- * against a hard coded list of races with gendered lists, to determine if it
- * would have a gendered name list in our data folder.
- *
- * NOTE(incomingstick): Is is worth putting this in a header and making it a
- * part of the public lib?
- *
- * @param string race - the race to check if it would have a gendered name list
- * @return bool - a boolean value containing weather the given race would
- *                  have a gendered name list
- **/
-bool race_is_gendered(string race) {
-    /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
-    if(race == "aarakocra")     return false;
-    if(race == "changeling")    return false;
-    if(race == "shifter")       return false;
-    if(race == "warforged")     return false;
-    else return true;
-}
-
-/**
  * @desc this function takes in a file path as a string, opens an input file
  * stream, and reads a random line from it. If it cannot open the filePath it
  * returns an empty string.
@@ -171,6 +127,51 @@ namespace ORPG {
                 "See 'man name-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
+    }
+
+
+    /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races without last names, to determine if it
+     * would have a last name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a last name list
+     * @return bool - a boolean value containing weather the given race would
+     *                  have a last name list
+     **/
+    bool race_has_last(string race) {
+        /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
+        if(race == "aarakocra")     return false;
+        if(race == "changeling")    return false;
+        if(race == "half-orc")      return false;
+        if(race == "kor")           return false;
+        if(race == "shifter")       return false;
+        if(race == "warforged")     return false;
+        else return true;
+    }
+
+    /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races with gendered lists, to determine if it
+     * would have a gendered name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a gendered name list
+     * @return bool - a boolean value containing weather the given race would
+     *                  have a gendered name list
+     **/
+    bool race_is_gendered(string race) {
+        /* NOTE(incomingstsick): lets try and keep this in alphabetical order */
+        if(race == "aarakocra")     return false;
+        if(race == "changeling")    return false;
+        if(race == "shifter")       return false;
+        if(race == "warforged")     return false;
+        else return true;
     }
 
     /**
