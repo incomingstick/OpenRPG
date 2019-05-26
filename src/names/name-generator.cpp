@@ -131,9 +131,8 @@ int main(int argc, char* argv[]) {
     auto status = parse_args(argc, argv, &race, &gender); // may exit
 
     if(race.empty()) {
-        printf("race cannot be empty\n");
-        status = EXIT_FAILURE;
-        print_help_flag();
+        printf("Error: race cannot be empty\n");
+        print_help_flag(); // exits
     }
 
     if(status == EXIT_SUCCESS) {

@@ -27,7 +27,7 @@ namespace ORPG {
     }
 
     /**
-     * An NameGenerator allows for the random generation of names. A name is
+     * A NameGenerator allows for the random generation of names. A name is
      * determined by a given race and optionally a gender and produces a name
      * with both a first and last name by calling make_name(). You can get an
      * independant first and last name by calling make_first() and make_last()
@@ -35,28 +35,36 @@ namespace ORPG {
      **/
     class NAMES_EXPORT NameGenerator {
     private:
-        /* the toplevel location to use when building our namelist */
+        /* The toplevel location to use when building our namelist, and may
+            contain user input data */
         std::string location;
 
+        /* The race to use when selecting our namelist, and may contain
+            user input data */
+        std::string race;
+
+        /* The cannonical name of the race file. raceFile will always
+            derrive from race */
+        std::string raceFile;
+
+        /* The gender to use when selecting our namelist, and may contain
+            user input data */
+        std::string gender;
+
         /**
-         * @desc Initialization for a NameGenerator that is passed no arguments. 
-         * Initialize cleans up some of the data passed to NameGenerator to ensure
-         * we conform to the naming of know races
+         * @desc Initialization for a NameGenerator that is passed no
+         * arguments. Initialize cleans up some of the data passed to
+         * NameGenerator to ensure we conform to the naming of know races
          **/
         void Initialize();
     public:
-        /* the race to use when selecting our namelist */
-        std::string race;
-
-        /* the gender to use when selecting our namelist */
-        std::string gender;
-
         /**
          * @desc Constructor for NameGenerator that is passed two optional 
          * arguments. It sets race equal to _race and sets gender to _gender.
          * 
          * @param string _race = "dwarf" - the race to use. defaults to dwarf 
-         * @param string _gender = "" - the gender of our race. defaults to empty
+         * @param string _gender = "" - the gender of our race. defaults to 
+         * empty
          **/
         NameGenerator(std::string _race = "dwarf", std::string _gender = "");
 
@@ -89,6 +97,38 @@ namespace ORPG {
          * Currently does nothing, and the compiler handles deconstruction.
          **/
         ~NameGenerator(){};
+
+        /**
+         * @desc Getter function for the race string of the NameGenerator
+         * class
+         *
+         * @return std::string - the current race string
+         **/
+        std::string get_race() { return race; };
+
+        /**
+         * @desc Getter function for the gender string of the NameGenerator
+         * class
+         *
+         * @return std::string - the current gender string
+         **/
+        std::string get_gender() { return gender; };
+
+        /**
+         * @desc Setter function for the race string of the NameGenerator
+         * class
+         *
+         * @param std::string newRaceStr - a string to set as the new race
+         **/
+        void set_race(std::string newRaceStr);
+
+        /**
+         * @desc Setter function for the gender string of the NameGenerator
+         * class
+         *
+         * @param std::string newRaceStr - a string to set as the new race
+         **/
+        void set_gender(std::string setGenderStr);
 
         /**
          * @desc Generates a random full name by calling make_first and make_last,
