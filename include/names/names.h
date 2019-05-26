@@ -161,11 +161,12 @@ namespace ORPG {
         /**
          * @desc Generates a random full name by calling make_first and make_last,
          * checking their outputs, and concatenating a string together. If either
-         * make_first or make_last return "\0", it is not added to the string.
-         * If the string would be empty, this function returns "\0"
+         * make_first or make_last return an emprt string it added to the full
+         * name. If the string would be empty, this function returns an empty
+         * string
          *
          * @return string - a concatenated string containing a full name. If no
-         * string could be produced it will return "\0"
+         * string could be produced it will return an empty string
          **/
         std::string make_name();
 
@@ -173,20 +174,21 @@ namespace ORPG {
          * @desc Generates a random first name by reading from a random namelist
          * in the given location with the given race. If the race is gendered, but
          * no gender is currently set, we will randomly set gender to either female
-         * or male. If no name can be generated this function will return "\0"
+         * or male. If no name can be generated this function will return an empty
+         * string
          *
          * @return string - a string containing a first name. If no name could be
-         * produced it will return "\0" as a string.
+         * produced it will return an empty string.
          **/
         std::string make_first();
 
         /**
          * @desc Generates a random last name by reading from a random namelist
          * in the given location with the given race. If no name can be generated
-         * this function will return "\0"
+         * this function will return an empty string
          *
          * @return string - a string containing a last name. If no name could be
-         * produced it will return "\0" as a string.
+         * produced it will return an empty string.
          **/
         std::string make_last();
     };
