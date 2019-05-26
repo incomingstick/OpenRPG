@@ -819,13 +819,13 @@ namespace ORPG {
     CharacterFactory::CharacterFactory() {
         head = allocate_node(Character::ID, false, NULL);
 
-        race_node* human = allocate_node(Human::ID, true, head);
+        auto human = allocate_node(Human::ID, true, head);
 
-        race_node* dwarf = allocate_node(Dwarf::ID, true, head);
-        race_node* hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
+        auto dwarf = allocate_node(Dwarf::ID, true, head);
+        auto hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
 
-        race_node* elf = allocate_node(Elf::ID, true, head);
-        race_node* highElf = allocate_node(HighElf::ID, true, elf);
+        auto elf = allocate_node(Elf::ID, true, head);
+        auto highElf = allocate_node(HighElf::ID, true, elf);
 
         dwarf->children = {
             hillDwarf
@@ -851,7 +851,7 @@ namespace ORPG {
     CharacterFactory::race_node* CharacterFactory::allocate_node(int8 raceID,
                                                                 bool required,
                                                                 race_node* parent) {
-        race_node* node = new race_node;
+       auto node = new race_node;
 
         if(node == NULL) {
             printf("out of memory");
@@ -952,7 +952,7 @@ namespace ORPG {
     vector<string> CharacterFactory::current_options() {
         vector<string> ret;
 
-        for(race_node* node : current->children) {
+        for(auto node : current->children) {
             switch(node->raceID) {
             case Human::ID : {
                 ret.push_back("Human");

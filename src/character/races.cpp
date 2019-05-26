@@ -22,7 +22,7 @@ using namespace ORPG;
  *
  * TODO(incomingstick): based on how much copy pasting I did, it is clear that
  * setting the name could get ugly quick if we don't turn as much of it into
- * functions.
+ * functions as possible.
  */
 
 namespace ORPG {
@@ -65,7 +65,6 @@ namespace ORPG {
      */
     Dwarf::Dwarf() {
         abilBonus = AbilityScores(0);
-        abilBonus.setScore(CON, 2);     // Constitution
 
         Initialize();
     }

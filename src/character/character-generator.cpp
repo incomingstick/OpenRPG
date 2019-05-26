@@ -364,7 +364,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
 
-    auto* character = name.empty() ?
+    auto character = name.empty() ?
         factory.NewCharacter(abil) :
         factory.NewCharacter(name, abil);
 
