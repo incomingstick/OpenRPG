@@ -171,8 +171,13 @@ int randomInt(int min, int max) {
     return dist(mt);
 }
 
+/**
+ * @desc Randomly select a true or false state
+ *
+ * @return bool - a randomly chosen true of false state
+ **/
 bool randomBool() {
-    return randomInt(0, sizeof(int)) % 2 ? true : false;
+    return randomInt(INT32_MIN, INT32_MAX) % 2 ? true : false;
 }
 
 /* Compute the greatest common divisor of a and b. */
