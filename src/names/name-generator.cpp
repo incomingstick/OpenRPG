@@ -23,10 +23,10 @@ using namespace ORPG::Names;
   *
   * @param int argc - the number of arguments passed / the length of argv[]
   * @param char* argv[] - the arguments passed from the command line
-  * @return auto - an integer code following the C/C++ standard for program success
+  * @return int - an integer code following the C/C++ standard for program success
   */
-auto parse_args(int argc, char* argv[], string* race, string* gender) {
-    auto status = EXIT_SUCCESS;
+int parse_args(int argc, char* argv[], string* race, string* gender) {
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -128,7 +128,7 @@ auto parse_args(int argc, char* argv[], string* race, string* gender) {
   */
 int main(int argc, char* argv[]) {
     string race, gender;
-    auto status = parse_args(argc, argv, &race, &gender); // may exit
+    int status = parse_args(argc, argv, &race, &gender); // may exit
 
     if(race.empty()) {
         printf("Error: race cannot be empty\n");
