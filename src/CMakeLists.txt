@@ -28,7 +28,7 @@ set_property(TARGET openrpg PROPERTY CXX_STANDARD 11)
 set_property(TARGET openrpg PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS openrpg DESTINATION bin)
-install(TARGETS utils DESTINATION lib/openrpg)
+install(TARGETS utils DESTINATION ${LIB_DIR})
 
 # module directories
 add_subdirectory("names")

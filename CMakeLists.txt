@@ -33,6 +33,8 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 if(MSVC OR WIN32)
+  set(LIB_DIR lib)
+
   # Force to always compile with W1
   if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W1" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -40,6 +42,8 @@ if(MSVC OR WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
   endif()
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  set(LIB_DIR lib/openrpg)
+
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
   if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
@@ -55,7 +59,7 @@ set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
 
 message(STATUS "INCLUDE:\t\t" ${INCLUDE})
 
-set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib/openrpg)
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_DIR})
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # used to pass the location to use for data into config.h.in
@@ -69,6 +73,7 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND (MSVC OR WIN32))
 endif()
 
 message(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
+message(STATUS "LIB_DIR:\t\t" ${CMAKE_INSTALL_PREFIX}/${LIB_DIR})
 
 # message( FATAL_ERROR "Exiting.." )
 

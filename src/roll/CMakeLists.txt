@@ -27,4 +27,4 @@ set_property(TARGET roll PROPERTY CXX_STANDARD 11)
 set_property(TARGET roll PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS roll DESTINATION bin)
-install(TARGETS roll-parser DESTINATION lib/openrpg)
+install(TARGETS roll-parser DESTINATION ${LIB_DIR})

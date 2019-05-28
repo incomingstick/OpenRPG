@@ -28,4 +28,4 @@ set_property(TARGET character-generator PROPERTY CXX_STANDARD 11)
 set_property(TARGET character-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS character-generator DESTINATION bin)
-install(TARGETS character DESTINATION lib/openrpg)
+install(TARGETS character DESTINATION ${LIB_DIR})

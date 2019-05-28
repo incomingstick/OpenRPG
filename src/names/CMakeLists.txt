@@ -27,4 +27,4 @@ set_property(TARGET name-generator PROPERTY CXX_STANDARD 11)
 set_property(TARGET name-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS name-generator DESTINATION bin)
-install(TARGETS names DESTINATION lib/openrpg)
+install(TARGETS names DESTINATION ${LIB_DIR})
