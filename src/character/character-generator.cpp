@@ -24,8 +24,8 @@ using namespace ORPG;
  * @param char* argv[] - the arguments passed from the command line
  * @return int - an integer code following the C/C++ standard for program success
  **/
-auto parse_args(int argc, char* argv[]) {
-    auto status = EXIT_SUCCESS;
+int parse_args(int argc, char* argv[]) {
+    int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
     int opt, opt_ind;
@@ -329,7 +329,7 @@ AbilityScores request_scores() {
  * @return int - an integer code following the C/C++ standard for program success
  **/
 int main(int argc, char* argv[]) {
-    auto status = parse_args(argc, argv); // may exit
+    int status = parse_args(argc, argv); // may exit
 
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
