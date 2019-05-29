@@ -39,13 +39,11 @@ int parse_args(int argc, char* argv[], string* inputString) {
         {"verbose",     no_argument,        0,  'v'},
         {"version",     no_argument,        0,  'V'},
         /* NULL row to terminate struct */
-        {0,         0,                  0,   0}
+        {0,         0,                      0,   0}
     };
 
     while ((opt = getopt_long(argc, argv, "hvV",
                                long_opts, &opt_ind)) != EOF) {
-        string cmd("");
-
         switch (opt) {
         /* -h --help */
         case 'h': {
