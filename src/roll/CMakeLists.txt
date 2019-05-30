@@ -7,7 +7,8 @@ set(ROLL_PARSER_SOURCE
 add_library(roll-parser SHARED ${ROLL_PARSER_SOURCE})
 GENERATE_EXPORT_HEADER(roll-parser           
     EXPORT_FILE_NAME ${ROLL_INCLUDE_DIR}/exports/parser_exports.h
-    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
+    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+)
 
 target_link_libraries(roll-parser utils)
 
@@ -16,7 +17,7 @@ set_property(TARGET roll-parser PROPERTY CXX_STANDARD 11)
 set_property(TARGET roll-parser PROPERTY CXX_STANDARD_REQUIRED ON)
 
 set(R_SOURCES
-		${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
 )
 
 add_executable(roll ${R_SOURCES})
@@ -28,6 +29,7 @@ set_property(TARGET roll PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS roll DESTINATION bin)
 install(TARGETS roll-parser
-    ARCHIVE DESTINATION ${LIB_DIR}
-    LIBRARY DESTINATION ${LIB_DIR}
-    COMPONENT library)
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    COMPONENT library
+)

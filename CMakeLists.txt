@@ -1,4 +1,5 @@
 # require cmake v3.0
+message(STATUS "CMake Version is " ${CMAKE_VERSION})
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 include(GenerateExportHeader)
 set(CMAKE_CXX_STANDARD 11)
@@ -24,30 +25,32 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 endif()
 
 if(NOT CMAKE_BUILD_TYPE)
-  message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE}' as none were specified.")
-  set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE
-      STRING "Choose the type of build." FORCE)
-  # Set the possible values of build type for cmake-gui
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-    "DEBUG" "RELEASE")
+    message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE}' as none were specified.")
+    set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE
+        STRING "Choose the type of build." FORCE)
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+        "DEBUG" "RELEASE")
+endif()
+
+if(UNIX)
+    set(LIB_INSTALL_DIR lib/openrpg)
+else()
+    set(LIB_INSTALL_DIR lib)
 endif()
 
 if(MSVC OR WIN32)
-  set(LIB_DIR lib)
-
-  # Force to always compile with W1
-  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
-    string(REGEX REPLACE "/W[0-4]" "/W1" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
-  endif()
+    # Force to always compile with W1
+    if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+        string(REGEX REPLACE "/W[0-4]" "/W1" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    else()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
+    endif()
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  set(LIB_DIR lib/openrpg)
-
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-  if(CMAKE_BUILD_TYPE MATCHES DEBUG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-  endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+    if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+    endif()
 endif()
 
 message(STATUS "CMAKE_CXX_FLAGS:\t" ${CMAKE_CXX_FLAGS})
@@ -57,23 +60,25 @@ message(STATUS "CMAKE_BUILD_TYPE:\t" ${CMAKE_BUILD_TYPE})
 set(DATA ${CMAKE_SOURCE_DIR}/data)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
 
-message(STATUS "INCLUDE:\t\t" ${INCLUDE})
+message(STATUS "INCLUDE_DIR:\t\t" ${INCLUDE})
+message(STATUS "DATA_DIR:\t\t" ${DATA})
 
-set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_DIR})
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # used to pass the location to use for data into config.h.in
 if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE MATCHES DEBUG)
-    set(DATA_DIR ${DATA})
+    set(DATA_INSTALL_DIR ${DATA})
 # better conform to Linux filesystem standards
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
-    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/share/openrpg)
+    set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/openrpg)
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND (MSVC OR WIN32))
-    set(DATA_DIR ${CMAKE_INSTALL_PREFIX}/data)
+    set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/data)
 endif()
 
-message(STATUS "DATA_DIR:\t\t" ${DATA_DIR})
-message(STATUS "LIB_DIR:\t\t" ${CMAKE_INSTALL_PREFIX}/${LIB_DIR})
+message(STATUS "INCLUDE_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/include/openrpg)
+message(STATUS "DATA_INSTALL_DIR:\t" ${DATA_INSTALL_DIR})
+message(STATUS "LIB_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 
 # message( FATAL_ERROR "Exiting.." )
 
@@ -86,12 +91,12 @@ add_subdirectory("src/")
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  "${PROJECT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_SOURCE_DIR}/include/core/config.h"
+    "${PROJECT_SOURCE_DIR}/config.h.in"
+    "${CMAKE_SOURCE_DIR}/include/core/config.h"
 )
 
 # install targets
-install(DIRECTORY ${DATA}/ DESTINATION ${DATA_DIR})
+install(DIRECTORY ${DATA}/ DESTINATION ${DATA_INSTALL_DIR})
 install(DIRECTORY ${INCLUDE}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/openrpg)
 
 # uninstall target

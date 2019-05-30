@@ -8,7 +8,8 @@ set(CHARACTER_SOURCE
 add_library(character SHARED ${CHARACTER_SOURCE})
 GENERATE_EXPORT_HEADER(character
     EXPORT_FILE_NAME ${CHARACTER_INCLUDE_DIR}/exports/character_exports.h
-    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
+    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+)
 
 target_link_libraries(character utils roll-parser names)
 
@@ -29,6 +30,7 @@ set_property(TARGET character-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS character-generator DESTINATION bin)
 install(TARGETS character
-    ARCHIVE DESTINATION ${LIB_DIR}
-    LIBRARY DESTINATION ${LIB_DIR}
-    COMPONENT library)
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    COMPONENT library
+)
