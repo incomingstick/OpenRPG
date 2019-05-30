@@ -163,14 +163,14 @@ namespace ORPG {
             string line;
             vector<string> lines;
 
-            while(safeGetline(file, line)) {
+            while(Utils::safeGetline(file, line)) {
                 if(!line.empty())
                     lines.push_back(line);
             }
             // while(safeGetline(file, line)) lines.push_back(line);
             // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-            const int select = randomInt(0, lines.size() - 1);
+            const int select = Utils::randomInt(0, lines.size() - 1);
 
             file.close();
 
@@ -196,7 +196,7 @@ namespace ORPG {
             string line;
             vector<string> lines;
 
-            while(safeGetline(file, line)) {
+            while(Utils::safeGetline(file, line)) {
                 if(!line.empty())
                     lines.push_back(line);
             }
@@ -204,7 +204,7 @@ namespace ORPG {
             // while(safeGetline(file, line)) lines.push_back(line);
             // while(lines[lines.size()-1].empty()) lines.pop_back();
 
-            const int select = randomInt(0, lines.size() - 1);
+            const int select = Utils::randomInt(0, lines.size() - 1);
 
             file.close();
 

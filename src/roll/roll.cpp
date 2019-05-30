@@ -29,23 +29,21 @@ int parse_args(int argc, char* argv[], string* inputString) {
     int opt, opt_ind;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    Core::opterr = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",        no_argument,        0,  'h'},
         {"positive",    no_argument,        0,  'p'},
         {"sum-series",  no_argument,        0,  's'},
         {"verbose",     no_argument,        0,  'v'},
         {"version",     no_argument,        0,  'V'},
         /* NULL row to terminate struct */
-        {0,         0,                  0,   0}
+        {0,         0,                      0,   0}
     };
 
     while ((opt = getopt_long(argc, argv, "hvV",
                                long_opts, &opt_ind)) != EOF) {
-        string cmd("");
-
         switch (opt) {
         /* -h --help */
         case 'h': {
@@ -54,8 +52,8 @@ int parse_args(int argc, char* argv[], string* inputString) {
 
         /* -V --verbose */
         case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Core::VB_FLAG = true;
+            Core::QUIET_FLAG = false;
         } break;
 
         /* -v --version */
@@ -79,8 +77,8 @@ int parse_args(int argc, char* argv[], string* inputString) {
 
     string expression;
 
-    argc -= optind;
-    argv += optind;         
+    argc -= Core::optind;
+    argv += Core::optind;         
   
     /* build expression string to parse */
     while(argc > 0) {
@@ -113,7 +111,7 @@ int main(int argc, char* argv[]) {
         ExpressionTree tree;
 
         if(tree.set_expression(inputString)) {
-            if(VB_FLAG) printf("%s", tree.to_string().c_str());
+            if(Core::VB_FLAG) printf("%s", tree.to_string().c_str());
             
             printf("%i\n", tree.parse_expression());
         } else {

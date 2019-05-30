@@ -18,106 +18,27 @@ using namespace std;
 using namespace ORPG;
 
 /**
-  * @desc prints the version info when -V or --version is an argument to the command.
-  * This adhears to the GNU standard for version printing, and immediately terminates
-  * the program with exit code EXIT_SUCCESS
-  */
-static void print_version_flag() {
-    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
-
-/**
-  * @desc prints the help info when -h or --help is an argument to the command.
-  * This adhears to the GNU standard for help printing, and immediately terminates
-  * the program with exit code EXIT_SUCCESS
-  */
-static void print_help_flag() {
-    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n"
-          "Usage: openrpg [options]\n"
-                "\t-h --help                   Print this help screen\n"
-                "\t-n --name=RACE GENDER       Generate a random name of the given RACE and GENDER\n"
-                "\t-q --quiet                  Do not print the banner on startup\n"
-                "\t-r --roll=XdY               Simulates rolling dice\n"
-                "\t-v --verbose                Verbose program output\n"
-                "\t-V --version                Print version info\n"
-          "\n"
-          "Long options may not be passed with a single dash.\n"
-          "OpenRPG home page: <https://openrpg.io>\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "See 'man openrpg' for more information [TODO add man pages].\n",
-          stdout);
-    exit(EXIT_SUCCESS);
-}
-
-/**
-  * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
-  * Because this is called from within our ORPG shell, the program will continue running.
-  */
-static void print_basic_version() {
-    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n\n",
-          stdout);
-}
-
-/**
-  * @desc prints the help info when help, h, or H are called in the ORPG shell.
-  * Because this is called from within our ORPG shell, the program will continue running.
-  */
-static void print_basic_help() {
-    fputs("openrpg " VERSION " - " COPYRIGHT "\n"
-          "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-          "This is free software: you are free to change and redistribute it.\n"
-          "There is NO WARRANTY, to the extent permitted by law.\n"
-          "\n"
-          "Usage: orpg > [command]\n"
-          "\n"
-          "Available commands:\n"
-                "\thelp (h) [module]                    Print the help screen for the given module. Omitting a\n"
-                "\t                                         module prints this help menu.\n" 
-                "\tversion (ver, v | V)                 Print version info\n"
-          "\n"
-          "Available modules:\n"
-                "\tgenerate (gen, ng) [RACE | GENDER]   Generate a random name of the given RACE and GENDER\n"
-                "\troll (r) [XdY]                       Simulates rolling dice with Y sides X number of times\n"
-          "\n"
-          "Long options may not be passed with a single dash.\n"
-          "OpenRPG home page: <https://openrpg.io>\n"
-          "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-          "See 'man openrpg' for more information [TODO add man pages].\n",
-          stdout);
-}
-
-/* TODO hold in memory a history of the commands run in the current session
+ * TODO hold in memory a history of the commands run in the current session
  * and allow use of the UP and DOWN arrow keys to move through this list
- * 
+ *
  * NOTE: We should make this finite, based on a changeable setting, up to a max of 1000 lines
- */
+ **/
 vector<string> commandHistory;
 
 /**
-  * @desc This function parses all cla's passed to argv from the command line.
-  * This function may terminate the program.
-  * 
-  * @param int argc - the number of arguments passed / the length of argv[]
-  * @param char* argv[] - the arguments passed from the command line
-  * @return int - an integer code following the C/C++ standard for program success
-  */
+ * @desc This function parses all cla's passed to argv from the command line.
+ * This function may terminate the program.
+ *
+ * @param int argc - the number of arguments passed / the length of argv[]
+ * @param char* argv[] - the arguments passed from the command line
+ * @return int - an integer code following the C/C++ standard for program success
+ **/
 int parse_args(int argc, char* argv[]) {
     /* getopt_long stores the option and option index here */
     int opt = 0, opt_ind = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"name",    required_argument,  0,  'n'},
         {"quiet",   no_argument,        0,  'q'},
@@ -128,31 +49,31 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "hn:qr:vV", long_opts, &opt_ind)) 
+    while ((opt = getopt_long(argc, argv, "hn:qr:vV", long_opts, &opt_ind))
 			!= EOF) {
         switch (opt) {
 			/* -h --help */
 			case 'h': {
-				print_help_flag();
+				Core::print_help_flag();
 			} break;
-	
+
 			/* -n --name */
 			case 'n': {
 				NameGenerator name;
 
-				if(optind < argc) {
-					if((string)optarg == "male" || (string)optarg == "female") {
-						name.gender = (string)optarg;
-						name.race = (string)argv[optind++];
+				if(Core::optind < argc) {
+					if((string)Core::optarg == "male" || (string)Core::optarg == "female") {
+						name.gender = (string)Core::optarg;
+						name.race = (string)argv[Core::optind++];
 					} else {
-						name.race = (string)optarg;
-						name.gender = (string)argv[optind++];
+						name.race = (string)Core::optarg;
+						name.gender = (string)argv[Core::optind++];
 					}
-				} else if(optind == argc) {
-					name.race = (string)optarg;
+				} else if(Core::optind == argc) {
+					name.race = (string)Core::optarg;
 				} else {
 					fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
-					print_help_flag();
+					Core::print_help_flag();
 				}
 				printf("%s\n", name.make_name().c_str());
 				exit(EXIT_SUCCESS);
@@ -160,32 +81,32 @@ int parse_args(int argc, char* argv[]) {
 
 			/* -q --quiet */
 			case 'q': {
-				QUIET_FLAG = true;
-				VB_FLAG = false;
+				Core::QUIET_FLAG = true;
+				Core::VB_FLAG = false;
 			} break;
 
 			/* -r --roll */
 			case 'r': {
 				ExpressionTree tree;
-				tree.set_expression(optarg);
+				tree.set_expression(Core::optarg);
 				printf("%i\n", tree.parse_expression());
 				exit(EXIT_SUCCESS);
 			} break;
 
 			/* -v --verbose */
 			case 'v': {
-				VB_FLAG = true;
-				QUIET_FLAG = false;
+				Core::VB_FLAG = true;
+				Core::QUIET_FLAG = false;
 			} break;
 
 			/* -V --version */
 			case 'V': {
-				print_version_flag();
+				Core::print_version_flag();
 			} break;
 
 			case ':':
 			case '?': {
-				print_help_flag();
+				Core::print_help_flag();
 			} break;
 
 			/* if we get here something very bad happened */
@@ -200,12 +121,12 @@ int parse_args(int argc, char* argv[]) {
 }
 
 /**
-  * @desc parse input is our ORPG shell. This takes in the users input string and parses
-  * it out based on our logic. This function may terminate the program.
-  * 
-  * @param string in - the users input to be parsed
-  * @return int - an integer code following the C/C++ standard for program success
-  */
+ * @desc parse input is our ORPG shell. This takes in the users input string and parses
+ * it out based on our logic. This function may terminate the program.
+ *
+ * @param string in - the users input to be parsed
+ * @return int - an integer code following the C/C++ standard for program success
+ **/
 int parse_input(string in) {
     if (in.size() > 0) {
         // parsed individual words
@@ -227,7 +148,7 @@ int parse_input(string in) {
         }
 
 		//end of command word
-        if(word.size() > 0) 
+        if(word.size() > 0)
 			words.push_back(word);
 
         if (words.size() > 0) {
@@ -254,6 +175,10 @@ int parse_input(string in) {
                     return CONTINUE_CODE;;
                 } else {
                     printf("Missing arguments!\n");
+
+                    Names::print_basic_help();
+
+                    return CONTINUE_CODE;
                 }
             } else if(words[0] == "roll" || words[0] == "r") {
                 // TODO fix the roll command
@@ -268,9 +193,13 @@ int parse_input(string in) {
                     return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
+
+                    Roll::print_basic_help();
+
+                    return CONTINUE_CODE;
                 }
             } else if(words[0] == "help" || words[0] == "h" || words[0] == "H") {
-                /* 
+                /*
 				 * TODO complete the help command as follows
                  *    The help command should print in a similar format
                  *    to the '-h' arguement, but should be expanded on in
@@ -289,18 +218,18 @@ int parse_input(string in) {
 
                         return CONTINUE_CODE;
                     } else {
-                        print_basic_help();
+                        Core::print_basic_help();
 
                         return CONTINUE_CODE;
                     }
                 } else {
-                    print_basic_help();
+                    Core::print_basic_help();
 
                     return CONTINUE_CODE;
                 }
             } else if (words[0] == "version" || words[0] == "ver" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
-                print_basic_version();
+                Core::print_basic_version();
 
                 return CONTINUE_CODE;
             } else {
@@ -319,26 +248,28 @@ int parse_input(string in) {
 
         return CONTINUE_CODE;
     } /* END if (in.size() > 0) */
-    
+
     // should never get here!
     return EXIT_FAILURE;
 }
 
 /**
-  * @desc entry point for the ORPG program. This contains the main loop for the ORPG
-  * shell. All command line arguments are parsed before entering the ORPG shell, and
-  * the program may terminate before allowing user input.
-  * 
-  * @param string in - the users input to be parsed
-  * @return int - an integer code following the C/C++ standard for program success
-  */
+ * @desc entry point for the ORPG program. This contains the main loop for the ORPG
+ * shell. All command line arguments are parsed before entering the ORPG shell, and
+ * the program may terminate before allowing user input.
+ *
+ * @param string in - the users input to be parsed
+ * @return int - an integer code following the C/C++ standard for program success
+ **/
 int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
-    
+
     if(status == CONTINUE_CODE) {
-        if(!QUIET_FLAG)
+        if(!Core::QUIET_FLAG) {
             // TODO - add more banners and randomly pick one
-            print_file("banners/welcome_mat1");
+            Utils::print_file("banners/welcome_mat1");
+        }
+
         string in("");
 
         // get user input
@@ -349,8 +280,8 @@ int main(int argc, char* argv[]) {
                 // Windows does not currently support linux style terminal text editing
                 printf("orpg > ");
 #           endif
-            
-            getline(cin, in);
+
+            Utils::safeGetline(cin, in);
             status = parse_input(in);
         }
     }
