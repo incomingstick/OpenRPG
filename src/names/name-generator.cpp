@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) {
         printf("race cannot be empty\n");
         status = EXIT_FAILURE;
-        ORPG::Names::print_help_flag();
+        Names::print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {

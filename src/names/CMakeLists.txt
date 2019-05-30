@@ -1,7 +1,7 @@
 set(NAMES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/names/)
 
 set(NAMES_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/names.cpp
 )
 
 add_library(names SHARED ${NAMES_SOURCE})
@@ -16,7 +16,7 @@ set_property(TARGET names PROPERTY CXX_STANDARD 11)
 set_property(TARGET names PROPERTY CXX_STANDARD_REQUIRED ON)
 
 set(NG_SOURCES 
-        ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp  
+    ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp  
 )
 
 add_executable(name-generator ${NG_SOURCES})
@@ -27,4 +27,7 @@ set_property(TARGET name-generator PROPERTY CXX_STANDARD 11)
 set_property(TARGET name-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS name-generator DESTINATION bin)
-install(TARGETS names DESTINATION ${LIB_DIR})
+install(TARGETS names
+    ARCHIVE DESTINATION ${LIB_DIR}
+    LIBRARY DESTINATION ${LIB_DIR}
+    COMPONENT library)
