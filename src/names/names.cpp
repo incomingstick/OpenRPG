@@ -19,6 +19,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "names/names.h"
 
 using namespace std;
+using namespace ORPG;
 
 /**
  * TODO: test what location we are looking for to ensure it is a valid list
@@ -58,14 +59,14 @@ string rand_line_from_file(string filePath) {
         string read;
         vector<string> buff;
 
-        while(safeGetline(file, read)) {
+        while(Utils::safeGetline(file, read)) {
             if(!read.empty())
                 buff.push_back(read);
         }
 
         file.close();
 
-        return buff[randomInt(0, buff.size() - 1)];
+        return buff[Utils::randomInt(0, buff.size() - 1)];
     } else {
         // TODO: Raise an exception here, if an asset file
         // cannot be opened then something serious has gone wrong.
@@ -268,7 +269,7 @@ namespace ORPG {
         if(raceFile == "high elf")      raceFile = "elf";
 
         if(raceFile == "half-elf" || raceFile == "half elf") {
-            if(randomBool()) raceFile = "human";
+            if(Utils::randomBool()) raceFile = "human";
             else             raceFile = "elf";
         }
     }
@@ -314,7 +315,7 @@ namespace ORPG {
      **/
     string NameGenerator::make_first() {
         if(race_is_gendered(raceFile) && gender.empty()) {
-            if(randomBool()) gender = "female";
+            if(Utils::randomBool()) gender = "female";
             else gender = "male";
         }
 

@@ -10,10 +10,7 @@ include_directories("${CMAKE_SOURCE_DIR}/include/")
 # this flag allows mdoules to understand we are in a testing mode
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
-
-# this flag allows mdoules to locate asset data while we are in a testing mode
-# #define TESTING_ASSET_LOC "${CMAKE_SOURCE_DIR}/data"
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
+add_definitions(-DTESTING_ASSET_LOC="${DATA}")
 
 # start name-generator testing here
 set(CUR_TEST name-generator-test)

@@ -32,10 +32,10 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     int opt, opt_ind;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    Core::opterr = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"verbose", no_argument,        0,  'v'},
         {"version", no_argument,        0,  'V'},
@@ -50,24 +50,24 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            print_help_flag();
-        } break;
+            Names::print_help_flag();
+         } break;
 
-        /* -v --verbose */
+        /* -v --verbose*/
         case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Core::VB_FLAG = true;
+            Core::QUIET_FLAG = false;
         } break;
 
         /* -V --version */
         case 'V': {
-            print_version_flag();
+            Names::print_version_flag();
         } break;
 
         /* parsing error */
         case ':':
         case '?': {
-            print_help_flag();
+            Names::print_help_flag();
         } break;
 
         /* if we get here something very bad happened */
@@ -78,24 +78,17 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         }
     }
 
-    /**
-     * Check remaining agrs to make sure there are at least two "unknown" args
-     * to parse through. These should in general be our race and gender params
-     *
-     * NOTE(incomingstick): Should we just turn these into flags too? Such as
-     * first name being -f / --first or last name being -l / --last. How does
-     * this affect a flag like -r / --random?
-     **/
-    switch(argc - optind) {
+    /* check to make sure there are at least 
+        two "unknown" args to parse throug*/
+    switch(argc - Core::optind) {
     case 1: {
-        string opt0 = argv[optind++];
-        *gender = "";
+        string opt0 = argv[Core::optind++];
         *race = opt0;
     } break;
-
-    case 2: {
-        string opt0 = argv[optind++];
-        string opt1 = argv[optind++];
+        
+    case 2: { 
+        string opt0 = argv[Core::optind++];
+        string opt1 = argv[Core::optind++];
 
         // TODO: See TODO in default block below
         /* allows gender to be passed first */
@@ -132,7 +125,8 @@ int main(int argc, char* argv[]) {
 
     if(race.empty()) {
         printf("Error: race cannot be empty\n");
-        print_help_flag(); // exits
+        status = EXIT_FAILURE;
+        Names::print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {

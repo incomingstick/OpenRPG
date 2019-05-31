@@ -24,10 +24,10 @@ int parse_args(int argc, char* argv[]) {
     int opt, opt_ind;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    Core::opterr = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
         {"verbose", no_argument,        0,  'v'},
@@ -36,10 +36,9 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "rhvV",
+    while ((opt = Core::getopt_long(argc, argv, "rhvV",
                                long_opts, &opt_ind)) != EOF &&
                                status != EXIT_FAILURE) {
-        string cmd("");
 
         switch (opt) {
         /* -h --help */
@@ -54,8 +53,8 @@ int parse_args(int argc, char* argv[]) {
 
         /* -V --verbose */
         case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Core::VB_FLAG = true;
+            Core::QUIET_FLAG = false;
         } break;
 
         /* -v --version */

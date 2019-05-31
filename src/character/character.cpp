@@ -204,7 +204,7 @@ namespace ORPG {
         }
         
         ret += std::to_string(mod);
-        ret = rightpad(ret, spaces, ' ');
+        ret = Utils::rightpad(ret, spaces, ' ');
         
         return ret;
     }
@@ -219,26 +219,26 @@ namespace ORPG {
         //TODO A couple magic numbers in this function, possibly replace later
 
         //Second argument is 23 because there are 23 allotted spaces for the first name
-        string charFName = leftpad(firstName, 23, ' ');
+        string charFName = Utils::leftpad(firstName, 23, ' ');
         //Second arg = 22 because thats how many spaces we alloted for last name
-        string charLName = leftpad(lastName, 22, ' ');
+        string charLName = Utils::leftpad(lastName, 22, ' ');
 
-        string sSTR = rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
+        string sSTR = Utils::rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
         string sSTRMod = format_mod(STR_MOD(), SPACES_PER_MOD);
         
-        string sDEX = rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
+        string sDEX = Utils::rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sDEXMod = format_mod(DEX_MOD(), SPACES_PER_MOD);
         
-        string sCON = rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
+        string sCON = Utils::rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sCONMod = format_mod(CON_MOD(), SPACES_PER_MOD);
         
-        string sINT = rightpad(std::to_string(INT()), SPACES_PER_MOD, ' ');
+        string sINT = Utils::rightpad(std::to_string(INT()), SPACES_PER_MOD, ' ');
         string sINTMod = format_mod(INT_MOD(), SPACES_PER_MOD);
         
-        string sWIS = rightpad(std::to_string(WIS()), SPACES_PER_MOD, ' ');
+        string sWIS = Utils::rightpad(std::to_string(WIS()), SPACES_PER_MOD, ' ');
         string sWISMod = format_mod(WIS_MOD(), SPACES_PER_MOD);
         
-        string sCHA = rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
+        string sCHA = Utils::rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
         string sCHAMod = format_mod(CHA_MOD(), SPACES_PER_MOD);
         
         string sACR = format_mod(skills.getMod(ACR), SPACES_PER_MOD);
