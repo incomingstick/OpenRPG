@@ -11,7 +11,7 @@ include_directories("${CMAKE_SOURCE_DIR}/include/")
 # #define TESTING_FLAG
 add_definitions(-DTESTING_FLAG)
 
-add_definitions(-DTESTING_ASSET_LOC="${CMAKE_SOURCE_DIR}/data")
+add_definitions(-DTESTING_ASSET_LOC="${DATA}")
 
 # start name-generator testing here
 set(CUR_TEST name-generator-test)

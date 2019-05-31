@@ -25,10 +25,10 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     int opt, opt_ind;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    Core::opterr = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"version", no_argument,        0,  'v'},
         {"verbose", no_argument,        0,  'V'},
@@ -43,24 +43,24 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            ORPG::Names::print_help_flag();
+            Names::print_help_flag();
          } break;
 
         /* -v --version */
         case 'v': {
-            ORPG::Names::print_version_flag();
+            Names::print_version_flag();
         } break;
 
         /* -V --verbose */
         case 'V': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Core::VB_FLAG = true;
+            Core::QUIET_FLAG = false;
         } break;
         
         /* parsing error */
         case ':':
         case '?': {
-            ORPG::Names::print_help_flag();
+            Names::print_help_flag();
         } break;
         
         /* if we get here something very bad happened */
@@ -73,15 +73,15 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
     /* check to make sure there are at least 
         two "unknown" args to parse throug*/
-    switch(argc - optind) {
+    switch(argc - Core::optind) {
     case 1: {
-        string opt0 = argv[optind++];
+        string opt0 = argv[Core::optind++];
         *race = opt0;
     } break;
         
     case 2: { 
-        string opt0 = argv[optind++];
-        string opt1 = argv[optind++];
+        string opt0 = argv[Core::optind++];
+        string opt1 = argv[Core::optind++];
 
         // TODO: See TODO in default block below
         /* allows gender to be passed first */
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) {
         printf("race cannot be empty\n");
         status = EXIT_FAILURE;
-        ORPG::Names::print_help_flag();
+        Names::print_help_flag();
     }
 
     if(status == EXIT_SUCCESS) {
