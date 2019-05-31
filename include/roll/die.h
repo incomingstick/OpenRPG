@@ -44,7 +44,7 @@ namespace ORPG {
                 int ret = dist(mt);
 
                 /* verbosely prints die rolls in the form "dX -> N" */
-                if(VB_FLAG) printf("d%i -> %i\n", MAX, ret);
+                if(Core::VB_FLAG) printf("d%i -> %i\n", MAX, ret);
 
                 return ret;
             }

@@ -7,7 +7,8 @@ set(NAMES_SOURCE
 add_library(names SHARED ${NAMES_SOURCE})
 GENERATE_EXPORT_HEADER(names
     EXPORT_FILE_NAME ${NAMES_INCLUDE_DIR}/exports/names_exports.h
-    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
+    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+)
 
 target_link_libraries(names utils)
 
@@ -15,8 +16,8 @@ target_link_libraries(names utils)
 set_property(TARGET names PROPERTY CXX_STANDARD 14)
 set_property(TARGET names PROPERTY CXX_STANDARD_REQUIRED ON)
 
-set(NG_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp
+set(NG_SOURCES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp  
 )
 
 add_executable(name-generator ${NG_SOURCES})
@@ -27,4 +28,8 @@ set_property(TARGET name-generator PROPERTY CXX_STANDARD 14)
 set_property(TARGET name-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
 install(TARGETS name-generator DESTINATION bin)
-install(TARGETS names DESTINATION lib/openrpg)
+install(TARGETS names
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    COMPONENT library
+)

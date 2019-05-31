@@ -10,17 +10,29 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "names/names.h"
 
+#ifndef TESTING_ASSET_LOC
+#   define TESTING_ASSET_LOC ""
+#endif
+
 using namespace ORPG;
 
 int main(int argc, char* argv[]) {
-    std::string race = argv[1];
-    std::string gender = argv[2];
+    std::string race;
+    std::string gender;
 
-    NameGenerator gen(race, gender, TESTING_ASSET_LOC + (std::string)"/names");
+    if(argc == 3) {
+        race = argv[1];
+        gender = argv[2];
+    } else {
+        race = argv[1];
+        gender = "";
+    }
 
-    std::string first("\0");
-    std::string last("\0");
-    std::string full("\0");
+    NameGenerator gen(race, gender, TESTING_ASSET_LOC);
+
+    std::string first;
+    std::string last;
+    std::string full;
 
     for(int i = 0; i < 10000; i++) {
         first = gen.make_first();
@@ -28,15 +40,12 @@ int main(int argc, char* argv[]) {
         full = gen.make_name();
 
         // Check first name function
-        if(first == "\0") return 1;
         if(first.empty()) return 1;
 
         // Check last name function
-        if(last == "\0") return 1;
-        if(last.empty()) return 1;
+        if(last.empty() && race_has_last(race)) return 1;
 
         // Check full name function
-        if(full == "\0") return 1;
         if(full.empty()) return 1;
     }
 

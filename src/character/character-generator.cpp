@@ -31,10 +31,10 @@ int parse_args(int argc, char* argv[]) {
     int opt, opt_ind;
 
     /* disables getopt printing to now be handled in '?' case */
-    opterr = 0;
+    Core::opterr = 0;
 
     /* these are the long cla's and their corresponding chars */
-    static struct option long_opts[] = {
+    static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
         {"version", no_argument,        0,  'v'},
@@ -43,10 +43,9 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = getopt_long(argc, argv, "rhvV",
+    while ((opt = Core::getopt_long(argc, argv, "rhvV",
                                long_opts, &opt_ind)) != EOF &&
                                status != EXIT_FAILURE) {
-        string cmd("");
 
         switch (opt) {
         /* -h --help */
@@ -61,8 +60,8 @@ int parse_args(int argc, char* argv[]) {
 
         /* -v --verbose */
         case 'v': {
-            VB_FLAG = true;
-            QUIET_FLAG = false;
+            Core::VB_FLAG = true;
+            Core::QUIET_FLAG = false;
         } break;
 
         /* -V --version */
@@ -143,7 +142,7 @@ auto request_selection(CharacterFactory factory) {
         tick = 0;
 
         cout << "\n#? ";
-        safeGetline(cin, input);
+        Utils::safeGetline(cin, input);
 
         if(safety_check_stoi(input)) {
             index = stoi(input);
@@ -168,7 +167,7 @@ auto request_selection(CharacterFactory factory) {
  * @return auto - the extracted value from the randomly selected element
  **/
 auto extract_random_element(vector<uint8>* arr) {
-    auto randIndex = randomInt(0, arr->size()-1);
+    auto randIndex = Utils::randomInt(0, arr->size()-1);
     auto ret = arr->at(randIndex);
 
     arr->erase(arr->begin()+randIndex);
@@ -211,7 +210,7 @@ AbilityScores request_scores() {
         case 0: {
             printf("Set Strength\t (STR): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::STR, stoi(input));
@@ -228,7 +227,7 @@ AbilityScores request_scores() {
         case 1: {
             printf("Set Dexterity\t (DEX): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::DEX, stoi(input));
@@ -244,7 +243,7 @@ AbilityScores request_scores() {
         case 2: {
             printf("Set Constitution (CON): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CON, stoi(input));
@@ -260,7 +259,7 @@ AbilityScores request_scores() {
         case 3: {
             printf("Set Intelligence (INT): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::INT, stoi(input));
@@ -276,7 +275,7 @@ AbilityScores request_scores() {
         case 4: {
             printf("Set Wisdom\t (WIS): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::WIS, stoi(input));
@@ -292,7 +291,7 @@ AbilityScores request_scores() {
         case 5: {
             printf("Set Charisma\t (CHA): ");
 
-            safeGetline(cin, input);
+            Utils::safeGetline(cin, input);
 
             if(safety_check_stoi(input)) {
                 ret.setScore(EnumAbilityScore::CHA, stoi(input));
@@ -360,7 +359,7 @@ int main(int argc, char* argv[]) {
 
     string name;
 
-    safeGetline(cin, name);
+    Utils::safeGetline(cin, name);
 
     printf("\n");
 
