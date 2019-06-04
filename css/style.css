@@ -66,6 +66,7 @@ footer li {
 
 .navbar-static-top {
     border-width: 0px;
+    padding: 0;
 }
 
 /* Custom styles */
@@ -89,6 +90,11 @@ footer li {
     padding: 9px 15px;
     font-size: 18px;
     line-height: 20px;
+}
+
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #fff;
 }
 
 .navbar-fixed-bottom,
@@ -144,7 +150,7 @@ footer li {
 }
 
 .masthead .version {
-    margin-top: -1rem;
+    margin-top: -0.5rem;
     margin-bottom: 2rem;
 }
 
@@ -188,6 +194,27 @@ footer a, .navbar a {
     text-align: center;
 }
 
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+
+.navbar .navbar-nav .active > .nav-link,
+.navbar .navbar-nav .nav-link.active,
+.navbar .navbar-nav .nav-link.show,
+.navbar .navbar-nav .show > .nav-link {
+    color: #fff;
+    text-decoration: none;
+    background-color: #2196F3;
+}
+
 .nav > li > a:focus,
 .nav > li > a:hover {
     color: #fff;
@@ -200,6 +227,11 @@ footer a, .navbar a {
 .nav .open > a:hover {
     background-color: #2196F3;
     border-color: #2196F3;
+}
+
+.nav.navbar-nav > .nav-item > .nav-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .doc-sidenav {
@@ -262,6 +294,20 @@ footer a, .navbar a {
     color: #fff !important; /* TODO never use !important EVER */
 }
 
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0,.9);
+}
+
+
+.navbar-toggler {
+    margin-right: 1rem;
+}
+
+.navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.7);
+    border-color: rgba(0,0,0,.5);
+}
+
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -270,8 +316,8 @@ footer a, .navbar a {
     display: none;
     float: left;
     min-width: 10rem;
-    padding: .5rem 0;
-    margin: .125rem 0 0;
+    padding: 0 0 0.5rem 0;
+    margin: 0 0 .125rem 0;
     font-size: 1rem;
     color: #292b2c;
     text-align: left;
@@ -412,10 +458,6 @@ pre {
     font-size: .65rem;
 }
 
-.d-inline-block {
-    display: inline-block !important;
-}
-
 #cookie-consent {
     background-color: #2196f3;
     padding: 15px 20px;
@@ -457,6 +499,11 @@ pre {
         padding: 15px 15px;
         font-size: 18px;
         line-height: 20px;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 
     .pageheader h1 {

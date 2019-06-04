@@ -1,40 +1,51 @@
-<nav class="navbar navbar-light navbar-static-top">
+<nav class="navbar navbar-light navbar-expand-lg bg-light navbar-static-top">
   <div class="container">
     <a class="navbar-brand" href="{{ site.url }}">
-      <img src="{{ site.baseurl }}/assets/images/logos/d20_transparent.png" class="d-inline-block navbar-logo align-top" alt="(Die Logo)">
+      <img src="{{ site.baseurl }}/assets/images/logos/d20_transparent.png" class="d-inline-block navbar-logo" alt="(Die Logo)">
       OpenRPG
     </a>
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li><a {% if page.group == "contributing" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/contributing/">Contributing</a></li>
-        <li><a href="{{ site.chat }}">Chat</a></li>
-        <li><a {% if page.group == "documentation" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/documentation/introduction/">Documentation</a></li>
-        <li><a {% if page.group == "web-api" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/web-api/introduction/">Web API</a></li>
-        <li><a {% if page.group == "examples" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/examples/overview/">Examples</a></li>
+      <ul class="nav navbar-nav mr-auto">
+        <li class="nav-item {% if page.group == "contributing" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/contributing/">Contributing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.chat }}">Chat</a>
+        </li>
+        <li class="nav-item {% if page.group == "documentation" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/documentation/introduction/">Documentation</a>
+        </li>
+        <li class="nav-item {% if page.group == "web-api" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/web-api/introduction/">Web API</a>
+        </li>
+        <li class="nav-item {% if page.group == "examples" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/examples/overview/">Examples</a>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle {% if page.group == "about" %}nav-active{% endif %}" data-toggle="dropdown" role="button" aria-expanded="true">About<span class="caret"></span></a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item dropdown {% if page.group == "about" %}active{% endif %}">
+          <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">About<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li class="divider"></li>
-            <li><a href="{{ site.baseurl }}/about/history/">History</a></li>
-            <li><a href="{{ site.baseurl }}/about/team/">Team</a></li>
-            <li><a href="{{ site.baseurl }}/about/license/">Licenses</a></li>
-            <li><a href="{{ site.baseurl }}/about/translations/">Translations</a></li>
-            <li><a href="{{ site.baseurl }}/about/privacy/">Privacy</a></li>
+            <div class="divider"></div>
+            <a class="dropdown-item" href="{{ site.baseurl }}/about/history/">History</a>
+            <a class="dropdown-item" href="{{ site.baseurl }}/about/team/">Team</a>
+            <a class="dropdown-item" href="{{ site.baseurl }}/about/license/">Licenses</a>
+            <a class="dropdown-item" href="{{ site.baseurl }}/about/translations/">Translations</a>
+            <a class="dropdown-item" href="{{ site.baseurl }}/about/privacy/">Privacy</a>
           </ul>
         </li>
-        <li><a {% if page.group == "blog" %}class="nav-active"{% endif %} href="{{ site.blog }}">Blog</a></li>
-        <li><a {% if page.group == "faq" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/faq/">FAQ</a></li>
-        <li><a {% if page.group == "download" %}class="nav-active"{% endif %} href="{{ site.baseurl }}/download/">Download</a></li>
+        <li class="nav-item {% if page.group == "blog" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.blog }}">Blog</a>
+        </li>
+        <li class="nav-item {% if page.group == "faq" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/faq/">FAQ</a>
+        </li>
+        <li class="nav-item {% if page.group == "download" %}active{% endif %}">
+          <a class="nav-link" href="{{ site.baseurl }}/download/">Download</a>
+        </li>
       </ul>
     </div>
   </div>
