@@ -816,7 +816,7 @@ namespace ORPG {
     }
 
     // TODO Find cleaner way to do this factory, things get entered in too many places!!!
-    CharacterFactory::CharacterFactory() {
+    RaceSelector::RaceSelector() {
         head = allocate_node(Character::ID, false, NULL);
 
         auto human = allocate_node(Human::ID, true, head);
@@ -844,11 +844,11 @@ namespace ORPG {
         current = head;
     }
 
-    CharacterFactory::~CharacterFactory() {
+    RaceSelector::~RaceSelector() {
         //TODO clean up here
     }
 
-    CharacterFactory::race_node* CharacterFactory::allocate_node(int8 raceID,
+    RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
                                                                 bool required,
                                                                 race_node* parent) {
        auto node = new race_node;
@@ -865,91 +865,7 @@ namespace ORPG {
         return node;
     }
 
-    Character* CharacterFactory::NewCharacter(AbilityScores ab) {
-        switch(current->raceID) {
-        case Human::ID : {
-            return new Character(ab, Human::ID);
-        }
-
-        case Dwarf::ID : {
-            return new Character(ab, Dwarf::ID);
-        }
-
-        case HillDwarf::ID : {
-            return new Character(ab, HillDwarf::ID);
-        }
-
-        case Elf::ID : {
-            return new Character(ab, Elf::ID);
-        }
-
-        case HighElf::ID : {
-            return new Character(ab, HighElf::ID);
-        }
-
-        default: {
-            return new Character(ab, Race::ID);
-        }
-        }
-    }
-
-    Character* CharacterFactory::NewCharacter(int8 identifier, AbilityScores ab) {
-        switch(identifier) {
-        case Human::ID : {
-            return new Character(ab, Human::ID);
-        }
-
-        case Dwarf::ID : {
-            return new Character(ab, Dwarf::ID);
-        }
-
-        case HillDwarf::ID : {
-            return new Character(ab, HillDwarf::ID);
-        }
-
-        case Elf::ID : {
-            return new Character(ab, Elf::ID);
-        }
-
-        case HighElf::ID : {
-            return new Character(ab, HighElf::ID);
-        }
-
-        default: {
-            return new Character(ab, Race::ID);
-        }
-        }
-    }
-
-    Character* CharacterFactory::NewCharacter(string name, AbilityScores ab) {
-        switch(current->raceID) {
-        case Human::ID : {
-            return new Character(ab, name, Human::ID);
-        }
-
-        case Dwarf::ID : {
-            return new Character(ab, name, Dwarf::ID);
-        }
-
-        case HillDwarf::ID : {
-            return new Character(ab, name, HillDwarf::ID);
-        }
-
-        case Elf::ID : {
-            return new Character(ab, name, Elf::ID);
-        }
-
-        case HighElf::ID : {
-            return new Character(ab, name, HighElf::ID);
-        }
-
-        default: {
-            return new Character(ab, name, Race::ID);
-        }
-        }
-    }
-
-    vector<string> CharacterFactory::current_options() {
+    vector<string> RaceSelector::current_options() {
         vector<string> ret;
 
         for(auto node : current->children) {
@@ -984,13 +900,14 @@ namespace ORPG {
         return ret;
     }
 
-    bool CharacterFactory::has_options() {
-        if(!current->children.empty())
+    bool RaceSelector::has_options() {
+        if(!current) return false;
+        else if(!current->children.empty())
             return true;
         else return false;
     }
 
-    void CharacterFactory::select_option(int8 index) {
+    void RaceSelector::select_option(int8 index) {
         if(current == NULL) return;
 
         if(index < 0 || (size_t)index > current->children.size())
@@ -1000,7 +917,7 @@ namespace ORPG {
             current = current->children[index];
     }
 
-    int8 CharacterFactory::current_id() {
+    int8 RaceSelector::current_id() {
         if(current != NULL) return current->raceID;
         return -1;
     }

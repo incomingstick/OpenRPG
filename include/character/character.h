@@ -201,7 +201,7 @@ namespace ORPG {
     };
 
     /* TODO comments */
-    class CHARACTER_EXPORT CharacterFactory {
+    class CHARACTER_EXPORT RaceSelector {
     private:
         struct race_node {
             int raceID;
@@ -217,12 +217,8 @@ namespace ORPG {
                                 bool required,
                                 race_node* parent);
     public:
-        CharacterFactory();
-        ~CharacterFactory();
-
-        Character* NewCharacter(AbilityScores ab = AbilityScores());
-        Character* NewCharacter(int8 identifier, AbilityScores ab = AbilityScores());
-        Character* NewCharacter(std::string name, AbilityScores ab = AbilityScores());
+        RaceSelector();
+        ~RaceSelector();
 
         void reset() { current = head; };
         std::vector<std::string> current_options();

@@ -120,7 +120,7 @@ bool safety_check_stoi(string check) {
  * @param: CharacterFactory factory - the factory to check and prompt from
  * @return auto - the selected input
  **/
-auto request_selection(CharacterFactory factory) {
+auto request_selection(RaceSelector factory) {
     int index = -1;
     string input;
 
@@ -176,6 +176,29 @@ auto extract_random_element(vector<uint8>* arr) {
 }
 
 /**
+ * @desc This function prompts the user for their race by using the RaceSelector
+ * to first prompt to stdout the base race, requesting a corresponding number
+ * via stdin. It repeats this process for the subrace, and will continue prompting
+ * until no other race types could possibly be chosen.
+ * 
+ * @return auto - the current race ID from the RaceSelector
+ **/
+auto request_race() {
+    RaceSelector selector;
+
+    printf("Choose Race:\n");
+
+    selector.select_option(request_selection(selector));
+
+    if(selector.has_options()) {
+        printf("Choose Subrace:\n");
+        selector.select_option(request_selection(selector));
+    }
+
+    return selector.current_id();
+}
+
+/**
  * @desc This function prompts the user for 6 numbers to use as their characters
  * abilities. It specifically request their ability scores in the following
  * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
@@ -197,7 +220,7 @@ AbilityScores request_scores() {
     string input;
     auto stats = ability_score_vector();
 
-    printf("You generated the following ability scores: \n");
+    printf("We rolled the following ability scores (2d6+6): \n");
 
     for(auto num : stats) printf("%i (%i)\n", num, modifier(num));
 
@@ -333,18 +356,8 @@ int main(int argc, char* argv[]) {
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
 
-    CharacterFactory factory;
-
-    printf("Choose Race:\n");
-
-    factory.select_option(request_selection(factory));
-
-    if(factory.has_options()) {
-        printf("Choose Subrace:\n");
-        factory.select_option(request_selection(factory));
-    }
-
-    AbilityScores abil = request_scores();
+    auto race = request_race();
+    auto scores = request_scores();
 
     printf("Background\n");                    // TODO background menu
 
@@ -364,8 +377,8 @@ int main(int argc, char* argv[]) {
     printf("\n");
 
     auto character = name.empty() ?
-        factory.NewCharacter(abil) :
-        factory.NewCharacter(name, abil);
+        new Character(scores, race) :
+        new Character(scores, name, race);
 
     printf("%s", character->to_string().c_str());
 
