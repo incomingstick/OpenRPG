@@ -116,10 +116,10 @@ int main(int argc, char* argv[]) {
     auto name = request_name();
 
     auto character = name.empty() ?
-        new Character(scores, race) :
-        new Character(scores, name, race);
+        Character(scores, race) :
+        Character(scores, name, race);
 
-    printf("%s", character->to_string().c_str());
+    printf("%s", character.to_string().c_str());
 
     return status;
 }
