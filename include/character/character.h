@@ -50,6 +50,33 @@ namespace ORPG {
          **/
         void CHARACTER_EXPORT print_basic_help();
 
+        /* TODO comments */
+        class CHARACTER_EXPORT RaceSelector {
+        private:
+            struct race_node {
+                int raceID;
+                bool required;
+
+                race_node* parent;
+                std::vector<race_node* > children;
+            };
+
+            race_node* head;
+            race_node* current;
+            race_node* allocate_node(int8 raceID,
+                                    bool required,
+                                    race_node* parent);
+        public:
+            RaceSelector();
+            ~RaceSelector();
+
+            void reset() { current = head; };
+            std::vector<std::string> current_options();
+            bool has_options();
+            void select_option(int8 index);
+            int8 current_id();
+        };
+
         /**
          * @desc Currently this function just checks to ensure the string contains
          * only digits, and returns true. It will return false otherwise.
@@ -91,9 +118,10 @@ namespace ORPG {
         int request_race();
 
         /**
-         * @desc This function prompts the user for 6 numbers to use as their characters
-         * abilities. It specifically request their ability scores in the following
-         * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
+         * @desc This function prompts the user, via stdout, for 6 numbers to
+         * use as their characters abilities. It specifically request their
+         * ability scores in the following order: Strength, Dexterity,
+         * Constitution, Intelligence, Wisdom, Charisma.
          *
          * NOTE(incomingsting): currently, we are only using numbered input
          * (i.e '12') so the above purity check function strictly ensures the input
@@ -103,7 +131,8 @@ namespace ORPG {
          * This function could likely also be cleaner. Its just a giant switch
          * currently, which looks kinda ungly, and takes up space. Like this comment.
          *
-         * @return Ability - an Ability containing the users input scores
+         * @return AbilityScores - an AbilityScores object containing the users input
+         * scores
          **/
         AbilityScores request_scores();
     }
@@ -255,33 +284,6 @@ namespace ORPG {
 
         std::string to_string();
         std::string to_ascii_sheet();
-    };
-
-    /* TODO comments */
-    class CHARACTER_EXPORT RaceSelector {
-    private:
-        struct race_node {
-            int raceID;
-            bool required;
-
-            race_node* parent;
-            std::vector<race_node* > children;
-        };
-
-        race_node* head;
-        race_node* current;
-        race_node* allocate_node(int8 raceID,
-                                bool required,
-                                race_node* parent);
-    public:
-        RaceSelector();
-        ~RaceSelector();
-
-        void reset() { current = head; };
-        std::vector<std::string> current_options();
-        bool has_options();
-        void select_option(int8 index);
-        int8 current_id();
     };
 }
 

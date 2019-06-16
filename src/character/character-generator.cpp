@@ -15,6 +15,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 using namespace ORPG;
+using namespace ORPG::Characters;
 
 /**
  * @desc This function parses all cla's passed to argv from the command line.
@@ -50,7 +51,7 @@ int parse_args(int argc, char* argv[]) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            Characters::print_help_flag();
+            print_help_flag();
         } break;
 
         /* -r --random */
@@ -66,13 +67,13 @@ int parse_args(int argc, char* argv[]) {
 
         /* -V --version */
         case 'V': {
-            Characters::print_version_flag();
+            print_version_flag();
         } break;
 
         /* parsing error */
         case ':':
         case '?': {
-            Characters::print_help_flag();
+            print_help_flag();
         } break;
 
         /* if we get here something very bad happened */
@@ -101,8 +102,8 @@ int main(int argc, char* argv[]) {
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
 
-    auto race = Characters::request_race();
-    auto scores = Characters::request_scores();
+    auto race = request_race();
+    auto scores = request_scores();
 
     printf("Background\n");                    // TODO background menu
 

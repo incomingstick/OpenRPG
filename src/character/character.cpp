@@ -90,6 +90,113 @@ namespace ORPG {
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
+
+        // TODO Find cleaner way to do this factory, things get entered in too many places!!!
+        RaceSelector::RaceSelector() {
+            head = allocate_node(Character::ID, false, NULL);
+
+            auto human = allocate_node(Human::ID, true, head);
+
+            auto dwarf = allocate_node(Dwarf::ID, true, head);
+            auto hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
+
+            auto elf = allocate_node(Elf::ID, true, head);
+            auto highElf = allocate_node(HighElf::ID, true, elf);
+
+            dwarf->children = {
+                hillDwarf
+            };
+
+            elf->children = {
+                highElf
+            };
+
+            head->children = {
+                human,
+                dwarf,
+                elf
+            };
+
+            current = head;
+        }
+
+        RaceSelector::~RaceSelector() {
+            //TODO clean up here
+        }
+
+        RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
+                                                                    bool required,
+                                                                    race_node* parent) {
+        auto node = new race_node;
+
+            if(node == NULL) {
+                printf("out of memory");
+                exit(EXIT_FAILURE);
+            }
+
+            node->raceID = raceID;
+            node->required = required;
+            node->parent = parent;
+
+            return node;
+        }
+
+        vector<string> RaceSelector::current_options() {
+            vector<string> ret;
+
+            for(auto node : current->children) {
+                switch(node->raceID) {
+                case Human::ID : {
+                    ret.push_back("Human");
+                    break;
+                }
+
+                case Dwarf::ID : {
+                    ret.push_back("Dwarf");
+                    break;
+                }
+
+                case HillDwarf::ID : {
+                    ret.push_back("Hill Dwarf");
+                    break;
+                }
+
+                case Elf::ID : {
+                    ret.push_back("Elf");
+                    break;
+                }
+
+                case HighElf::ID : {
+                    ret.push_back("High Elf");
+                    break;
+                }
+                }
+            }
+
+            return ret;
+        }
+
+        bool RaceSelector::has_options() {
+            if(!current) return false;
+            else if(!current->children.empty())
+                return true;
+            else return false;
+        }
+
+        void RaceSelector::select_option(int8 index) {
+            if(current == NULL) return;
+
+            if(index < 0 || (size_t)index > current->children.size())
+                return;
+
+            if(current->children[index] != NULL)
+                current = current->children[index];
+        }
+
+        int8 RaceSelector::current_id() {
+            if(current != NULL) return current->raceID;
+            return -1;
+        }
     
         /**
          * @desc Currently this function just checks to ensure the string contains
@@ -207,9 +314,10 @@ namespace ORPG {
         }
 
         /**
-         * @desc This function prompts the user for 6 numbers to use as their characters
-         * abilities. It specifically request their ability scores in the following
-         * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
+         * @desc This function prompts the user, via stdout, for 6 numbers to
+         * use as their characters abilities. It specifically request their
+         * ability scores in the following order: Strength, Dexterity,
+         * Constitution, Intelligence, Wisdom, Charisma.
          *
          * NOTE(incomingsting): currently, we are only using numbered input
          * (i.e '12') so the above purity check function strictly ensures the input
@@ -219,7 +327,8 @@ namespace ORPG {
          * This function could likely also be cleaner. Its just a giant switch
          * currently, which looks kinda ungly, and takes up space. Like this comment.
          *
-         * @return Ability - an Ability containing the users input scores
+         * @return AbilityScores - an AbilityScores object containing the users input
+         * scores
          **/
         AbilityScores request_scores() {
             printf("\n");
@@ -1089,112 +1198,5 @@ namespace ORPG {
         for(uint8 i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
 
         return ret;
-    }
-
-    // TODO Find cleaner way to do this factory, things get entered in too many places!!!
-    RaceSelector::RaceSelector() {
-        head = allocate_node(Character::ID, false, NULL);
-
-        auto human = allocate_node(Human::ID, true, head);
-
-        auto dwarf = allocate_node(Dwarf::ID, true, head);
-        auto hillDwarf = allocate_node(HillDwarf::ID, true, dwarf);
-
-        auto elf = allocate_node(Elf::ID, true, head);
-        auto highElf = allocate_node(HighElf::ID, true, elf);
-
-        dwarf->children = {
-            hillDwarf
-        };
-
-        elf->children = {
-            highElf
-        };
-
-        head->children = {
-            human,
-            dwarf,
-            elf
-        };
-
-        current = head;
-    }
-
-    RaceSelector::~RaceSelector() {
-        //TODO clean up here
-    }
-
-    RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
-                                                                bool required,
-                                                                race_node* parent) {
-       auto node = new race_node;
-
-        if(node == NULL) {
-            printf("out of memory");
-            exit(EXIT_FAILURE);
-        }
-
-        node->raceID = raceID;
-        node->required = required;
-        node->parent = parent;
-
-        return node;
-    }
-
-    vector<string> RaceSelector::current_options() {
-        vector<string> ret;
-
-        for(auto node : current->children) {
-            switch(node->raceID) {
-            case Human::ID : {
-                ret.push_back("Human");
-                break;
-            }
-
-            case Dwarf::ID : {
-                ret.push_back("Dwarf");
-                break;
-            }
-
-            case HillDwarf::ID : {
-                ret.push_back("Hill Dwarf");
-                break;
-            }
-
-            case Elf::ID : {
-                ret.push_back("Elf");
-                break;
-            }
-
-            case HighElf::ID : {
-                ret.push_back("High Elf");
-                break;
-            }
-            }
-        }
-
-        return ret;
-    }
-
-    bool RaceSelector::has_options() {
-        if(!current) return false;
-        else if(!current->children.empty())
-            return true;
-        else return false;
-    }
-
-    void RaceSelector::select_option(int8 index) {
-        if(current == NULL) return;
-
-        if(index < 0 || (size_t)index > current->children.size())
-            return;
-
-        if(current->children[index] != NULL)
-            current = current->children[index];
-    }
-
-    int8 RaceSelector::current_id() {
-        if(current != NULL) return current->raceID;
-        return -1;
     }
 }
