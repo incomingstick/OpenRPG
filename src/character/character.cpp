@@ -457,6 +457,26 @@ namespace ORPG {
 
             return ret;
         }
+
+        /**
+         * @desc This function prompts the user via stdout for a name, and reading
+         * from stdin the input. We use the safeGetline funtion via the Utils
+         * library to ensure integrity across platforms.
+         * 
+         * @return string - the user input string to be used as a name
+         **/
+        string request_name() {
+            printf("(leave blank for random name)\n");
+            printf("Name: ");
+
+            string ret;
+
+            Utils::safeGetline(cin, ret);
+
+            printf("\n");
+
+            return ret;
+        }
     }
 
     /* an arrray that holds the EXP needed for each level */

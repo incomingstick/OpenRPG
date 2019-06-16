@@ -135,6 +135,15 @@ namespace ORPG {
          * scores
          **/
         AbilityScores request_scores();
+
+        /**
+         * @desc This function prompts the user via stdout for a name, and reading
+         * from stdin the input. We use the safeGetline funtion via the Utils
+         * library to ensure integrity across platforms.
+         * 
+         * @return string - the user input string to be used as a name
+         **/
+        std::string request_name();
     }
 
     /* NOTE: These are just the 5E character requirements */

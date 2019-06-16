@@ -113,14 +113,7 @@ int main(int argc, char* argv[]) {
 
     printf("Equipment\n\n");                   // TODO select equipment based on class and background
 
-    printf("(leave blank for random name)\n");
-    printf("Name: ");
-
-    string name;
-
-    Utils::safeGetline(cin, name);
-
-    printf("\n");
+    auto name = request_name();
 
     auto character = name.empty() ?
         new Character(scores, race) :
