@@ -49,6 +49,63 @@ namespace ORPG {
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
         void CHARACTER_EXPORT print_basic_help();
+
+        /**
+         * @desc Currently this function just checks to ensure the string contains
+         * only digits, and returns true. It will return false otherwise.
+         * If the provided string is empty, this function returns false.
+         *
+         * NOTE(incomingsting): This could, and probably should, be improved
+         * to also ensure we are within the bounds on the "question" being asked.
+         *
+         * TODO(incomingstick): ensure we are at least coming in as an int32.
+         *
+         * @param: string check - this string to be checked
+         * @return bool - returns true if check contains only numbers
+         **/
+        bool safety_check_stoi(std::string check);
+
+        /**
+         * @desc This function is built to work in tandem specifically with the character
+         * module. It takes in a CharacterFactory and checks what stage it is
+         * currently in, prompting the user for any required input from cin.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '1') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * @param: CharacterFactory factory - the factory to check and prompt from
+         * @return auto - the selected input
+         **/
+        int request_selection(RaceSelector factory);
+        
+        /**
+         * @desc This function prompts the user for their race by using the RaceSelector
+         * to first prompt to stdout the base race, requesting a corresponding number
+         * via stdin. It repeats this process for the subrace, and will continue prompting
+         * until no other race types could possibly be chosen.
+         * 
+         * @return auto - the current race ID from the RaceSelector
+         **/
+        int request_race();
+
+        /**
+         * @desc This function prompts the user for 6 numbers to use as their characters
+         * abilities. It specifically request their ability scores in the following
+         * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '12') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * This function could likely also be cleaner. Its just a giant switch
+         * currently, which looks kinda ungly, and takes up space. Like this comment.
+         *
+         * @return Ability - an Ability containing the users input scores
+         **/
+        AbilityScores request_scores();
     }
 
     /* NOTE: These are just the 5E character requirements */

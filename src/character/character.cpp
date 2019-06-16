@@ -19,6 +19,11 @@ using namespace ORPG;
 
 namespace ORPG {
     namespace Characters {
+        /**
+         * @desc prints the version info when -V or --version is an argument to the command.
+         * This adhears to the GNU standard for version printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
         void print_version_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
@@ -28,6 +33,11 @@ namespace ORPG {
             exit(EXIT_SUCCESS);
         }
 
+        /**
+         * @desc prints the help info when -h or --help is an argument to the command.
+         * This adhears to the GNU standard for help printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
         void print_help_flag() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
@@ -47,6 +57,10 @@ namespace ORPG {
             exit(EXIT_SUCCESS);
         }
 
+        /**
+         * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
         void print_basic_version() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
@@ -55,6 +69,10 @@ namespace ORPG {
                 stdout);
         }
 
+        /**
+         * @desc prints the help info when help, h, or H are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
         void print_basic_help() {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
@@ -71,6 +89,264 @@ namespace ORPG {
                 "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man character-generator' for more information [TODO add man pages].\n",
                 stdout);
+        }
+    
+        /**
+         * @desc Currently this function just checks to ensure the string contains
+         * only digits, and returns true. It will return false otherwise.
+         * If the provided string is empty, this function returns false.
+         *
+         * NOTE(incomingsting): This could, and probably should, be improved
+         * to also ensure we are within the bounds on the "question" being asked.
+         *
+         * TODO(incomingstick): ensure we are at least coming in as an int32.
+         *
+         * @param: string check - this string to be checked
+         * @return bool - returns true if check contains only numbers
+         **/
+        bool safety_check_stoi(string check) {
+            for(auto c : check) {
+                if(!isdigit((unsigned)c)) return false;
+            }
+
+            return check.empty() ? false : true;
+        }
+
+        /**
+         * @desc Takes a point to an array of unit8's, randomly selects an index
+         * from within that array, gets the value of that index to return, and
+         * removes it from the vector. Do note that the vectors size is reduced
+         * by one.
+         * 
+         * TODO(incomingstick): Make this generic and put it somewhere in the Utils
+         * library
+         *
+         * @param vector<uint8> *arr - the pointer of the vectory array to operate on
+         * @return auto - the extracted value from the randomly selected element
+         **/
+        uint8 extract_random_element(vector<uint8>* arr) {
+            auto randIndex = Utils::randomInt(0, arr->size()-1);
+            auto ret = arr->at(randIndex);
+
+            arr->erase(arr->begin()+randIndex);
+
+            return ret;
+        }
+
+        /**
+         * @desc This function is built to work in tandem specifically with the character
+         * module. It takes in a CharacterFactory and checks what stage it is
+         * currently in, prompting the user for any required input from cin.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '1') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * @param: CharacterFactory factory - the factory to check and prompt from
+         * @return auto - the selected input
+         **/
+        int request_selection(RaceSelector factory) {
+            int index = -1;
+            string input;
+
+            vector<string> list;
+
+            if(factory.has_options())
+                list = factory.current_options();
+
+            while(index < 0 || index > (signed)list.size()) {
+
+                int tick = 0;
+
+                for(string str : list) {
+                    cout << "\t" << (tick++) << ") " << str;
+
+                    if(tick % 3 == 0) cout << endl;
+                }
+
+                tick = 0;
+
+                cout << "\n#? ";
+                Utils::safeGetline(cin, input);
+
+                if(safety_check_stoi(input)) {
+                    index = stoi(input);
+                } else {
+                    cout << "invalid input!" << endl;
+                }
+
+                cin.clear();
+            }
+
+
+            return index;
+        }
+
+        /**
+         * @desc This function prompts the user for their race by using the RaceSelector
+         * to first prompt to stdout the base race, requesting a corresponding number
+         * via stdin. It repeats this process for the subrace, and will continue prompting
+         * until no other race types could possibly be chosen.
+         * 
+         * @return int - the current race ID from the RaceSelector
+         **/
+        int request_race() {
+            RaceSelector selector;
+
+            printf("Choose Race:\n");
+
+            selector.select_option(request_selection(selector));
+
+            if(selector.has_options()) {
+                printf("Choose Subrace:\n");
+                selector.select_option(request_selection(selector));
+            }
+
+            return selector.current_id();
+        }
+
+        /**
+         * @desc This function prompts the user for 6 numbers to use as their characters
+         * abilities. It specifically request their ability scores in the following
+         * order: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '12') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * This function could likely also be cleaner. Its just a giant switch
+         * currently, which looks kinda ungly, and takes up space. Like this comment.
+         *
+         * @return Ability - an Ability containing the users input scores
+         **/
+        AbilityScores request_scores() {
+            printf("\n");
+
+            AbilityScores ret;
+            string input;
+            auto stats = ability_score_vector();
+
+            printf("We rolled the following ability scores (2d6+6): \n");
+
+            for(auto num : stats) printf("%i (%i)\n", num, modifier(num));
+
+            printf("\n");
+
+            printf("(leave blank to randomly assign from the list above)\n");
+
+            for(int8 i = 0; i < 6; i++) {
+                switch(i) {
+                case 0: {
+                    printf("Set Strength\t (STR): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::STR, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::STR,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                        cin.clear();
+                    }
+                } break;
+
+                case 1: {
+                    printf("Set Dexterity\t (DEX): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::DEX, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::DEX,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                    }
+                } break;
+
+                case 2: {
+                    printf("Set Constitution (CON): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::CON, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::CON,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                    }
+                } break;
+
+                case 3: {
+                    printf("Set Intelligence (INT): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::INT, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::INT,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                    }
+                } break;
+
+                case 4: {
+                    printf("Set Wisdom\t (WIS): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::WIS, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::WIS,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                    }
+                } break;
+
+                case 5: {
+                    printf("Set Charisma\t (CHA): ");
+
+                    Utils::safeGetline(cin, input);
+
+                    if(safety_check_stoi(input)) {
+                        ret.setScore(EnumAbilityScore::CHA, stoi(input));
+                    } else if(input.empty()) {
+                        ret.setScore(EnumAbilityScore::CHA,
+                                    extract_random_element(&stats));
+                    } else {
+                        i--;
+                        cout << "invalid input!" << endl;
+                    }
+                } break;
+
+                default: {
+                    printf("should not have gotten here");
+                    exit(EXIT_FAILURE);
+                }
+                }
+
+                cin.clear();
+            }
+
+            printf("\n");
+
+            return ret;
         }
     }
 
