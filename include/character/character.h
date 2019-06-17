@@ -50,8 +50,11 @@ namespace ORPG {
          **/
         void CHARACTER_EXPORT print_basic_help();
 
-        /* TODO comments */
-        class CHARACTER_EXPORT RaceSelector {
+        /**
+         * TODO comments 
+         * NOTE(incomingstick): This function is not exported because it does not yet need to be
+         **/
+        class RaceSelector {
         private:
             struct race_node {
                 int raceID;
@@ -81,11 +84,13 @@ namespace ORPG {
          * @desc Currently this function just checks to ensure the string contains
          * only digits, and returns true. It will return false otherwise.
          * If the provided string is empty, this function returns false.
+         * 
+         * TODO(incomingstick): ensure we are at least coming in as an int32.
          *
          * NOTE(incomingsting): This could, and probably should, be improved
          * to also ensure we are within the bounds on the "question" being asked.
-         *
-         * TODO(incomingstick): ensure we are at least coming in as an int32.
+         * 
+         * NOTE(incomingstick): This function is not exported because it does not yet need to be
          *
          * @param: string check - this string to be checked
          * @return bool - returns true if check contains only numbers
@@ -105,7 +110,7 @@ namespace ORPG {
          * @param: CharacterFactory factory - the factory to check and prompt from
          * @return auto - the selected input
          **/
-        int request_selection(RaceSelector factory);
+        int CHARACTER_EXPORT request_selection(RaceSelector factory);
         
         /**
          * @desc This function prompts the user for their race by using the RaceSelector
@@ -115,7 +120,7 @@ namespace ORPG {
          * 
          * @return auto - the current race ID from the RaceSelector
          **/
-        int request_race();
+        int CHARACTER_EXPORT request_race();
 
         /**
          * @desc This function prompts the user, via stdout, for 6 numbers to
@@ -134,7 +139,7 @@ namespace ORPG {
          * @return AbilityScores - an AbilityScores object containing the users input
          * scores
          **/
-        AbilityScores request_scores();
+        AbilityScores CHARACTER_EXPORT request_scores();
 
         /**
          * @desc This function prompts the user via stdout for a name, and reading
@@ -143,7 +148,7 @@ namespace ORPG {
          * 
          * @return string - the user input string to be used as a name
          **/
-        std::string request_name();
+        std::string CHARACTER_EXPORT request_name();
     }
 
     /* NOTE: These are just the 5E character requirements */
