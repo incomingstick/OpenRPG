@@ -149,6 +149,52 @@ namespace ORPG {
          * @return string - the user input string to be used as a name
          **/
         std::string CHARACTER_EXPORT request_name();
+
+        /**
+         * @desc prints "Background\n" to stdout
+         *
+         * TODO(incomingstick): Add backgrounds
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_background();
+
+        /**
+         * @desc prints "Class\n" to stdout
+         *
+         * TODO(incomingstick): Add character classes
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_class();
+
+        /**
+         * @desc prints "Skill select based on class\n" to stdout
+         *
+         * TODO(incomingstick): Improve skills once classes are added
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_skills();
+
+        /**
+         * @desc prints "Hit points\n" to stdout
+         *
+         * TODO(incomingstick): Set hitpoints based on classes hit die
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_hitpoints();
+
+        /**
+         * @desc prints "Equipment\n" to stdout
+         *
+         * TODO(incomingstick): Choose equipment based on class
+         * and background
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_equipment();
     }
 
     /* NOTE: These are just the 5E character requirements */

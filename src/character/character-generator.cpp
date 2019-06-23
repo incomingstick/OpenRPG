@@ -102,24 +102,24 @@ int main(int argc, char* argv[]) {
     /* begin creating the character here */
     printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
 
-    auto race = request_race();
-    auto scores = request_scores();
-
-    printf("Background\n");                    // TODO background menu
-
-    printf("Class\n");                         // TODO class menu.
-    printf("Skill select based on class\n");   // TODO Skill select based on class
-    printf("Hit points\n");                    // TODO hit points max, avg, or roll + con mod
-
-    printf("Equipment\n\n");                   // TODO select equipment based on class and background
-
-    auto name = request_name();
+    auto race       = request_race();
+    auto scores     = request_scores();
+    auto bg         = request_background();
+    auto charClass  = request_class();
+    auto skills     = request_skills();
+    auto hp         = request_hitpoints();
+    auto equipment  = request_equipment();
+    auto name       = request_name();
 
     auto character = name.empty() ?
-        Character(scores, race) :
-        Character(scores, name, race);
+        new Character(scores, race) :
+        new Character(scores, name, race);
 
-    printf("%s", character.to_string().c_str());
+    if(bg && charClass && skills && hp && equipment) {
+        printf("%s", character->to_string().c_str());
+    } else {
+        status = EXIT_FAILURE;
+    }
 
     return status;
 }

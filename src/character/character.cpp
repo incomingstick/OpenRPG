@@ -477,6 +477,67 @@ namespace ORPG {
 
             return ret;
         }
+
+        /**
+         * @desc prints "Background\n" to stdout
+         *
+         * TODO(incomingstick): Add backgrounds
+         *
+         * @return bool - always will return true
+         **/
+        bool request_background() {
+            printf("Background\n");
+            return true;
+        }
+
+        /**
+         * @desc prints "Class\n" to stdout
+         *
+         * TODO(incomingstick): Add character classes
+         *
+         * @return bool - always will return true
+         **/
+        bool request_class() {
+            printf("Class\n");
+            return true;
+        }
+
+        /**
+         * @desc prints "Skill select based on class\n" to stdout
+         *
+         * TODO(incomingstick): Improve skills once classes are added
+         *
+         * @return bool - always will return true
+         **/
+        bool request_skills() {
+            printf("Skill select based on class\n");
+            return true;
+        }
+
+        /**
+         * @desc prints "Hit points\n" to stdout
+         *
+         * TODO(incomingstick): Set hitpoints based on classes hit die
+         *
+         * @return bool - always will return true
+         **/
+        bool request_hitpoints() {
+            printf("Hit points\n");
+            return true;
+        }
+
+        /**
+         * @desc prints "Equipment\n" to stdout
+         *
+         * TODO(incomingstick): Choose equipment based on class
+         * and background
+         *
+         * @return bool - always will return true
+         **/
+        bool request_equipment() {
+            printf("Equipment\n\n");
+            return true;
+        }
     }
 
     /* an arrray that holds the EXP needed for each level */
