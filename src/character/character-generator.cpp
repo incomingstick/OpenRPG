@@ -100,7 +100,8 @@ int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
 
     /* begin creating the character here */
-    printf("Use character creator (Y/n)\n");   // TODO character creator switch ('-r' argv should ALSO handle this)
+    // TODO character creator switch ('-r' argv should ALSO handle this)
+    printf("Use character creator (Y/n)\n");
 
     auto race       = request_race();
     auto scores     = request_scores();
@@ -111,6 +112,7 @@ int main(int argc, char* argv[]) {
     auto equipment  = request_equipment();
     auto name       = request_name();
 
+    /* NOTE(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
     auto character = name.empty() ?
         new Character(scores, race) :
         new Character(scores, name, race);
