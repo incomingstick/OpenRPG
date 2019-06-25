@@ -98,7 +98,7 @@ namespace ORPG {
         bool safety_check_stoi(std::string check);
 
         /**
-         * @desc This function is built to work in tandem specifically with the character
+         * @desc This function is built to work in tandem specifically with the Character
          * module. It takes in a CharacterFactory and checks what stage it is
          * currently in, prompting the user for any required input from cin.
          *
@@ -110,8 +110,19 @@ namespace ORPG {
          * @param: CharacterFactory factory - the factory to check and prompt from
          * @return auto - the selected input
          **/
-        int CHARACTER_EXPORT request_selection(RaceSelector factory);
+        int request_selection(RaceSelector factory);
         
+        /**
+         * @desc This function is build to work specifically in tandem with the Character
+         * module. It prompts to stdout a request for user input, from stdin, to help determine
+         * whether or not we should just randomly create the character
+         *
+         * TODO character creator switch ('-r' argv should ALSO handle this)
+         * 
+         * @return bool - true if user wants to be random, false otherwise
+         **/
+        bool CHARACTER_EXPORT request_is_random();
+
         /**
          * @desc This function prompts the user for their race by using the RaceSelector
          * to first prompt to stdout the base race, requesting a corresponding number
@@ -289,15 +300,9 @@ namespace ORPG {
         void Initialize();
 
     public:
-        /* TODO(incomingstick): reduce the number of constructors here via defaults */
-        Character();
-        Character(const int raceID);
-        Character(AbilityScores ab);
-        Character(AbilityScores ab, const int raceID);
-        Character(AbilityScores ab, std::string name);
-        Character(std::string name);
-        Character(std::string name, const int raceID);
-        Character(AbilityScores ab, std::string name, const int raceID);
+        Character(const int raceID = -1,
+                  AbilityScores ab = AbilityScores(),
+                  std::string name = "");
         ~Character();
 
         std::string format_mod(int mod, int spaces);
@@ -340,7 +345,7 @@ namespace ORPG {
         int8 CHA_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CHA)); };
 
         // allows quick conversion of a skill for its passive check
-        int8 passive_stat(int stat) { return 8 + prof + stat; };
+        int8 passive_stat(int mod) { return 8 + prof + mod; };
 
         std::string to_string();
         std::string to_ascii_sheet();

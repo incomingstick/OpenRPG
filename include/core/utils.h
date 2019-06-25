@@ -62,8 +62,8 @@ namespace ORPG {
          **/
         void UTILS_EXPORT print_basic_help();
 
-        bool UTILS_EXPORT VB_FLAG = false;
-        bool UTILS_EXPORT QUIET_FLAG = false;
+        extern bool UTILS_EXPORT VB_FLAG;
+        extern bool UTILS_EXPORT QUIET_FLAG;
     };
 };
 

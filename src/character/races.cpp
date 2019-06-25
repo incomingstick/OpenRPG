@@ -10,6 +10,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <vector>
 #include <cstdlib>
 
+#include "core/utils.h"
 #include "names.h"
 #include "character.h"
 
@@ -23,9 +24,41 @@ using namespace ORPG;
  * TODO(incomingstick): based on how much copy pasting I did, it is clear that
  * setting the name could get ugly quick if we don't turn as much of it into
  * functions as possible.
- */
-
+ **/
 namespace ORPG {
+    namespace Characters {
+        /**
+         * @desc This function returns a random RaceID as an integer, from
+         * the available races.
+         *
+         * TODO(incomingstick): Is hardcoding this as a switch the best
+         * option? This likely won't scale well.
+         * 
+         * @return int - the randomly selected race ID
+         **/
+        const int random_race_id() {
+            auto randInt = Utils::randomInt(0, 2);
+
+            switch(randInt) {
+            case 0 : {
+                return Human::ID;
+            }
+
+            case 1 : {
+                return HillDwarf::ID;
+            }
+
+            case 2 : {
+                return HighElf::ID;
+            }
+
+            default: {
+                return 0;
+            }
+            }
+        }
+    }
+
     /**
      * @desc Constructor for a Human that is passed no arguments. A base Human
      * has +1 to all stats. Human::Initialize() is called at the end of the
@@ -44,7 +77,7 @@ namespace ORPG {
      * by doing everything that ALL Races of type Human should do.
      */
     void Human::Initialize() {
-         // TODO Initialize the Human
+        // TODO Initialize the Human
     }
 
     /**

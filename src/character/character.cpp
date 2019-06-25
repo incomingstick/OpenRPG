@@ -8,6 +8,7 @@ There is NO WARRANTY, to the extent permitted by law.
 */
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "core/config.h"
 #include "roll.h"
@@ -127,7 +128,7 @@ namespace ORPG {
         RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
                                                                     bool required,
                                                                     race_node* parent) {
-        auto node = new race_node;
+            auto node = new race_node;
 
             if(node == NULL) {
                 printf("out of memory");
@@ -288,6 +289,35 @@ namespace ORPG {
 
 
             return index;
+        }
+
+        /**
+         * @desc This function is build to work specifically in tandem with the Character
+         * module. It prompts to stdout a request for user input, from stdin, to help determine
+         * whether or not we should just randomly create the character
+         *
+         * TODO character creator switch ('-r' argv should ALSO handle this)
+         * 
+         * @return bool - true if user wants to be random, false otherwise
+         **/
+        bool request_is_random() {
+            printf("Use character creator (Y/n): ");
+
+            string in;
+
+            Utils::safeGetline(cin, in);
+            transform(in.begin(), in.end(), in.begin(), ::tolower);
+
+            cin.clear();
+
+            if(in == "y" || in == "ye" || in == "yes" || in.empty()) {
+                return false;
+            } else if(in == "n" || in == "no") {
+                return true;
+            } else {
+                printf("Invalid input!\n");
+                return request_is_random();
+            }
         }
 
         /**
@@ -921,7 +951,10 @@ namespace ORPG {
      * NOTE(incomingstick): Should this be accessable to the library at large?
      **/
     Race* raceSelector(const int identifier = -1) {
-        switch(identifier) {
+        const auto id = (identifier <= -1) ?
+            Characters::random_race_id() : identifier;
+
+        switch(id) {
         case Human::ID : {
             return new Human();
         }
@@ -948,120 +981,19 @@ namespace ORPG {
         }
     }
 
-    Character::Character() {
-        race = raceSelector();
-
-        // NOTE(incomginstick): there are better ways to do this
-        abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
-        abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
-        abils.setScore(EnumAbilityScore::CON, gen_stat());    // Constitution
-        abils.setScore(EnumAbilityScore::INT, gen_stat());    // Intelligence
-        abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
-        abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
-
-        // TODO Gender??? What about asexual races? What if they want to enter a name?
-        NameGenerator ng;
-
-        firstName = ng.make_first();
-        lastName = ng.make_last();
-
-
-        Initialize();
-    }
-
-    Character::Character(const int raceID) {
+    Character::Character(const int raceID, AbilityScores ab, std::string name):abils(ab) {
         race = raceSelector(raceID);
 
-        // NOTE(incomginstick): there are better ways to do this
-        abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
-        abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
-        abils.setScore(EnumAbilityScore::CON, gen_stat());    // Constitution
-        abils.setScore(EnumAbilityScore::INT, gen_stat());    // Intelligence
-        abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
-        abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
+        if(name.empty()) {
+            NameGenerator ng(race->to_string());
 
-        NameGenerator ng(race->to_string());
-
-        firstName = ng.make_first();
-        lastName = ng.make_last();
-
-        Initialize();
-    }
-
-    Character::Character(AbilityScores ab):abils(ab) {
-        race = raceSelector();
-
-        NameGenerator ng(race->to_string());
-
-        firstName = ng.make_first();
-        lastName = ng.make_last();
-
-        Initialize();
-    }
-
-    Character::Character(AbilityScores ab, const int raceID):abils(ab) {
-        race = raceSelector(raceID);
-
-        NameGenerator ng(race->to_string());
-
-        firstName = ng.make_first();
-        lastName = ng.make_last();
-
-        Initialize();
-    }
-
-    Character::Character(AbilityScores ab, std::string name):abils(ab) {
-        race = raceSelector();
-
-        /* TODO make this work by parsing the name into a first and last */
-        firstName = name;
-        lastName = name;
-
-        Initialize();
-    }
-
-    Character::Character(std::string name) {
-        race = raceSelector();
-
-        // NOTE(incomginstick): there are better ways to do this
-        abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
-        abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
-        abils.setScore(EnumAbilityScore::CON, gen_stat());    // Constitution
-        abils.setScore(EnumAbilityScore::INT, gen_stat());    // Intelligence
-        abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
-        abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
-
-        /* TODO make this work by parsing the name into a first and last */
-        firstName = name;
-        lastName = name;
-
-        Initialize();
-    }
-
-    Character::Character(std::string name, const int raceID) {
-        race = raceSelector(raceID);
-
-        // NOTE(incomginstick): there are better ways to do this
-        abils.setScore(EnumAbilityScore::STR, gen_stat());    // Strength
-        abils.setScore(EnumAbilityScore::DEX, gen_stat());    // Dexterity
-        abils.setScore(EnumAbilityScore::CON, gen_stat());    // Constitution
-        abils.setScore(EnumAbilityScore::INT, gen_stat());    // Intelligence
-        abils.setScore(EnumAbilityScore::WIS, gen_stat());    // Wisdom
-        abils.setScore(EnumAbilityScore::CHA, gen_stat());    // Charisma
-
-        /* TODO make this work by parsing the name into a first and last */
-        firstName = name;
-        lastName = name;
-
-        Initialize();
-    }
-
-    Character::Character(AbilityScores ab, std::string name, const int raceID):abils(ab) {
-        race = raceSelector(raceID);
-
-        /* TODO make this work by parsing the name into a first and last */
-        firstName = name;
-        lastName = name;
+            firstName = ng.make_first();
+            lastName = ng.make_last();
+        } else {
+            /* TODO make this work by parsing the name into a first and last */
+            firstName = name;
+            lastName = name;
+        }
     }
 
     Character::~Character() {

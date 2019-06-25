@@ -21,6 +21,16 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "ability-scores.h"
 
 namespace ORPG {
+    namespace Characters {
+        /**
+         * @desc This function returns a random RaceID as an integer, from
+         * the available races.
+         *
+         * @return int - the randomly selected race ID
+         **/
+        const int CHARACTER_EXPORT random_race_id();
+    }
+
     class CHARACTER_EXPORT Race {
     protected:
         /* The bonuses to Ability Scores that being a Human provides */

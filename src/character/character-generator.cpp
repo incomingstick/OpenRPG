@@ -17,6 +17,10 @@ using namespace std;
 using namespace ORPG;
 using namespace ORPG::Characters;
 
+/* Global bool to help determine whether
+    we should be random or request data */
+bool RANDOM_FLAG = false;
+
 /**
  * @desc This function parses all cla's passed to argv from the command line.
  * This function may terminate the program.
@@ -44,7 +48,7 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = Core::getopt_long(argc, argv, "rhvV",
+    while ((opt = Core::getopt_long(argc, argv, "hrvV",
                                long_opts, &opt_ind)) != EOF &&
                                status != EXIT_FAILURE) {
 
@@ -57,6 +61,7 @@ int parse_args(int argc, char* argv[]) {
         /* -r --random */
         case 'r': {
             // TODO skip character creator and generate fully random character
+            RANDOM_FLAG = true;
         } break;
 
         /* -v --verbose */
@@ -100,22 +105,21 @@ int main(int argc, char* argv[]) {
     int status = parse_args(argc, argv); // may exit
 
     /* begin creating the character here */
-    // TODO character creator switch ('-r' argv should ALSO handle this)
-    printf("Use character creator (Y/n)\n");
+    RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
-    auto race       = request_race();
-    auto scores     = request_scores();
-    auto bg         = request_background();
-    auto charClass  = request_class();
-    auto skills     = request_skills();
-    auto hp         = request_hitpoints();
-    auto equipment  = request_equipment();
-    auto name       = request_name();
+    auto race       = RANDOM_FLAG ? -1 : request_race();
+    auto scores     = RANDOM_FLAG ? AbilityScores() : request_scores();
+    auto bg         = RANDOM_FLAG ? true : request_background();
+    auto charClass  = RANDOM_FLAG ? true : request_class();
+    auto skills     = RANDOM_FLAG ? true : request_skills();
+    auto hp         = RANDOM_FLAG ? true : request_hitpoints();
+    auto equipment  = RANDOM_FLAG ? true : request_equipment();
+    auto name       = RANDOM_FLAG ? "" : request_name();
 
     /* NOTE(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
-    auto character = name.empty() ?
-        new Character(scores, race) :
-        new Character(scores, name, race);
+    auto character = RANDOM_FLAG ?
+        new Character() :
+        new Character(race, scores, name);
 
     if(bg && charClass && skills && hp && equipment) {
         printf("%s", character->to_string().c_str());
