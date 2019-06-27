@@ -189,7 +189,7 @@ namespace ORPG {
                 }
 
                 /* found "--" */
-                if (place[1] && *++place == OP_DELIM) {
+                if (place[1] && *place++ == OP_DELIM) {
                     /* ++optind; */
                     place = EMPTY;
 
