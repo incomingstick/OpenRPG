@@ -11,9 +11,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #define RACE_H_
 
 #ifdef _WIN32
-#	ifndef character_EXPORTS
-#   	define character_EXPORTS
-#	endif
 #	include "exports/character_exports.h"
 #else
 #	define CHARACTER_EXPORT

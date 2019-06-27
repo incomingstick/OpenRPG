@@ -12,11 +12,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 
 #ifdef _WIN32
-#   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
-#   ifndef utils_EXPORTS
-#       define utils_EXPORTS
-#   endif
 #   include "exports/utils_exports.h"
 #else
 #   define UTILS_EXPORT
@@ -62,8 +58,8 @@ namespace ORPG {
          **/
         void UTILS_EXPORT print_basic_help();
 
-        bool UTILS_EXPORT VB_FLAG = false;
-        bool UTILS_EXPORT QUIET_FLAG = false;
+        bool VB_FLAG = false;
+        bool QUIET_FLAG = false;
     };
 };
 
