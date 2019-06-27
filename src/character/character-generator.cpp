@@ -42,8 +42,8 @@ int parse_args(int argc, char* argv[]) {
     static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
