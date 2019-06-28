@@ -211,7 +211,7 @@ namespace ORPG {
     /* NOTE: These are just the 5E character requirements */
 
     /* an arrray that holds the EXP needed for each level */
-    extern const int CHARACTER_EXPORT levels[];
+    extern const int CHARACTER_EXPORT EXP[];
 
     enum CHARACTER_EXPORT Alignment {
         LawfulGood, 	NeutralGood, 	ChaoticGood,

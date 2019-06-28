@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lots of "auto-fication" across the project, as well as other C++11 improvements
 - Lots of restructuring within the files themeselves to help keep things better organized
 - Lots of additional documention comments throughout the project for you other devs out there
-- Levels is now an externally definded global variable in the `include/character/character.h` header, so you must link to the Character library to use is
+- `levels[]` is now an externally definded global variable renamed to `EXP[]` in the `include/character/character.h` header, so you must link to the Character library to use is
 - The `Skills` struct is now a class that acts as a wrapper of sorts for the `Skill` class and the `EnumSkill` enum thanks to [@var-username](https://github.com/var-username)
 - `Character` class now uses the `Skills` class internally and has a new function to interface with it via `void update_skills()` thanks to [@var-username](https://github.com/var-username)
 - Some header guards improved to better show their purpose in the project file system

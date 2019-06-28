@@ -126,8 +126,8 @@ namespace ORPG {
         }
 
         RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
-                                                                    bool required,
-                                                                    race_node* parent) {
+                                                            bool required,
+                                                            race_node* parent) {
             auto node = new race_node;
 
             if(node == NULL) {
@@ -571,7 +571,8 @@ namespace ORPG {
     }
 
     /* an arrray that holds the EXP needed for each level */
-    const int levels[] = {
+    const int EXP[] = {
+        0,            // Level 1
         300,          // Level 2
         900,          // Level 3
         2700,         // Level 4
@@ -812,8 +813,11 @@ namespace ORPG {
     }
 
     /**
-     * @desc Constructor for AbilityScores that is passed no arguments.
-     * It sets all ability scores equal to 10 and isProf to false.
+     * @desc Constructor for AbilityScores that is passed a uint8 to use as
+     * the default Ability score value. If no argument is passed this function
+     * sets all ability scores equal to 0. isProf will always be set to false.
+     * 
+     * @param uint8 def - the default value to use for all Ability scores
      */
     AbilityScores::AbilityScores(uint8 def) {
         this->scoresMap = {
@@ -1009,7 +1013,7 @@ namespace ORPG {
         prof = 2;                       // proficiency bonus
         level = 1;                      // character level total
         cur_exp = 0;                    // current experience
-        max_exp = levels[level - 1];    // experience needed for next level
+        max_exp = EXP[level];    // experience needed for next level
 
         // TODO Apply racial bonuses here
 
