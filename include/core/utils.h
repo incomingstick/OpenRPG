@@ -12,11 +12,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <iostream>
 
 #ifdef _WIN32
-#   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
-#   ifndef utils_EXPORTS
-#       define utils_EXPORTS
-#   endif
 #   include "exports/utils_exports.h"
 #else
 #   define UTILS_EXPORT

@@ -10,9 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #define SRC_GENERATOR_H_
 
 #ifdef _WIN32
-#   ifndef names_EXPORTS
-#       define names_EXPORTS
-#   endif
 #   include "exports/names_exports.h"
 #else
 #   define NAMES_EXPORT

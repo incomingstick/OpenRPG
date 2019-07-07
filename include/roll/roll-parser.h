@@ -10,9 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #define SRC_ROLL_PARSER_H_
 
 #ifdef _WIN32
-#   ifndef roll_parser_EXPORTS
-#       define roll_parser_EXPORTS
-#   endif
 #   include "roll/exports/parser_exports.h"
 #else
 #   define ROLL_PARSER_EXPORT

@@ -15,9 +15,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "core/utils.h"
 
 #ifdef _WIN32
-#   ifndef roll_parser_EXPORTS
-#       define roll_parser_EXPORTS
-#   endif
 #   include "roll/exports/parser_exports.h"
 #else
 #   define ROLL_PARSER_EXPORT
