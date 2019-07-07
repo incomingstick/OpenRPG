@@ -233,7 +233,7 @@ namespace ORPG {
      * An enum containing genders
      *
      * NOTE(incomingstick): How far do we want to take this? We could
-     * put ourselves in  a tricky place if this is done wrong.
+     * put ourselves in a tricky place if this is done wrong.
      **/
     enum CHARACTER_EXPORT Gender {
         Male,
@@ -352,4 +352,4 @@ namespace ORPG {
     };
 }
 
-#endif /* CHARACTER_H_ */
+#endif /* SRC_CHARACTER_H_ */

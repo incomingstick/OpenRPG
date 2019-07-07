@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     /* begin creating the character here */
     RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
-    auto race       = RANDOM_FLAG ? -1 : request_race();
+    auto race       = RANDOM_FLAG ? Characters::random_race_id() : request_race();
     auto scores     = RANDOM_FLAG ? AbilityScores() : request_scores();
     auto bg         = RANDOM_FLAG ? true : request_background();
     auto charClass  = RANDOM_FLAG ? true : request_class();

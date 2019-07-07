@@ -1007,19 +1007,20 @@ namespace ORPG {
     void Character::Initialize() {
         race->applyRacialBonus(&abils);
 
-        curr_hp = 10;                   // TODO current hit points
-        temp_hp = 0;                    // TODO temporary hit points
-        max_hp = curr_hp;               // TODO maximum hit points
-        prof = 2;                       // proficiency bonus
-        level = 1;                      // character level total
-        cur_exp = 0;                    // current experience
-        max_exp = EXP[level];    // experience needed for next level
+        curr_hp = 10;           // TODO current hit points
+        temp_hp = 0;            // TODO temporary hit points
+        max_hp = curr_hp;       // TODO maximum hit points
+        prof = 2;               // proficiency bonus
+        level = 1;              // character level total
+        cur_exp = 0;            // current experience
+        max_exp = EXP[level];   // experience needed for next level
 
         // TODO Apply racial bonuses here
 
         update_skills();
     }
 
+    // TODO(incomingstick): Make this more efficient
     void Character::update_skills() {
         skills.get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
         skills.get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
