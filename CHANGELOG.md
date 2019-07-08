@@ -125,7 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A function `int gen_stat()` that generates an array of stats > 1 && < 20 in the Character library
 - A function `int modifier(...)` that returns an integer representation of the passed ability modifier defined as `(abil - 10) / 2` exactly
     - Note, this is intended to always round down. Data loss is acceptable, as it is a floor function
-- A `Character` class that is the general outline for a 5e character sheet, with a few additions that a programmer may find handy, such as a `static const int ID = 0x0000`
+- A `Character` class that is the general outline for a 5e character sheet, with a few additions that a programmer may find handy
 - "Race" classes that are children of the `Character` class that make use of the `Ability` struct to apply racial bonuses:
     - `class Human : public Character {...}`
     - `class Dwarf : public Character {...}`

@@ -1,0 +1,42 @@
+/*
+characters - background.cpp
+Created on: Jul 7, 2019
+
+OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+*/
+
+#include "openrpg.h"
+#include "character.h"
+
+namespace ORPG {
+    namespace Characters {
+        /**
+         * @desc This function returns a random BackgroundID as an unsigned integer,
+         * from the available backgrounds.
+         *
+         * TODO(incomingstick): Is hardcoding this as a switch the best
+         * option? This likely won't scale well.
+         * 
+         * @return uint - the randomly selected background ID
+         **/
+        const uint random_bg_id() {
+            auto randInt = Utils::randomInt(0, 0);
+
+            switch(randInt) {
+            case 0 : {
+                return Acolyte::ID;
+            }
+
+            default: {
+                return 0;
+            }
+            }
+        }
+    }
+
+    void Acolyte::Initialize() {
+        // TODO Initialize Acolyte
+    }
+}

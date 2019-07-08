@@ -109,7 +109,7 @@ int main(int argc, char* argv[]) {
 
     auto race       = RANDOM_FLAG ? Characters::random_race_id() : request_race();
     auto scores     = RANDOM_FLAG ? AbilityScores() : request_scores();
-    auto bg         = RANDOM_FLAG ? true : request_background();
+    auto bg         = RANDOM_FLAG ? Acolyte::ID : request_background();
     auto charClass  = RANDOM_FLAG ? true : request_class();
     auto skills     = RANDOM_FLAG ? true : request_skills();
     auto hp         = RANDOM_FLAG ? true : request_hitpoints();
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
     /* NOTE(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
     auto character = RANDOM_FLAG ?
         new Character() :
-        new Character(race, scores, name);
+        new Character(race, scores, bg, name);
 
     if(bg && charClass && skills && hp && equipment) {
         printf("%s", character->to_string().c_str());

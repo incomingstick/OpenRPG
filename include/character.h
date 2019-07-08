@@ -10,8 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #define CHARACTER_H
 
 #include "character/ability-scores.h"
-#include "character/skills.h"
-#include "character/races.h"
+#include "character/backgrounds.h"
 #include "character/character.h"
+#include "character/races.h"
+#include "character/skills.h"
 
 #endif /* CHARACTER_H */

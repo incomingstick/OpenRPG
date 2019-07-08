@@ -18,6 +18,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "ability-scores.h"
 #include "skills.h"
 #include "races.h"
+#include "backgrounds.h"
 
 namespace ORPG {
     namespace Characters {
@@ -52,9 +53,9 @@ namespace ORPG {
          * NOTE(incomingstick): This function is not exported because it does not yet need to be
          **/
         class RaceSelector {
-        private:
+        private: 
             struct race_node {
-                int raceID;
+                uint raceID;
                 bool required;
 
                 race_node* parent;
@@ -63,7 +64,7 @@ namespace ORPG {
 
             race_node* head;
             race_node* current;
-            race_node* allocate_node(int8 raceID,
+            race_node* allocate_node(uint raceID,
                                     bool required,
                                     race_node* parent);
         public:
@@ -74,7 +75,7 @@ namespace ORPG {
             std::vector<std::string> current_options();
             bool has_options();
             void select_option(int8 index);
-            int8 current_id();
+            uint current_id();
         };
 
         /**
@@ -128,7 +129,7 @@ namespace ORPG {
          * 
          * @return auto - the current race ID from the RaceSelector
          **/
-        int CHARACTER_EXPORT request_race();
+        uint CHARACTER_EXPORT request_race();
 
         /**
          * @desc This function prompts the user, via stdout, for 6 numbers to
@@ -151,7 +152,7 @@ namespace ORPG {
 
         /**
          * @desc This function prompts the user via stdout for a name, and reading
-         * from stdin the input. We use the safeGetline funtion via the Utils
+         * from stdin the input. We use the safeGetline function via the Utils
          * library to ensure integrity across platforms.
          * 
          * @return string - the user input string to be used as a name
@@ -165,7 +166,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool CHARACTER_EXPORT request_background();
+        uint CHARACTER_EXPORT request_background();
 
         /**
          * @desc prints "Class\n" to stdout
@@ -214,16 +215,6 @@ namespace ORPG {
         LawfulGood, 	NeutralGood, 	ChaoticGood,
         LawfulNeutral, 	TrueNeutral, 	ChaoticNeutral,
         LawfulEvil, 	NeutralEvil, 	ChaoticEvil
-    };
-
-    /* An enum containing the list of D&D 5E languages */
-    enum CHARACTER_EXPORT Language {
-        Common,    Dwarvish,   Elvish,
-        Giant,     Gnomish,    Goblin,
-        Halfling,  Orc,        Abyssal,
-        Celestial, Draconic,   DeepSpeech,
-        Infernal,  Primordial, Silvian,
-        Undercommon
     };
 
     /**
@@ -275,14 +266,15 @@ namespace ORPG {
     // TODO take an in depth look at what should and should not be public here
     class CHARACTER_EXPORT Character {
     private:
-        Race* race;			                // The race of our character
-        struct Vision vision;               // information about the characters vision
-        size_t age;                         // the age of the character
+        AbilityScores abils;                // struct of ability scores
         Alignment alignment;                // the character alignment
+        Background* bg;                     // the characters background
+        Gender gender;                      // the characters gender
+        Race* race;			                // The race of our character
         Size size;                          // the size type
+        struct Vision vision;               // information about the characters vision
         std::string firstName;              // the characters first name
         std::string lastName;               // the characters first name
-        AbilityScores abils;                // struct of ability scores
         Skills skills;                      // struct of skill checks
         int curr_hp;                        // current hit points
         int temp_hp;                        // temporary hit points
@@ -291,24 +283,21 @@ namespace ORPG {
         int level;                          // character level total
         int cur_exp;                        // current experience
         int max_exp;                        // experience needed for next level
-        std::vector<Language> languages;    // the array of known languages
-        Gender gender;                      // the characters gender
+        std::vector<Language> langs;        // the array of known languages
+        uint8 age;                          // the age of the character
 
         void Initialize();
 
     public:
         Character(const int raceID = -1,
                   AbilityScores ab = AbilityScores(),
+                  const int bgID = -1,
                   std::string name = "");
         ~Character();
 
         std::string format_mod(int mod, int spaces);
 
         void update_skills();
-
-        // an integer that represents the Character
-        // NOTE(incomingstick): this is the same ID as a generic Race...
-        static const int8 ID = 0x0000;
 
         // Returns a copy of our Ability abils struct
         AbilityScores get_ability_copy() { return abils; };
@@ -317,7 +306,9 @@ namespace ORPG {
         // NOTE(var_username): Commented out because I broke it
         // Skills get_skills_copy() { return skills; };
 
-        /* accessor functions for ability score modifiers */
+        /* TODO(incomingstick): We don't need all of these functions,
+            however they could still be useful. Pros and Cons? */
+        /* accessor functions for ability scores */
         int8 STR() { return abils.getScore(EnumAbilityScore::STR); };
         int8 DEX() { return abils.getScore(EnumAbilityScore::DEX); };
         int8 CON() { return abils.getScore(EnumAbilityScore::CON); };
@@ -334,12 +325,12 @@ namespace ORPG {
         int8 CHA_MOD() { return abils.getMod(EnumAbilityScore::CHA); };
 
         /* accessor functions for ability score saves */
-        int8 STR_SAVE() { return modifier(abils.getSave(EnumAbilityScore::STR)); };
-        int8 DEX_SAVE() { return modifier(abils.getSave(EnumAbilityScore::DEX)); };
-        int8 CON_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CON)); };
-        int8 INT_SAVE() { return modifier(abils.getSave(EnumAbilityScore::INT)); };
-        int8 WIS_SAVE() { return modifier(abils.getSave(EnumAbilityScore::WIS)); };
-        int8 CHA_SAVE() { return modifier(abils.getSave(EnumAbilityScore::CHA)); };
+        int8 STR_SAVE() { return abils.getSave(EnumAbilityScore::STR); };
+        int8 DEX_SAVE() { return abils.getSave(EnumAbilityScore::DEX); };
+        int8 CON_SAVE() { return abils.getSave(EnumAbilityScore::CON); };
+        int8 INT_SAVE() { return abils.getSave(EnumAbilityScore::INT); };
+        int8 WIS_SAVE() { return abils.getSave(EnumAbilityScore::WIS); };
+        int8 CHA_SAVE() { return abils.getSave(EnumAbilityScore::CHA); };
 
         // allows quick conversion of a skill for its passive check
         int8 passive_stat(int mod) { return 8 + prof + mod; };

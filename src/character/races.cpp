@@ -34,9 +34,9 @@ namespace ORPG {
          * TODO(incomingstick): Is hardcoding this as a switch the best
          * option? This likely won't scale well.
          * 
-         * @return int - the randomly selected race ID
+         * @return uint - the randomly selected race ID
          **/
-        const int random_race_id() {
+        const uint random_race_id() {
             auto randInt = Utils::randomInt(0, 2);
 
             switch(randInt) {

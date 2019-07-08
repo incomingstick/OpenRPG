@@ -94,7 +94,7 @@ namespace ORPG {
 
         // TODO Find cleaner way to do this factory, things get entered in too many places!!!
         RaceSelector::RaceSelector() {
-            head = allocate_node(Character::ID, false, NULL);
+            head = allocate_node(Race::ID, false, NULL);
 
             auto human = allocate_node(Human::ID, true, head);
 
@@ -125,7 +125,7 @@ namespace ORPG {
             //TODO clean up here
         }
 
-        RaceSelector::race_node* RaceSelector::allocate_node(int8 raceID,
+        RaceSelector::race_node* RaceSelector::allocate_node(uint raceID,
                                                             bool required,
                                                             race_node* parent) {
             auto node = new race_node;
@@ -194,7 +194,7 @@ namespace ORPG {
                 current = current->children[index];
         }
 
-        int8 RaceSelector::current_id() {
+        uint RaceSelector::current_id() {
             if(current != NULL) return current->raceID;
             return -1;
         }
@@ -328,7 +328,7 @@ namespace ORPG {
          * 
          * @return int - the current race ID from the RaceSelector
          **/
-        int request_race() {
+        uint request_race() {
             RaceSelector selector;
 
             printf("Choose Race:\n");
@@ -515,9 +515,9 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_background() {
-            printf("Background\n");
-            return true;
+        uint request_background() {
+            printf("Acolyte Background Automatically Chosen\n");
+            return Acolyte::ID;
         }
 
         /**
@@ -985,8 +985,28 @@ namespace ORPG {
         }
     }
 
-    Character::Character(const int raceID, AbilityScores ab, std::string name):abils(ab) {
+    /**
+     * NOTE(incomingstick): Should this be accessable to the library at large?
+     **/
+    Background* backgroundSelector(const int identifier = -1) {
+        const auto id = (identifier <= -1) ?
+            Characters::random_bg_id() : identifier;
+
+        switch(id) {
+        case Acolyte::ID : {
+            return new Acolyte();
+        }
+
+        default: {
+            return nullptr;
+        }
+        }
+    }
+
+    Character::Character(const int raceID, AbilityScores ab,
+                         const int bgID, std::string name):abils(ab) {
         race = raceSelector(raceID);
+        bg = backgroundSelector(bgID);
 
         if(name.empty()) {
             NameGenerator ng(race->to_string());
