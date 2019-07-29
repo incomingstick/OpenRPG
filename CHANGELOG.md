@@ -140,6 +140,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `void select_option(int index)`
     - `int current_id()`
 - Tons of new namelists added to `data/names/` for `NameGenerator` to use thanks primarily to [Hen](hwangcodes@gmail.com) unless otherwise noted:
+    - dragonborn/child.lst thanks to [@capsicaw](https://github.com/capsicaw)
     - elf/child.lst thanks to [@capsicaw](https://github.com/capsicaw)
     - goliath/female.lst
     - goliath/last.lst
