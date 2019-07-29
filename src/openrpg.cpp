@@ -63,14 +63,14 @@ int parse_args(int argc, char* argv[]) {
 
 				if(Core::optind < argc) {
 					if((string)Core::optarg == "male" || (string)Core::optarg == "female") {
-						name.gender = (string)Core::optarg;
-						name.race = (string)argv[Core::optind++];
+                        name.set_gender((string)Core::optarg);
+						name.set_race((string)argv[Core::optind++]);
 					} else {
-						name.race = (string)Core::optarg;
-						name.gender = (string)argv[Core::optind++];
+						name.set_race((string)Core::optarg);
+						name.set_gender((string)argv[Core::optind++]);
 					}
 				} else if(Core::optind == argc) {
-					name.race = (string)Core::optarg;
+					name.set_race((string)Core::optarg);
 				} else {
 					fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
 					Core::print_help_flag();
@@ -160,14 +160,14 @@ int parse_input(string in) {
                     NameGenerator name;
                     if(words.size() >= 3) {
                         if(words[1] == "male" || words[1] == "female") {
-                            name.gender = words[1];
-                            name.race = words[2];
+                            name.set_gender(words[1]);
+                            name.set_race(words[2]);
                         } else {
-                            name.race = words[1];
-                            name.gender = words[2];
+                            name.set_race(words[1]);
+                            name.set_gender(words[2]);
                         }
                     } else if(words.size() == 2) {
-                        name.race = words[1];
+                        name.set_race(words[1]);
                     } else {
                         fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
