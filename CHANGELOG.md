@@ -154,6 +154,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - minotaur/last.lst
     - minotaur/male.lst
     - orc/male.lst thanks to [@capsicaw](https://github.com/capsicaw)
+    - orc/female.lst thanks to [@capsicaw](https://github.com/capsicaw)
     - tiefling/female.lst
     - tiefling/last.lst
     - tiefling/male.lst
