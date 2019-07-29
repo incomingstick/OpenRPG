@@ -257,6 +257,15 @@ namespace ORPG {
             return dist(mt);
         }
 
+        /**
+         * @desc Randomly select a true or false state
+         *
+         * @return bool - a randomly chosen true of false state
+         **/
+        bool randomBool() {
+            return randomInt(INT32_MIN, INT32_MAX) % 2 ? true : false;
+        }
+
         /* Compute the greatest common divisor of a and b. */
         int gcd(int a, int b) {
             int c;
