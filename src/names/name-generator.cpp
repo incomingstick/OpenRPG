@@ -15,9 +15,16 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 using namespace ORPG;
+using namespace ORPG::Names;
 
-/* Option parser - parse_args(argc, argv)
-    This function parses all cla's passed to argv. */
+/**
+  * @desc This function parses all cla's passed to argv from the command line.
+  * This function may terminate the program.
+  *
+  * @param int argc - the number of arguments passed / the length of argv[]
+  * @param char* argv[] - the arguments passed from the command line
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int parse_args(int argc, char* argv[], string* race, string* gender) {
     int status = EXIT_SUCCESS;
 
@@ -30,8 +37,8 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     /* these are the long cla's and their corresponding chars */
     static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
-        {"version", no_argument,        0,  'v'},
-        {"verbose", no_argument,        0,  'V'},
+        {"verbose", no_argument,        0,  'v'},
+        {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
@@ -46,23 +53,23 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
             Names::print_help_flag();
          } break;
 
-        /* -v --version */
+        /* -v --verbose*/
         case 'v': {
-            Names::print_version_flag();
-        } break;
-
-        /* -V --verbose */
-        case 'V': {
             Core::VB_FLAG = true;
             Core::QUIET_FLAG = false;
         } break;
-        
+
+        /* -V --version */
+        case 'V': {
+            Names::print_version_flag();
+        } break;
+
         /* parsing error */
         case ':':
         case '?': {
             Names::print_help_flag();
         } break;
-        
+
         /* if we get here something very bad happened */
         default: {
             printf("Aborting...\n");
@@ -97,21 +104,27 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
     } break;
 
     default: {
-        // TODO: What if the race is genderless? (i.e Changeling)
-        fprintf(stderr, "Error: Invalid number of arguements (expects 1 or 2 arguments)\n");
+        fprintf(stderr, "Error: Invalid number of arguments (expects 1 or 2 arguments)\n");
     }
     }
 
     return status;
 }
 
-/* TODO handle tab completion */
+/**
+  * @desc entry point for the name-generator program. All command line
+  * arguments are parsed before entering the name-generator program, and
+  * the program may terminate before generating a name.
+  *
+  * @param string in - the users input to be parsed
+  * @return int - an integer code following the C/C++ standard for program success
+  */
 int main(int argc, char* argv[]) {
-    string race = "", gender = "";
+    string race, gender;
     int status = parse_args(argc, argv, &race, &gender); // may exit
 
     if(race.empty()) {
-        printf("race cannot be empty\n");
+        printf("Error: race cannot be empty\n");
         status = EXIT_FAILURE;
         Names::print_help_flag();
     }
@@ -120,7 +133,7 @@ int main(int argc, char* argv[]) {
         NameGenerator gen(race, gender);
 
         string name = gen.make_name();
-        
+
         printf("%s\n", name.c_str());
     }
 
