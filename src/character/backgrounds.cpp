@@ -36,6 +36,10 @@ namespace ORPG {
         }
     }
 
+    Acolyte::Acolyte() {
+        // TODO Construct Acolyte
+    }
+
     void Acolyte::Initialize() {
         // TODO Initialize Acolyte
     }
