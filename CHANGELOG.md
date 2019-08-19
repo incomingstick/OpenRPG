@@ -67,9 +67,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Issue when running `make check` on a release build, that caused the tests to be unable to locate the data assets
 - A bug that would cause some divide by zero operations, as well as preventing the rolling of a 1 sided die thanks to [@tehguy](https://github.com/tehguy)
 - A typo in the roll parser test that was incorrectly validating d6's thanks to [@pashcovich](https://github.com/pashcovich)
+- Missing note in Core::print_basic_help() about how to exit OpenRPG.
 
 ### Removed
-- Deleted the old Name Generator test src/tests/name-generator-test.cpp
+- Obliterated the old Name Generator test src/tests/name-generator-test.cpp
 
 
 ## [0.4.4-dev] - 2017-11-05
@@ -180,8 +181,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - utils.h -> include/core/utils.h
 
 ### Fixed
-- segfault caused when anything other than exact syntax is provided, i.e: `$ roll hahahaha -v 2d10+6`
-- errors when a only a race is provided to `name-generator`
+- Segfault caused when anything other than exact syntax is provided, i.e: `$ roll hahahaha -v 2d10+6`
+- Errors when a only a race is provided to `name-generator`
 
 ### Removed
 - Cleaned up some CMakeLists.txt logic of irrelevant header logic
