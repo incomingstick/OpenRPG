@@ -83,7 +83,7 @@ typedef real64 UTILS_EXPORT f64;
 
 #define offsetOf(type, Member) (umm)&(((type *)0)->Member)
 
-#define pi32 3.14159265359f
+#define pi32  3.14159265358979323846f
 #define tau32 6.28318530717958647692f
 
 #define kilobytes(value) ((value)*1024LL)
