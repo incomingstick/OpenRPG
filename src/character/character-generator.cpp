@@ -21,6 +21,10 @@ using namespace ORPG::Characters;
     we should be random or request data */
 bool RANDOM_FLAG = false;
 
+/* Global bool to help determine whether
+    we should be use the fancy character sheet */
+bool SHEET_FLAG = false;
+
 /**
  * @desc This function parses all cla's passed to argv from the command line.
  * This function may terminate the program.
@@ -42,13 +46,14 @@ int parse_args(int argc, char* argv[]) {
     static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
         {"random",  no_argument,        0,  'r'},
+        {"sheet",   no_argument,        0,  's'},
         {"verbose", no_argument,        0,  'v'},
         {"version", no_argument,        0,  'V'},
         /* NULL row to terminate struct */
         {0,         0,                  0,   0}
     };
 
-    while ((opt = Core::getopt_long(argc, argv, "hrvV",
+    while ((opt = Core::getopt_long(argc, argv, "hrsvV",
                                long_opts, &opt_ind)) != EOF &&
                                status != EXIT_FAILURE) {
 
@@ -60,8 +65,12 @@ int parse_args(int argc, char* argv[]) {
 
         /* -r --random */
         case 'r': {
-            // TODO skip character creator and generate fully random character
             RANDOM_FLAG = true;
+        } break;
+
+        /* -s --sheet */
+        case 's': {
+            SHEET_FLAG = true;
         } break;
 
         /* -v --verbose */
@@ -122,7 +131,9 @@ int main(int argc, char* argv[]) {
         new Character(race, scores, bg, name);
 
     if(bg && charClass && skills && hp && equipment) {
-        printf("%s", character->to_string().c_str());
+        SHEET_FLAG ? 
+            printf("%s", character->to_ascii_sheet().c_str()) :
+            printf("%s", character->to_string().c_str());
     } else {
         status = EXIT_FAILURE;
     }

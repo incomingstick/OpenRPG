@@ -45,10 +45,11 @@ namespace ORPG {
                 "This is free software: you are free to change and redistribute it.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n\n"
                 "Usage: character-generator [options] RACE GENDER\n"
-                        "\t-h --help                   Print this help screen\n"
-                        "\t-r --random                 Skips the character creator and generates a fully random character\n"
-                        "\t-v --verbose                Verbose program output\n"
-                        "\t-V --version                Print version info\n"
+                        "\t-h --help                   Print this help screen.\n"
+                        "\t-r --random                 Skips the character creator and generates a fully random character.\n"
+                        "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
+                        "\t-v --verbose                Verbose program output.\n"
+                        "\t-V --version                Print version info.\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
                 "OpenRPG home page: < https://www.openrpg.io >\n"
@@ -82,6 +83,7 @@ namespace ORPG {
                 "Usage: character-generator [options] RACE GENDER\n"
                         "\t-h --help                   Print this help screen\n"
                         "\t-r --random                 Skips the character creator and generates a fully random character\n"
+                        "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
                         "\t-v --verbose                Verbose program output\n"
                         "\t-V --version                Print version info\n"
                 "\n"
@@ -1069,6 +1071,8 @@ namespace ORPG {
         ret += " " + (lastName.empty() || lastName == "NULL" ? "" : lastName);
         ret += " ~~~\n";
 
+        ret += "Race: "+ race->to_string() + "\tBackground: "+ bg->to_string() +"\n";
+
         ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
         ret += "DEX: "+ std::to_string(DEX()) + " (" + std::to_string(DEX_MOD()) + ")\n";
         ret += "CON: "+ std::to_string(CON()) + " (" + std::to_string(CON_MOD()) + ")\n";
@@ -1102,8 +1106,15 @@ namespace ORPG {
 
         //Second argument is 23 because there are 23 allotted spaces for the first name
         string charFName = Utils::leftpad(firstName, 23, ' ');
-        //Second arg = 22 because thats how many spaces we alloted for last name
+
+        //Second arg is 22 because thats how many spaces we alloted for last name
         string charLName = Utils::leftpad(lastName, 22, ' ');
+
+        //Second arg is 12 because thats how many spaces we alloted for backgrounds
+        string charBg = Utils::rightpad(bg->to_string(), 12, ' ');
+
+        //Second arg is 12 because thats how many spaces we alloted for backgrounds
+        string charRace = Utils::rightpad(race->to_string(), 14, ' ');
 
         string sSTR = Utils::rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
         string sSTRMod = format_mod(STR_MOD(), SPACES_PER_MOD);
@@ -1142,6 +1153,8 @@ namespace ORPG {
         string sSTL = format_mod(skills.getMod(STL), SPACES_PER_MOD);
         string sSUR = format_mod(skills.getMod(SUR), SPACES_PER_MOD);
 
+        string passPRC = format_mod(passive_stat(skills.getMod(SUR)), SPACES_PER_MOD);
+
         //TODO pull this into its own files
         //NOTE(var_username): To be fair, this is quite lazy on my part
         /* NOTE(incomingstick): this likely should be put in its own file with tags in the file as
@@ -1150,10 +1163,10 @@ namespace ORPG {
         */
 
     ret += "                         ╭────────────────────────────────────────────────────╮\n";
-    ret += " ────────────────────────┤                                                    │\n";
+    ret += " ────────────────────────┤                  "+ charBg +"                      │\n";
     ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
     ret += "  \\"+ charLName +      "│                                                    │\n";
-    ret += "_ ───────────────────────┤                                                    │\n";
+    ret += "_ ───────────────────────┤"+ charRace +"                                      │\n";
     ret += "__\\  Character Name      │Race              Alignment       Experience Points │\n";
     ret += "                         ╰────────────────────────────────────────────────────╯\n";
     ret += "╭───╮╭─────────────────────────────────────────────────────────────────────────\n";
@@ -1199,7 +1212,7 @@ namespace ORPG {
     ret += "╰───╯││       Skills        ││  Attacks and Spells   ││                       │\n";
     ret += "─────╯╰─────────────────────╯╰───────────────────────╯│                       │\n";
     ret += "╭───┬───────────────────────╮╭──┬────┬───────────────╮│                       │\n";
-    ret += "│   │     Passive Wisdom    ││CP│    │               ││                       │\n";
+    ret += "│"+passPRC+"│    Passive Perception |│CP│    │               ││                       │\n";
     ret += "╰───┴───────────────────────╯│SP│    │               ││                       │\n";
     ret += "╭───────────────────────────╮│EP│    │               ││                       │\n";
     ret += "│                           ││GP│    │               ││                       │\n";
