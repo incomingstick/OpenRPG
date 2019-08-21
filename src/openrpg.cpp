@@ -135,7 +135,7 @@ int parse_input(string in) {
         // temporary container for word being built
         string word;
 
-        //standardizes inputs to ignore case
+       //standardizes inputs to ignore case
         for(int i = 0; (unsigned) i < in.size(); i++) {
             in[i] = tolower(in[i]);
 

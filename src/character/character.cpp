@@ -323,8 +323,9 @@ namespace ORPG {
         }
 
         /**
-         * @desc This function prompts the user for their race by using the RaceSelector
-         * to first prompt to stdout the base race, requesting a corresponding number
+         * @desc This function is build to work specifically in tandem with the Character
+         * module. This function prompts the user for their race by using the RaceSelector
+         * to first prompt to stdout the base race, then requesting a corresponding number
          * via stdin. It repeats this process for the subrace, and will continue prompting
          * until no other race types could possibly be chosen.
          * 
@@ -674,16 +675,33 @@ namespace ORPG {
      * @return uint8 - the proficiency bonus level that is used when calculating
      * the amount proficiency to add to this skills modifier bonus
      **/
-    unsigned char Skill::getProfBonus() {
+    unsigned char Skill::getProf() {
         return this->profBonus;
     }
+
+    /**
+     * @desc Converts this Skills data to std::string format. It is retruned in the
+     * following format:
+     * 
+     * (+/-)[value]
+     * Example: "+3"
+     *
+     * @return string - a string 
+     **/
+    std::string Skill::to_string() {
+        string ret = "";
+
+        if(mod > 0) ret = "+";
+
+        return ret + std::to_string(mod);
+    };
 
     /**
      * @desc Constructor for the Skills class that maps Skill classes to
      * their respective EnumSkill, with a modifier of 0 and proficiency
      * bonus level of 0.
      **/
-    Skills::Skills() {
+    Skills::Skills(void* owner):container(owner) {
         this->skillsMap = {
             { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
             { ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
@@ -712,6 +730,83 @@ namespace ORPG {
      **/
     Skills::~Skills() {
         delete[] &skillsMap;
+    }
+
+    /**
+     * @desc Get the modifier bonus of the given EnumSkill contained
+     * within this Skills object
+     *
+     * @param EnumSkill skill - the skill to query
+     *
+     * @return int8 - the modifier bonus of the queried skill
+     **/
+    int8 Skills::getMod(EnumSkill skill) {
+        int finalProf = 0;
+        auto currProf = ((Character*)container)->get_proficiency_bonus();
+        auto profRank = skillsMap[skill]->getProf();
+
+        if(profRank == PROFICIENT) finalProf = currProf;
+        else if(profRank == HALF_PROFICIENT) finalProf = currProf / 2;
+        else if(profRank == DOUBLE_PROFICIENT) finalProf = currProf * 2;
+
+        return skillsMap[skill]->getMod() + finalProf;
+    };
+
+    /* to_string method used internally for iterative purposes */
+    std::string Skills::internal_to_string(std::pair<EnumSkill, Skill*> skill) {
+        string ret = "";
+        string toggle = "";
+        auto eskill = skill.first;
+        auto mod = skill.second->getMod();
+
+        switch(eskill) {
+        case ACR: { ret = "ACR: "; } break;   // Acrobatics       (DEX)
+        case ANM: { ret = "ANM: "; } break;   // Animal Handling  (WIS)
+        case ARC: { ret = "ARC: "; } break;   // Arcana           (INT)
+        case ATH: { ret = "ATH: "; } break;   // Athletics        (STR)
+        case DEC: { ret = "DEC: "; } break;   // Deception        (CHA)
+        case HIS: { ret = "HIS: "; } break;   // History          (INT)
+        case INS: { ret = "INS: "; } break;   // Insight          (WIS)
+        case ITM: { ret = "ITM: "; } break;   // Intimidation     (CHA)
+        case INV: { ret = "INV: "; } break;   // Investigation    (INT)
+        case MED: { ret = "MED: "; } break;   // Medicine         (WIS)
+        case NAT: { ret = "NAT: "; } break;   // Nature           (INT)
+        case PRC: { ret = "PRC: "; } break;   // Perception       (WIS)
+        case PRF: { ret = "PRF: "; } break;   // Performance      (CHA)
+        case PRS: { ret = "PRS: "; } break;   // Persuasion       (CHA)
+        case REL: { ret = "REL: "; } break;   // Religion         (INT)
+        case SLE: { ret = "SLE: "; } break;   // Sleight of Hand  (DEX)
+        case STL: { ret = "STL: "; } break;   // Stealth          (DEX)
+        case SUR: { ret = "SUR: "; } break;   // Survival         (WIS)
+        default: {
+            // ERROR!!!!!!
+            cout << "Error! Unknown EnumSkill in Skills::internal_to_string(): " << eskill << endl;
+        }
+        }
+
+        if(mod > 0) toggle = "+";
+        ret += toggle + std::to_string(mod) +"\n";
+
+        return ret;
+    };
+
+    /**
+     * @desc Converts this Skills data to std::string format. It is retruned in the
+     * following format:
+     * 
+     * {Skill}: (+/-)[value]
+     * Example: "ACR: +3"
+     *
+     * @return string - a string 
+     **/
+    string Skills::to_string() {
+        string ret = "";
+
+        for (std::map<EnumSkill, Skill*>::iterator it = skillsMap.begin(); it != skillsMap.end(); ++it) {
+            ret += internal_to_string(*it);
+        }
+
+        return ret;
     }
 
     /**
@@ -1020,6 +1115,8 @@ namespace ORPG {
             firstName = name;
             lastName = name;
         }
+
+        Initialize();
     }
 
     Character::~Character() {
@@ -1034,44 +1131,52 @@ namespace ORPG {
         max_hp = curr_hp;       // TODO maximum hit points
         prof = 2;               // proficiency bonus
         level = 1;              // character level total
-        cur_exp = 0;            // current experience
+        curr_exp = 0;           // current experience
         max_exp = EXP[level];   // experience needed for next level
 
         // TODO Apply racial bonuses here
-
+        skills = new Skills(this);
         update_skills();
     }
 
     // TODO(incomingstick): Make this more efficient
     void Character::update_skills() {
-        skills.get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
-        skills.get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
-        skills.get(ARC)->setMod(INT_MOD());    // Arcana           (INT)
-        skills.get(ATH)->setMod(STR_MOD());    // Athletics        (STR)
-        skills.get(DEC)->setMod(CHA_MOD());    // Deception        (CHA)
-        skills.get(HIS)->setMod(INT_MOD());    // History          (INT)
-        skills.get(INS)->setMod(WIS_MOD());    // Insight          (WIS)
-        skills.get(ITM)->setMod(CHA_MOD());    // Intimidation     (CHA)
-        skills.get(INV)->setMod(INT_MOD());    // Investigation    (INT)
-        skills.get(MED)->setMod(WIS_MOD());    // Medicine         (WIS)
-        skills.get(NAT)->setMod(INT_MOD());    // Nature           (INT)
-        skills.get(PRC)->setMod(WIS_MOD());    // Perception       (WIS)
-        skills.get(PRF)->setMod(CHA_MOD());    // Performance      (CHA)
-        skills.get(PRS)->setMod(CHA_MOD());    // Persuasion       (CHA)
-        skills.get(REL)->setMod(INT_MOD());    // Religion         (INT)
-        skills.get(SLE)->setMod(DEX_MOD());    // Sleight of Hand  (DEX)
-        skills.get(STL)->setMod(DEX_MOD());    // Stealth          (DEX)
-        skills.get(SUR)->setMod(WIS_MOD());    // Survival         (WIS)
+        skills->get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
+        skills->get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
+        skills->get(ARC)->setMod(INT_MOD());    // Arcana           (INT)
+        skills->get(ATH)->setMod(STR_MOD());    // Athletics        (STR)
+        skills->get(DEC)->setMod(CHA_MOD());    // Deception        (CHA)
+        skills->get(HIS)->setMod(INT_MOD());    // History          (INT)
+        skills->get(INS)->setMod(WIS_MOD());    // Insight          (WIS)
+        skills->get(ITM)->setMod(CHA_MOD());    // Intimidation     (CHA)
+        skills->get(INV)->setMod(INT_MOD());    // Investigation    (INT)
+        skills->get(MED)->setMod(WIS_MOD());    // Medicine         (WIS)
+        skills->get(NAT)->setMod(INT_MOD());    // Nature           (INT)
+        skills->get(PRC)->setMod(WIS_MOD());    // Perception       (WIS)
+        skills->get(PRF)->setMod(CHA_MOD());    // Performance      (CHA)
+        skills->get(PRS)->setMod(CHA_MOD());    // Persuasion       (CHA)
+        skills->get(REL)->setMod(INT_MOD());    // Religion         (INT)
+        skills->get(SLE)->setMod(DEX_MOD());    // Sleight of Hand  (DEX)
+        skills->get(STL)->setMod(DEX_MOD());    // Stealth          (DEX)
+        skills->get(SUR)->setMod(WIS_MOD());    // Survival         (WIS)
     }
 
     string Character::to_string() {
         string ret("");
 
-        ret += "~~~ " + (firstName.empty() || firstName == "NULL" ? "" : firstName);
-        ret += " " + (lastName.empty() || lastName == "NULL" ? "" : lastName);
-        ret += " ~~~\n";
+        ret += "First: "+ (firstName.empty() || firstName == "NULL" ? "" : firstName) +"\n";
+        ret += "Last: " + (lastName.empty() || lastName == "NULL" ? "" : lastName) +"\n";
 
-        ret += "Race: "+ race->to_string() + "\tBackground: "+ bg->to_string() +"\n";
+        ret += "Race: "+ race->to_string() +"\n";
+        ret += "Background: "+ bg->to_string() +"\n";
+
+        ret += "Level: "+ std::to_string(level) + "\n";
+        ret += "EXP: " + std::to_string(curr_exp) +"/"+ std::to_string(max_exp) + "\n";
+
+        ret += "TempHP: "+ std::to_string(temp_hp) +"\n";        
+        ret += "HP:"+ std::to_string(curr_hp) +"/"+ std::to_string(max_hp) +"\n";
+        
+        ret += "Proficiency: "+ format_mod(prof, 0) +"\n";
 
         ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
         ret += "DEX: "+ std::to_string(DEX()) + " (" + std::to_string(DEX_MOD()) + ")\n";
@@ -1079,6 +1184,8 @@ namespace ORPG {
         ret += "INT: "+ std::to_string(INT()) + " (" + std::to_string(INT_MOD()) + ")\n";
         ret += "WIS: "+ std::to_string(WIS()) + " (" + std::to_string(WIS_MOD()) + ")\n";
         ret += "CHA: "+ std::to_string(CHA()) + " (" + std::to_string(CHA_MOD()) + ")\n";
+
+        ret += skills->to_string();
 
         return ret;
     }
@@ -1113,7 +1220,7 @@ namespace ORPG {
         //Second arg is 12 because thats how many spaces we alloted for backgrounds
         string charBg = Utils::rightpad(bg->to_string(), 12, ' ');
 
-        //Second arg is 12 because thats how many spaces we alloted for backgrounds
+        //Second arg is 12 because thats how many spaces we alloted for the race
         string charRace = Utils::rightpad(race->to_string(), 14, ' ');
 
         string sSTR = Utils::rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
@@ -1134,26 +1241,26 @@ namespace ORPG {
         string sCHA = Utils::rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
         string sCHAMod = format_mod(CHA_MOD(), SPACES_PER_MOD);
 
-        string sACR = format_mod(skills.getMod(ACR), SPACES_PER_MOD);
-        string sANM = format_mod(skills.getMod(ANM), SPACES_PER_MOD);
-        string sARC = format_mod(skills.getMod(ARC), SPACES_PER_MOD);
-        string sATH = format_mod(skills.getMod(ATH), SPACES_PER_MOD);
-        string sDEC = format_mod(skills.getMod(DEC), SPACES_PER_MOD);
-        string sHIS = format_mod(skills.getMod(HIS), SPACES_PER_MOD);
-        string sINS = format_mod(skills.getMod(INS), SPACES_PER_MOD);
-        string sITM = format_mod(skills.getMod(ITM), SPACES_PER_MOD);
-        string sINV = format_mod(skills.getMod(INV), SPACES_PER_MOD);
-        string sMED = format_mod(skills.getMod(MED), SPACES_PER_MOD);
-        string sNAT = format_mod(skills.getMod(NAT), SPACES_PER_MOD);
-        string sPRC = format_mod(skills.getMod(PRC), SPACES_PER_MOD);
-        string sPRF = format_mod(skills.getMod(PRF), SPACES_PER_MOD);
-        string sPRS = format_mod(skills.getMod(PRS), SPACES_PER_MOD);
-        string sREL = format_mod(skills.getMod(REL), SPACES_PER_MOD);
-        string sSLE = format_mod(skills.getMod(SLE), SPACES_PER_MOD);
-        string sSTL = format_mod(skills.getMod(STL), SPACES_PER_MOD);
-        string sSUR = format_mod(skills.getMod(SUR), SPACES_PER_MOD);
+        string sACR = format_mod(skills->getMod(ACR), SPACES_PER_MOD);
+        string sANM = format_mod(skills->getMod(ANM), SPACES_PER_MOD);
+        string sARC = format_mod(skills->getMod(ARC), SPACES_PER_MOD);
+        string sATH = format_mod(skills->getMod(ATH), SPACES_PER_MOD);
+        string sDEC = format_mod(skills->getMod(DEC), SPACES_PER_MOD);
+        string sHIS = format_mod(skills->getMod(HIS), SPACES_PER_MOD);
+        string sINS = format_mod(skills->getMod(INS), SPACES_PER_MOD);
+        string sITM = format_mod(skills->getMod(ITM), SPACES_PER_MOD);
+        string sINV = format_mod(skills->getMod(INV), SPACES_PER_MOD);
+        string sMED = format_mod(skills->getMod(MED), SPACES_PER_MOD);
+        string sNAT = format_mod(skills->getMod(NAT), SPACES_PER_MOD);
+        string sPRC = format_mod(skills->getMod(PRC), SPACES_PER_MOD);
+        string sPRF = format_mod(skills->getMod(PRF), SPACES_PER_MOD);
+        string sPRS = format_mod(skills->getMod(PRS), SPACES_PER_MOD);
+        string sREL = format_mod(skills->getMod(REL), SPACES_PER_MOD);
+        string sSLE = format_mod(skills->getMod(SLE), SPACES_PER_MOD);
+        string sSTL = format_mod(skills->getMod(STL), SPACES_PER_MOD);
+        string sSUR = format_mod(skills->getMod(SUR), SPACES_PER_MOD);
 
-        string passPRC = format_mod(passive_stat(skills.getMod(SUR)), SPACES_PER_MOD);
+        string passPRC = format_mod(passive_stat(skills->getMod(SUR)), SPACES_PER_MOD);
 
         //TODO pull this into its own files
         //NOTE(var_username): To be fair, this is quite lazy on my part

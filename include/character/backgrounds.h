@@ -105,8 +105,8 @@ namespace ORPG {
     public:
         /**
          * @desc Constructor for a Acolyte that is passed no arguments. An Acolyte
-         * is proficient in Insight, and Religion, gains Two of languages their choice.
-         * Human::Initialize() is called at the end of the constructor.
+         * is proficient in Insight, and Religion, gains two languages of their choice.
+         * Acolyte::Initialize() is called at the end of the constructor.
          **/
         Acolyte();
 

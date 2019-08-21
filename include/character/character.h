@@ -275,13 +275,13 @@ namespace ORPG {
         struct Vision vision;               // information about the characters vision
         std::string firstName;              // the characters first name
         std::string lastName;               // the characters first name
-        Skills skills;                      // struct of skill checks
+        Skills* skills;                      // struct of skill checks
         int curr_hp;                        // current hit points
         int temp_hp;                        // temporary hit points
         int max_hp;                         // maximum hit points
         int prof;                           // proficiency bonus
         int level;                          // character level total
-        int cur_exp;                        // current experience
+        int curr_exp;                        // current experience
         int max_exp;                        // experience needed for next level
         std::vector<Language> langs;        // the array of known languages
         uint8 age;                          // the age of the character
@@ -331,6 +331,8 @@ namespace ORPG {
         int8 INT_SAVE() { return abils.getSave(EnumAbilityScore::INT); };
         int8 WIS_SAVE() { return abils.getSave(EnumAbilityScore::WIS); };
         int8 CHA_SAVE() { return abils.getSave(EnumAbilityScore::CHA); };
+
+        int get_proficiency_bonus() { return prof; };
 
         // allows quick conversion of a skill for its passive check
         int8 passive_stat(int mod) { return 8 + prof + mod; };

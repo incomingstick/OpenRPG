@@ -19,6 +19,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "core/types.h"
 
+#define UNPROFICIENT            0
+#define PROFICIENT              1
+#define DOUBLE_PROFICIENT       2
+#define HALF_PROFICIENT         3
+
 namespace ORPG {
     /**
      * An Skill represents the modifier bonus of some skill. A modifier (mod)
@@ -35,11 +40,12 @@ namespace ORPG {
         int8 mod = 0;
 
         /**
-         * profBonus is number of proficiencies,
-         *      0 if unproficient,
-         *      1 if proficient,
-         *      2 if double proficient
-         *
+         * profBonus is number of proficiencies:    
+         *      UNPROFICIENT            0
+         *      PROFICIENT              1
+         *      DOUBLE_PROFICIENT       2
+         *      HALF_PROFICIENT         3
+         * 
          * NOTE(incomingstick): What about half proficiency, like Bards?
          **/
         uint8 profBonus = 0;
@@ -107,7 +113,18 @@ namespace ORPG {
          * @return uint8 - the proficiency bonus level that is used when calculating
          * the amount proficiency to add to this skills modifier bonus
          **/
-        uint8 getProfBonus();
+        uint8 getProf();
+
+        /**
+         * @desc Converts this Skills data to std::string format. It is retruned in the
+         * following format:
+         * 
+         * (+/-)[value]
+         * Example: "+3"
+         *
+         * @return string - a string 
+         **/
+        std::string to_string();
     };
 
     /**
@@ -147,6 +164,14 @@ namespace ORPG {
     private:
         /* a std::map that maps EnumSkill's to Skill pointers */
         std::map <EnumSkill, Skill*> skillsMap;
+        
+        /* this is a pointer to our container (likely a character, however
+            we cannot assume it is) that expects a function named
+            get_proficiency_bonus that returns an integer */
+        void* container;
+
+        /* to_string method used internally for iterative purposes */
+        static std::string internal_to_string(std::pair<EnumSkill, Skill*>);
 
     public:
         /**
@@ -154,7 +179,7 @@ namespace ORPG {
          * their respective EnumSkill, with a modifier of 0 and proficiency
          * bonus level of 0.
          **/
-        Skills();
+        Skills(void* owner);
 
         /**
          * @desc Desctructor function for the Skills class that ensures
@@ -183,9 +208,7 @@ namespace ORPG {
          *
          * @return int8 - the modifier bonus of the queried skill
          **/
-        int8 getMod(EnumSkill skill) {
-            return skillsMap[skill]->getMod();
-        };
+        int8 getMod(EnumSkill skill);
 
         /**
          * @desc Get the proficiency bonus level that is to be used when
@@ -203,8 +226,19 @@ namespace ORPG {
          * the amount proficiency to add to the given skills modifier bonus
          **/
         uint8 getProfBonus(EnumSkill skill) {
-            return skillsMap[skill]->getProfBonus();
+            return skillsMap[skill]->getProf();
         };
+
+        /**
+         * @desc Converts this Skills data to std::string format. It is retruned in the
+         * following format:
+         * 
+         * {Skill}: (+/-)[value]
+         * Example: "ACR: +3"
+         *
+         * @return string - a string 
+         **/
+        std::string to_string();
     };
 }
 
