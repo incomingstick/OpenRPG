@@ -7,10 +7,13 @@ set(UTIL_SOURCE
 )
 
 add_library(utils SHARED ${UTIL_SOURCE})
+
+if(MSVC OR WIN32)
 GENERATE_EXPORT_HEADER(utils           
     EXPORT_FILE_NAME ${CORE_INCLUDE_DIR}/exports/utils_exports.h
     STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
 )
+endif()
 
 # if the utils library needs a higher standard than C++11 please update here
 set_property(TARGET utils PROPERTY CXX_STANDARD 11)

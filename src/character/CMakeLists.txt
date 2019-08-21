@@ -6,10 +6,13 @@ set(CHARACTER_SOURCE
 )
 
 add_library(character SHARED ${CHARACTER_SOURCE})
+
+if(MSVC OR WIN32)
 GENERATE_EXPORT_HEADER(character
     EXPORT_FILE_NAME ${CHARACTER_INCLUDE_DIR}/exports/character_exports.h
     STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
 )
+endif()
 
 target_link_libraries(character utils roll-parser names)
 
