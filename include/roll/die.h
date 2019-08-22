@@ -15,9 +15,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "core/utils.h"
 
 #ifdef _WIN32
-#   ifndef roll_parser_EXPORTS
-#       define roll_parser_EXPORTS
-#   endif
 #   include "roll/exports/parser_exports.h"
 #else
 #   define ROLL_PARSER_EXPORT
@@ -26,7 +23,7 @@ There is NO WARRANTY, to the extent permitted by law.
 namespace ORPG {
     class ROLL_PARSER_EXPORT Die {
         private:
-            const int MAX = 20;
+            //TODO(incomingstck): MAX does not need to be private, as it is const
         public:
             Die(int max):MAX(
                     /* If max is less than 2, set MAX to 2; else set MAX to max.
@@ -36,6 +33,14 @@ namespace ORPG {
                             : max
                     ){};
 
+            /**
+             * @desc roll creates a std::random_device and a std::mt199377 via that
+             * random device. We will then use uniform int distribution to generate
+             * psuedo-random numbers with mt19937. If VB_FLAG is true, it will print
+             * to stdout.
+             * 
+             * @return int - a psuedo-random number between 1 and MAX (inclusive)
+             **/
             int roll() {
                 std::random_device rd;
                 std::mt19937 mt(rd());
@@ -48,6 +53,9 @@ namespace ORPG {
 
                 return ret;
             }
+
+            /* The highest the die could possibly roll */
+            const int MAX = 20;
     };
 }
 
