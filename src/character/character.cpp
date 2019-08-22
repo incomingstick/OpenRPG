@@ -1202,12 +1202,12 @@ namespace ORPG {
         
         ret += "Proficiency: "+ format_mod(prof, 0) +"\n";
 
-        ret += "STR: "+ std::to_string(STR()) + " (" + std::to_string(STR_MOD()) + ")\n";
-        ret += "DEX: "+ std::to_string(DEX()) + " (" + std::to_string(DEX_MOD()) + ")\n";
-        ret += "CON: "+ std::to_string(CON()) + " (" + std::to_string(CON_MOD()) + ")\n";
-        ret += "INT: "+ std::to_string(INT()) + " (" + std::to_string(INT_MOD()) + ")\n";
-        ret += "WIS: "+ std::to_string(WIS()) + " (" + std::to_string(WIS_MOD()) + ")\n";
-        ret += "CHA: "+ std::to_string(CHA()) + " (" + std::to_string(CHA_MOD()) + ")\n";
+        ret += "STR: "+ std::to_string(STR()) + " (" + format_mod(STR_MOD(), 0) + ")\n";
+        ret += "DEX: "+ std::to_string(DEX()) + " (" + format_mod(DEX_MOD(), 0) + ")\n";
+        ret += "CON: "+ std::to_string(CON()) + " (" + format_mod(CON_MOD(), 0) + ")\n";
+        ret += "INT: "+ std::to_string(INT()) + " (" + format_mod(INT_MOD(), 0) + ")\n";
+        ret += "WIS: "+ std::to_string(WIS()) + " (" + format_mod(WIS_MOD(), 0) + ")\n";
+        ret += "CHA: "+ std::to_string(CHA()) + " (" + format_mod(CHA_MOD(), 0) + ")\n";
 
         ret += skills->to_string();
 
@@ -1246,6 +1246,11 @@ namespace ORPG {
 
         //Second arg is 12 because thats how many spaces we alloted for the race
         string charRace = Utils::rightpad(race->to_string(), 14, ' ');
+
+        string charEXP = std::to_string(curr_exp) + '/' + std::to_string(max_exp);
+        charEXP = Utils::rightpad(charEXP, 10, ' ');
+
+        string sProf = format_mod(prof, SPACES_PER_MOD);
 
         string sSTR = Utils::rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
         string sSTRMod = format_mod(STR_MOD(), SPACES_PER_MOD);
@@ -1297,7 +1302,7 @@ namespace ORPG {
         ret += " ────────────────────────┤                  "+ charBg +"                      │\n";
         ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
         ret += "  \\"+ charLName +      "│                                                    │\n";
-        ret += "_ ───────────────────────┤"+ charRace +"                                      │\n";
+        ret += "_ ───────────────────────┤"+ charRace +"                    "+charEXP+"        │\n";
         ret += "__\\  Character Name      │Race              Alignment       Experience Points │\n";
         ret += "                         ╰────────────────────────────────────────────────────╯\n";
         ret += "╭───╮╭─────────────────────────────────────────────────────────────────────────\n";
@@ -1306,7 +1311,7 @@ namespace ORPG {
         ret += "├───┤│╰───┴─────────────────╯│  │   │  │    │  │   │ │││                     ││\n";
         ret += "│"+sSTRMod+"││                       │  ├───┤  ├────┤  ├───┤ │││                     ││\n";
         ret += "╰───╯│╭───┬─────────────────╮│  │ AC│  │Init│  │SPD│ │││                     ││\n";
-        ret += "     ││   │   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
+        ret += "     ││"+sProf+"│   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
         ret += "╭───╮│╰───┴─────────────────╯│                       │││                     ││\n";
         ret += "│DEX││                       │  ╭──────────────────╮ │││  Personality Traits ││\n";
         ret += "│"+sDEX+"││╭─┬───┬───────────────╮│  │                  │ ││├─────────────────────┤│\n";
