@@ -148,7 +148,7 @@ namespace ORPG {
          * @return AbilityScores - an AbilityScores object containing the users input
          * scores
          **/
-        AbilityScores CHARACTER_EXPORT request_scores();
+        CHARACTER_EXPORT AbilityScores* request_scores();
 
         /**
          * @desc This function prompts the user via stdout for a name, and reading
@@ -184,7 +184,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool CHARACTER_EXPORT request_skills();
+        CHARACTER_EXPORT Skills* request_skills();
 
         /**
          * @desc prints "Hit points\n" to stdout
@@ -266,7 +266,7 @@ namespace ORPG {
     // TODO take an in depth look at what should and should not be public here
     class CHARACTER_EXPORT Character {
     private:
-        AbilityScores abils;                // struct of ability scores
+        AbilityScores* abils;               // struct of ability scores
         Alignment alignment;                // the character alignment
         Background* bg;                     // the characters background
         Gender gender;                      // the characters gender
@@ -275,32 +275,33 @@ namespace ORPG {
         struct Vision vision;               // information about the characters vision
         std::string firstName;              // the characters first name
         std::string lastName;               // the characters first name
-        Skills* skills;                      // struct of skill checks
+        Skills* skills;                     // struct of skill checks
         int curr_hp;                        // current hit points
         int temp_hp;                        // temporary hit points
         int max_hp;                         // maximum hit points
         int prof;                           // proficiency bonus
         int level;                          // character level total
-        int curr_exp;                        // current experience
+        int curr_exp;                       // current experience
         int max_exp;                        // experience needed for next level
         std::vector<Language> langs;        // the array of known languages
         uint8 age;                          // the age of the character
 
         void Initialize();
+        std::string format_mod(int mod, int spaces);
 
     public:
         Character(const int raceID = -1,
-                  AbilityScores ab = AbilityScores(),
+                  AbilityScores* ab = new AbilityScores,
                   const int bgID = -1,
+                  Skills* sk = new Skills,
                   std::string name = "");
         ~Character();
 
-        std::string format_mod(int mod, int spaces);
 
         void update_skills();
 
         // Returns a copy of our Ability abils struct
-        AbilityScores get_ability_copy() { return abils; };
+        AbilityScores get_ability_copy() { return *abils; };
 
         // Returns a copy of our Skills skills struct
         // NOTE(var_username): Commented out because I broke it
@@ -309,28 +310,31 @@ namespace ORPG {
         /* TODO(incomingstick): We don't need all of these functions,
             however they could still be useful. Pros and Cons? */
         /* accessor functions for ability scores */
-        int8 STR() { return abils.getScore(EnumAbilityScore::STR); };
-        int8 DEX() { return abils.getScore(EnumAbilityScore::DEX); };
-        int8 CON() { return abils.getScore(EnumAbilityScore::CON); };
-        int8 INT() { return abils.getScore(EnumAbilityScore::INT); };
-        int8 WIS() { return abils.getScore(EnumAbilityScore::WIS); };
-        int8 CHA() { return abils.getScore(EnumAbilityScore::CHA); };
+        int8 ABILITY_SCORE(EnumAbilityScore score) { return abils->get_score(score); }
+        int8 STR() { return abils->get_score(EnumAbilityScore::STR); };
+        int8 DEX() { return abils->get_score(EnumAbilityScore::DEX); };
+        int8 CON() { return abils->get_score(EnumAbilityScore::CON); };
+        int8 INT() { return abils->get_score(EnumAbilityScore::INT); };
+        int8 WIS() { return abils->get_score(EnumAbilityScore::WIS); };
+        int8 CHA() { return abils->get_score(EnumAbilityScore::CHA); };
 
         /* accessor functions for ability score modifiers */
-        int8 STR_MOD() { return abils.getMod(EnumAbilityScore::STR); };
-        int8 DEX_MOD() { return abils.getMod(EnumAbilityScore::DEX); };
-        int8 CON_MOD() { return abils.getMod(EnumAbilityScore::CON); };
-        int8 INT_MOD() { return abils.getMod(EnumAbilityScore::INT); };
-        int8 WIS_MOD() { return abils.getMod(EnumAbilityScore::WIS); };
-        int8 CHA_MOD() { return abils.getMod(EnumAbilityScore::CHA); };
+        int8 SCORE_MOD(EnumAbilityScore score) { return abils->get_mod(score); }
+        int8 STR_MOD() { return abils->get_mod(EnumAbilityScore::STR); };
+        int8 DEX_MOD() { return abils->get_mod(EnumAbilityScore::DEX); };
+        int8 CON_MOD() { return abils->get_mod(EnumAbilityScore::CON); };
+        int8 INT_MOD() { return abils->get_mod(EnumAbilityScore::INT); };
+        int8 WIS_MOD() { return abils->get_mod(EnumAbilityScore::WIS); };
+        int8 CHA_MOD() { return abils->get_mod(EnumAbilityScore::CHA); };
 
         /* accessor functions for ability score saves */
-        int8 STR_SAVE() { return abils.getSave(EnumAbilityScore::STR); };
-        int8 DEX_SAVE() { return abils.getSave(EnumAbilityScore::DEX); };
-        int8 CON_SAVE() { return abils.getSave(EnumAbilityScore::CON); };
-        int8 INT_SAVE() { return abils.getSave(EnumAbilityScore::INT); };
-        int8 WIS_SAVE() { return abils.getSave(EnumAbilityScore::WIS); };
-        int8 CHA_SAVE() { return abils.getSave(EnumAbilityScore::CHA); };
+        int8 SCORE_SAVE(EnumAbilityScore score) { return abils->get_save(score); }
+        int8 STR_SAVE() { return abils->get_save(EnumAbilityScore::STR); };
+        int8 DEX_SAVE() { return abils->get_save(EnumAbilityScore::DEX); };
+        int8 CON_SAVE() { return abils->get_save(EnumAbilityScore::CON); };
+        int8 INT_SAVE() { return abils->get_save(EnumAbilityScore::INT); };
+        int8 WIS_SAVE() { return abils->get_save(EnumAbilityScore::WIS); };
+        int8 CHA_SAVE() { return abils->get_save(EnumAbilityScore::CHA); };
 
         int get_proficiency_bonus() { return prof; };
 

@@ -83,7 +83,7 @@ namespace ORPG {
          *
          * @param uint8 score - the unsigned 8-bit integer score value to set.
          **/
-        void setScore(uint8 newScore);
+        void set_score(uint8 newScore);
 
         /**
          * @desc Setter method for the isProf property. isProf is a boolean
@@ -93,14 +93,14 @@ namespace ORPG {
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
          **/
-        void setIsProf(bool isProf);
+        void set_is_prof(bool isProf);
 
         /**
          * @desc Accessor method for an AbilityScore's score.
          *
          * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
          **/
-        uint8 getScore();
+        uint8 get_score();
 
         /**
          * @desc Accessor method for the AbilityScore's modifier.
@@ -110,7 +110,7 @@ namespace ORPG {
          *
          * @return int8 - an 8-bit integer of the AbilityScore's modifier
          **/
-        int8 getMod();
+        int8 get_mod();
 
         /**
          * @desc Accessor method for the isProf property. The current Proficiency
@@ -121,7 +121,7 @@ namespace ORPG {
          * @return bool - a boolean value denoting whether or not a proficiency
          * bonus should be added to the save of this AbilityScore
          **/
-        bool isProf();
+        bool is_prof();
     };
 
     /**
@@ -209,7 +209,7 @@ namespace ORPG {
          * @param EnumAbilityScore ability - the AbilityScore score to query
          * @param uint8 score - the unsigned 8-bit integer score value to set.
          **/
-        void setScore(EnumAbilityScore ability, uint8 score);
+        void set_score(EnumAbilityScore ability, uint8 score);
 
         /**
          * @desc Setter method for the isProf property of AbilityScore, denoted by
@@ -221,7 +221,7 @@ namespace ORPG {
          * @param bool isProf - a boolean value denoting whether or not a
          * proficiency bonus should be added to the save of the given AbilityScore
          **/
-        void setIsProf(EnumAbilityScore ability, bool isProf);
+        void set_is_prof(EnumAbilityScore ability, bool isProf);
 
         /**
          * @desc Setter method for curProf, the current Proficiency Bonus
@@ -231,7 +231,7 @@ namespace ORPG {
          * Proficiency bonus that is added to any AbilityScore that has isProf
          * set to true
          **/
-        void setCurrentProf(uint8 newProf);
+        void set_current_prof(uint8 newProf);
 
         /**
          * @desc Accessor method for an AbilityScore's score, denoted
@@ -241,8 +241,8 @@ namespace ORPG {
          *
          * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
          **/
-        uint8 getScore(EnumAbilityScore ability) {
-            return scoresMap[ability]->getScore();
+        uint8 get_score(EnumAbilityScore ability) {
+            return scoresMap[ability]->get_score();
         };
 
         /**
@@ -255,8 +255,8 @@ namespace ORPG {
          *
          * @return int8 - an 8-bit integer of the AbilityScore's modifier
          **/
-        int8 getMod(EnumAbilityScore ability) {
-            return scoresMap[ability]->getMod();
+        int8 get_mod(EnumAbilityScore ability) {
+            return scoresMap[ability]->get_mod();
         };
 
         /**
@@ -270,8 +270,8 @@ namespace ORPG {
          * @return bool - a boolean value denoting whether or not a proficiency
          * bonus should be added to the save of the given AbilityScore
          **/
-        bool isProf(EnumAbilityScore ability) {
-            return scoresMap[ability]->isProf();
+        bool is_prof(EnumAbilityScore ability) {
+            return scoresMap[ability]->is_prof();
         }
 
         /**
@@ -284,10 +284,10 @@ namespace ORPG {
          *
          * @return int8 - an 8-bit integer of the AbilityScore's save modifier
          **/
-        int8 getSave(EnumAbilityScore ability) {
-            return scoresMap[ability]->isProf() ?
-                    this->getMod(ability) + curProf :
-                    this->getMod(ability);
+        int8 get_save(EnumAbilityScore ability) {
+            return scoresMap[ability]->is_prof() ?
+                    this->get_mod(ability) + curProf :
+                    this->get_mod(ability);
         };
 
         /**
@@ -298,7 +298,7 @@ namespace ORPG {
          * Proficiency bonus that is added to any AbilityScore that has isProf
          * set to true.
          **/
-        uint8 getCurrentProf() {
+        uint8 get_current_prof() {
             return curProf;
         };
     };

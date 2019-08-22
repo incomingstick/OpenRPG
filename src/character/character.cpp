@@ -360,13 +360,13 @@ namespace ORPG {
          * This function could likely also be cleaner. Its just a giant switch
          * currently, which looks kinda ungly, and takes up space. Like this comment.
          *
-         * @return AbilityScores - an AbilityScores object containing the users input
+         * @return AbilityScores* - an AbilityScores object containing the users input
          * scores
          **/
-        AbilityScores request_scores() {
+        AbilityScores* request_scores() {
             printf("\n");
 
-            AbilityScores ret;
+            AbilityScores* ret = new AbilityScores;
             string input;
             auto stats = ability_score_vector();
 
@@ -386,9 +386,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::STR, stoi(input));
+                        ret->set_score(EnumAbilityScore::STR, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::STR,
+                        ret->set_score(EnumAbilityScore::STR,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -403,9 +403,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::DEX, stoi(input));
+                        ret->set_score(EnumAbilityScore::DEX, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::DEX,
+                        ret->set_score(EnumAbilityScore::DEX,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -419,9 +419,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::CON, stoi(input));
+                        ret->set_score(EnumAbilityScore::CON, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::CON,
+                        ret->set_score(EnumAbilityScore::CON,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -435,9 +435,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::INT, stoi(input));
+                        ret->set_score(EnumAbilityScore::INT, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::INT,
+                        ret->set_score(EnumAbilityScore::INT,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -451,9 +451,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::WIS, stoi(input));
+                        ret->set_score(EnumAbilityScore::WIS, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::WIS,
+                        ret->set_score(EnumAbilityScore::WIS,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -467,9 +467,9 @@ namespace ORPG {
                     Utils::safeGetline(cin, input);
 
                     if(safety_check_stoi(input)) {
-                        ret.setScore(EnumAbilityScore::CHA, stoi(input));
+                        ret->set_score(EnumAbilityScore::CHA, stoi(input));
                     } else if(input.empty()) {
-                        ret.setScore(EnumAbilityScore::CHA,
+                        ret->set_score(EnumAbilityScore::CHA,
                                     extract_random_element(&stats));
                     } else {
                         i--;
@@ -542,9 +542,9 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_skills() {
+        Skills* request_skills() {
             printf("Skill select based on class\n");
-            return true;
+            return new Skills;
         }
 
         /**
@@ -630,8 +630,8 @@ namespace ORPG {
      * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
      **/
     void Skill::set(int8 modifier, uint8 proficiencyBonus) {
-        setMod(modifier);
-        setProfBonus(proficiencyBonus);
+        set_mod(modifier);
+        set_prof_bonus(proficiencyBonus);
     }
 
     /**
@@ -639,7 +639,7 @@ namespace ORPG {
      *
      * @param int8 modifier - the int8 to set as the new mod
      **/
-    void Skill::setMod(int8 modifier) {
+    void Skill::set_mod(int8 modifier) {
         this->mod = modifier;
     }
 
@@ -648,7 +648,7 @@ namespace ORPG {
      *
      * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
      **/
-    void Skill::setProfBonus(uint8 newProficiencyBonus) {
+    void Skill::set_prof_bonus(uint8 newProficiencyBonus) {
         this->profBonus = newProficiencyBonus;
     }
 
@@ -658,7 +658,7 @@ namespace ORPG {
      *
      * @return int8 - the modifier bonus of the queried skill
      **/
-    int8 Skill::getMod() {
+    int8 Skill::get_mod() {
         return this->mod;
     }
 
@@ -675,7 +675,7 @@ namespace ORPG {
      * @return uint8 - the proficiency bonus level that is used when calculating
      * the amount proficiency to add to this skills modifier bonus
      **/
-    unsigned char Skill::getProf() {
+    unsigned char Skill::get_prof() {
         return this->profBonus;
     }
 
@@ -694,6 +694,34 @@ namespace ORPG {
         if(mod > 0) ret = "+";
 
         return ret + std::to_string(mod);
+    };
+
+    /**
+     * @desc Constructor for the Skills class that maps Skill classes to
+     * their respective EnumSkill, with a modifier of 0 and proficiency
+     * bonus level of 0.
+     **/
+    Skills::Skills() {
+        this->skillsMap = {
+            { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
+            { ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
+            { ARC, new Skill(0, 0) },    // Arcana           (INT)
+            { ATH, new Skill(0, 0) },    // Athletics        (STR)
+            { DEC, new Skill(0, 0) },    // Deception        (CHA)
+            { HIS, new Skill(0, 0) },    // History          (INT)
+            { INS, new Skill(0, 0) },    // Insight          (WIS)
+            { ITM, new Skill(0, 0) },    // Intimidation     (CHA)
+            { INV, new Skill(0, 0) },    // Investigation    (INT)
+            { MED, new Skill(0, 0) },    // Medicine         (WIS)
+            { NAT, new Skill(0, 0) },    // Nature           (INT)
+            { PRC, new Skill(0, 0) },    // Perception       (WIS)
+            { PRF, new Skill(0, 0) },    // Performance      (CHA)
+            { PRS, new Skill(0, 0) },    // Persuasion       (CHA)
+            { REL, new Skill(0, 0) },    // Religion         (INT)
+            { SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
+            { STL, new Skill(0, 0) },    // Stealth          (DEX)
+            { SUR, new Skill(0, 0) }     // Survival         (WIS)
+        };
     };
 
     /**
@@ -740,24 +768,22 @@ namespace ORPG {
      *
      * @return int8 - the modifier bonus of the queried skill
      **/
-    int8 Skills::getMod(EnumSkill skill) {
+    int8 Skills::get_mod(EnumSkill skill) {
         int finalProf = 0;
         auto currProf = ((Character*)container)->get_proficiency_bonus();
-        auto profRank = skillsMap[skill]->getProf();
+        auto profRank = skillsMap[skill]->get_prof();
 
         if(profRank == PROFICIENT) finalProf = currProf;
         else if(profRank == HALF_PROFICIENT) finalProf = currProf / 2;
         else if(profRank == DOUBLE_PROFICIENT) finalProf = currProf * 2;
 
-        return skillsMap[skill]->getMod() + finalProf;
+        return skillsMap[skill]->get_mod() + finalProf;
     };
 
     /* to_string method used internally for iterative purposes */
     std::string Skills::internal_to_string(std::pair<EnumSkill, Skill*> skill) {
         string ret = "";
-        string toggle = "";
         auto eskill = skill.first;
-        auto mod = skill.second->getMod();
 
         switch(eskill) {
         case ACR: { ret = "ACR: "; } break;   // Acrobatics       (DEX)
@@ -779,13 +805,11 @@ namespace ORPG {
         case STL: { ret = "STL: "; } break;   // Stealth          (DEX)
         case SUR: { ret = "SUR: "; } break;   // Survival         (WIS)
         default: {
-            // ERROR!!!!!!
             cout << "Error! Unknown EnumSkill in Skills::internal_to_string(): " << eskill << endl;
         }
         }
 
-        if(mod > 0) toggle = "+";
-        ret += toggle + std::to_string(mod) +"\n";
+        ret += skill.second->to_string() +"\n";
 
         return ret;
     };
@@ -812,7 +836,7 @@ namespace ORPG {
     /**
      * @desc Constructor for AbilityScore that is passed no arguments.
      * It sets score equal to a randomly generated number between 8 and 18,
-     * and sets isProf to false.
+     * and sets is_prof to false.
      */
     AbilityScore::AbilityScore() {
         this->score = gen_stat();
@@ -821,15 +845,15 @@ namespace ORPG {
 
     /**
      * @desc Constructor for AbilityScore that is passed two arguments.
-     * It sets this->score equal to score and sets this->isProf to isProf.
+     * It sets this->score equal to score and sets this->is_prof to is_prof.
      *
      * @param uint8 score - the unsigned 8-bit integer score value to set.
-     * @param bool isProf - a boolean value denoting whether or not a
+     * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    AbilityScore::AbilityScore(uint8 score, bool isProf) {
+    AbilityScore::AbilityScore(uint8 score, bool is_prof) {
         this->score = score;
-        this->prof = isProf;
+        this->prof = is_prof;
     }
 
     /**
@@ -841,17 +865,17 @@ namespace ORPG {
     }
 
     /**
-     * @desc Setter method for score and isProf. isProf is a boolean
+     * @desc Setter method for score and is_prof. is_prof is a boolean
      * representation of whether or not a proficiency bonus should be added to
      * the save of the given AbilityScore.
      *
      * @param uint8 score - the unsigned 8-bit integer score value to set.
-     * @param bool isProf - a boolean value denoting whether or not a
+     * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScore::set(uint8 newScore, bool isProf) {
+    void AbilityScore::set(uint8 newScore, bool is_prof) {
         this->score = newScore;
-        this->prof = isProf;
+        this->prof = is_prof;
     }
 
     /**
@@ -859,20 +883,20 @@ namespace ORPG {
      *
      * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
-    void AbilityScore::setScore(uint8 score) {
+    void AbilityScore::set_score(uint8 score) {
         this->score = score;
     }
 
     /**
-     * @desc Setter method for the isProf property. isProf is a boolean
+     * @desc Setter method for the is_prof property. is_prof is a boolean
      * representation of whether or not a proficiency bonus should be
      * added for the save of the given AbilityScore.
      *
-     * @param bool isProf - a boolean value denoting whether or not a
+     * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScore::setIsProf(bool isProf) {
-        this->prof = isProf;
+    void AbilityScore::set_is_prof(bool is_prof) {
+        this->prof = is_prof;
     }
 
     /**
@@ -880,7 +904,7 @@ namespace ORPG {
      *
      * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
      */
-    uint8 AbilityScore::getScore() {
+    uint8 AbilityScore::get_score() {
         return this->score;
     }
 
@@ -892,27 +916,27 @@ namespace ORPG {
      *
      * @return int8 - an 8-bit integer of the AbilityScore's modifier
      */
-    int8 AbilityScore::getMod() {
+    int8 AbilityScore::get_mod() {
         return modifier(this->score);
     }
 
     /**
-     * @desc Accessor method for the isProf property. The current Proficiency
-     * bonus should be added to any AbilityScore's modifier that has isProf
+     * @desc Accessor method for the is_prof property. The current Proficiency
+     * bonus should be added to any AbilityScore's modifier that has is_prof
      * set to true, otherwise it is just the AbilityScore's modifier. It is
      * up to the implementer to handle that addition.
      *
      * @return bool - a boolean value denoting whether or not a proficiency
      * bonus should be added to the save of this AbilityScore
      */
-    bool AbilityScore::isProf() {
+    bool AbilityScore::is_prof() {
         return this->prof;
     }
 
     /**
      * @desc Constructor for AbilityScores that is passed a uint8 to use as
      * the default Ability score value. If no argument is passed this function
-     * sets all ability scores equal to 0. isProf will always be set to false.
+     * sets all ability scores equal to 0. is_prof will always be set to false.
      * 
      * @param uint8 def - the default value to use for all Ability scores
      */
@@ -940,34 +964,34 @@ namespace ORPG {
         AbilityScores ret;
 
         ret.set(EnumAbilityScore::STR,
-                scoresMap[EnumAbilityScore::STR]->getScore()
-                + obj.getScore(EnumAbilityScore::STR),
-                scoresMap[EnumAbilityScore::STR]->isProf() || obj.isProf(EnumAbilityScore::STR));
+                scoresMap[EnumAbilityScore::STR]->get_score()
+                + obj.get_score(EnumAbilityScore::STR),
+                scoresMap[EnumAbilityScore::STR]->is_prof() || obj.is_prof(EnumAbilityScore::STR));
 
         ret.set(EnumAbilityScore::DEX,
-                scoresMap[EnumAbilityScore::DEX]->getScore()
-                + obj.getScore(EnumAbilityScore::DEX),
-                scoresMap[EnumAbilityScore::DEX]->isProf() || obj.isProf(EnumAbilityScore::DEX));
+                scoresMap[EnumAbilityScore::DEX]->get_score()
+                + obj.get_score(EnumAbilityScore::DEX),
+                scoresMap[EnumAbilityScore::DEX]->is_prof() || obj.is_prof(EnumAbilityScore::DEX));
 
         ret.set(EnumAbilityScore::CON,
-                scoresMap[EnumAbilityScore::CON]->getScore()
-                + obj.getScore(EnumAbilityScore::CON),
-                scoresMap[EnumAbilityScore::CON]->isProf() || obj.isProf(EnumAbilityScore::CON));
+                scoresMap[EnumAbilityScore::CON]->get_score()
+                + obj.get_score(EnumAbilityScore::CON),
+                scoresMap[EnumAbilityScore::CON]->is_prof() || obj.is_prof(EnumAbilityScore::CON));
 
         ret.set(EnumAbilityScore::INT,
-                scoresMap[EnumAbilityScore::INT]->getScore()
-                + obj.getScore(EnumAbilityScore::INT),
-                scoresMap[EnumAbilityScore::INT]->isProf() || obj.isProf(EnumAbilityScore::INT));
+                scoresMap[EnumAbilityScore::INT]->get_score()
+                + obj.get_score(EnumAbilityScore::INT),
+                scoresMap[EnumAbilityScore::INT]->is_prof() || obj.is_prof(EnumAbilityScore::INT));
 
         ret.set(EnumAbilityScore::WIS,
-                scoresMap[EnumAbilityScore::WIS]->getScore()
-                + obj.getScore(EnumAbilityScore::WIS),
-                scoresMap[EnumAbilityScore::WIS]->isProf() || obj.isProf(EnumAbilityScore::WIS));
+                scoresMap[EnumAbilityScore::WIS]->get_score()
+                + obj.get_score(EnumAbilityScore::WIS),
+                scoresMap[EnumAbilityScore::WIS]->is_prof() || obj.is_prof(EnumAbilityScore::WIS));
 
         ret.set(EnumAbilityScore::CHA,
-                scoresMap[EnumAbilityScore::CHA]->getScore()
-                + obj.getScore(EnumAbilityScore::CHA),
-                scoresMap[EnumAbilityScore::CHA]->isProf() || obj.isProf(EnumAbilityScore::CHA));
+                scoresMap[EnumAbilityScore::CHA]->get_score()
+                + obj.get_score(EnumAbilityScore::CHA),
+                scoresMap[EnumAbilityScore::CHA]->is_prof() || obj.is_prof(EnumAbilityScore::CHA));
 
         return ret;
     }
@@ -981,18 +1005,18 @@ namespace ORPG {
     }
 
     /**
-     * @desc Setter method for an AbilityScore's score and isProf, denoted
-     * by EnumAbilityScore ability. isProf is a boolean representation of
+     * @desc Setter method for an AbilityScore's score and is_prof, denoted
+     * by EnumAbilityScore ability. is_prof is a boolean representation of
      * whether or not a proficiency bonus should be added to the save of the
      * given AbilityScore.
      *
      * @param EnumAbilityScore ability - the AbilityScore score to query
      * @param uint8 score - the unsigned 8-bit integer score value to set.
-     * @param bool isProf - a boolean value denoting whether or not a
+     * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScores::set(EnumAbilityScore ability, uint8 newScore, bool isProf) {
-        scoresMap[ability]->set(newScore, isProf);
+    void AbilityScores::set(EnumAbilityScore ability, uint8 newScore, bool is_prof) {
+        scoresMap[ability]->set(newScore, is_prof);
     }
 
     /**
@@ -1018,33 +1042,33 @@ namespace ORPG {
      * @param EnumAbilityScore ability - the AbilityScore score to query
      * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
-    void AbilityScores::setScore(EnumAbilityScore ability, uint8 score) {
-        scoresMap[ability]->setScore(score);
+    void AbilityScores::set_score(EnumAbilityScore ability, uint8 score) {
+        scoresMap[ability]->set_score(score);
     }
 
     /**
-     * @desc Setter method for the isProf property AbilityScore, denoted by
-     * EnumAbilityScore ability. isProf is a boolean representation of whether
+     * @desc Setter method for the is_prof property AbilityScore, denoted by
+     * EnumAbilityScore ability. is_prof is a boolean representation of whether
      * or not a proficiency bonus should be added to the save of the given
      * AbilityScore.
      *
      * @param EnumAbilityScore ability - the AbilityScore score to query
-     * @param bool isProf - a boolean value denoting whether or not a
+     * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScores::setIsProf(EnumAbilityScore ability, bool isProf) {
-        scoresMap[ability]->setIsProf(isProf);
+    void AbilityScores::set_is_prof(EnumAbilityScore ability, bool is_prof) {
+        scoresMap[ability]->set_is_prof(is_prof);
     }
 
     /**
      * @desc Setter method for curProf, the current Proficiency Bonus
-     * that is added to any AbilityScore that has isProf set to true.
+     * that is added to any AbilityScore that has is_prof set to true.
      *
      * @param uint8 - a unsigned 8-bit integer containing the current
-     * Proficiency bonus that is added to any AbilityScore that has isProf
+     * Proficiency bonus that is added to any AbilityScore that has is_prof
      * set to true.
      */
-    void AbilityScores::setCurrentProf(uint8 newProf) {
+    void AbilityScores::set_current_prof(uint8 newProf) {
         curProf = newProf;
     }
 
@@ -1100,8 +1124,8 @@ namespace ORPG {
         }
     }
 
-    Character::Character(const int raceID, AbilityScores ab,
-                         const int bgID, std::string name):abils(ab) {
+    Character::Character(const int raceID, AbilityScores* ab, const int bgID,
+                        Skills* sk, std::string name):abils(ab), skills(sk) {
         race = raceSelector(raceID);
         bg = backgroundSelector(bgID);
 
@@ -1124,7 +1148,7 @@ namespace ORPG {
     }
 
     void Character::Initialize() {
-        race->applyRacialBonus(&abils);
+        race->applyRacialBonus(abils);
 
         curr_hp = 10;           // TODO current hit points
         temp_hp = 0;            // TODO temporary hit points
@@ -1134,31 +1158,31 @@ namespace ORPG {
         curr_exp = 0;           // current experience
         max_exp = EXP[level];   // experience needed for next level
 
-        // TODO Apply racial bonuses here
-        skills = new Skills(this);
+        // TODO Apply racial bonuses here? Or during the request process?
+        skills->set_owner(this);
         update_skills();
     }
 
     // TODO(incomingstick): Make this more efficient
     void Character::update_skills() {
-        skills->get(ACR)->setMod(DEX_MOD());    // Acrobatics       (DEX)
-        skills->get(ANM)->setMod(WIS_MOD());    // Animal Handling  (WIS)
-        skills->get(ARC)->setMod(INT_MOD());    // Arcana           (INT)
-        skills->get(ATH)->setMod(STR_MOD());    // Athletics        (STR)
-        skills->get(DEC)->setMod(CHA_MOD());    // Deception        (CHA)
-        skills->get(HIS)->setMod(INT_MOD());    // History          (INT)
-        skills->get(INS)->setMod(WIS_MOD());    // Insight          (WIS)
-        skills->get(ITM)->setMod(CHA_MOD());    // Intimidation     (CHA)
-        skills->get(INV)->setMod(INT_MOD());    // Investigation    (INT)
-        skills->get(MED)->setMod(WIS_MOD());    // Medicine         (WIS)
-        skills->get(NAT)->setMod(INT_MOD());    // Nature           (INT)
-        skills->get(PRC)->setMod(WIS_MOD());    // Perception       (WIS)
-        skills->get(PRF)->setMod(CHA_MOD());    // Performance      (CHA)
-        skills->get(PRS)->setMod(CHA_MOD());    // Persuasion       (CHA)
-        skills->get(REL)->setMod(INT_MOD());    // Religion         (INT)
-        skills->get(SLE)->setMod(DEX_MOD());    // Sleight of Hand  (DEX)
-        skills->get(STL)->setMod(DEX_MOD());    // Stealth          (DEX)
-        skills->get(SUR)->setMod(WIS_MOD());    // Survival         (WIS)
+        skills->get(ACR)->set_mod(DEX_MOD());    // Acrobatics       (DEX)
+        skills->get(ANM)->set_mod(WIS_MOD());    // Animal Handling  (WIS)
+        skills->get(ARC)->set_mod(INT_MOD());    // Arcana           (INT)
+        skills->get(ATH)->set_mod(STR_MOD());    // Athletics        (STR)
+        skills->get(DEC)->set_mod(CHA_MOD());    // Deception        (CHA)
+        skills->get(HIS)->set_mod(INT_MOD());    // History          (INT)
+        skills->get(INS)->set_mod(WIS_MOD());    // Insight          (WIS)
+        skills->get(ITM)->set_mod(CHA_MOD());    // Intimidation     (CHA)
+        skills->get(INV)->set_mod(INT_MOD());    // Investigation    (INT)
+        skills->get(MED)->set_mod(WIS_MOD());    // Medicine         (WIS)
+        skills->get(NAT)->set_mod(INT_MOD());    // Nature           (INT)
+        skills->get(PRC)->set_mod(WIS_MOD());    // Perception       (WIS)
+        skills->get(PRF)->set_mod(CHA_MOD());    // Performance      (CHA)
+        skills->get(PRS)->set_mod(CHA_MOD());    // Persuasion       (CHA)
+        skills->get(REL)->set_mod(INT_MOD());    // Religion         (INT)
+        skills->get(SLE)->set_mod(DEX_MOD());    // Sleight of Hand  (DEX)
+        skills->get(STL)->set_mod(DEX_MOD());    // Stealth          (DEX)
+        skills->get(SUR)->set_mod(WIS_MOD());    // Survival         (WIS)
     }
 
     string Character::to_string() {
@@ -1241,26 +1265,26 @@ namespace ORPG {
         string sCHA = Utils::rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
         string sCHAMod = format_mod(CHA_MOD(), SPACES_PER_MOD);
 
-        string sACR = format_mod(skills->getMod(ACR), SPACES_PER_MOD);
-        string sANM = format_mod(skills->getMod(ANM), SPACES_PER_MOD);
-        string sARC = format_mod(skills->getMod(ARC), SPACES_PER_MOD);
-        string sATH = format_mod(skills->getMod(ATH), SPACES_PER_MOD);
-        string sDEC = format_mod(skills->getMod(DEC), SPACES_PER_MOD);
-        string sHIS = format_mod(skills->getMod(HIS), SPACES_PER_MOD);
-        string sINS = format_mod(skills->getMod(INS), SPACES_PER_MOD);
-        string sITM = format_mod(skills->getMod(ITM), SPACES_PER_MOD);
-        string sINV = format_mod(skills->getMod(INV), SPACES_PER_MOD);
-        string sMED = format_mod(skills->getMod(MED), SPACES_PER_MOD);
-        string sNAT = format_mod(skills->getMod(NAT), SPACES_PER_MOD);
-        string sPRC = format_mod(skills->getMod(PRC), SPACES_PER_MOD);
-        string sPRF = format_mod(skills->getMod(PRF), SPACES_PER_MOD);
-        string sPRS = format_mod(skills->getMod(PRS), SPACES_PER_MOD);
-        string sREL = format_mod(skills->getMod(REL), SPACES_PER_MOD);
-        string sSLE = format_mod(skills->getMod(SLE), SPACES_PER_MOD);
-        string sSTL = format_mod(skills->getMod(STL), SPACES_PER_MOD);
-        string sSUR = format_mod(skills->getMod(SUR), SPACES_PER_MOD);
+        string sACR = format_mod(skills->get_mod(ACR), SPACES_PER_MOD);
+        string sANM = format_mod(skills->get_mod(ANM), SPACES_PER_MOD);
+        string sARC = format_mod(skills->get_mod(ARC), SPACES_PER_MOD);
+        string sATH = format_mod(skills->get_mod(ATH), SPACES_PER_MOD);
+        string sDEC = format_mod(skills->get_mod(DEC), SPACES_PER_MOD);
+        string sHIS = format_mod(skills->get_mod(HIS), SPACES_PER_MOD);
+        string sINS = format_mod(skills->get_mod(INS), SPACES_PER_MOD);
+        string sITM = format_mod(skills->get_mod(ITM), SPACES_PER_MOD);
+        string sINV = format_mod(skills->get_mod(INV), SPACES_PER_MOD);
+        string sMED = format_mod(skills->get_mod(MED), SPACES_PER_MOD);
+        string sNAT = format_mod(skills->get_mod(NAT), SPACES_PER_MOD);
+        string sPRC = format_mod(skills->get_mod(PRC), SPACES_PER_MOD);
+        string sPRF = format_mod(skills->get_mod(PRF), SPACES_PER_MOD);
+        string sPRS = format_mod(skills->get_mod(PRS), SPACES_PER_MOD);
+        string sREL = format_mod(skills->get_mod(REL), SPACES_PER_MOD);
+        string sSLE = format_mod(skills->get_mod(SLE), SPACES_PER_MOD);
+        string sSTL = format_mod(skills->get_mod(STL), SPACES_PER_MOD);
+        string sSUR = format_mod(skills->get_mod(SUR), SPACES_PER_MOD);
 
-        string passPRC = format_mod(passive_stat(skills->getMod(SUR)), SPACES_PER_MOD);
+        string passPRC = format_mod(passive_stat(skills->get_mod(SUR)), SPACES_PER_MOD);
 
         //TODO pull this into its own files
         //NOTE(var_username): To be fair, this is quite lazy on my part
@@ -1269,70 +1293,69 @@ namespace ORPG {
         * source code, as well as allowing for people to create their own styles with our predefined tags
         */
 
-    ret += "                         ╭────────────────────────────────────────────────────╮\n";
-    ret += " ────────────────────────┤                  "+ charBg +"                      │\n";
-    ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
-    ret += "  \\"+ charLName +      "│                                                    │\n";
-    ret += "_ ───────────────────────┤"+ charRace +"                                      │\n";
-    ret += "__\\  Character Name      │Race              Alignment       Experience Points │\n";
-    ret += "                         ╰────────────────────────────────────────────────────╯\n";
-    ret += "╭───╮╭─────────────────────────────────────────────────────────────────────────\n";
-    ret += "│STR││╭───┬─────────────────╮╭───────────────────────╮╭───────────────────────╮\n";
-    ret += "│"+sSTR+"│││   │   Inspiration   ││  ╭───╮  ╭────╮  ╭───╮ ││╭─────────────────────╮│\n";
-    ret += "├───┤│╰───┴─────────────────╯│  │   │  │    │  │   │ │││                     ││\n";
-    ret += "│"+sSTRMod+"││                       │  ├───┤  ├────┤  ├───┤ │││                     ││\n";
-    ret += "╰───╯│╭───┬─────────────────╮│  │ AC│  │Init│  │SPD│ │││                     ││\n";
-    ret += "     ││   │   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
-    ret += "╭───╮│╰───┴─────────────────╯│                       │││                     ││\n";
-    ret += "│DEX││                       │  ╭──────────────────╮ │││  Personality Traits ││\n";
-    ret += "│"+sDEX+"││╭─┬───┬───────────────╮│  │                  │ ││├─────────────────────┤│\n";
-    ret += "├───┤││ │   │      STR      ││  │                  │ │││                     ││\n";
-    ret += "│"+sDEXMod+"│││ │   │      DEX      ││  │     Curr. HP     │ │││                     ││\n";
-    ret += "╰───╯││ │   │      CON      ││  ├──────────────────┤ │││        Ideals       ││\n";
-    ret += "     ││ │   │      INT      ││  │                  │ ││├─────────────────────┤│\n";
-    ret += "╭───╮││ │   │      WIS      ││  │     Temp. HP     │ │││                     ││\n";
-    ret += "│CON│││ │   │      CHA      ││  ╰──────────────────╯ │││                     ││\n";
-    ret += "│"+sCON+"││├─┴───┴───────────────┤│                       │││        Bonds        ││\n";
-    ret += "├───┤││    Saving throws    ││ ╭────────╮ ╭────────╮ ││├─────────────────────┤│\n";
-    ret += "│"+sCONMod+"││╰─────────────────────╯│ │        │ │S O-O-O │ │││                     ││\n";
-    ret += "╰───╯│                       │ ├────────┤ │F O-O-O │ │││                     ││\n";
-    ret += "     │╭─┬───┬───────────────╮│ │Hit Dice│ │ Saves  │ │││        Flaws        ││\n";
-    ret += "╭───╮││ │"+sACR+"│Acrobatics     ││ ╰────────╯ ╰────────╯ ││╰─────────────────────╯│\n";
-    ret += "│INT│││ │"+sANM+"│Animal Handling│╰───────────────────────╯╰───────────────────────╯\n";
-    ret += "│"+sINT+"│││ │"+sARC+"│Arcana         │╭────────┬─────┬────────╮╭───────────────────────╮\n";
-    ret += "├───┤││ │"+sATH+"│Athletics      ││Name    │ ATK │DMG Type││                       │\n";
-    ret += "│"+sINTMod+"│││ │"+sDEC+"│Deception      ││        │     │        ││                       │\n";
-    ret += "╰───╯││ │"+sHIS+"│History        ││        │     │        ││                       │\n";
-    ret += "     ││ │"+sINS+"│Insight        ││        │     │        ││                       │\n";
-    ret += "╭───╮││ │"+sITM+"│Intimidation   │├────────┴─────┴────────┤│                       │\n";
-    ret += "│WIS│││ │"+sINV+"│Investigation  ││                       ││                       │\n";
-    ret += "│"+sWIS+"│││ │"+sWISMod+"│Medicine       ││                       ││                       │\n";
-    ret += "├───┤││ │"+sNAT+"│Nature         ││                       ││                       │\n";
-    ret += "│"+sWISMod+"│││ │"+sPRC+"│Perception     ││                       ││                       │\n";
-    ret += "╰───╯││ │"+sPRF+"│Performance    ││                       ││                       │\n";
-    ret += "     ││ │"+sPRS+"│Persuassion    ││                       ││                       │\n";
-    ret += "╭───╮││ │"+sREL+"│Religion       ││                       ││                       │\n";
-    ret += "│CHA│││ │"+sSLE+"│Sleight of Hand││                       ││                       │\n";
-    ret += "│"+sCHA+"│││ │"+sSTL+"│Stealth        ││                       ││                       │\n";
-    ret += "├───┤││ │"+sSUR+"│Survival       ││                       ││                       │\n";
-    ret += "│"+sCHAMod+"││├─┴───┴───────────────┤├───────────────────────┤│                       │\n";
-    ret += "╰───╯││       Skills        ││  Attacks and Spells   ││                       │\n";
-    ret += "─────╯╰─────────────────────╯╰───────────────────────╯│                       │\n";
-    ret += "╭───┬───────────────────────╮╭──┬────┬───────────────╮│                       │\n";
-    ret += "│"+passPRC+"│    Passive Perception |│CP│    │               ││                       │\n";
-    ret += "╰───┴───────────────────────╯│SP│    │               ││                       │\n";
-    ret += "╭───────────────────────────╮│EP│    │               ││                       │\n";
-    ret += "│                           ││GP│    │               ││                       │\n";
-    ret += "│                           ││PP│    │               ││                       │\n";
-    ret += "│                           │├──┴────╯               ││                       │\n";
-    ret += "│                           ││                       ││                       │\n";
-    ret += "│                           ││                       ││                       │\n";
-    ret += "│                           ││                       ││                       │\n";
-    ret += "│                           ││                       ││                       │\n";
-    ret += "├───────────────────────────┤├───────────────────────┤├───────────────────────┤\n";
-    ret += "│    Other Proficiencies    ││       Equipment       ││  Features and Traits  │\n";
-    ret += "╰───────────────────────────╯╰───────────────────────╯╰───────────────────────╯\n";
-
+        ret += "                         ╭────────────────────────────────────────────────────╮\n";
+        ret += " ────────────────────────┤                  "+ charBg +"                      │\n";
+        ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
+        ret += "  \\"+ charLName +      "│                                                    │\n";
+        ret += "_ ───────────────────────┤"+ charRace +"                                      │\n";
+        ret += "__\\  Character Name      │Race              Alignment       Experience Points │\n";
+        ret += "                         ╰────────────────────────────────────────────────────╯\n";
+        ret += "╭───╮╭─────────────────────────────────────────────────────────────────────────\n";
+        ret += "│STR││╭───┬─────────────────╮╭───────────────────────╮╭───────────────────────╮\n";
+        ret += "│"+sSTR+"│││   │   Inspiration   ││  ╭───╮  ╭────╮  ╭───╮ ││╭─────────────────────╮│\n";
+        ret += "├───┤│╰───┴─────────────────╯│  │   │  │    │  │   │ │││                     ││\n";
+        ret += "│"+sSTRMod+"││                       │  ├───┤  ├────┤  ├───┤ │││                     ││\n";
+        ret += "╰───╯│╭───┬─────────────────╮│  │ AC│  │Init│  │SPD│ │││                     ││\n";
+        ret += "     ││   │   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
+        ret += "╭───╮│╰───┴─────────────────╯│                       │││                     ││\n";
+        ret += "│DEX││                       │  ╭──────────────────╮ │││  Personality Traits ││\n";
+        ret += "│"+sDEX+"││╭─┬───┬───────────────╮│  │                  │ ││├─────────────────────┤│\n";
+        ret += "├───┤││ │   │      STR      ││  │                  │ │││                     ││\n";
+        ret += "│"+sDEXMod+"│││ │   │      DEX      ││  │     Curr. HP     │ │││                     ││\n";
+        ret += "╰───╯││ │   │      CON      ││  ├──────────────────┤ │││        Ideals       ││\n";
+        ret += "     ││ │   │      INT      ││  │                  │ ││├─────────────────────┤│\n";
+        ret += "╭───╮││ │   │      WIS      ││  │     Temp. HP     │ │││                     ││\n";
+        ret += "│CON│││ │   │      CHA      ││  ╰──────────────────╯ │││                     ││\n";
+        ret += "│"+sCON+"││├─┴───┴───────────────┤│                       │││        Bonds        ││\n";
+        ret += "├───┤││    Saving throws    ││ ╭────────╮ ╭────────╮ ││├─────────────────────┤│\n";
+        ret += "│"+sCONMod+"││╰─────────────────────╯│ │        │ │S O-O-O │ │││                     ││\n";
+        ret += "╰───╯│                       │ ├────────┤ │F O-O-O │ │││                     ││\n";
+        ret += "     │╭─┬───┬───────────────╮│ │Hit Dice│ │ Saves  │ │││        Flaws        ││\n";
+        ret += "╭───╮││ │"+sACR+"│Acrobatics     ││ ╰────────╯ ╰────────╯ ││╰─────────────────────╯│\n";
+        ret += "│INT│││ │"+sANM+"│Animal Handling│╰───────────────────────╯╰───────────────────────╯\n";
+        ret += "│"+sINT+"│││ │"+sARC+"│Arcana         │╭────────┬─────┬────────╮╭───────────────────────╮\n";
+        ret += "├───┤││ │"+sATH+"│Athletics      ││Name    │ ATK │DMG Type││                       │\n";
+        ret += "│"+sINTMod+"│││ │"+sDEC+"│Deception      ││        │     │        ││                       │\n";
+        ret += "╰───╯││ │"+sHIS+"│History        ││        │     │        ││                       │\n";
+        ret += "     ││ │"+sINS+"│Insight        ││        │     │        ││                       │\n";
+        ret += "╭───╮││ │"+sITM+"│Intimidation   │├────────┴─────┴────────┤│                       │\n";
+        ret += "│WIS│││ │"+sINV+"│Investigation  ││                       ││                       │\n";
+        ret += "│"+sWIS+"│││ │"+sWISMod+"│Medicine       ││                       ││                       │\n";
+        ret += "├───┤││ │"+sNAT+"│Nature         ││                       ││                       │\n";
+        ret += "│"+sWISMod+"│││ │"+sPRC+"│Perception     ││                       ││                       │\n";
+        ret += "╰───╯││ │"+sPRF+"│Performance    ││                       ││                       │\n";
+        ret += "     ││ │"+sPRS+"│Persuassion    ││                       ││                       │\n";
+        ret += "╭───╮││ │"+sREL+"│Religion       ││                       ││                       │\n";
+        ret += "│CHA│││ │"+sSLE+"│Sleight of Hand││                       ││                       │\n";
+        ret += "│"+sCHA+"│││ │"+sSTL+"│Stealth        ││                       ││                       │\n";
+        ret += "├───┤││ │"+sSUR+"│Survival       ││                       ││                       │\n";
+        ret += "│"+sCHAMod+"││├─┴───┴───────────────┤├───────────────────────┤│                       │\n";
+        ret += "╰───╯││       Skills        ││  Attacks and Spells   ││                       │\n";
+        ret += "─────╯╰─────────────────────╯╰───────────────────────╯│                       │\n";
+        ret += "╭───┬───────────────────────╮╭──┬────┬───────────────╮│                       │\n";
+        ret += "│"+passPRC+"│    Passive Perception |│CP│    │               ││                       │\n";
+        ret += "╰───┴───────────────────────╯│SP│    │               ││                       │\n";
+        ret += "╭───────────────────────────╮│EP│    │               ││                       │\n";
+        ret += "│                           ││GP│    │               ││                       │\n";
+        ret += "│                           ││PP│    │               ││                       │\n";
+        ret += "│                           │├──┴────╯               ││                       │\n";
+        ret += "│                           ││                       ││                       │\n";
+        ret += "│                           ││                       ││                       │\n";
+        ret += "│                           ││                       ││                       │\n";
+        ret += "│                           ││                       ││                       │\n";
+        ret += "├───────────────────────────┤├───────────────────────┤├───────────────────────┤\n";
+        ret += "│    Other Proficiencies    ││       Equipment       ││  Features and Traits  │\n";
+        ret += "╰───────────────────────────╯╰───────────────────────╯╰───────────────────────╯\n";
 
         return ret;
     }

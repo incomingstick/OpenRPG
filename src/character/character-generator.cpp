@@ -117,10 +117,10 @@ int main(int argc, char* argv[]) {
     RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
     auto race       = RANDOM_FLAG ? Characters::random_race_id() : request_race();
-    auto scores     = RANDOM_FLAG ? AbilityScores() : request_scores();
+    auto scores     = RANDOM_FLAG ? new AbilityScores : request_scores();
     auto bg         = RANDOM_FLAG ? Acolyte::ID : request_background();
     auto charClass  = RANDOM_FLAG ? true : request_class();
-    auto skills     = RANDOM_FLAG ? true : request_skills();
+    auto skills     = RANDOM_FLAG ? new Skills : request_skills();
     auto hp         = RANDOM_FLAG ? true : request_hitpoints();
     auto equipment  = RANDOM_FLAG ? true : request_equipment();
     auto name       = RANDOM_FLAG ? "" : request_name();
@@ -128,9 +128,9 @@ int main(int argc, char* argv[]) {
     /* NOTE(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
     auto character = RANDOM_FLAG ?
         new Character() :
-        new Character(race, scores, bg, name);
+        new Character(race, scores, bg, skills, name);
 
-    if(bg && charClass && skills && hp && equipment) {
+    if(charClass && hp && equipment) {
         SHEET_FLAG ? 
             printf("%s", character->to_ascii_sheet().c_str()) :
             printf("%s", character->to_string().c_str());

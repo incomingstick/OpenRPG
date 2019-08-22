@@ -83,14 +83,14 @@ namespace ORPG {
          *
          * @param int8 modifier - the int8 to set as the new mod
          **/
-        void setMod(int8 newMod);
+        void set_mod(int8 newMod);
 
         /**
          * @desc Setter function for the profBonus of this Skill
          *
          * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
          **/
-        void setProfBonus(uint8 newProficiencyBonus);
+        void set_prof_bonus(uint8 newProficiencyBonus);
 
         /**
          * @desc Get the modifier bonus of the given EnumSkill contained
@@ -98,7 +98,7 @@ namespace ORPG {
          *
          * @return int8 - the modifier bonus of the queried skill
          **/
-        int8 getMod();
+        int8 get_mod();
 
         /**
          * @desc Get the proficiency bonus level that is to be used when
@@ -113,7 +113,7 @@ namespace ORPG {
          * @return uint8 - the proficiency bonus level that is used when calculating
          * the amount proficiency to add to this skills modifier bonus
          **/
-        uint8 getProf();
+        uint8 get_prof();
 
         /**
          * @desc Converts this Skills data to std::string format. It is retruned in the
@@ -179,6 +179,16 @@ namespace ORPG {
          * their respective EnumSkill, with a modifier of 0 and proficiency
          * bonus level of 0.
          **/
+        Skills();
+
+        /**
+         * @desc Constructor for the Skills class that maps Skill classes to
+         * their respective EnumSkill, with a modifier of 0 and proficiency
+         * bonus level of 0. It takes a pointer to an object that contains it,
+         * as it expects access to its owners proficiency bonus.
+         * 
+         * @param void* owner - this objects owner object
+         **/
         Skills(void* owner);
 
         /**
@@ -186,6 +196,13 @@ namespace ORPG {
          * the internal std::map skillsMap is deleted
          **/
         ~Skills();
+
+        /**
+         * @desc set_owner takes a pointer to an object to set as the container,
+         * as it expects access to its owners proficiency bonus via a function that
+         * should be defined as 'int8 get_proficiency_bonus()'
+         **/
+        void set_owner(void* owner) { container = owner; };
 
         /**
          * @desc Getter function that returns a pointed to the Skill object
@@ -208,7 +225,7 @@ namespace ORPG {
          *
          * @return int8 - the modifier bonus of the queried skill
          **/
-        int8 getMod(EnumSkill skill);
+        int8 get_mod(EnumSkill skill);
 
         /**
          * @desc Get the proficiency bonus level that is to be used when
@@ -225,8 +242,8 @@ namespace ORPG {
          * @return uint8 - the proficiency bonus level that is used when calculating
          * the amount proficiency to add to the given skills modifier bonus
          **/
-        uint8 getProfBonus(EnumSkill skill) {
-            return skillsMap[skill]->getProf();
+        uint8 get_prof_bonus(EnumSkill skill) {
+            return skillsMap[skill]->get_prof();
         };
 
         /**

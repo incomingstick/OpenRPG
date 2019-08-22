@@ -109,7 +109,7 @@ namespace ORPG {
      * by doing everything that ALL Races of type Dwarf should do.
      */
     void Dwarf::Initialize() {
-        abilBonus.setScore(CON, 2);     // Constitution
+        abilBonus.set_score(CON, 2);     // Constitution
     }
 
     /**
@@ -130,7 +130,7 @@ namespace ORPG {
      */
     HillDwarf::HillDwarf() {
         abilBonus = AbilityScores(0);
-        abilBonus.setScore(WIS, 1);     // Wisdom
+        abilBonus.set_score(WIS, 1);     // Wisdom
 
         Initialize();
     }
@@ -164,7 +164,7 @@ namespace ORPG {
      * by doing everything that ALL Races of type Elf should do.
      */
     void Elf::Initialize() {
-        abilBonus.setScore(DEX, 2);      // Dexterity
+        abilBonus.set_score(DEX, 2);      // Dexterity
     }
 
     /**
@@ -185,7 +185,7 @@ namespace ORPG {
      */
     HighElf::HighElf() {
         abilBonus = AbilityScores(0);
-        abilBonus.setScore(INT, 1);      // Intelligence
+        abilBonus.set_score(INT, 1);      // Intelligence
 
         Initialize();
     }
