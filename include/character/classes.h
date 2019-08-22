@@ -61,6 +61,11 @@ namespace ORPG {
         std::string equipment;  // TODO(incomingstick): dont use a string here
         std::vector<ORPG::EnumSkill> skillProfs;
 
+        /* this is a pointer to our container (likely a character, however
+            we cannot assume it is) that expects a function named
+            get_proficiency_bonus that returns an integer */
+        void* container;
+
         /* The const string representation for a Background */
         const std::string class_str;
 
@@ -75,6 +80,25 @@ namespace ORPG {
         virtual void Initialize() = 0;
 
     public:
+        /**
+         * @desc Rolls the hitDie one time and returns a result between 1 and  
+         **/
+        virtual int roll_hit_die() = 0;
+
+        /**
+         * @desc This function simply returns the highest the die could possibly roll
+         * 
+         * @return const int - the MAX value of the hit die
+         **/
+        virtual const int HIT_DIE_MAX() = 0;
+
+        /**
+         * @desc set_owner takes a pointer to an object to set as the container,
+         * as it expects access to its owners proficiency bonus via a function that
+         * should be defined as 'int8 get_proficiency_bonus()'
+         **/
+        void set_owner(void* owner) { container = owner; };
+
         /**
          * @desc A function that returns the Class::ID static property
          *
@@ -99,8 +123,10 @@ namespace ORPG {
     class CHARACTER_EXPORT Wizard : virtual public CharacterClass {
     protected:
         /* The const string representation for a Human */
-        const std::string bg_str = "Wizard";
+        const std::string class_str = "Wizard";
 
+        /* The hit die determines player hp per level, as well as how much they
+            can heal during short rests */
         Die hitDie = Die(6);
 
         /**
@@ -117,6 +143,18 @@ namespace ORPG {
          * Wizard::Initialize() is called at the end of the constructor.
          **/
         Wizard();
+
+        /**
+         * @desc Rolls the hitDie one time and returns a result between 1 and  
+         **/
+        int roll_hit_die() { return hitDie.roll(); };
+
+        /**
+         * @desc This function simply returns the highest the die could possibly roll
+         * 
+         * @return const int - the MAX value of the hit die
+         **/
+        const int HIT_DIE_MAX() { return hitDie.MAX; };
 
         /**
          * @desc A function that returns the Wizard::ID static property

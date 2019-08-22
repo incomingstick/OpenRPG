@@ -530,7 +530,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_class() {
+        const uint request_class() {
             printf("Wizard Class Automatically Chosen\n");
             return Wizard::ID;
         }
@@ -575,7 +575,6 @@ namespace ORPG {
 
     /* an arrray that holds the EXP needed for each level */
     const int EXP[] = {
-        0,            // Level 1
         300,          // Level 2
         900,          // Level 3
         2700,         // Level 4
@@ -1147,7 +1146,7 @@ namespace ORPG {
                         skills(sk) {
         race = raceSelector(raceID);
         bg = backgroundSelector(bgID);
-        cClass = classSelector(bgID);
+        cClass = classSelector(classID);
 
         if(name.empty()) {
             NameGenerator ng(race->to_string());
@@ -1170,16 +1169,19 @@ namespace ORPG {
     void Character::Initialize() {
         race->applyRacialBonus(abils);
 
-        curr_hp = 10;           // TODO current hit points
-        temp_hp = 0;            // TODO temporary hit points
-        max_hp = curr_hp;       // TODO maximum hit points
-        prof = 2;               // proficiency bonus
-        level = 1;              // character level total
-        curr_exp = 0;           // current experience
-        max_exp = EXP[level];   // experience needed for next level
+        /* Make some of our interals aware of who we are */
+        cClass->set_owner(this);
+        skills->set_owner(this);
+
+        max_hp = cClass->HIT_DIE_MAX() + CON_MOD(); // maximum hit points
+        curr_hp = max_hp;                           // TODO current hit points
+        temp_hp = 0;                                // TODO temporary hit points
+        prof = 2;                                   // proficiency bonus
+        level = 1;                                  // character level total
+        curr_exp = 0;                               // current experience
+        max_exp = EXP[level-1];                     // experience needed for next level
 
         // TODO Apply racial bonuses here? Or during the request process?
-        skills->set_owner(this);
         update_skills();
     }
 
@@ -1213,6 +1215,7 @@ namespace ORPG {
 
         ret += "Race: "+ race->to_string() +"\n";
         ret += "Background: "+ bg->to_string() +"\n";
+        ret += "Class: "+ cClass->to_string() +"\n"; // TODO Multiclassing
 
         ret += "Level: "+ std::to_string(level) + "\n";
         ret += "EXP: " + std::to_string(curr_exp) +"/"+ std::to_string(max_exp) + "\n";

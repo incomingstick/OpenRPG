@@ -176,7 +176,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool CHARACTER_EXPORT request_class();
+        const uint CHARACTER_EXPORT request_class();
 
         /**
          * @desc prints "Skill select based on class\n" to stdout
@@ -268,11 +268,11 @@ namespace ORPG {
     class CHARACTER_EXPORT Character {
     private:
         AbilityScores* abils;               // struct of ability scores
-        Alignment alignment;                // the character alignment
         Background* bg;                     // the characters background
         CharacterClass* cClass;             // the characters class
-        Gender gender;                      // the characters gender
         Race* race;			                // The race of our character
+        Alignment alignment;                // the character alignment
+        Gender gender;                      // the characters gender
         Size size;                          // the size type
         struct Vision vision;               // information about the characters vision
         std::string firstName;              // the characters first name
