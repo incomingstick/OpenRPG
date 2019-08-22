@@ -23,9 +23,9 @@ There is NO WARRANTY, to the extent permitted by law.
 namespace ORPG {
     class ROLL_PARSER_EXPORT Die {
         private:
-            const int MAX = 20;
+            const int MAX;
         public:
-            Die(int max):MAX(
+            Die(int max = 20):MAX(
                     /* If max is less than 2, set MAX to 2; else set MAX to max.
                     * Ensures we don't have nonsense like a 1- or 0-sided die
                     * (or a negative-sided die) */

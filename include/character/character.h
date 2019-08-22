@@ -19,6 +19,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "skills.h"
 #include "races.h"
 #include "backgrounds.h"
+#include "classes.h"
 
 namespace ORPG {
     namespace Characters {
@@ -269,6 +270,7 @@ namespace ORPG {
         AbilityScores* abils;               // struct of ability scores
         Alignment alignment;                // the character alignment
         Background* bg;                     // the characters background
+        CharacterClass* cClass;             // the characters class
         Gender gender;                      // the characters gender
         Race* race;			                // The race of our character
         Size size;                          // the size type
@@ -294,6 +296,7 @@ namespace ORPG {
                   AbilityScores* ab = new AbilityScores,
                   const int bgID = -1,
                   Skills* sk = new Skills,
+                  const int classID = -1,
                   std::string name = "");
         ~Character();
 

@@ -37,9 +37,7 @@ namespace ORPG {
          * @return uint - the randomly selected race ID
          **/
         const uint random_race_id() {
-            auto randInt = Utils::randomInt(0, 2);
-
-            switch(randInt) {
+            switch(Utils::randomInt(0, 2)) {
             case 0 : {
                 return Human::ID;
             }

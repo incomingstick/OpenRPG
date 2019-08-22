@@ -1,13 +1,13 @@
 /*
-characters - backgrounds.h
-Created on: Jul 7, 2019
+characters - classes.h
+Created on: Aug 22, 2019
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 < https://www.openrpg.io/about/license/ >
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#ifndef SRC_BACKGROUNDS_H_
-#define SRC_BACKGROUNDS_H_
+#ifndef SRC_CLASSES_H_
+#define SRC_CLASSES_H_
 
 #ifdef _WIN32
 #	include "exports/character_exports.h"
@@ -17,6 +17,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include <vector>
 
+// TODO(incomingstick): this is likely too broad for includes, lets minimize
+#include "roll/die.h"
 #include "skills.h"
 
 /**
@@ -49,69 +51,57 @@ namespace ORPG {
          * 
          * @return uint - the randomly selected background ID
          **/
-        const uint CHARACTER_EXPORT random_bg_id();
+        const uint CHARACTER_EXPORT random_class_id();
     }
 
-    /* An enum containing the list of D&D 5E languages */
-    enum CHARACTER_EXPORT Language {
-        Common,    Dwarvish,   Elvish,
-        Giant,     Gnomish,    Goblin,
-        Halfling,  Orc,        Abyssal,
-        Celestial, Draconic,   DeepSpeech,
-        Infernal,  Primordial, Silvian,
-        Undercommon, PlayerChoice
-    };
-
-    class CHARACTER_EXPORT Background {
+    class CHARACTER_EXPORT CharacterClass {
     protected:
-        // TODO(incomingstick): expand on each of these concepts
-        std::string personalityTrait;
-        std::string ideal;
-        std::string bond;
-        std::string flaw;
+        // TODO(incomingstick): expand on each of these concepts, and add whats missing
+        Die hitDie;
         std::string equipment;  // TODO(incomingstick): dont use a string here
         std::vector<ORPG::EnumSkill> skillProfs;
-        std::vector<ORPG::Language> langs;
 
         /* The const string representation for a Background */
-        const std::string bg_str;
+        const std::string class_str;
 
         /**
-         * @desc Initialization for a generic Background that is passed no
+         * @desc Initialization for a generic CharacterClass that is passed no
          * arguments. Currently there is no additonal intialization that is
          * done.
          *
-         * NOTE(incomingstick): Here we should finish setting up our background,
-         * by doing everything that ALL backgrounds should do.
+         * NOTE(incomingstick): Here we should finish setting up our CharacterClass,
+         * by doing everything that ALL CharacterClasses should do.
          **/
         virtual void Initialize() = 0;
 
     public:
         /**
-         * @desc A function that returns the Background::ID static property
+         * @desc A function that returns the Class::ID static property
          *
-         * NOTE: Background class IDs start with 0x1b81
+         * NOTE: Class class IDs start with 0x1b82
          * 
          * @return const uint - the ID value of the calling class
          **/
         virtual const uint id() = 0;
 
         /**
-         * @desc A function that returns the Background as its string
+         * @desc A function that returns the Class as its string
          * representation
          *
-         * @return const std::string - the string representation of a Background
+         * @return const std::string - the string representation of a Class
          **/
         virtual const std::string to_string() = 0;
 
-        /* The const uint ID for a generic Background */
-        static const uint ID = 0x1b810000;
+        /* The const uint ID for a generic Class */
+        static const uint ID = 0x1b820000;
     };
 
-    class CHARACTER_EXPORT Acolyte : virtual public Background {
+    class CHARACTER_EXPORT Wizard : virtual public CharacterClass {
     protected:
         /* The const string representation for a Human */
-        const std::string bg_str = "Acolyte";
+        const std::string bg_str = "Wizard";
+
+        Die hitDie = Die(6);
 
         /**
          * @desc Initialization for an Acolyte that is passed no arguments.
@@ -123,32 +113,31 @@ namespace ORPG {
 
     public:
         /**
-         * @desc Constructor for a Acolyte that is passed no arguments. An Acolyte
-         * is proficient in Insight, and Religion, gains two languages of their choice.
-         * Acolyte::Initialize() is called at the end of the constructor.
+         * @desc Constructor for a Wizard that is passed no arguments.
+         * Wizard::Initialize() is called at the end of the constructor.
          **/
-        Acolyte();
+        Wizard();
 
         /**
-         * @desc A function that returns the Acolyte::ID static property
+         * @desc A function that returns the Wizard::ID static property
          *
-         * NOTE: Background class IDs start with 0x1b81
+         * NOTE: Class class IDs start with 0x1b82
          * 
          * @return const int - the ID value of the calling class
          **/
-        const uint id() { return Acolyte::ID; };
+        const uint id() { return Wizard::ID; };
 
         /**
-         * @desc A function that returns the Acolyte as its string
+         * @desc A function that returns the Wizard as its string
          * representation
          *
-         * @return const std::string - the string representation of an Acolyte
+         * @return const std::string - the string representation of a Wizard
          **/
-        const std::string to_string() { return bg_str; };
+        const std::string to_string() { return class_str; };
 
         /* The const uint ID for a generic Background */
-        static const uint ID = 0x1b810001;
+        static const uint ID = 0x1b820001;
     };
 }
 
-#endif /* SRC_BACKGROUNDS_H_ */
+#endif /* SRC_CLASSES_H_ */

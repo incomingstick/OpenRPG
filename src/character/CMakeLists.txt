@@ -4,6 +4,7 @@ set(CHARACTER_SOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/character.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/races.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/backgrounds.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/classes.cpp
 )
 
 add_library(character SHARED ${CHARACTER_SOURCE})

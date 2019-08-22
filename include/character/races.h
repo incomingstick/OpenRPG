@@ -31,6 +31,9 @@ There is NO WARRANTY, to the extent permitted by law.
  *      within. (e.g Race class IDs start with 0x1b80)
  *  - The remaining 16bits are reserved for ID's within that Class space.
  *      (e.g the HighElf is 0x1b800021)
+ * 
+ * NOTE(incomingstick): a single bit for the class space is likely not going to be
+ * enough, so then how many will?
  **/
 
 namespace ORPG {

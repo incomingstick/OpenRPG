@@ -531,8 +531,8 @@ namespace ORPG {
          * @return bool - always will return true
          **/
         bool request_class() {
-            printf("Class\n");
-            return true;
+            printf("Wizard Class Automatically Chosen\n");
+            return Wizard::ID;
         }
 
         /**
@@ -1124,10 +1124,30 @@ namespace ORPG {
         }
     }
 
+    /**
+     * NOTE(incomingstick): Should this be accessable to the library at large?
+     **/
+    CharacterClass* classSelector(const int identifier = -1) {
+        const auto id = (identifier <= -1) ?
+            Characters::random_class_id() : identifier;
+
+        switch(id) {
+        case Wizard::ID : {
+            return new Wizard();
+        }
+
+        default: {
+            return nullptr;
+        }
+        }
+    }
+
     Character::Character(const int raceID, AbilityScores* ab, const int bgID,
-                        Skills* sk, std::string name):abils(ab), skills(sk) {
+                        Skills* sk, const int classID, std::string name):abils(ab),
+                        skills(sk) {
         race = raceSelector(raceID);
         bg = backgroundSelector(bgID);
+        cClass = classSelector(bgID);
 
         if(name.empty()) {
             NameGenerator ng(race->to_string());
