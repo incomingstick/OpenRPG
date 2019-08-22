@@ -38,9 +38,30 @@ There is NO WARRANTY, to the extent permitted by law.
 
 namespace ORPG {
     namespace Roll {
+        /**
+         * @desc prints the version info when -V or --version is an argument to the command.
+         * This adhears to the GNU standard for version printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
         void ROLL_PARSER_EXPORT print_version_flag();
+
+        /**
+         * @desc prints the help info when -h or --help is an argument to the command.
+         * This adhears to the GNU standard for help printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
         void ROLL_PARSER_EXPORT print_help_flag();
+
+        /**
+         * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
         void ROLL_PARSER_EXPORT print_basic_version();
+
+        /**
+         * @desc prints the help info when help, h, or H are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
         void ROLL_PARSER_EXPORT print_basic_help();
     }
 

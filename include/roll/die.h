@@ -23,7 +23,7 @@ There is NO WARRANTY, to the extent permitted by law.
 namespace ORPG {
     class ROLL_PARSER_EXPORT Die {
         private:
-            const int MAX;
+            //TODO(incomingstck): MAX does not need to be private, as it is const
         public:
             Die(int max = 20):MAX(
                     /* If max is less than 2, set MAX to 2; else set MAX to max.
@@ -33,18 +33,29 @@ namespace ORPG {
                             : max
                     ){};
 
+            /**
+             * @desc roll creates a std::random_device and a std::mt199377 via that
+             * random device. We will then use uniform int distribution to generate
+             * psuedo-random numbers with mt19937. If VB_FLAG is true, it will print
+             * to stdout.
+             * 
+             * @return int - a psuedo-random number between 1 and MAX (inclusive)
+             **/
             int roll() {
                 std::random_device rd;
                 std::mt19937 mt(rd());
                 std::uniform_int_distribution<int> dist(1, MAX);
 
-                int ret = dist(mt);
+                auto ret = dist(mt);
 
                 /* verbosely prints die rolls in the form "dX -> N" */
                 if(Core::VB_FLAG) printf("d%i -> %i\n", MAX, ret);
 
                 return ret;
             }
+
+            /* The highest the die could possibly roll */
+            const int MAX = 20;
     };
 }
 
