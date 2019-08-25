@@ -55,6 +55,46 @@ namespace ORPG {
             }
             }
         }
+
+        /**
+         * @desc This function takes in an integer, ideally a Race::ID,
+         * creates a new Race of that ID type and returns a pointer to it. If an ID
+         * less than 0 is passed we instead will randomly select a Race type to return.
+         * 
+         * @param const int identifier - the RaceID of the race to be generated
+         * 
+         * @return Race* - a pointer to the newly created Race
+         **/
+        Race* select_race(const int identifier) {
+            const auto id = (identifier < 0) ?
+                random_race_id() : identifier;
+
+            switch(id) {
+            case Human::ID : {
+                return new Human();
+            }
+
+            case Dwarf::ID : {
+                return new Dwarf();
+            }
+
+            case HillDwarf::ID : {
+                return new HillDwarf();
+            }
+
+            case Elf::ID : {
+                return new Elf();
+            }
+
+            case HighElf::ID : {
+                return new HighElf();
+            }
+
+            default: {
+                return nullptr;
+            }
+            }
+        }
     }
 
     /**

@@ -32,6 +32,31 @@ namespace ORPG {
             }
             }
         }
+
+        /**
+         * @desc This function takes in an integer, ideally a CharacterClass::ID,
+         * creates a new CharacterClass of that ID type and returns a pointer to it.
+         * If an ID less than 0 is passed we instead will randomly select a 
+         * CharacterClass type to return.
+         * 
+         * @param const int identifier - the CharacterClass of the class to be generated
+         * 
+         * @return CharacterClass* - a pointer to the newly created CharacterClass
+         **/
+        CharacterClass* select_character_class(const int identifier) {
+            const auto id = (identifier < 0) ?
+                random_class_id() : identifier;
+
+            switch(id) {
+            case Wizard::ID : {
+                return new Wizard();
+            }
+
+            default: {
+                return nullptr;
+            }
+            }
+        }
     }
 
     Wizard::Wizard() {

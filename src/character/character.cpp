@@ -329,9 +329,9 @@ namespace ORPG {
          * via stdin. It repeats this process for the subrace, and will continue prompting
          * until no other race types could possibly be chosen.
          * 
-         * @return int - the current race ID from the RaceSelector
+         * @return Race* - a pointer to a new Race determined by the RaceSelector
          **/
-        uint request_race() {
+        Race* request_race() {
             RaceSelector selector;
 
             printf("Choose Race:\n");
@@ -343,7 +343,7 @@ namespace ORPG {
                 selector.select_option(request_selection(selector));
             }
 
-            return selector.current_id();
+            return select_race(selector.current_id());
         }
 
         /**
@@ -524,15 +524,16 @@ namespace ORPG {
         }
 
         /**
-         * @desc prints "Class\n" to stdout
+         * @desc prints "Wizard Class Automatically Chosen\n" to stdout
+         * and returns a pointer to a new Wizard.
          *
-         * TODO(incomingstick): Add character classes
+         * TODO(incomingstick): Add more character classes
          *
-         * @return bool - always will return true
+         * @return CharacterClass* - always will return a pointer to a Wizard
          **/
-        const uint request_class() {
+        CharacterClass* request_class() {
             printf("Wizard Class Automatically Chosen\n");
-            return Wizard::ID;
+            return new Wizard;
         }
 
         /**
@@ -554,7 +555,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_hitpoints() {
+        bool request_hitpoints(CharacterClass* classPtr) {
             printf("Hit points\n");
             return true;
         }
@@ -1074,41 +1075,7 @@ namespace ORPG {
     /**
      * NOTE(incomingstick): Should this be accessable to the library at large?
      **/
-    Race* raceSelector(const int identifier = -1) {
-        const auto id = (identifier <= -1) ?
-            Characters::random_race_id() : identifier;
-
-        switch(id) {
-        case Human::ID : {
-            return new Human();
-        }
-
-        case Dwarf::ID : {
-            return new Dwarf();
-        }
-
-        case HillDwarf::ID : {
-            return new HillDwarf();
-        }
-
-        case Elf::ID : {
-            return new Elf();
-        }
-
-        case HighElf::ID : {
-            return new HighElf();
-        }
-
-        default: {
-            return nullptr;
-        }
-        }
-    }
-
-    /**
-     * NOTE(incomingstick): Should this be accessable to the library at large?
-     **/
-    Background* backgroundSelector(const int identifier = -1) {
+    Background* background_selector(const int identifier = -1) {
         const auto id = (identifier <= -1) ?
             Characters::random_bg_id() : identifier;
 
@@ -1126,7 +1093,7 @@ namespace ORPG {
     /**
      * NOTE(incomingstick): Should this be accessable to the library at large?
      **/
-    CharacterClass* classSelector(const int identifier = -1) {
+    CharacterClass* class_selector(const int identifier = -1) {
         const auto id = (identifier <= -1) ?
             Characters::random_class_id() : identifier;
 
@@ -1141,12 +1108,10 @@ namespace ORPG {
         }
     }
 
-    Character::Character(const int raceID, AbilityScores* ab, const int bgID,
-                        Skills* sk, const int classID, std::string name):abils(ab),
-                        skills(sk) {
-        race = raceSelector(raceID);
-        bg = backgroundSelector(bgID);
-        cClass = classSelector(classID);
+    Character::Character(Race* racePtr, AbilityScores* ab, CharacterClass* classPtr,
+                        const int bgID, Skills* sk, std::string name):
+                        race(racePtr), abils(ab), cClass(classPtr), skills(sk) {
+        bg = background_selector(bgID);
 
         if(name.empty()) {
             NameGenerator ng(race->to_string());

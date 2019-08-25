@@ -37,6 +37,10 @@ There is NO WARRANTY, to the extent permitted by law.
  **/
 
 namespace ORPG {
+    /* Predefine the Race parent class so that anything defined in the Character namespace
+        may use it in the event that they need access to it */
+    class Race;
+
     namespace Characters {
         /**
          * @desc This function returns a random RaceID as an integer, from
@@ -47,6 +51,25 @@ namespace ORPG {
          * @return int - the randomly selected race ID
          **/
         const uint CHARACTER_EXPORT random_race_id();
+
+        /**
+         * @desc This function takes in an integer, ideally a Race::ID,
+         * creates a new Race of that ID type and returns a pointer to it. If an ID
+         * less than 0 is passed we instead will randomly select a Race type to return.
+         * 
+         * @param const int identifier - the RaceID of the race to be generated
+         * 
+         * @return Race* - a pointer to the newly created Race
+         **/
+        Race* CHARACTER_EXPORT select_race(const int identifier = -1);
+
+        /**
+         * @desc This function returns a pointer to a random new Race,
+         * from the available races.
+         *
+         * @return Race* - a pointer to a random new Race
+         **/
+        inline Race* CHARACTER_EXPORT new_random_race() { return select_race(); };
     }
 
     class CHARACTER_EXPORT Race {

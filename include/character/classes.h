@@ -41,17 +41,41 @@ There is NO WARRANTY, to the extent permitted by law.
  **/
 
 namespace ORPG {
+    /* Predefine the CharacterClass parent class so that anything defined in the Character namespace
+        may use it in the event that they need access to it */
+    class CharacterClass;
+
     namespace Characters {
         /**
-         * @desc This function returns a random BackgroundID as an unsigned integer,
-         * from the available backgrounds.
+         * @desc This function returns a random CharacterClass::ID as an unsigned integer,
+         * from the available classes.
          *
          * TODO(incomingstick): Is hardcoding this as a switch the best
          * option? This likely won't scale well.
          * 
-         * @return uint - the randomly selected background ID
+         * @return uint - the randomly selected CharacterClass ID
          **/
         const uint CHARACTER_EXPORT random_class_id();
+
+        /**
+         * @desc This function takes in an integer, ideally a CharacterClass::ID,
+         * creates a new CharacterClass of that ID type and returns a pointer to it.
+         * If an ID less than 0 is passed we instead will randomly select a 
+         * CharacterClass type to return.
+         * 
+         * @param const int identifier - the CharacterClass of the class to be generated
+         * 
+         * @return CharacterClass* - a pointer to the newly created CharacterClass
+         **/
+        CharacterClass* CHARACTER_EXPORT select_character_class(const int identifier = -1);
+
+        /**
+         * @desc This function returns a pointer to a random new CharacterClass,
+         * from the available classes.
+         *
+         * @return CharacterClass* - a pointer to a random new CharacterClass
+         **/
+        inline CharacterClass* CHARACTER_EXPORT new_random_character_class() { return select_character_class(); };
     }
 
     class CHARACTER_EXPORT CharacterClass {

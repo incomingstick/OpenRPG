@@ -116,21 +116,22 @@ int main(int argc, char* argv[]) {
     /* begin creating the character here */
     RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
-    auto race       = RANDOM_FLAG ? Characters::random_race_id() : request_race();
+    auto race       = RANDOM_FLAG ? new_random_race() : request_race();
+    //TODO(incomingstick): randomly generate ability scores, not an empty set
     auto scores     = RANDOM_FLAG ? new AbilityScores : request_scores();
-    auto bg         = RANDOM_FLAG ? Characters::random_bg_id() : request_background();
-    auto charClass  = RANDOM_FLAG ? random_class_id() : request_class();
+    auto bg         = RANDOM_FLAG ? random_bg_id() : request_background();
+    auto charClass  = RANDOM_FLAG ? new_random_character_class() : request_class();
     auto skills     = RANDOM_FLAG ? new Skills : request_skills();
-    auto hp         = RANDOM_FLAG ? true : request_hitpoints();
+    auto hp         = RANDOM_FLAG ? true : request_hitpoints(charClass);
     auto equipment  = RANDOM_FLAG ? true : request_equipment();
     auto name       = RANDOM_FLAG ? "" : request_name();
 
     /* IMPORTANT(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
     auto character = RANDOM_FLAG ?
         new Character() :
-        new Character(race, scores, bg, skills, charClass, name);
+        new Character(race, scores, charClass, bg, skills, name);
 
-    if(charClass && hp && equipment) {
+    if(hp && equipment) {
         SHEET_FLAG ? 
             printf("%s", character->to_ascii_sheet().c_str()) :
             printf("%s", character->to_string().c_str());

@@ -130,7 +130,7 @@ namespace ORPG {
          * 
          * @return auto - the current race ID from the RaceSelector
          **/
-        uint CHARACTER_EXPORT request_race();
+        Race* CHARACTER_EXPORT request_race();
 
         /**
          * @desc This function prompts the user, via stdout, for 6 numbers to
@@ -170,13 +170,14 @@ namespace ORPG {
         uint CHARACTER_EXPORT request_background();
 
         /**
-         * @desc prints "Class\n" to stdout
+         * @desc prints "Wizard Class Automatically Chosen\n" to stdout
+         * and returns a pointer to a new Wizard.
          *
-         * TODO(incomingstick): Add character classes
+         * TODO(incomingstick): Add more character classes
          *
-         * @return bool - always will return true
+         * @return CharacterClass* - always will return a pointer to a Wizard
          **/
-        const uint CHARACTER_EXPORT request_class();
+        CharacterClass* CHARACTER_EXPORT request_class();
 
         /**
          * @desc prints "Skill select based on class\n" to stdout
@@ -194,7 +195,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool CHARACTER_EXPORT request_hitpoints();
+        bool CHARACTER_EXPORT request_hitpoints(CharacterClass* classPtr);
 
         /**
          * @desc prints "Equipment\n" to stdout
@@ -267,17 +268,17 @@ namespace ORPG {
     // TODO take an in depth look at what should and should not be public here
     class CHARACTER_EXPORT Character {
     private:
-        AbilityScores* abils;               // struct of ability scores
-        Background* bg;                     // the characters background
-        CharacterClass* cClass;             // the characters class
         Race* race;			                // The race of our character
+        AbilityScores* abils;               // struct of ability scores
+        CharacterClass* cClass;             // the characters class
+        Background* bg;                     // the characters background
+        Skills* skills;                     // struct of skill checks
         Alignment alignment;                // the character alignment
         Gender gender;                      // the characters gender
         Size size;                          // the size type
         struct Vision vision;               // information about the characters vision
         std::string firstName;              // the characters first name
         std::string lastName;               // the characters first name
-        Skills* skills;                     // struct of skill checks
         int curr_hp;                        // current hit points
         int temp_hp;                        // temporary hit points
         int max_hp;                         // maximum hit points
@@ -292,11 +293,11 @@ namespace ORPG {
         std::string format_mod(int mod, int spaces);
 
     public:
-        Character(const int raceID = -1,
+        Character(Race* racePtr = Characters::new_random_race(),
                   AbilityScores* ab = new AbilityScores,
+                  CharacterClass* classPtr = Characters::new_random_character_class(),
                   const int bgID = -1,
                   Skills* sk = new Skills,
-                  const int classID = -1,
                   std::string name = "");
         ~Character();
 
@@ -313,13 +314,13 @@ namespace ORPG {
         /* TODO(incomingstick): We don't need all of these functions,
             however they could still be useful. Pros and Cons? */
         /* accessor functions for ability scores */
-        int8 ABILITY_SCORE(EnumAbilityScore score) { return abils->get_score(score); }
-        int8 STR() { return abils->get_score(EnumAbilityScore::STR); };
-        int8 DEX() { return abils->get_score(EnumAbilityScore::DEX); };
-        int8 CON() { return abils->get_score(EnumAbilityScore::CON); };
-        int8 INT() { return abils->get_score(EnumAbilityScore::INT); };
-        int8 WIS() { return abils->get_score(EnumAbilityScore::WIS); };
-        int8 CHA() { return abils->get_score(EnumAbilityScore::CHA); };
+        uint8 ABILITY_SCORE(EnumAbilityScore score) { return abils->get_score(score); }
+        uint8 STR() { return abils->get_score(EnumAbilityScore::STR); };
+        uint8 DEX() { return abils->get_score(EnumAbilityScore::DEX); };
+        uint8 CON() { return abils->get_score(EnumAbilityScore::CON); };
+        uint8 INT() { return abils->get_score(EnumAbilityScore::INT); };
+        uint8 WIS() { return abils->get_score(EnumAbilityScore::WIS); };
+        uint8 CHA() { return abils->get_score(EnumAbilityScore::CHA); };
 
         /* accessor functions for ability score modifiers */
         int8 SCORE_MOD(EnumAbilityScore score) { return abils->get_mod(score); }
