@@ -61,7 +61,7 @@ namespace ORPG {
          * 
          * @return Race* - a pointer to the newly created Race
          **/
-        Race* CHARACTER_EXPORT select_race(const int identifier = -1);
+        CHARACTER_EXPORT Race* select_race(const int identifier = -1);
 
         /**
          * @desc This function returns a pointer to a random new Race,
@@ -69,7 +69,7 @@ namespace ORPG {
          *
          * @return Race* - a pointer to a random new Race
          **/
-        inline Race* CHARACTER_EXPORT new_random_race() { return select_race(); };
+        inline CHARACTER_EXPORT Race* new_random_race() { return select_race(); };
     }
 
     class CHARACTER_EXPORT Race {

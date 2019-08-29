@@ -67,7 +67,7 @@ namespace ORPG {
          * 
          * @return CharacterClass* - a pointer to the newly created CharacterClass
          **/
-        CharacterClass* CHARACTER_EXPORT select_character_class(const int identifier = -1);
+        CHARACTER_EXPORT CharacterClass* select_character_class(const int identifier = -1);
 
         /**
          * @desc This function returns a pointer to a random new CharacterClass,
@@ -75,7 +75,7 @@ namespace ORPG {
          *
          * @return CharacterClass* - a pointer to a random new CharacterClass
          **/
-        inline CharacterClass* CHARACTER_EXPORT new_random_character_class() { return select_character_class(); };
+        inline CHARACTER_EXPORT CharacterClass* new_random_character_class() { return select_character_class(); };
     }
 
     class CHARACTER_EXPORT CharacterClass {

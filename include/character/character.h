@@ -130,7 +130,7 @@ namespace ORPG {
          * 
          * @return auto - the current race ID from the RaceSelector
          **/
-        Race* CHARACTER_EXPORT request_race();
+        CHARACTER_EXPORT Race* request_race();
 
         /**
          * @desc This function prompts the user, via stdout, for 6 numbers to
@@ -177,7 +177,7 @@ namespace ORPG {
          *
          * @return CharacterClass* - always will return a pointer to a Wizard
          **/
-        CharacterClass* CHARACTER_EXPORT request_class();
+        CHARACTER_EXPORT CharacterClass* request_class();
 
         /**
          * @desc prints "Skill select based on class\n" to stdout
