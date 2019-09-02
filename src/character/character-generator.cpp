@@ -45,6 +45,7 @@ int parse_args(int argc, char* argv[]) {
     /* these are the long cla's and their corresponding chars */
     static struct Core::option long_opts[] = {
         {"help",    no_argument,        0,  'h'},
+        {"import",  required_argument,  0,  'i'},
         {"random",  no_argument,        0,  'r'},
         {"sheet",   no_argument,        0,  's'},
         {"verbose", no_argument,        0,  'v'},
@@ -53,7 +54,7 @@ int parse_args(int argc, char* argv[]) {
         {0,         0,                  0,   0}
     };
 
-    while ((opt = Core::getopt_long(argc, argv, "hrsvV",
+    while ((opt = Core::getopt_long(argc, argv, "hi:rsvV",
                                long_opts, &opt_ind)) != EOF &&
                                status != EXIT_FAILURE) {
 
@@ -61,6 +62,19 @@ int parse_args(int argc, char* argv[]) {
         /* -h --help */
         case 'h': {
             print_help_flag();
+        } break;
+
+        /* -i --import */
+        case 'i': {
+            if(Core::optind == argc) {
+                cout << "Importing... " << Core::optarg << endl;
+                //TODO(incomingstick): import a character sheet from a file given the provided path
+                auto character = import_character((string)Core::optarg);
+                exit(EXIT_SUCCESS);
+            } else {
+                fprintf(stderr, "Error: invalid number of args (expects 1)\n");
+                Core::print_help_flag();
+            }
         } break;
 
         /* -r --random */
@@ -127,9 +141,7 @@ int main(int argc, char* argv[]) {
     auto name       = RANDOM_FLAG ? "" : request_name();
 
     /* IMPORTANT(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
-    auto character = RANDOM_FLAG ?
-        new Character() :
-        new Character(race, scores, charClass, bg, skills, name);
+    auto character = new Character(race, scores, charClass, bg, skills, name);
 
     if(hp && equipment) {
         SHEET_FLAG ? 

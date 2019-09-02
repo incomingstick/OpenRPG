@@ -22,6 +22,10 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "classes.h"
 
 namespace ORPG {
+    /* predefinition of Character class incase functions in the Characters
+        namespace need it */
+    class Character;
+
     namespace Characters {
         /**
          * @desc prints the version info when -V or --version is an argument to the command.
@@ -206,6 +210,16 @@ namespace ORPG {
          * @return bool - always will return true
          **/
         bool CHARACTER_EXPORT request_equipment();
+
+        /**
+         * @desc import_character takes in the location of a file as a string
+         * and attempts to load it as a character class. If a new Character is
+         * able to be created from the file, it will return a pointer to that
+         * character.
+         * 
+         * @return Character* - a pointer to a character created via the file
+         **/
+        CHARACTER_EXPORT Character* import_character(std::string file);
     }
 
     /* NOTE: These are just the 5E character requirements */

@@ -6,11 +6,13 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
 
 #include "core/config.h"
+#include "core/xml.h"
 #include "roll.h"
 #include "names.h"
 #include "character.h"
@@ -571,6 +573,41 @@ namespace ORPG {
         bool request_equipment() {
             printf("Equipment\n\n");
             return true;
+        }
+
+        /**
+         * @desc import_character takes in the location of a file as a string
+         * and attempts to load it as a character class. If a new Character is
+         * able to be created from the file, it will return a pointer to that
+         * character.
+         * 
+         * @return Character* - a pointer to a character created via the file
+         **/
+        Character* import_character(string file) {
+            if(file.empty()) return new Character;
+
+            // Open the data file to be imported
+            ifstream import_file(file);
+
+            if (import_file.is_open()) {
+                string out = "";
+                string buffer;
+
+                while (Utils::safeGetline(import_file, buffer)) {
+                    out += buffer + '\n';
+                }
+
+                cout << out << endl;
+
+                // Close the data file now that is has been imported
+                import_file.close();
+            }
+            else {
+                // TODO: Raise an exception here, if an asset file
+                // cannot be opened then something serious has gone wrong.
+            }
+
+            return new Character();
         }
     }
 
