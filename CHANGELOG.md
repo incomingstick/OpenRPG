@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split .github/ISSUE_TEMPLATE.md into two files:
     - .github/FEATURE_REQUEST.md
     - .github/BUG_REPORT.md
-- Renamed `int random(...)` to `int randomInt(...)` in the Utils library thanks to [@var-username](https://github.com/var-username)
+- Renamed `int random(...)` to `int randomInt(...)` in the Utils namespace thanks to [@var-username](https://github.com/var-username)
 - Fixed some install locations to better form to different platforms
 - build.bat now has actual commands such as `> .\build.bat clean`, or `> .\build.bat rebuild` as well as better error reporting
 - Make sure we don't accidentally add some packaged/compressed files to the repo, cuz that would be obnoxious
@@ -165,6 +165,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Renamed some header guards for better consistancy across the library
+- Renamed Utils library to Core
 - Moved C++ standard back to C++14
 - Improved `openrpg -n` call to `NameGenerator` to account for gender and warn when too few arguments are given
 - Better error reporting when invalid syntax is provided to `roll`

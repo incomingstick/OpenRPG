@@ -19,10 +19,10 @@ There is NO WARRANTY, to the extent permitted by law.
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-#include "exports/utils_exports.h"
+#include "exports/core_exports.h"
 
-typedef DWORD UTILS_EXPORT uint;
-typedef DWORDLONG UTILS_EXPORT ulong;
+typedef DWORD CORE_EXPORT uint;
+typedef DWORDLONG CORE_EXPORT ulong;
 
 #endif /* _WIN32 */
 #endif /* SRC_WIN32_H_ */

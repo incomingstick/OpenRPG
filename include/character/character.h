@@ -157,8 +157,8 @@ namespace ORPG {
 
         /**
          * @desc This function prompts the user via stdout for a name, and reading
-         * from stdin the input. We use the safeGetline function via the Utils
-         * library to ensure integrity across platforms.
+         * from stdin the input. We use the safeGetline function via the ORPG::Utils
+         * namespace to ensure integrity across platforms.
          * 
          * @return string - the user input string to be used as a name
          **/

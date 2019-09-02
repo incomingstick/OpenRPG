@@ -10,7 +10,7 @@ GENERATE_EXPORT_HEADER(names
     STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
 )
 
-target_link_libraries(names utils)
+target_link_libraries(names core)
 
 # if the names library needs a higher standard than C++14 please update here
 set_property(TARGET names PROPERTY CXX_STANDARD 14)
@@ -21,7 +21,7 @@ set(NG_SOURCES
 )
 
 add_executable(name-generator ${NG_SOURCES})
-target_link_libraries(name-generator utils names)
+target_link_libraries(name-generator core names)
 
 # if the name-generator executable needs a higher standard than C++14 please update here
 set_property(TARGET name-generator PROPERTY CXX_STANDARD 14)

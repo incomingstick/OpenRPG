@@ -12,9 +12,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #ifdef _WIN32
 #   define WIN32_LEAN_AND_MEAN
 #   include "core/win32.h"
-#   include "exports/utils_exports.h"
+#   include "exports/core_exports.h"
 #else
-#   define UTILS_EXPORT
+#   define CORE_EXPORT
 #endif
 
 #include <cstdint>
@@ -22,42 +22,42 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <climits>
 #include <cfloat>
 
-typedef int8_t  UTILS_EXPORT int8;
-typedef int16_t UTILS_EXPORT int16;
-typedef int32_t UTILS_EXPORT int32;
-typedef int64_t UTILS_EXPORT int64;
-typedef int32   UTILS_EXPORT bool32;
+typedef int8_t  CORE_EXPORT int8;
+typedef int16_t CORE_EXPORT int16;
+typedef int32_t CORE_EXPORT int32;
+typedef int64_t CORE_EXPORT int64;
+typedef int32   CORE_EXPORT bool32;
 
-typedef uint8_t  UTILS_EXPORT uint8;
-typedef uint16_t UTILS_EXPORT uint16;
-typedef uint32_t UTILS_EXPORT uint32;
-typedef uint64_t UTILS_EXPORT uint64;
+typedef uint8_t  CORE_EXPORT uint8;
+typedef uint16_t CORE_EXPORT uint16;
+typedef uint32_t CORE_EXPORT uint32;
+typedef uint64_t CORE_EXPORT uint64;
 
-typedef intptr_t  UTILS_EXPORT intptr;
-typedef uintptr_t UTILS_EXPORT uintptr;
+typedef intptr_t  CORE_EXPORT intptr;
+typedef uintptr_t CORE_EXPORT uintptr;
 
-typedef size_t UTILS_EXPORT memory_index;
+typedef size_t CORE_EXPORT memory_index;
 
-typedef float  UTILS_EXPORT real32;
-typedef double UTILS_EXPORT real64;
+typedef float  CORE_EXPORT real32;
+typedef double CORE_EXPORT real64;
 
-typedef int8   UTILS_EXPORT i8;
-typedef int8   UTILS_EXPORT i08;
-typedef int16  UTILS_EXPORT i16;
-typedef int32  UTILS_EXPORT i32;
-typedef int64  UTILS_EXPORT i64;
-typedef bool32 UTILS_EXPORT b32;
+typedef int8   CORE_EXPORT i8;
+typedef int8   CORE_EXPORT i08;
+typedef int16  CORE_EXPORT i16;
+typedef int32  CORE_EXPORT i32;
+typedef int64  CORE_EXPORT i64;
+typedef bool32 CORE_EXPORT b32;
 
-typedef uint8  UTILS_EXPORT u8;
-typedef uint8  UTILS_EXPORT u08;
-typedef uint16 UTILS_EXPORT u16;
-typedef uint32 UTILS_EXPORT u32;
-typedef uint64 UTILS_EXPORT u64;
+typedef uint8  CORE_EXPORT u8;
+typedef uint8  CORE_EXPORT u08;
+typedef uint16 CORE_EXPORT u16;
+typedef uint32 CORE_EXPORT u32;
+typedef uint64 CORE_EXPORT u64;
 
-typedef real32 UTILS_EXPORT r32;
-typedef real64 UTILS_EXPORT r64;
-typedef real32 UTILS_EXPORT f32;
-typedef real64 UTILS_EXPORT f64;
+typedef real32 CORE_EXPORT r32;
+typedef real64 CORE_EXPORT r64;
+typedef real32 CORE_EXPORT f32;
+typedef real64 CORE_EXPORT f64;
 
 #define flag8(type)  u8
 #define flag16(type) u16

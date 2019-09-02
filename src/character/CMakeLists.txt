@@ -15,7 +15,7 @@ if(MSVC OR WIN32)
     )
 endif()
 
-target_link_libraries(character utils roll-parser names)
+target_link_libraries(character core roll-parser names)
 
 # if the character library needs a higher standard than C++14 please update here
 set_property(TARGET character PROPERTY CXX_STANDARD 14)
@@ -26,7 +26,7 @@ set(CG_SOURCES
 )
 
 add_executable(character-generator ${CG_SOURCES})
-target_link_libraries(character-generator utils character roll-parser names)
+target_link_libraries(character-generator core character roll-parser names)
 
 # if the character-generator executable needs a higher standard than C++14 please update here
 set_property(TARGET character-generator PROPERTY CXX_STANDARD 14)
