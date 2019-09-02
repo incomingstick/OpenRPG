@@ -55,11 +55,11 @@ namespace ORPG {
 	     * When the XMLDocument gets deleted, all its Nodes
 	     * will also be deleted.
          **/
-        class CORE_EXPORT XMLNode {
+        class XMLNode {
             // Give private member access to the XMLDocument
             friend class XMLDocument;
 
-        private:
+        protected:
             // a const pointer to the document containing this XMLNode
             XMLDocument* document;
 
@@ -123,7 +123,7 @@ namespace ORPG {
              *
              * @return bool - return true if child exists, false otherwise
              **/
-            bool has_children() { return firstChild ? true : false; };
+            bool has_children() { return firstChild != nullptr ? true : false; };
 
             /**
              * @desc returns a pointer to the first child node of this XMLNode
@@ -140,7 +140,7 @@ namespace ORPG {
             XMLNode* last_child() { return firstChild; };
 
             /**
-             * @desc inserts a node into the document as the last child
+             * @desc adds a node into the document as the last child
              * of this XMLNode. It will return the node argument if sucessful,
              * otherwise it will return 0. Calling this function is effectively
              * the same as calling insert_last_child()
@@ -152,7 +152,7 @@ namespace ORPG {
              *
              * @return XMLNode* - the node that was added, 0 if unsuccessful.
              **/
-            XMLNode* insert_child(XMLNode* node) { return insert_last_child(node); };
+            XMLNode* add_child(XMLNode* node) { return insert_last_child(node); };
 
             /**
              * @desc inserts a node into the document as the last child
@@ -271,21 +271,31 @@ namespace ORPG {
 	     * NOTE(incomingstick): Attributes are NOT XMLNodes. You may only query the
 	     * next() attribute in a list.
          **/
-        class CORE_EXPORT XMLAttribute {
+        class XMLAttribute {
+            // Give private member access to the XMLElement
+            friend class XMLElement;
+
         private:
-            int lineNum;
             std::string name;
             std::string value;
+            int lineNum;
+
+            XMLAttribute* next;
         public:
             /**
              * TODO doc comments
              **/
-            XMLAttribute();
+            XMLAttribute(std::string attrName, std::string val, int line);
 
             /**
              * TODO doc comments
              **/
             ~XMLAttribute();
+
+            /**
+             * TODO doc comments
+             **/
+            XMLAttribute* get_next() { return next; };
 
             /**
              * TODO doc comments
@@ -296,6 +306,11 @@ namespace ORPG {
              * TODO doc comments
              **/
             const std::string get_value() { return value; };
+
+            /**
+             * TODO doc comments
+             **/
+            void set_value(std::string val) { value = val; };
 
             /**
              * @desc returns the line number of this attribute, if the document was loaded
@@ -313,7 +328,7 @@ namespace ORPG {
          *      CLOSED      i.e <foo/>
          *      CLOSING     i.e </foo>
          **/
-        enum CORE_EXPORT XMLElementClosingType {
+        enum XMLElementClosingType {
             OPEN,		// <foo>
             CLOSED,		// <foo/>
             CLOSING		// </foo>
@@ -325,17 +340,27 @@ namespace ORPG {
 	     * Elements also contain an arbitrary number of attributes.
          **/
         class XMLElement : public XMLNode {
-            // Give private member access to the XMLDocument
+            // Give private member access to these classes
             friend class XMLDocument;
+            friend class XMLNode;
 
         private:
             /**
-             * The attribute list is ordered; there is no 'last_attribute'
+             * The attribute list is ordered; there is no 'last_attribute()'
              * because the list needs to be scanned for dupes before adding
              * a new attribute.
              **/
             XMLAttribute* root;
 
+            // a const pointer to the document containing this XMLNode
+            XMLDocument* document;
+
+            /**
+             * closingType allows for canonical checking of an XMLElements tag type:
+             *      OPEN        i.e <foo>
+             *      CLOSED      i.e <foo/>
+             *      CLOSING     i.e </foo>
+             **/
             XMLElementClosingType closingType;
 
         public:
@@ -356,6 +381,16 @@ namespace ORPG {
             void set_name(std::string name) { set_value(name.c_str()); };
 
             /**
+             * @desc Adds the attribute to the list if it does not already exist. If
+             * the attribute already exists, the value is over written.
+             *
+             * @param std::string name - the name of the attribute to add
+             * @param std::string value - the value to set the attribute to
+             * @param int line - the line number of this attribute
+             **/
+            void add_attribute(std::string name, std::string value, int line);
+
+            /**
              * TODO doc comments
              **/
             const XMLElementClosingType closing_type() { return closingType; };
@@ -368,8 +403,11 @@ namespace ORPG {
 	     * If the Document is deleted, all its Nodes are also deleted.
          **/
         class CORE_EXPORT XMLDocument {
+            // Give private member access to XMLNode
+            friend class XMLNode;
         private:
-
+            XMLElement* root;
+            int currLine = 0;
         public:
             /**
              * TODO doc comments
@@ -385,11 +423,6 @@ namespace ORPG {
              * TODO doc comments
              **/
             bool load_file(std::string filename);
-
-            /**
-             * TODO doc comments
-             **/
-            XMLElement* root_element();
         };
     }
 }

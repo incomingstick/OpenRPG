@@ -6,8 +6,10 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
+#include <fstream>
 
 #include "core/xml.h"
+#include "core/utils.h"
 
 using namespace std;
 using namespace ORPG;
@@ -18,6 +20,16 @@ using namespace ORPG::Core;
  **/
 XMLNode::XMLNode(XMLDocument* doc):document(doc) {
     //TODO construction
+    parent = nullptr;
+    firstChild = nullptr;
+    lastChild = nullptr;
+    nextSib = nullptr;
+
+    lineNum = doc->currLine;
+
+    value = "";
+
+    data = nullptr;
 }
 
 XMLNode::~XMLNode() {
@@ -37,8 +49,7 @@ XMLNode::~XMLNode() {
  * @return XMLNode* - the node that was added, 0 if unsuccessful.
  **/
 XMLNode* XMLNode::insert_last_child(XMLNode* node) {
-    //TODO implementation
-    return node;
+    return insert_after_node(last_child(), node);
 }
 
 /**
@@ -54,8 +65,7 @@ XMLNode* XMLNode::insert_last_child(XMLNode* node) {
  * @return XMLNode* - the node that was added, 0 if unsuccessful.
  **/
 XMLNode* XMLNode::insert_first_child(XMLNode* node) {
-    //TODO implementation
-    return node;
+    return insert_before_node(first_child(), node);
 };
 
 /**
@@ -73,7 +83,22 @@ XMLNode* XMLNode::insert_first_child(XMLNode* node) {
  * @return XMLNode* - the node that was added, 0 if unsuccessful.
  **/
 XMLNode* XMLNode::insert_after_node(XMLNode* after, XMLNode* insert) {
-    //TODO implementation
+    if(insert == nullptr) return 0;
+    if(after == nullptr) return 0;
+
+    if(insert->get_document() != this->get_document()) return 0;
+    if(after->get_document() != this->get_document()) return 0;
+
+    if(after->nextSib == nullptr) {
+        after->nextSib = insert;
+    } else {
+        //TODO Query to ensure the node doesn't already exist
+        //Create a temporary pointer to help with the insert
+        XMLNode* tmp = after->nextSib;
+        after->nextSib = insert;
+        insert->nextSib = tmp;
+    }
+
     return insert;
 }
 
@@ -92,7 +117,22 @@ XMLNode* XMLNode::insert_after_node(XMLNode* after, XMLNode* insert) {
  * @return XMLNode* - the node that was added, 0 if unsuccessful.
  **/
 XMLNode* XMLNode::insert_before_node(XMLNode* before, XMLNode* insert) {
-    //TODO implementation
+    if(insert == nullptr) return 0;
+    if(before == nullptr) return 0;
+
+    if(insert->get_document() != this->get_document()) return 0;
+    if(before->get_document() != this->get_document()) return 0;
+
+    if(before->nextSib == nullptr) {
+        before->nextSib = insert;
+    } else {
+        //TODO Query to ensure the node doesn't already exist
+        //Create a temporary pointer to help with the insert
+        XMLNode* tmp = before->prevSib;
+        before->prevSib = insert;
+        insert->prevSib = tmp;
+    }
+
     return insert;
 }
 
@@ -115,8 +155,10 @@ void XMLNode::delete_child(XMLNode* node) {
 /**
  * TODO doc comments
  **/
-XMLAttribute::XMLAttribute() {
-    //TODO construciton
+XMLAttribute::XMLAttribute(std::string attrName, std::string val, int line):
+    name(attrName), value(val), lineNum(line) {
+    
+    next = nullptr;
 }
 
 /**
@@ -129,7 +171,7 @@ XMLAttribute::~XMLAttribute() {
 /**
  * TODO doc comments
  **/
-XMLElement::XMLElement(XMLDocument* doc) {
+XMLElement::XMLElement(XMLDocument* doc):document(doc) {
     //TODO construciton
 }
 
@@ -138,6 +180,32 @@ XMLElement::XMLElement(XMLDocument* doc) {
  **/
 XMLElement::~XMLElement() {
     //TODO destruciton
+}
+
+/**
+ * @desc Adds the attribute to the list if it does not already exist. If
+ * the attribute already exists, the value is over written.
+ *
+ * @param std::string name - the name of the attribute to add
+ * @param std::string value - the value to set the attribute to
+ * @param int line - the line number of this attribute
+ **/
+void XMLElement::add_attribute(std::string name, std::string value, int line) {
+    if(root == nullptr) {
+        root = new XMLAttribute(name, value, line);
+    } else {
+        XMLAttribute* curr = root;
+        while(curr != nullptr) {
+            if(curr->get_name() != name) {
+                curr = curr->get_next();
+            } else {
+                // found it
+                //TODO(incomingstick): update line number?
+                curr->set_value(value);
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -159,5 +227,144 @@ XMLDocument::~XMLDocument() {
  **/
 bool XMLDocument::load_file(string filename) {
     //TODO load file
+    ifstream xml(filename);
+
+    if(xml.is_open()) {
+        string buffer;
+        string tag;
+
+        XMLElementClosingType closeType;
+        XMLElement* curr = nullptr;
+
+        currLine = 0;
+
+        while(Utils::safeGetline(xml, buffer)) {
+            currLine++;
+
+            for(string::iterator ch = buffer.begin();
+                ch != buffer.end();) {
+
+                switch(*ch) {
+                    case ' ': {
+                        ch++;
+                    } break;
+
+                    // tag and tagline opened
+                    case '<': {
+                        ch++;
+
+                        closeType = XMLElementClosingType::OPEN;
+
+                        // getting the tag name here
+                        while(*ch != ' ' &&
+                              *ch != '>' &&
+                              *ch != '/' &&
+                              *ch != '=' &&
+                              ch != buffer.end()) {
+
+                            tag += *ch++;
+                        }
+                    } break;
+
+                    // tag closing
+                    case '/': {
+                        closeType = XMLElementClosingType::CLOSING;
+
+                        ch++;
+
+                        while(*ch != ' ' &&
+                              *ch != '>' &&
+                              *ch != '/' &&
+                              *ch != '=' &&
+                              ch != buffer.end()) {
+
+                            tag += *ch++;
+                        }
+
+                        if(curr != nullptr)
+                            curr = (XMLElement*)curr->get_parent();
+                        else
+                            root = curr;
+                    } break;
+
+                    // tagline closed
+                    case '>': {
+                        ch++;
+
+                        //TODO(incomingstick): figure out what is happening here
+                        if(curr != nullptr && closeType == XMLElementClosingType::OPEN) {
+                            curr->add_child(new XMLElement(this));
+                            //TODO set curr to the new child
+                        } else if(closeType == XMLElementClosingType::CLOSED) {
+                            curr = new XMLElement(this);
+                            //TODO add curr to DOM
+                        }
+
+                        closeType = XMLElementClosingType::CLOSED;
+
+                        // ignore data between tags such as <tag stuff="foo bar">BAD DATA</tag>
+                        // in that case BAD DATA is ignored
+                        while(*ch != '<' && ch != buffer.end()) {
+                            *ch++;
+                        }
+                    } break;
+
+                    case '?': {
+                        //TODO XML definition tag
+                    } break;
+
+                    // we can assume that if we reached  default, we are working with attributes
+                    default: {
+                        //first we get the attribute name
+                        string attr = "";
+                        
+                        while(*ch != ' ' &&
+                              *ch != '>' &&
+                              *ch != '/' &&
+                              *ch != '=' &&
+                              ch != buffer.end()) {
+                        
+                            attr += *ch++;
+                        }
+
+                        // this clears any whitespace until we find our first '"' 
+                        while(*ch == ' ' ||
+                              *ch == '=') {
+                            ch++;
+                        }
+
+                        // this is a sanity check to ensure proper formatting
+                        // if an incorrect format is found, we abort immediately.
+                        // TODO hangle this error reporting better
+                        if(*ch == '/' || *ch == '>' || *ch == '<') {
+                            cout << "found an unexpected " << *ch << " ";
+                            cout << "aborting parse of " << attr << endl;
+                            break;
+                        } else if(*ch == '"' || *ch != '\'') {
+                            ch++;
+                        }
+
+                        // we are now parsing attribute data
+                        string dat = "";
+                        while(*ch != '"' || *ch != '\'') {
+                            dat += *ch++;
+                        }
+
+                        // check and make sure we pop off the final " or '
+                        if(*ch == '"' || *ch != '\'') {
+                            ch++;
+                        }
+
+                        curr->add_attribute(attr, dat, currLine);
+
+                        break;
+                    }
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+
     return true;
 }
