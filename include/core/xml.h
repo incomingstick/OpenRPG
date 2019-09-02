@@ -27,6 +27,16 @@ There is NO WARRANTY, to the extent permitted by law.
  * Source 3: https://github.com/oganm/import5eChar
  **/
 
+#ifdef _WIN32
+#   define WIN32_LEAN_AND_MEAN
+#   include "core/win32.h"
+#   include "exports/core_exports.h"
+#else
+#   define CORE_EXPORT
+#endif
+
+#include <string>
+
 namespace ORPG {
     namespace Core {
         class XMLNode;
@@ -45,7 +55,7 @@ namespace ORPG {
 	     * When the XMLDocument gets deleted, all its Nodes
 	     * will also be deleted.
          **/
-        class XMLNode {
+        class CORE_EXPORT XMLNode {
             // Give private member access to the XMLDocument
             friend class XMLDocument;
 
@@ -64,7 +74,16 @@ namespace ORPG {
             void* data;
 
         public:
+            XMLNode() {};
+
+            /**
+             * TODO doc comments
+             **/
             XMLNode(XMLDocument* doc);
+
+            /**
+             * TODO doc comments
+             **/
             ~XMLNode();
 
             /**
@@ -252,16 +271,30 @@ namespace ORPG {
 	     * NOTE(incomingstick): Attributes are NOT XMLNodes. You may only query the
 	     * next() attribute in a list.
          **/
-        class XMLAttribute {
+        class CORE_EXPORT XMLAttribute {
         private:
             int lineNum;
             std::string name;
             std::string value;
         public:
+            /**
+             * TODO doc comments
+             **/
             XMLAttribute();
+
+            /**
+             * TODO doc comments
+             **/
             ~XMLAttribute();
 
+            /**
+             * TODO doc comments
+             **/
             const std::string get_name() { return name; };
+
+            /**
+             * TODO doc comments
+             **/
             const std::string get_value() { return value; };
 
             /**
@@ -280,7 +313,7 @@ namespace ORPG {
          *      CLOSED      i.e <foo/>
          *      CLOSING     i.e </foo>
          **/
-        enum XMLElementClosingType {
+        enum CORE_EXPORT XMLElementClosingType {
             OPEN,		// <foo>
             CLOSED,		// <foo/>
             CLOSING		// </foo>
@@ -306,7 +339,14 @@ namespace ORPG {
             XMLElementClosingType closingType;
 
         public:
+            /**
+             * TODO doc comments
+             **/
             XMLElement(XMLDocument* doc);
+
+            /**
+             * TODO doc comments
+             **/
             ~XMLElement();
 
             /* Get the name of an element (which is the Value() of the node.) */
@@ -315,6 +355,9 @@ namespace ORPG {
             /* Set the name of an element (which is the Value() of the node.) */
             void set_name(std::string name) { set_value(name.c_str()); };
 
+            /**
+             * TODO doc comments
+             **/
             const XMLElementClosingType closing_type() { return closingType; };
         };
 
@@ -324,15 +367,28 @@ namespace ORPG {
 	     * All Nodes are connected and allocated to a Document.
 	     * If the Document is deleted, all its Nodes are also deleted.
          **/
-        class XMLDocument {
+        class CORE_EXPORT XMLDocument {
         private:
 
         public:
+            /**
+             * TODO doc comments
+             **/
             XMLDocument();
+
+            /**
+             * TODO doc comments
+             **/
             ~XMLDocument();
 
-            void load_file();
+            /**
+             * TODO doc comments
+             **/
+            bool load_file(std::string filename);
 
+            /**
+             * TODO doc comments
+             **/
             XMLElement* root_element();
         };
     }

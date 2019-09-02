@@ -586,21 +586,13 @@ namespace ORPG {
         Character* import_character(string file) {
             if(file.empty()) return new Character;
 
-            // Open the data file to be imported
-            ifstream import_file(file);
+            // TODO(incomingstick): assess weather the file is XML or not
 
-            if (import_file.is_open()) {
-                string out = "";
-                string buffer;
+            // create the container for the XML file to be opened
+            Core::XMLDocument document;
 
-                while (Utils::safeGetline(import_file, buffer)) {
-                    out += buffer + '\n';
-                }
-
-                cout << out << endl;
-
-                // Close the data file now that is has been imported
-                import_file.close();
+            if (document.load_file(file)) {
+                
             }
             else {
                 // TODO: Raise an exception here, if an asset file

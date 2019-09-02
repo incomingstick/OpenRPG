@@ -33,7 +33,7 @@ bool SHEET_FLAG = false;
  * @param char* argv[] - the arguments passed from the command line
  * @return int - an integer code following the C/C++ standard for program success
  **/
-int parse_args(int argc, char* argv[]) {
+int parse_args(int argc, char* argv[], Character* &character) {
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -68,9 +68,9 @@ int parse_args(int argc, char* argv[]) {
         case 'i': {
             if(Core::optind == argc) {
                 cout << "Importing... " << Core::optarg << endl;
+
                 //TODO(incomingstick): import a character sheet from a file given the provided path
-                auto character = import_character((string)Core::optarg);
-                exit(EXIT_SUCCESS);
+                character = import_character((string)Core::optarg);
             } else {
                 fprintf(stderr, "Error: invalid number of args (expects 1)\n");
                 Core::print_help_flag();
@@ -125,30 +125,35 @@ int parse_args(int argc, char* argv[]) {
  * @return int - an integer code following the C/C++ standard for program success
  **/
 int main(int argc, char* argv[]) {
-    int status = parse_args(argc, argv); // may exit
+    Character* character = nullptr;
+    int status = parse_args(argc, argv, character); // may exit
 
-    /* begin creating the character here */
-    RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
+    if(character == nullptr) {
+        /* begin creating the character here */
+        RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
-    auto race       = RANDOM_FLAG ? new_random_race() : request_race();
-    //TODO(incomingstick): randomly generate ability scores, not an empty set
-    auto scores     = RANDOM_FLAG ? new AbilityScores : request_scores();
-    auto bg         = RANDOM_FLAG ? random_bg_id() : request_background();
-    auto charClass  = RANDOM_FLAG ? new_random_character_class() : request_class();
-    auto skills     = RANDOM_FLAG ? new Skills : request_skills();
-    auto hp         = RANDOM_FLAG ? true : request_hitpoints(charClass);
-    auto equipment  = RANDOM_FLAG ? true : request_equipment();
-    auto name       = RANDOM_FLAG ? "" : request_name();
+        auto race       = RANDOM_FLAG ? new_random_race() : request_race();
+        //TODO(incomingstick): randomly generate ability scores, not an empty set
+        auto scores     = RANDOM_FLAG ? new AbilityScores : request_scores();
+        auto bg         = RANDOM_FLAG ? random_bg_id() : request_background();
+        auto charClass  = RANDOM_FLAG ? new_random_character_class() : request_class();
+        auto skills     = RANDOM_FLAG ? new Skills : request_skills();
+        auto hp         = RANDOM_FLAG ? true : request_hitpoints(charClass);
+        auto equipment  = RANDOM_FLAG ? true : request_equipment();
+        auto name       = RANDOM_FLAG ? "" : request_name();
 
-    /* IMPORTANT(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
-    auto character = new Character(race, scores, charClass, bg, skills, name);
+        /* IMPORTANT(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
+        character = new Character(race, scores, charClass, bg, skills, name);
 
-    if(hp && equipment) {
+        if(!hp && !equipment) {
+            status = EXIT_FAILURE;
+        }
+    }
+
+    if(status != EXIT_FAILURE) {
         SHEET_FLAG ? 
             printf("%s", character->to_ascii_sheet().c_str()) :
             printf("%s", character->to_string().c_str());
-    } else {
-        status = EXIT_FAILURE;
     }
 
     return status;
