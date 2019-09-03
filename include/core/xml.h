@@ -137,7 +137,7 @@ namespace ORPG {
              *
              * @return XMLNode* - a pointer to the last child node of this XMLNode
              **/
-            XMLNode* last_child() { return firstChild; };
+            XMLNode* last_child() { return lastChild; };
 
             /**
              * @desc adds a node into the document as the last child

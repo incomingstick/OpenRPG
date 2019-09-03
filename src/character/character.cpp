@@ -585,7 +585,7 @@ namespace ORPG {
         Character* import_character(string file) {
             if(file.empty()) return new Character;
 
-            // TODO(incomingstick): assess whether the file is XML or not
+            // TODO(incomingstick): check whether the file is XML or not
 
             // create the container for the XML file to be opened
             Core::XMLDocument document;

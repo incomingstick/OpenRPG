@@ -91,13 +91,17 @@ XMLNode* XMLNode::insert_after_node(XMLNode* after, XMLNode* insert) {
 
     if(after->nextSib == nullptr) {
         after->nextSib = insert;
+        insert->prevSib = after;
     } else {
         //TODO Query to ensure the node doesn't already exist
         //Create a temporary pointer to help with the insert
         XMLNode* tmp = after->nextSib;
         after->nextSib = insert;
         insert->nextSib = tmp;
+        insert->prevSib = after;
     }
+
+    insert->parent = this;
 
     return insert;
 }
@@ -171,7 +175,7 @@ XMLAttribute::~XMLAttribute() {
 /**
  * TODO doc comments
  **/
-XMLElement::XMLElement(XMLDocument* doc):document(doc) {
+XMLElement::XMLElement(XMLDocument* doc):XMLNode(doc) {
     //TODO construciton
     root = nullptr;
 }
@@ -198,6 +202,13 @@ void XMLElement::add_attribute(std::string name, std::string value, int line) {
         XMLAttribute* curr = root;
         while(curr != nullptr) {
             if(curr->get_name() != name) {
+                // we made it to the end of the attribute list and did not find
+                // a match, so lets add it to the list
+                if(curr->get_next() == nullptr) {
+                    curr->next = new XMLAttribute(name, value, line);
+                    break;
+                }
+
                 curr = curr->get_next();
             } else {
                 // found it
@@ -233,14 +244,15 @@ bool XMLDocument::load_file(string filename) {
 
     if(xml.is_open()) {
         string buffer;
-        string tag;
 
         XMLElementClosingType closeType;
-        XMLElement* curr = root;
+        XMLElement* currElement = root;
 
         currLine = 0;
 
         while(Utils::safeGetline(xml, buffer)) {
+            string tag = "";
+
             currLine++;
 
             for(string::iterator ch = buffer.begin();
@@ -255,20 +267,22 @@ bool XMLDocument::load_file(string filename) {
                     case '<': {
                         ch++;
 
-                        if(curr == nullptr) curr = new XMLElement(this);
+                        if(currElement == nullptr) currElement = new XMLElement(this);
 
                         closeType = XMLElementClosingType::OPEN;
 
                         // getting the tag name here
-                        while(*ch != ' ' &&
-                              *ch != '>' &&
-                              *ch != '/' &&
-                              *ch != '=' &&
-                              *ch != '?' &&
-                              ch != buffer.end()) {
+                        while(ch != buffer.end() &&
+                                *ch != ' ' &&
+                                *ch != '>' &&
+                                *ch != '/' &&
+                                *ch != '=' &&
+                                *ch != '?') {
 
                             tag += *ch++;
                         }
+
+                        if(!tag.empty()) currElement->set_name(tag);
                     } break;
 
                     // tag closing
@@ -277,20 +291,21 @@ bool XMLDocument::load_file(string filename) {
 
                         ch++;
 
-                        while(*ch != ' ' &&
-                              *ch != '>' &&
-                              *ch != '/' &&
-                              *ch != '=' &&
-                              *ch != '?' &&
-                              ch != buffer.end()) {
+                        // getting the tag name here
+                        while(ch != buffer.end() &&
+                                *ch != ' ' &&
+                                *ch != '>' &&
+                                *ch != '/' &&
+                                *ch != '=' &&
+                                *ch != '?') {
 
                             tag += *ch++;
                         }
 
-                        if(curr != nullptr)
-                            curr = (XMLElement*)curr->get_parent();
+                        if(currElement != nullptr)
+                            currElement = (XMLElement*)currElement->get_parent();
                         else
-                            root = curr;
+                            root = currElement;
                     } break;
 
                     // tagline closed
@@ -298,21 +313,25 @@ bool XMLDocument::load_file(string filename) {
                         ch++;
 
                         //TODO(incomingstick): figure out what is happening here
-                        if(curr != nullptr && closeType == XMLElementClosingType::OPEN) {
-                            curr->add_child(new XMLElement(this));
+                        if(currElement != nullptr && closeType == XMLElementClosingType::OPEN) {
+                            currElement->add_child(new XMLElement(this));
                             //TODO set curr to the new child
+
+                            if(root == nullptr) root = currElement;
                         } else if(closeType == XMLElementClosingType::CLOSED) {
-                            curr = new XMLElement(this);
+                            currElement = new XMLElement(this);
                             //TODO add curr to DOM
                         }
 
                         closeType = XMLElementClosingType::CLOSED;
 
-                        // ignore data between tags such as <tag stuff="foo bar">BAD DATA</tag>
-                        // in that case BAD DATA is ignored
-                        while(*ch != '<' && ch != buffer.end()) {
+                        // ignore data between tags such as <tag stuff="foo bar">DATA</tag>
+                        // in that case DATA is added to the currElements data pointer
+                        while(ch != buffer.end() && *ch != '<') {
                             *ch++;
                         }
+
+                        currElement = (XMLElement*)currElement->first_child();
                     } break;
 
                     // XML definition tag found
@@ -320,15 +339,17 @@ bool XMLDocument::load_file(string filename) {
                         *ch++;
 
                         // getting the tag name here
-                        while(*ch != ' ' &&
-                              *ch != '>' &&
-                              *ch != '/' &&
-                              *ch != '=' &&
-                              *ch != '?' &&
-                              ch != buffer.end()) {
+                        while(ch != buffer.end() &&
+                                *ch != ' ' &&
+                                *ch != '>' &&
+                                *ch != '/' &&
+                                *ch != '=' &&
+                                *ch != '?') {
 
                             tag += *ch++;
                         }
+
+                        if(!tag.empty()) currElement->set_name(tag);
                     } break;
 
                     // we can assume that if we reached  default, we are working with attributes
@@ -336,12 +357,13 @@ bool XMLDocument::load_file(string filename) {
                         //first we get the attribute name
                         string attr = "";
                         
-                        while(*ch != ' ' &&
-                              *ch != '>' &&
-                              *ch != '/' &&
-                              *ch != '=' &&
-                              *ch != '?' &&
-                              ch != buffer.end()) {
+                        // getting the attribute name here
+                        while(ch != buffer.end() &&
+                                *ch != ' ' &&
+                                *ch != '>' &&
+                                *ch != '/' &&
+                                *ch != '=' &&
+                                *ch != '?') {
                         
                             attr += *ch++;
                         }
@@ -363,8 +385,6 @@ bool XMLDocument::load_file(string filename) {
                             ch++;
                         }
 
-                        curr->set_name(attr);
-
                         // we are now parsing attribute data
                         string dat = "";
 
@@ -373,11 +393,11 @@ bool XMLDocument::load_file(string filename) {
                         }
 
                         // check and make sure we pop off the final " or '
-                        if(*ch == '"' || *ch != APOSTROPHE) {
+                        if(*ch == '"' || *ch == APOSTROPHE) {
                             ch++;
                         }
 
-                        curr->add_attribute(attr, dat, currLine);
+                        currElement->add_attribute(attr, dat, currLine);
 
                         break;
                     }
