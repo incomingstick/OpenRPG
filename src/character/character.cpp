@@ -6,7 +6,6 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
-#include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -586,17 +585,16 @@ namespace ORPG {
         Character* import_character(string file) {
             if(file.empty()) return new Character;
 
-            // TODO(incomingstick): assess weather the file is XML or not
+            // TODO(incomingstick): assess whether the file is XML or not
 
             // create the container for the XML file to be opened
             Core::XMLDocument document;
 
             if (document.load_file(file)) {
-                
-            }
-            else {
-                // TODO: Raise an exception here, if an asset file
-                // cannot be opened then something serious has gone wrong.
+                //TODO: create a character based on the imported XML file
+            } else {
+                /* TODO: Raise an exception here, if an asset file
+                 cannot be opened then something serious has gone wrong. */
             }
 
             return new Character();

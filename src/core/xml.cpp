@@ -173,6 +173,7 @@ XMLAttribute::~XMLAttribute() {
  **/
 XMLElement::XMLElement(XMLDocument* doc):document(doc) {
     //TODO construciton
+    root = nullptr;
 }
 
 /**
@@ -213,6 +214,7 @@ void XMLElement::add_attribute(std::string name, std::string value, int line) {
  **/
 XMLDocument::XMLDocument() {
     //TODO construciton
+    root = nullptr;
 }
 
 /**
@@ -234,7 +236,7 @@ bool XMLDocument::load_file(string filename) {
         string tag;
 
         XMLElementClosingType closeType;
-        XMLElement* curr = nullptr;
+        XMLElement* curr = root;
 
         currLine = 0;
 
@@ -253,6 +255,8 @@ bool XMLDocument::load_file(string filename) {
                     case '<': {
                         ch++;
 
+                        if(curr == nullptr) curr = new XMLElement(this);
+
                         closeType = XMLElementClosingType::OPEN;
 
                         // getting the tag name here
@@ -260,6 +264,7 @@ bool XMLDocument::load_file(string filename) {
                               *ch != '>' &&
                               *ch != '/' &&
                               *ch != '=' &&
+                              *ch != '?' &&
                               ch != buffer.end()) {
 
                             tag += *ch++;
@@ -276,6 +281,7 @@ bool XMLDocument::load_file(string filename) {
                               *ch != '>' &&
                               *ch != '/' &&
                               *ch != '=' &&
+                              *ch != '?' &&
                               ch != buffer.end()) {
 
                             tag += *ch++;
@@ -309,8 +315,20 @@ bool XMLDocument::load_file(string filename) {
                         }
                     } break;
 
+                    // XML definition tag found
                     case '?': {
-                        //TODO XML definition tag
+                        *ch++;
+
+                        // getting the tag name here
+                        while(*ch != ' ' &&
+                              *ch != '>' &&
+                              *ch != '/' &&
+                              *ch != '=' &&
+                              *ch != '?' &&
+                              ch != buffer.end()) {
+
+                            tag += *ch++;
+                        }
                     } break;
 
                     // we can assume that if we reached  default, we are working with attributes
@@ -322,6 +340,7 @@ bool XMLDocument::load_file(string filename) {
                               *ch != '>' &&
                               *ch != '/' &&
                               *ch != '=' &&
+                              *ch != '?' &&
                               ch != buffer.end()) {
                         
                             attr += *ch++;
@@ -340,18 +359,21 @@ bool XMLDocument::load_file(string filename) {
                             cout << "found an unexpected " << *ch << " ";
                             cout << "aborting parse of " << attr << endl;
                             break;
-                        } else if(*ch == '"' || *ch != '\'') {
+                        } else if(*ch == '"' || *ch == APOSTROPHE) {
                             ch++;
                         }
 
+                        curr->set_name(attr);
+
                         // we are now parsing attribute data
                         string dat = "";
-                        while(*ch != '"' || *ch != '\'') {
+
+                        while(*ch != '"' && *ch != APOSTROPHE) {
                             dat += *ch++;
                         }
 
                         // check and make sure we pop off the final " or '
-                        if(*ch == '"' || *ch != '\'') {
+                        if(*ch == '"' || *ch != APOSTROPHE) {
                             ch++;
                         }
 

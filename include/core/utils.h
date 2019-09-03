@@ -26,6 +26,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define ERROR_CODE      1
 
 // Any useful keycodes go here
+#define APOSTROPHE  39
 #define KEY_UP      72
 #define KEY_DOWN    80
 #define KEY_LEFT    75
