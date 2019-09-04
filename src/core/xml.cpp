@@ -23,6 +23,7 @@ XMLNode::XMLNode(XMLDocument* doc):document(doc) {
     parent = nullptr;
     firstChild = nullptr;
     lastChild = nullptr;
+    prevSib = nullptr;
     nextSib = nullptr;
 
     lineNum = doc->currLine;
@@ -32,8 +33,37 @@ XMLNode::XMLNode(XMLDocument* doc):document(doc) {
     data = nullptr;
 }
 
+/**
+ * TODO doc comments
+ **/
 XMLNode::~XMLNode() {
     //TODO destruction
+};
+
+/**
+ * @desc adds a node into the document as the last child
+ * of this XMLNode. It will return the node argument if sucessful,
+ * otherwise it will return 0. Calling this function is effectively
+ * the same as calling insert_last_child()
+ *
+ * NOTE(incomingstick): the XMLNode will not be inserted if it is not
+ * a member of this XMLDocument.
+ *
+ * @param XMLNode* node - a pointer to the XMLNode to be added
+ *
+ * @return XMLNode* - the node that was added, 0 if unsuccessful.
+ **/
+XMLNode* XMLNode::add_child(XMLNode* node) {
+    if(last_child() == nullptr &&
+       first_child() == nullptr &&
+       node->document == document) {
+        node->parent = this;
+        firstChild = node;
+        lastChild = node;
+        return node;
+    }
+
+    return insert_last_child(node);
 };
 
 /**
@@ -92,6 +122,10 @@ XMLNode* XMLNode::insert_after_node(XMLNode* after, XMLNode* insert) {
     if(after->nextSib == nullptr) {
         after->nextSib = insert;
         insert->prevSib = after;
+
+        if(this->lastChild == after) {
+            this->lastChild = insert;
+        }
     } else {
         //TODO Query to ensure the node doesn't already exist
         //Create a temporary pointer to help with the insert
@@ -99,6 +133,7 @@ XMLNode* XMLNode::insert_after_node(XMLNode* after, XMLNode* insert) {
         after->nextSib = insert;
         insert->nextSib = tmp;
         insert->prevSib = after;
+        tmp->prevSib = insert;
     }
 
     insert->parent = this;
@@ -250,15 +285,18 @@ bool XMLDocument::load_file(string filename) {
 
         currLine = 0;
 
+        // begin parsing the XML document one line at a time
         while(Utils::safeGetline(xml, buffer)) {
             string tag = "";
 
             currLine++;
 
+            // parse each individual character to catch special characters
             for(string::iterator ch = buffer.begin();
                 ch != buffer.end();) {
 
                 switch(*ch) {
+                    // ignore whitespace
                     case ' ': {
                         ch++;
                     } break;
@@ -282,13 +320,12 @@ bool XMLDocument::load_file(string filename) {
                             tag += *ch++;
                         }
 
+                        //FIXME if we are a "parent" here, we overwrite our name...
                         if(!tag.empty()) currElement->set_name(tag);
                     } break;
 
                     // tag closing
                     case '/': {
-                        closeType = XMLElementClosingType::CLOSING;
-
                         ch++;
 
                         // getting the tag name here
@@ -302,36 +339,42 @@ bool XMLDocument::load_file(string filename) {
                             tag += *ch++;
                         }
 
-                        if(currElement != nullptr)
-                            currElement = (XMLElement*)currElement->get_parent();
-                        else
-                            root = currElement;
+                        //FIXME(incomingstick): this is a very rudimentary way of doing this
+                        if(tag == ((XMLElement*)currElement->get_parent())->get_name()) {
+                            closeType = XMLElementClosingType::CLOSING;
+                        } else {
+                            closeType = XMLElementClosingType::CLOSED;
+                        }
                     } break;
 
                     // tagline closed
                     case '>': {
                         ch++;
 
-                        //TODO(incomingstick): figure out what is happening here
+                        /* ignore data between tags such as <tag stuff="foo bar">DATA</tag>
+                          in that case DATA is added to the currElements data pointer */
+                        /* TODO store this data */
+                        string data = "";
+
+                        while(ch != buffer.end() && *ch != '<') {
+                            data += *ch++;
+                        }
+
+                        currElement->set_data((void*)data.c_str());
+
                         if(currElement != nullptr && closeType == XMLElementClosingType::OPEN) {
                             currElement->add_child(new XMLElement(this));
-                            //TODO set curr to the new child
 
                             if(root == nullptr) root = currElement;
+
+                            currElement = (XMLElement*)currElement->first_child();
+                        } else if(closeType == XMLElementClosingType::CLOSING) {
+                            currElement = (XMLElement*)currElement->get_parent();
                         } else if(closeType == XMLElementClosingType::CLOSED) {
-                            currElement = new XMLElement(this);
-                            //TODO add curr to DOM
+                            currElement = (XMLElement*)currElement->get_parent();
                         }
 
-                        closeType = XMLElementClosingType::CLOSED;
-
-                        // ignore data between tags such as <tag stuff="foo bar">DATA</tag>
-                        // in that case DATA is added to the currElements data pointer
-                        while(ch != buffer.end() && *ch != '<') {
-                            *ch++;
-                        }
-
-                        currElement = (XMLElement*)currElement->first_child();
+                        tag = "";
                     } break;
 
                     // XML definition tag found
@@ -348,6 +391,9 @@ bool XMLDocument::load_file(string filename) {
 
                             tag += *ch++;
                         }
+
+                        /* NOTE(incomingstick): tag == "xml" should be true here,
+                            is this something we should enforce? Will it ever matter? */
 
                         if(!tag.empty()) currElement->set_name(tag);
                     } break;
@@ -376,7 +422,7 @@ bool XMLDocument::load_file(string filename) {
 
                         // this is a sanity check to ensure proper formatting
                         // if an incorrect format is found, we abort immediately.
-                        // TODO hangle this error reporting better
+                        // TODO handle this error reporting better
                         if(*ch == '/' || *ch == '>' || *ch == '<') {
                             cout << "found an unexpected " << *ch << " ";
                             cout << "aborting parse of " << attr << endl;

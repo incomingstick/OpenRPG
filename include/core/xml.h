@@ -152,7 +152,7 @@ namespace ORPG {
              *
              * @return XMLNode* - the node that was added, 0 if unsuccessful.
              **/
-            XMLNode* add_child(XMLNode* node) { return insert_last_child(node); };
+            XMLNode* add_child(XMLNode* node);
 
             /**
              * @desc inserts a node into the document as the last child
@@ -351,9 +351,6 @@ namespace ORPG {
              * a new attribute.
              **/
             XMLAttribute* root;
-
-            // a const pointer to the document containing this XMLNode
-            XMLDocument* document;
 
             /**
              * closingType allows for canonical checking of an XMLElements tag type:
