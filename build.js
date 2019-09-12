@@ -10,7 +10,7 @@ if (os.type() === 'Linux')
 else if (os.type() === 'Darwin') 
    build = spaw("./build.sh"); 
 else if (os.type() === 'Windows_NT') 
-   build = spawn("./build.bat");
+   build = spawn("build.bat");
 else
    throw new Error("Unsupported OS found: " + os.type());
 
