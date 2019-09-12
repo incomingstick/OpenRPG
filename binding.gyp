@@ -9,7 +9,7 @@
         "conditions": [
           ["OS=='linux'", {
             "libraries": [
-              "<(module_root_dir)/build/lib/roll-parser"
+              "<(module_root_dir)/build/lib/openrpg/libroll-parser.so"
             ]
           }],
           ["OS=='win'", {
