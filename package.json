@@ -8,6 +8,7 @@
     "unix-rebuild": "build.sh rebuild",
     "windows-build": "build.bat",
     "windows-rebuild": "build.bat rebuild",
+    "clean": "node-gyp clean",
     "install": "node-gyp configure build --verbose"
   },
   "gypfile": true,
