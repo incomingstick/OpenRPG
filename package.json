@@ -3,11 +3,12 @@
   "version": "0.5.9",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
+    "preinstall": "node build.js",
     "unix-build": "build.sh",
     "unix-rebuild": "build.sh rebuild",
     "windows-build": "build.bat",
     "windows-rebuild": "build.bat rebuild",
-    "install": "cmake-js build"
+    "install": "node-gyp configure build --verbose"
   },
   "gypfile": true,
   "bin": {
