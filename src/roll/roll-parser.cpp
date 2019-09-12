@@ -463,7 +463,7 @@ namespace ORPG {
     }
 
     // TODO ensure integrity of this string before
-    static bool is_expression_valid(const std::string exp) {
+    bool ExpressionTree::is_expression_valid(const std::string exp) {
         return true;
     }
 

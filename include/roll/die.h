@@ -22,7 +22,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 namespace ORPG {
     class ROLL_PARSER_EXPORT Die {
-        private:
+        protected:
             const int MAX = 20;
         public:
             Die(int max):MAX(

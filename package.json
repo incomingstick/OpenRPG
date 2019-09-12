@@ -1,0 +1,32 @@
+{
+  "name": "openrpg-libs-test",
+  "version": "0.5.9",
+  "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
+  "scripts": {
+    "unix-build": "build.sh",
+    "unix-rebuild": "build.sh rebuild",
+    "windows-build": "build.bat",
+    "windows-rebuild": "build.bat rebuild",
+    "install": "cmake-js build"
+  },
+  "gypfile": true,
+  "bin": {
+    "roll": "build/Release/roll.node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/incomingstick/OpenRPG.git"
+  },
+  "author": "Nick Gaulke",
+  "license": "OSL",
+  "bugs": {
+    "url": "https://github.com/incomingstick/OpenRPG/issues"
+  },
+  "homepage": "https://openrpg.io",
+  "dependencies": {
+    "cmake-js": "^5.3.2"
+  },
+  "devDependencies": {
+    "node-gyp": "^5.0.3"
+  }
+}

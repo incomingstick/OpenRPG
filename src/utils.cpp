@@ -103,6 +103,9 @@ namespace ORPG {
                 "See 'man openrpg' for more information [TODO add man pages].\n",
                 stdout);
         }
+
+        bool VB_FLAG = false;
+        bool QUIET_FLAG = false;
     }
 }
 

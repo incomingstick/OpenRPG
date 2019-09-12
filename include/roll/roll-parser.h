@@ -92,7 +92,7 @@ namespace ORPG {
          */
         std::string to_string() { return tree_string(head, 0); };
 
-        static bool is_exppression_valid(const std::string exp);
+        static bool is_expression_valid(const std::string exp);
     };
 }
 
