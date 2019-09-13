@@ -8,7 +8,7 @@ var os = require('os');
 if (os.type() === 'Linux') 
    build = spawn("./build.sh"); 
 else if (os.type() === 'Darwin') 
-   build = spaw("./build.sh"); 
+   build = spawn("./build.sh"); 
 else if (os.type() === 'Windows_NT') 
    build = spawn("build.bat");
 else
