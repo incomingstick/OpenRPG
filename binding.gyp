@@ -14,14 +14,15 @@
           }],
           ["OS=='win'", {
             "libraries": [
-              "<(module_root_dir)/build/lib/Debug/roll-parser"
+              "<(module_root_dir)/build/lib/Release/roll-parser.lib",
+              "<(module_root_dir)/build/lib/Release/roll-parser.exp"
             ]
           }]
         ],
       },
       "sources": [ 
-        "wrappers/roll/rollAddon.cpp",
-        "wrappers/roll/rollWrapper.cpp"
+        "<(module_root_dir)/wrappers/roll/rollAddon.cpp",
+        "<(module_root_dir)/wrappers/roll/rollWrapper.cpp"
       ]
     }
   ]

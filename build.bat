@@ -1,6 +1,7 @@
 @echo off
 
 set buildVars=
+set buildType=Debug
 
 if "%1" == "help"   goto notYetSupported
 if "%1" == "/h"     goto notYetSupported
@@ -9,7 +10,7 @@ if "%1" == "clean"      goto cleanBuild
 if "%1" == "rebuild"    goto cleanBuild
 if "%1" == "install"    goto cleanBuild
 if "%2" == "install"    goto cleanBuild
-goto startBuild
+goto checkBuild
 
 :cleanBuild (
     if exist build/ (
@@ -23,6 +24,7 @@ goto startBuild
     if "%1" == "clean" goto commonExit
 )
 
+:checkBuild
 if "%1" == "release"    goto setReleaseBuild
 if "%2" == "release"    goto setReleaseBuild
 if "%1" == "install"    goto setReleaseBuild
@@ -31,6 +33,8 @@ goto startBuild
 
 :setReleaseBuild
 set buildVars=%buildVars% -DCMAKE_BUILD_TYPE=RELEASE
+set buildType=Release
+
 
 :startBuild
 WHERE cmake
@@ -48,7 +52,7 @@ if exist build/ (
     if %ERRORLEVEL% neq 0 goto msbuildMissing
 
     :msbuildFound
-    msbuild OpenRPG.sln
+    msbuild OpenRPG.sln /property:Configuration=%buildType%
 
     popd
     goto commonExit
