@@ -1,20 +1,20 @@
 {
   "targets": [
-    {
-      'target_name': 'prebuild',
-      'type': 'none',
-      'actions': [
-        {
-          'action_name': 'build_core',
-          'message': 'Building ORPG Core...',
-          'inputs': [''],
-          'outputs': [''],
-          "action": [
-            "cd <(module_root_dir) && node build.js && cd build/"
-          ]
-        },
-      ],
-    },
+    # {
+    #   'target_name': 'prebuild',
+    #   'type': 'none',
+    #   'actions': [
+    #     {
+    #       'action_name': 'build_core',
+    #       'message': 'Building ORPG Core...',
+    #       'inputs': [''],
+    #       'outputs': [''],
+    #       "action": [
+    #         "cd <(module_root_dir) && node build.js && cd build/"
+    #       ]
+    #     },
+    #   ],
+    # },
     {
       "target_name": "roll",
       "include_dirs": [
