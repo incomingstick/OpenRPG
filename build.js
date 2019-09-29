@@ -5,12 +5,16 @@ var os = require('os');
 //control OS
 //then run command depengin on the OS
 
+// ignore 'node' and 'build.js' and get all following args
+// these args get passed to the build scripts
+var args = process.argv.slice(2);
+
 if (os.type() === 'Linux') 
-   build = spawn("./build.sh", ['release']); 
+   build = spawn("./build.sh", args); 
 else if (os.type() === 'Darwin') 
-   build = spawn("./build.sh", ['release']); 
+   build = spawn("./build.sh", args); 
 else if (os.type() === 'Windows_NT') 
-   build = spawn("build.bat", ['release']);
+   build = spawn("build.bat", args);
 else
    throw new Error("Unsupported OS found: " + os.type());
 
