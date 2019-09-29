@@ -10,7 +10,7 @@
           'inputs': [''],
           'outputs': [''],
           "action": [
-            "cd <(module_root_dir) && node build.js && cd build/"
+            "npm run release-build"
           ]
         },
       ],

@@ -1,12 +1,11 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
-    "preinstall": "npm run release-build",
     "build": "node build.js",
     "rebuild": "node build.js rebuild",
-    "release-build": "node build.js rebuild release",
+    "release-build": "node build.js release",
     "clean": "node build.js clean",
     "install": "node-gyp configure build --verbose"
   },
