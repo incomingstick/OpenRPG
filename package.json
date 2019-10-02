@@ -1,6 +1,6 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "build": "node build.js",
@@ -10,8 +10,11 @@
     "gyp": "node-gyp configure build --verbose",
     "install": "cmake-js build --verbose"
   },
-  "gypfile": true,
   "main": "wrappers/export.js",
+  "cmake-js": {
+    "runtime": "electron",
+    "runtimeVersion": "6.0.11"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/incomingstick/OpenRPG.git"
