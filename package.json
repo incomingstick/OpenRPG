@@ -1,6 +1,6 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "build": "node build.js",
@@ -22,9 +22,10 @@
     "url": "https://github.com/incomingstick/OpenRPG/issues"
   },
   "homepage": "https://openrpg.io",
-  "dependencies": {},
+  "dependencies": {
+    "cmake-js": "^6.0.0"
+  },
   "devDependencies": {
-    "cmake-js": "^6.0.0",
     "node-gyp": "^5.0.4"
   }
 }
