@@ -33,6 +33,10 @@ if(NOT CMAKE_BUILD_TYPE)
         "DEBUG" "RELEASE")
 endif()
 
+if(CMAKE_BUILD_TYPE MATCHES Release)
+    set(CMAKE_BUILD_TYPE RELEASE)
+endif()
+
 if(UNIX)
     set(LIB_INSTALL_DIR lib/openrpg)
 else()
@@ -84,13 +88,17 @@ message(STATUS "INCLUDE_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/include/openrpg)
 message(STATUS "DATA_INSTALL_DIR:\t" ${DATA_INSTALL_DIR})
 message(STATUS "LIB_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 
-# message( FATAL_ERROR "Exiting.." )
-
 # source directories
 include_directories("include/")
 
 # source code directory with CMakeLists.txt
 add_subdirectory("src/")
+
+# if we are being called for node we need to build the wrapper
+if (CMAKE_JS_VERSION)
+    include_directories(${CMAKE_JS_INC})
+    add_subdirectory("wrappers/")
+endif()
 
 # configure a header file to pass some of the CMake settings
 # to the source code

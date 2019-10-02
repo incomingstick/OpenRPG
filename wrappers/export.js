@@ -1,3 +1,3 @@
-const libroll = require('../build/Release/roll');
+const libroll = require('../build/Release/rollAddon');
 
 module.exports = libroll;
