@@ -7,18 +7,17 @@ var path = require('path');
  * Linux and macOS: ../build/lib/openrpg/
  **/
 let prefix;
-var appDir = path.dirname(require.main.filename);
+const appDir = path.dirname(__dirname);
 
 if (os.type() === 'Linux' || os.type() === 'Darwin') {
-    prefix = path.join(appDir, '../build/lib/openrpg/');
-}
-else if (os.type() === 'Windows_NT') {
+    prefix = path.join(appDir, '/build/lib/openrpg/');
+} else if (os.type() === 'Windows_NT') {
     const fs = require("fs");
 
-    if (fs.existsSync(path.join(appDir, '../build/Debug/'))) {
-        prefix = path.join(appDir, '../build/Debug/');
+    if (fs.existsSync(path.join(appDir, '/build/Debug/'))) {
+        prefix = path.join(appDir, '/build/Debug/');
     } else
-        prefix = path.join(appDir, '../build/Release/');
+        prefix = path.join(appDir, '/build/Release/');
 
 } else
    throw new Error("Unsupported OS found: " + os.type());
