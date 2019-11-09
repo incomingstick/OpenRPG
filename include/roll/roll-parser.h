@@ -90,7 +90,13 @@ namespace ORPG {
          *     the top node node and taking precidence over the left node
          * @return string - a string representation of the current tree
          */
-        std::string to_string() { return tree_string(head, 0); };
+        std::string to_string() { 
+            if(head->op == 0) {
+                return "expression not yet set";
+            }
+
+            return tree_string(head, 0); 
+        };
 
         static bool is_expression_valid(const std::string exp);
     };

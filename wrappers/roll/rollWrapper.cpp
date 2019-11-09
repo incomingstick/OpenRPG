@@ -114,6 +114,7 @@ namespace ORPGGUI {
         if (args.IsConstructCall()) {
             // Invoked as constructor: `new ExpressionTreeWrapper(...)`
             ExpressionTreeWrapper* obj = new ExpressionTreeWrapper();
+            wrappedTree = ExpressionTree();
             obj->Wrap(args.This());
             args.GetReturnValue().Set(args.This());
         } else {
@@ -155,7 +156,9 @@ namespace ORPGGUI {
     void ExpressionTreeWrapper::to_string(const v8::FunctionCallbackInfo<v8::Value>& args) {
         Isolate* isolate = args.GetIsolate();
 
-        const char*  str = wrappedTree.to_string().c_str();
+        auto treeString = wrappedTree.to_string();
+
+        const char*  str = treeString.c_str();
 
         args.GetReturnValue().Set(String::NewFromUtf8(isolate, str, NewStringType::kNormal).ToLocalChecked());
     }

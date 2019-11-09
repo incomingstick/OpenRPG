@@ -1,4 +1,5 @@
 var os = require('os');
+var path = require('path');
 
 /**
  * define the location to import the node addon wrappers from
@@ -6,16 +7,22 @@ var os = require('os');
  * Linux and macOS: ../build/lib/openrpg/
  **/
 let prefix;
+var appDir = path.dirname(require.main.filename);
 
 if (os.type() === 'Linux' || os.type() === 'Darwin') {
-    prefix = '../build/lib/openrpg/';
+    prefix = path.join(appDir, '../build/lib/openrpg/');
 }
 else if (os.type() === 'Windows_NT') {
-    prefix = '../build/Release/';
-}
-else
-   throw new Error("Unsupported OS found: " + os.type());
+    const fs = require("fs");
 
+    if (fs.existsSync(path.join(appDir, '../build/Release/'))) {
+        prefix = path.join(appDir, '../build/Release/');
+    } else if (fs.existsSync(path.join(appDir, '../build/Debug/'))) {
+        prefix = path.join(appDir, '../build/Debug/');
+    }
+
+} else
+   throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
 const libroll = require(prefix + 'rollAddon');

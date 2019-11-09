@@ -74,13 +74,13 @@ set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # used to pass the location to use for data into config.h.in
-if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE MATCHES DEBUG)
-    set(DATA_INSTALL_DIR ${DATA})
-# better conform to Linux filesystem standards
-elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
+# conform to Linux filesystem standards
+if(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
     set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/openrpg)
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND (MSVC OR WIN32))
     set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/data)
+else()
+    set(DATA_INSTALL_DIR ${DATA})
 endif()
 
 

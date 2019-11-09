@@ -1,19 +1,20 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
-    "build": "node build.js",
-    "rebuild": "node build.js rebuild",
-    "release-build": "node build.js release",
-    "clean": "node build.js clean",
-    "gyp": "node-gyp configure build --verbose",
+    "start": "node wrappers/export.js",
+    "build": "cmake-js build --debug --verbose",
+    "rebuild": "cmake-js rebuild --debug --verbose",
+    "clean": "cmake-js clean --verbose",
+    "build:core": "node build.js",
+    "release:core": "node build.js release",
     "install": "cmake-js build --verbose"
   },
   "main": "wrappers/export.js",
   "cmake-js": {
     "runtime": "electron",
-    "runtimeVersion": "6.0.11"
+    "runtimeVersion": "6.1.4"
   },
   "repository": {
     "type": "git",
