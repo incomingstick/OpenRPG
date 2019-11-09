@@ -15,11 +15,10 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
 else if (os.type() === 'Windows_NT') {
     const fs = require("fs");
 
-    if (fs.existsSync(path.join(appDir, '../build/Release/'))) {
-        prefix = path.join(appDir, '../build/Release/');
-    } else if (fs.existsSync(path.join(appDir, '../build/Debug/'))) {
+    if (fs.existsSync(path.join(appDir, '../build/Debug/'))) {
         prefix = path.join(appDir, '../build/Debug/');
-    }
+    } else
+        prefix = path.join(appDir, '../build/Release/');
 
 } else
    throw new Error("Unsupported OS found: " + os.type());
