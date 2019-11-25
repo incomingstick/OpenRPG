@@ -94,12 +94,6 @@ include_directories("include/")
 # source code directory with CMakeLists.txt
 add_subdirectory("src/")
 
-# if we are being called for node we need to build the wrapper
-if (CMAKE_JS_VERSION)
-    include_directories(${CMAKE_JS_INC})
-    add_subdirectory("wrappers/")
-endif()
-
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (

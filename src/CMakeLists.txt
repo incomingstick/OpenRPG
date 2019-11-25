@@ -38,6 +38,13 @@ install(TARGETS utils
     COMPONENT library
 )
 
+
+# if we are being called for node we need to build the wrapper
+if (CMAKE_JS_VERSION)
+    include_directories(${CMAKE_JS_INC})
+    add_subdirectory("nodejs/")
+endif()
+
 # module directories
 add_subdirectory("names")
 add_subdirectory("roll")

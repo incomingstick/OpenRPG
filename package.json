@@ -3,7 +3,7 @@
   "version": "0.0.19",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
-    "start": "node wrappers/export.js",
+    "start": "ts-node src/nodejs/export.ts",
     "build": "cmake-js build --debug --verbose",
     "rebuild": "cmake-js rebuild --debug --verbose",
     "clean": "cmake-js clean --verbose",
@@ -11,7 +11,8 @@
     "release:core": "node build.js release",
     "install": "cmake-js build --verbose"
   },
-  "main": "wrappers/export.js",
+  "main": "src/nodejs/export.ts",
+  "types": "src/nodejs/openrpg.d.ts",
   "cmake-js": {
     "runtime": "electron",
     "runtimeVersion": "6.1.4"
@@ -30,6 +31,9 @@
     "cmake-js": "^6.0.0"
   },
   "devDependencies": {
-    "node-gyp": "^5.0.4"
+    "@types/node": "^12.12.12",
+    "node-gyp": "^5.0.4",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
   }
 }

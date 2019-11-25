@@ -1,5 +1,5 @@
-var os = require('os');
-var path = require('path');
+import * as os from 'os';
+import * as path from 'path';
 
 /**
  * define the location to import the node addon wrappers from
@@ -7,7 +7,7 @@ var path = require('path');
  * Linux and macOS: ../build/lib/openrpg/
  **/
 let prefix;
-const appDir = path.dirname(__dirname);
+const appDir = path.dirname(path.dirname(__dirname));
 
 if (os.type() === 'Linux' || os.type() === 'Darwin') {
     prefix = path.join(appDir, '/build/lib/openrpg/');
@@ -23,6 +23,8 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
    throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
-const libroll = require(prefix + 'rollAddon');
+export const openrpg = require(prefix + 'openrpgAddon');
 
-module.exports = libroll;
+console.log(openrpg);
+
+exports.default = openrpg;
