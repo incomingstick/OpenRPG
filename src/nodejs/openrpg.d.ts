@@ -5,13 +5,13 @@
  * Definitions by: incomingstick <https://github.com/incomingstick>
  */
 declare module 'openrpg-libs' {
-    class Die {
+    export class Die {
         public constructor(max: number);
 
         public roll(): number;
     }
 
-    class ExpressionTree {
+    export class ExpressionTree {
         public constructor();
 
         public static is_expression_valid(exp: string): boolean;

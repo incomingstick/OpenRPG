@@ -6,7 +6,7 @@ import * as path from 'path';
  * Windows:         ../build/Releasse/
  * Linux and macOS: ../build/lib/openrpg/
  **/
-let prefix;
+let prefix: string;
 const appDir = path.dirname(path.dirname(__dirname));
 
 if (os.type() === 'Linux' || os.type() === 'Darwin') {
@@ -23,8 +23,6 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
    throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
-export const openrpg = require(prefix + 'openrpgAddon');
-
-console.log(openrpg);
-
-exports.default = openrpg;
+export default require(prefix + 'openrpgAddon');
+export const ExpressionTree = require(prefix + 'openrpgAddon').ExpressionTree;
+export const Die = require(prefix + 'openrpgAddon').Die;

@@ -1,6 +1,6 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "start": "ts-node src/nodejs/export.ts",
