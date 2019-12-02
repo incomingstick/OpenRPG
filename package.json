@@ -4,6 +4,7 @@
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "start": "node src/nodejs/export.js",
+    "test": "mocha",
     "build": "cmake-js build --debug --verbose",
     "rebuild": "cmake-js rebuild --debug --verbose",
     "clean": "cmake-js clean --verbose",
@@ -31,7 +32,7 @@
     "cmake-js": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.12",
+    "mocha": "^6.2.2",
     "node-gyp": "^5.0.4"
   }
 }

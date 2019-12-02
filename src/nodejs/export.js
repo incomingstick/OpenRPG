@@ -23,8 +23,4 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
    throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
-let orpg = require(prefix + 'orpgNode');
-
-console.log(orpg);
-
-module.exports = orpg;
+module.exports = require(prefix + 'orpgNode');
