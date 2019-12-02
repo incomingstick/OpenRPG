@@ -7,7 +7,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 */
 #include <node.h>
-#include "rollWrapper.h"
+#include "roll/rollWrapper.h"
 
 using namespace ORPG;
 
@@ -20,5 +20,5 @@ namespace ORPGGUI {
         ExpressionTreeWrapper::Init(exports);
     }
 
-    NODE_MODULE(roll, InitAll)
+    NODE_MODULE(orpg, InitAll)
 }

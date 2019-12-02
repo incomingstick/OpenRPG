@@ -14,8 +14,8 @@
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
   "cmake-js": {
-    "runtime": "electron",
-    "runtimeVersion": "6.1.4"
+    "runtime": "node",
+    "runtimeVersion": "13.0.1"
   },
   "repository": {
     "type": "git",
