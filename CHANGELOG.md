@@ -68,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A bug that would cause some divide by zero operations, as well as preventing the rolling of a 1 sided die thanks to [@tehguy](https://github.com/tehguy)
 - A typo in the roll parser test that was incorrectly validating d6's thanks to [@pashcovich](https://github.com/pashcovich)
 - Missing note in Core::print_basic_help() about how to exit OpenRPG.
+- Fixed a bug in the ExpressionTree where the `globalReadOffset` was not being reset when a new expression was set
 
 ### Removed
 - Obliterated the old Name Generator test src/tests/name-generator-test.cpp

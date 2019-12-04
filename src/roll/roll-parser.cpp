@@ -130,7 +130,6 @@ namespace ORPG {
     struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int
                             * numBytesToRead) {
         string curParseString = "";
-
         int numBytesRead = 0;
 
         parse_input_string(&curParseString, &numBytesRead, *numBytesToRead);
@@ -469,12 +468,14 @@ namespace ORPG {
 
     /**
      * @desc sets the input string to be scanned and parsed equal to the string exp
+     * and resets the globalReadOffset
      * @param const std::string exp - the string to become the input string
      */
     bool ExpressionTree::set_expression(const std::string exp) {
         if(!is_expression_valid(exp)) return false;
         
         inputString = exp;
+        globalReadOffset = 0;
 
         return build_expression_tree();
     }

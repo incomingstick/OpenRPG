@@ -32,7 +32,6 @@
     "cmake-js": "^6.0.0"
   },
   "devDependencies": {
-    "mocha": "^6.2.2",
-    "node-gyp": "^5.0.4"
+    "mocha": "^6.2.2"
   }
 }
