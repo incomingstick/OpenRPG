@@ -25,6 +25,7 @@ namespace ORPGGUI {
 
             static void roll(const v8::FunctionCallbackInfo<v8::Value>& args);
 
+            static void MAX(const v8::FunctionCallbackInfo<v8::Value>& args);
         public:
             static void Init(v8::Local<v8::Object> exports);
     };
@@ -57,6 +58,12 @@ namespace ORPGGUI {
          * @return string - a string representation of the current tree
          */
         static void to_string(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+        /**
+         * @desc returns the input string that was give to the parser
+         * @return string - the string that was give as input to the parser
+         */
+        static void get_input_string(const v8::FunctionCallbackInfo<v8::Value>& args);
 
         static void is_exppression_valid(const v8::FunctionCallbackInfo<v8::Value>& args);
     public:

@@ -121,84 +121,91 @@ namespace ORPG {
     }
 
     /**
-     * @desc sets cur to a parse_node with an op value of OP_NUMBER and a value of
-     *     read from the input string and return the parent of cur
-     * @param struct parse_node* cur - the current node
+     * @desc sets curr to a parse_node with an op value of OP_NUMBER and a value of
+     *     read from the input string and return the parent of curr
+     * @param struct parse_node* curr - the current node
      * @param int* numBytesToRead - the number of bytes to read from the input string
-     * @return struct parse_node* - pointer to the parent of cur
+     * @return struct parse_node* - pointer to the parent of curr
      */
-    struct parse_node* ExpressionTree::new_number(struct parse_node* cur, int
+    struct parse_node* ExpressionTree::new_number(struct parse_node* curr, int
                             * numBytesToRead) {
-        string curParseString = "";
+        string currParseString = "";
         int numBytesRead = 0;
 
-        parse_input_string(&curParseString, &numBytesRead, *numBytesToRead);
-                
-        cur->value = stoi(curParseString);
-        cur->op = OP_NUMBER;
+        parse_input_string(&currParseString, &numBytesRead, *numBytesToRead);
 
-        if(cur->parent == NULL && (size_t) numBytesRead != inputString.length()) {
-            cur->parent = allocate_node();
-            cur->parent->left = cur;
+        if(!curr->left) {
+            curr->left = allocate_node();
+            curr->left->parent = curr;
+            curr = curr->left;
+        } else if(!curr->right) {
+            curr->right = allocate_node();
+            curr->right->parent = curr;
+            curr = curr->right;
+        }
+                
+        curr->value = stoi(currParseString);
+        curr->op = OP_NUMBER;
+
+        if(!curr->parent && (size_t) numBytesRead != inputString.length()) {
+            curr->parent = allocate_node();
+            curr->parent->left = curr;
         }
             
-        cur = cur->parent;
+        curr = curr->parent;
 
         *numBytesToRead = 0;
         
-        return cur;
+        return curr;
     }
 
     /**
-     * @desc sets cur to a parse_node with an op value of op and a new node as the right
-     *     child of the cur node and returns the right child
-     * @param struct parse_node* cur - the current node
-     * @param unsigned short int op - the operator to be assigned to the cur parse_node 
-     * @return struct parse_node* - a pointer to the right child of cur
+     * @desc sets curr to a parse_node with an op value of op and a new node as the right
+     *     child of the curr node and returns the right child
+     * @param struct parse_node* curr - the current node
+     * @param unsigned short int op - the operator to be assigned to the curr parse_node 
+     * @return struct parse_node* - a pointer to the right child of curr
      */
-    parse_node* ExpressionTree::new_op(struct parse_node* cur, unsigned short int op) {
-        if(cur->op) {
-            while(cur->parent) cur = cur->parent;
-            cur->parent = allocate_node();
-            cur->parent->left = cur;
-            cur = cur->parent;
+    parse_node* ExpressionTree::new_op(struct parse_node* curr, unsigned short int op) {
+        if(curr->op) {
+            while(curr->parent) curr = curr->parent;
+            curr->parent = allocate_node();
+            curr->parent->left = curr;
+            curr = curr->parent;
         }
         
-        cur->op = op;
-        cur->right = allocate_node();
-        cur->right->parent = cur;
-        cur = cur->right;
+        curr->op = op;
+        curr->right = allocate_node();
+        curr->right->parent = curr;
+        curr = curr->right;
         
-        return cur;
+        return curr;
     }
 
     /**
-     * @desc sets cur to a parse_node with an op value of op and a new node as the right
-     *     child of the cur node and returns the right child
-     * @param struct parse_node* cur - the current node
-     * @return struct parse_node* - a pointer to the right child of cur
+     * @desc sets curr to a parse_node with an op value of op and a new node as the right
+     *     child of the curr node and returns the right child
+     * @param struct parse_node* curr - the current node
+     * @return struct parse_node* - a pointer to the right child of curr
      */
-    parse_node* ExpressionTree::new_die(struct parse_node* cur) {
-        if(cur->op) {
-            while(cur->parent) cur = cur->parent;
-            cur->parent = allocate_node();
-            cur->parent->left = cur;
-            cur = cur->parent;
+    parse_node* ExpressionTree::new_die(struct parse_node* curr) {
+        if(curr->op) {
+            while(curr->parent) curr = curr->parent;
+            curr->parent = allocate_node();
+            curr->parent->left = curr;
+            curr = curr->parent;
         }
 
-        if(cur->left) {
-            cur->op = OP_REP;
-            cur->right = allocate_node();
-            cur->right->parent = cur;
-            cur = cur->right;
+        if(!curr->left) {
+            curr->left = allocate_node();
+            curr->left->parent = curr;
+            curr->left->op = OP_NUMBER;
+            curr->left->value = 1;
         }
         
-        cur->op = OP_DIE;
-        cur->right = allocate_node();
-        cur->right->parent = cur;
-        cur = cur->right;
+        curr->op = OP_DIE;
         
-        return cur;
+        return curr;
     }
 
     /**
@@ -221,7 +228,7 @@ namespace ORPG {
         case OP_LT:     return "<";
         case OP_LE:     return "<=";
         case OP_NE:     return "!=";
-        case OP_REP:    return "rep";
+        // case OP_REP:    return "rep";
         default :       return "unknown node ("+ std::to_string(node->value) +", "+ std::to_string(node->op) +")";
         }
     }
@@ -260,71 +267,84 @@ namespace ORPG {
         int i;
         int limit;
         int low;
-        int repetitions;
+        int size;
+        int reps;
         int tmp;
         int* results;
+        Die* die;
 
         int ret = 0;
 
         /* sets our current node to node */
-        struct parse_node* cur = node;
+        struct parse_node* curr = node;
 
         int sum = 0;
 
-        switch(cur->op) {
+        switch(curr->op) {
         // number node
         case OP_NUMBER: {
-            sum = cur->value;
+            sum = curr->value;
         } break;
 
         // multiplication node
         case OP_TIMES: {
-            sum = checked_multiplication(parse_tree(cur->left),
-                                        parse_tree(cur->right));
+            sum = checked_multiplication(parse_tree(curr->left),
+                                        parse_tree(curr->right));
         } break;
 
         // integer division node
         case OP_DIV: {
             sum = (int)
-            ceil((float)parse_tree(cur->left) /
-                        parse_tree(cur->right));
+            ceil((float)parse_tree(curr->left) /
+                        parse_tree(curr->right));
         } break;
 
         // n-sided die node
         case OP_DIE: {
-            Die die(parse_tree(cur->right));
-            sum = die.roll();
+            reps = curr->left ? parse_tree(curr->left) : 1;
+            die = new Die(parse_tree(curr->right));
+            
+            for(i = 0; i < reps; i++) {
+                sum = checked_sum(sum, die->roll());
+            }
+            
+            delete[] die;
         } break;
         
         // addition node
         case OP_PLUS: {
-            sum = checked_sum(parse_tree(cur->left),
-                            parse_tree(cur->right));
+            sum = checked_sum(parse_tree(curr->left),
+                            parse_tree(curr->right));
         } break;
         
         // subtraction node
         case OP_MINUS: {
-            sum = checked_sum(parse_tree(cur->left),
-                            -parse_tree(cur->right));
+            sum = checked_sum(parse_tree(curr->left),
+                            -parse_tree(curr->right));
         } break;
         
         // keep highest results node
         case OP_HIGH: {
-            repetitions = parse_tree(cur->left->left);
-            high        = parse_tree(cur->right);      
+            reps = parse_tree(curr->left->left);
+            high = parse_tree(curr->right);
+            size    = parse_tree(curr->left->right);
 
             // array to store the results to sort
-            if (!(results = new int[repetitions])) {
+            if (!(results = new int[reps])) {
                 printf("out of memory");
             }
         
-            for(i = 0; i < repetitions; i++) {
-                results[i] = parse_tree(cur->left->right);
+            Die* die = new Die(size);
+
+            for(i = 0; i < reps; i++) {
+                results[i] = die->roll();
             }
 
-            qsort(results, repetitions, sizeof(int), &compare);
+            delete[] die;
 
-            for(i = (repetitions - high); i < repetitions; i++) {
+            qsort(results, reps, sizeof(int), &compare);
+
+            for(i = (reps - high); i < reps; i++) {
                 sum = checked_sum(sum, results[i]);
             }
         
@@ -333,19 +353,24 @@ namespace ORPG {
             
         // keep lowest resutls node
         case OP_LOW: {
-            repetitions = parse_tree(cur->left->left);
-            low         = parse_tree(cur->right);
+            reps    = parse_tree(curr->left->left);
+            low     = parse_tree(curr->right);
+            size    = parse_tree(curr->left->right);
                     
             /* array to store the results to sort */
-            if (!(results = new int[repetitions])) {
+            if (!(results = new int[reps])) {
                 printf("out of memory");
             }
         
-            for(i = 0; i < repetitions; i++) {
-                results[i] = parse_tree(cur->left->right);
+            Die* die = new Die(size);
+
+            for(i = 0; i < reps; i++) {
+                results[i] = die->roll();
             }
 
-            qsort(results, repetitions, sizeof(int), &compare);
+            delete[] die;
+
+            qsort(results, reps, sizeof(int), &compare);
         
             for(i = 0; i < low; i++) {
                 sum = checked_sum(sum, results[i]);
@@ -356,11 +381,11 @@ namespace ORPG {
 
         // keep results greater than
         case OP_GT: {
-            limit = parse_tree(cur->right);      
-            tmp   = parse_tree(cur->left);
+            limit = parse_tree(curr->right);      
+            tmp   = parse_tree(curr->left);
                 
             while (tmp <= limit) {
-                tmp = parse_tree(cur->left);
+                tmp = parse_tree(curr->left);
             }
                 
             sum = checked_sum(sum, tmp);
@@ -368,11 +393,11 @@ namespace ORPG {
 
         // keep results greater or equal than
         case OP_GE: {
-            limit = parse_tree(cur->right);      
-            tmp   = parse_tree(cur->left);
+            limit = parse_tree(curr->right);      
+            tmp   = parse_tree(curr->left);
             
             while (tmp < limit) {
-                tmp = parse_tree(cur->left);
+                tmp = parse_tree(curr->left);
             }
         
             sum = checked_sum( sum, tmp );
@@ -380,11 +405,11 @@ namespace ORPG {
             
         // keep results less than
         case OP_LT: {
-            limit = parse_tree(cur->right);      
-            tmp   = parse_tree(cur->left);
+            limit = parse_tree(curr->right);      
+            tmp   = parse_tree(curr->left);
         
             while (tmp >= limit) {
-                tmp = parse_tree(cur->left);
+                tmp = parse_tree(curr->left);
             }
         
             sum = checked_sum(sum, tmp);
@@ -393,11 +418,11 @@ namespace ORPG {
         
         // keep results less or equal than
         case OP_LE: {
-            limit = parse_tree(cur->right);      
-            tmp   = parse_tree(cur->left);
+            limit = parse_tree(curr->right);      
+            tmp   = parse_tree(curr->left);
         
             while (tmp > limit) {
-                tmp = parse_tree(cur->left);
+                tmp = parse_tree(curr->left);
             }
         
             sum = checked_sum(sum, tmp);
@@ -405,25 +430,25 @@ namespace ORPG {
         
         // keep result not equal to
         case OP_NE: {
-            limit = parse_tree(cur->right);      
-            tmp   = parse_tree(cur->left);
+            limit = parse_tree(curr->right);      
+            tmp   = parse_tree(curr->left);
         
             while (tmp == limit) {
-                tmp = parse_tree(cur->left);      
+                tmp = parse_tree(curr->left);      
             }
         
             return ret;
         } break;
 
-        // number of rolls (repetitions)
-        case OP_REP: {
-            int reps = parse_tree(cur->left);
-            for (i = 0; i < reps; i++)
-                sum = checked_sum(sum, parse_tree(cur->right));
-        } break;
+        // number of rolls (reps)
+        // case OP_REP: {
+        //     int reps = parse_tree(curr->left);
+        //     for (i = 0; i < reps; i++)
+        //         sum = checked_sum(sum, parse_tree(curr->right));
+        // } break;
 
         default: {
-            fprintf(stderr, "Invalid option - %c\n", cur->op);
+            fprintf(stderr, "Invalid option - %c\n", curr->op);
             
             exit(EXIT_FAILURE);
         }
@@ -461,7 +486,7 @@ namespace ORPG {
         return 0;
     }
 
-    // TODO ensure integrity of this string before
+    // TODO ensure integrity of this string before we actually allow rolling
     bool ExpressionTree::is_expression_valid(const std::string exp) {
         return true;
     }
@@ -476,10 +501,10 @@ namespace ORPG {
         
         inputString = exp;
         globalReadOffset = 0;
+        head = allocate_node();
 
         return build_expression_tree();
     }
-        
 
     /**
      * @desc scans the string held by the ExpressionTree and
@@ -498,7 +523,7 @@ namespace ORPG {
     bool ExpressionTree::build_expression_tree(void) {
         int numBytesToRead = 0;
 
-        struct parse_node* cur = head;
+        struct parse_node* curr = head;
 
         /* Basic rules of a math expression parser (these WILL need improvement)
         1) If the current token is a '(', add a new node as the left
@@ -515,26 +540,28 @@ namespace ORPG {
         4) If the current token is a ')', go to the parent of the current node.
         */
         for(auto it = inputString.begin(); it != inputString.end(); ++it) {
-            auto cur_ch = *it;
-            if(isdigit(cur_ch)) {
+            auto curr_ch = *it;
+            if(isdigit(curr_ch)) {
                 numBytesToRead++;
-            } else if(!isspace(cur_ch)) {
+            } else if(!isspace(curr_ch)) {
                 /* 3) If the current token is a number, set the root value of the
                     current node to the number and return to the parent. */
-                if(numBytesToRead > 0)
-                    cur = new_number(cur, &numBytesToRead);
+                if(numBytesToRead > 0) {
+                    curr = new_number(curr, &numBytesToRead);
+                }
 
-                switch(cur_ch) {
+                switch(curr_ch) {
                 /* 1) If the current token is a '(', '[', or '{', add a new node as the left
                     child of the current node, and descend to the left child. */
-                case '{': {
-                    cur = new_op(cur, OP_REP);
-                } // we want this to cascade in to '('
+                case '{':
                 case '[':
                 case '(': {
-                    cur->left = allocate_node();
-                    cur->left->parent = cur;
-                    cur = cur->left;
+                    if(curr->op && !curr->right) {
+                        curr->right = allocate_node();
+                        curr->right->parent = curr;
+                        curr = curr->right;
+                        curr->op = OP_REP;
+                    }
                 } break;
 
                 /* 2) If the current token is in the list, set value of the current
@@ -542,60 +569,60 @@ namespace ORPG {
                     Add a new node as the right child of the current node and descend
                     to the right child. */
                 case '+': {
-                    cur = new_op(cur, OP_PLUS);
+                    curr = new_op(curr, OP_PLUS);
                 } break;
 
                 case '-': {
-                    cur = new_op(cur, OP_MINUS);
+                    curr = new_op(curr, OP_MINUS);
                 } break;
 
                 case '*': {
-                    cur = new_op(cur, OP_TIMES);
+                    curr = new_op(curr, OP_TIMES);
                 } break;
 
                 case '/': {
-                    cur = new_op(cur, OP_DIV);
+                    curr = new_op(curr, OP_DIV);
                 } break;
 
                 case 'd': {
-                    cur = new_die(cur);
+                    curr = new_die(curr);
                 } break;
 
                 // TODO generate a set (vector/array) of numbers
                 case 'h': {
-                    cur = new_op(cur, OP_HIGH);
+                    curr = new_op(curr, OP_HIGH);
                 } break;
 
                 // TODO generate a set (vector/array) of numbers
                 case 'l': {
-                    cur = new_op(cur, OP_LOW);
+                    curr = new_op(curr, OP_LOW);
                 } break;
 
                 case '>': {
-                    cur = new_op(cur, OP_GT);
+                    curr = new_op(curr, OP_GT);
                 } break;
 
                 case '<': {
-                    cur = new_op(cur, OP_LT);
+                    curr = new_op(curr, OP_LT);
                 } break;
 
                 case '!': {
-                    cur = new_op(cur, OP_NE);
+                    curr = new_op(curr, OP_NE);
                 } break;
 
                 case '=': {
-                    if(cur->parent) {
-                        switch(cur->parent->op) {
+                    if(curr->parent) {
+                        switch(curr->parent->op) {
                         case OP_GT: {
-                            cur->parent->op = OP_GE;
+                            curr->parent->op = OP_GE;
                         } break;
 
                         case OP_LT: {
-                            cur->parent->op = OP_LE;
+                            curr->parent->op = OP_LE;
                         } break;
 
                         default: {
-                            fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
+                            fprintf(stderr, "Invalid character %c found in expression\n", curr_ch);
                             return false;
                         }
                         }
@@ -606,7 +633,27 @@ namespace ORPG {
                 case '}':
                 case ']':
                 case ')': {
-                    if(cur->parent != NULL) cur = cur->parent;
+                    if(curr->parent) {
+                        if(!curr->op && !curr->value) {
+                            if(curr->left) {
+                                curr->left->parent = curr->parent;
+
+                                if(curr->parent->left == curr)
+                                    curr->parent->left = curr->left;
+                                else if(curr->parent->right == curr)
+                                    curr->parent->right = curr->left;
+                            } else if(curr->right) {
+                                curr->right->parent = curr->parent;
+
+                                if(curr->parent->left == curr)
+                                    curr->parent->left = curr->right;
+                                else if(curr->parent->right == curr)
+                                    curr->parent->right = curr->right;
+                            }
+
+                            curr = curr->parent;
+                        }
+                    }
                 } break;
 
                 default: {
@@ -615,7 +662,7 @@ namespace ORPG {
                     * This set of characters will include all
                     * charcters not included above
                     */
-                    fprintf(stderr, "Invalid character %c found in expression\n", cur_ch);
+                    fprintf(stderr, "Invalid character %c found in expression\n", curr_ch);
                     
                     return false;
                 }
@@ -625,16 +672,47 @@ namespace ORPG {
             } else {
                 /* 3) If the current token is a number, set the root value of the
                     current node to the number and return to the parent. */
-                if(numBytesToRead > 0)
-                    cur = new_number(cur, &numBytesToRead);
+                if(numBytesToRead > 0){
+                    curr = new_number(curr, &numBytesToRead);
+                    if(!curr->op && !curr->value) {
+                        if(curr->left) {
+                            curr->left->parent = curr->parent;
+
+                            if(curr->parent->left == curr)
+                                curr->parent->left = curr->left;
+                            else if(curr->parent->right == curr)
+                                curr->parent->right = curr->left;
+                        } else if(curr->right) {
+                            curr->right->parent = curr->parent;
+
+                            if(curr->parent->left == curr)
+                                curr->parent->left = curr->right;
+                            else if(curr->parent->right == curr)
+                                curr->parent->right = curr->right;
+                        }
+
+                        curr = curr->parent;
+                    }
+                }
 
                 globalReadOffset++;
             }
 
-            /* 3) If the current token is a number, set the root value of the
-                    current node to the number and return to the parent. */
-            if(it + 1 == inputString.end() && numBytesToRead > 0)
-                cur = new_number(cur, &numBytesToRead);
+            /* 3) If the current token is a number, and we are the end of the string,
+                set the root value of the current node to the number and return to the parent. */
+            if(it + 1 == inputString.end() && numBytesToRead > 0) {
+                curr = new_number(curr, &numBytesToRead);
+                if(!curr->op && !curr->value) {
+                    // NOTE(incomingstick): because this is the last item, we can assume it was place
+                    // to the left of our current node
+                    curr->left->parent = curr->parent;
+                    if(curr->parent->left == curr)
+                        curr->parent->left = curr->left;
+                    else if(curr->parent->right == curr)
+                        curr->parent->right = curr->left;
+                    curr = curr->parent;
+                }
+            }
         }
         while(head->parent) head = head->parent;    // TODO make our head tracking more efficient
 
@@ -651,7 +729,6 @@ namespace ORPG {
     int ExpressionTree::checked_sum(int op1, int op2) {
         if ((op2 > 0 && op1 > INT_MAX - op2) || (op2 < 0 && op1 < INT_MIN - op2))
             printf("overflow");
-        
         return op1 + op2;
     }
 

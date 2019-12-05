@@ -9,6 +9,8 @@ declare module 'openrpg-libs' {
         public constructor(max: number);
 
         public roll(): number;
+
+        public MAX(): number;
     }
 
     export class ExpressionTree {
@@ -37,5 +39,11 @@ declare module 'openrpg-libs' {
          * @return string - a string representation of the current tree
          */
         public to_string(): string;
+
+        /**
+         * @desc returns the input string that was give to the parser
+         * @return string - the string that was give as input to the parser
+         */
+        public get_input_string(): string;
     }
 }

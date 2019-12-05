@@ -69,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A typo in the roll parser test that was incorrectly validating d6's thanks to [@pashcovich](https://github.com/pashcovich)
 - Missing note in Core::print_basic_help() about how to exit OpenRPG.
 - Fixed a bug in the ExpressionTree where the `globalReadOffset` was not being reset when a new expression was set
+- Fixed a bug when stringing multiple rolls together that would causing the tree to parse an expression such as 2d6+4d8 as (2d6+4)d8
 
 ### Removed
 - Obliterated the old Name Generator test src/tests/name-generator-test.cpp

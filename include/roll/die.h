@@ -23,9 +23,9 @@ There is NO WARRANTY, to the extent permitted by law.
 namespace ORPG {
     class ROLL_PARSER_EXPORT Die {
         protected:
-            const int MAX = 20;
+            const int _MAX = 20;
         public:
-            Die(int max):MAX(
+            Die(int max):_MAX(
                     /* If max is less than 2, set MAX to 2; else set MAX to max.
                     * Ensures we don't have nonsense like a 1- or 0-sided die
                     * (or a negative-sided die) */
@@ -36,15 +36,17 @@ namespace ORPG {
             int roll() {
                 std::random_device rd;
                 std::mt19937 mt(rd());
-                std::uniform_int_distribution<int> dist(1, MAX);
+                std::uniform_int_distribution<int> dist(1, _MAX);
 
                 int ret = dist(mt);
 
                 /* verbosely prints die rolls in the form "dX -> N" */
-                if(Core::VB_FLAG) printf("d%i -> %i\n", MAX, ret);
+                if(Core::VB_FLAG) printf("d%i -> %i\n", _MAX, ret);
 
                 return ret;
             }
+
+            const int MAX() { return _MAX; }
     };
 }
 

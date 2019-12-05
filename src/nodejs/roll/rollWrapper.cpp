@@ -45,6 +45,7 @@ namespace ORPGGUI {
 
         // Prototype
         NODE_SET_PROTOTYPE_METHOD(tpl, "roll", roll);
+        NODE_SET_PROTOTYPE_METHOD(tpl, "MAX", MAX);
 
         Local<Context> context = isolate->GetCurrentContext();
         constructor.Reset(isolate, tpl->GetFunction(context).ToLocalChecked());
@@ -78,9 +79,18 @@ namespace ORPGGUI {
         Isolate* isolate = args.GetIsolate();
 
         DieWrapper* obj = ObjectWrap::Unwrap<DieWrapper>(args.Holder());
-        Die die(obj->MAX);
+        Die die(obj->_MAX);
 
         args.GetReturnValue().Set(Number::New(isolate, die.roll()));
+    }
+
+    void DieWrapper::MAX(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        DieWrapper* obj = ObjectWrap::Unwrap<DieWrapper>(args.Holder());
+        Die die(obj->_MAX);
+
+        args.GetReturnValue().Set(Number::New(isolate, die.MAX()));
     }
 
     Persistent<Function> ExpressionTreeWrapper::constructor;
@@ -100,6 +110,7 @@ namespace ORPGGUI {
         NODE_SET_PROTOTYPE_METHOD(tpl, "checked_sum", checked_sum);
         NODE_SET_PROTOTYPE_METHOD(tpl, "checked_multiplication", checked_multiplication);
         NODE_SET_PROTOTYPE_METHOD(tpl, "to_string", to_string);
+        NODE_SET_PROTOTYPE_METHOD(tpl, "get_input_string", get_input_string);
         NODE_SET_PROTOTYPE_METHOD(tpl, "is_exppression_valid", is_exppression_valid);
 
         Local<Context> context = isolate->GetCurrentContext();
@@ -157,6 +168,16 @@ namespace ORPGGUI {
         Isolate* isolate = args.GetIsolate();
 
         auto treeString = wrappedTree.to_string();
+
+        const char*  str = treeString.c_str();
+
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str, NewStringType::kNormal).ToLocalChecked());
+    }
+
+    void ExpressionTreeWrapper::get_input_string(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        auto treeString = wrappedTree.get_input_string();
 
         const char*  str = treeString.c_str();
 

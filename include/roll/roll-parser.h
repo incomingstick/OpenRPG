@@ -98,6 +98,12 @@ namespace ORPG {
             return tree_string(head, 0); 
         };
 
+        /**
+         * @desc returns the input string that was give to the parser
+         * @return string - the string that was give as input to the parser
+         */
+        std::string get_input_string() { return inputString; }
+
         static bool is_expression_valid(const std::string exp);
     };
 }
