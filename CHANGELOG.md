@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `class HighElf : public Elf`
 - `CharacterFactory` class has a new constructor that takes a name as a `std::string`
 - Character library has a new class, `Skill` that helps represent the 5e Skill in a better way, and makes use of the new `EnumSkill` enum to pair score to human readable tags thanks to [@var-username](https://github.com/var-username)
+- `ExpressionParser` now handles the modulo operation!
 
 ### Changed
 - Building Libraries as Dynamic instead of Static, because why wouldn't a game want Dynamic/Shared libraries!

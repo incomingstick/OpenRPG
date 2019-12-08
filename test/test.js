@@ -183,6 +183,15 @@ describe('OpenRPG', () => {
                 }
             });
 
+            it('expression \'d6 + d8 % 2\' >= 0 && <= 1', () => {
+                exp.set_expression('d6 + d8 % 2');
+                for(i = 0; i < LOOP_INT; i++) {
+                    val = exp.parse_expression();
+                    assert.ok(val >= 0);
+                    assert.ok(val <= 1);
+                }
+            });
+
             it('expression \'2d6 + 4d6 + 5\' >= 11 && <= 41', () => {
                 exp.set_expression('2d6 + 4d6 + 5');
                 for(i = 0; i < LOOP_INT; i++) {
@@ -201,16 +210,37 @@ describe('OpenRPG', () => {
                 }
             });
 
-            // TODO continue adding expression tests to esure we fully test our ExpressionParser
             // FIXME get this expression working
-            // it('expression \'2d(1d6 + 2) / 2\' >= 1 && <= 8', () => {
-            //     exp.set_expression('2d(1d6 + 2) / 2');
-            //     for(i = 0; i < LOOP_INT; i++) {
-            //         val = exp.parse_expression();
-            //         assert.ok(val >= 1);
-            //         assert.ok(val <= 8);
-            //     }
-            // });
+            it('expression \'2d(1d6 + 2) / 2\' >= 1 && <= 8', () => {
+                exp.set_expression('2d(1d6 + 2) / 2');
+                for(i = 0; i < LOOP_INT; i++) {
+                    val = exp.parse_expression();
+                    assert.ok(val >= 1);
+                    assert.ok(val <= 8);
+                }
+            });
+
+            it('expression \'\' to_string() === \'expression not yet set\'', () => {
+                exp.set_expression('');
+                assert.ok(exp.to_string() === 'expression not yet set');
+            });
+
+            it('expression \'\' === 0', () => {
+                exp.set_expression('');
+                assert.ok(exp.parse_expression() === 0);
+            });
+
+            it('expression \'dhgdshd\' to_string() === \'expression not yet set\'', () => {
+                exp.set_expression('dhgdshd');
+                assert.ok(exp.to_string() === 'expression not yet set');
+            });
+
+            it('expression \'dhgdshd\' === 0', () => {
+                exp.set_expression('dhgdshd');
+                assert.ok(exp.parse_expression() === 0);
+            });
+
+            // TODO continue adding expression tests to esure we fully test our ExpressionParser
         });
     });
 });

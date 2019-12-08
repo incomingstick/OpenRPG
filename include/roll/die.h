@@ -33,6 +33,14 @@ namespace ORPG {
                             : max
                     ){};
 
+            /**
+             * @desc randomly generate an int between 1 and _MAX, where MAX is the value
+             * that was passed to the Die when it was constructed. The result is generated
+             * by using a random_device to seed a Mersenne Twister engine that generates 
+             * uniformly distributed integers between 1 and _MAX.
+             * between 1 and _MAX
+             * @return int - a pesudo random integer between 1 and _MAX
+             */
             int roll() {
                 std::random_device rd;
                 std::mt19937 mt(rd());
@@ -46,6 +54,11 @@ namespace ORPG {
                 return ret;
             }
 
+            /**
+             * @desc returns _MAX, the number of sides this dice has. This is the same as
+             * the max value that could potentially be rolled.
+             * @return int - the maximum value that could be returned by this die
+             */
             const int MAX() { return _MAX; }
     };
 }

@@ -209,6 +209,26 @@ namespace ORPG {
     }
 
     /**
+     * @desc Sets node to an error state. The node's children and parent will been cleared
+     * and the value will be set to 0. The op code will be set to OP_ERR.
+     * @param struct parse_node* curr - the node to set error state
+     * @return struct parse_node* - a pointer to the node
+     */
+    parse_node* ExpressionTree::node_error(struct parse_node* node) {
+        if(node) {
+            node->left = NULL;
+            node->right = NULL;
+            node->parent = NULL;
+            node->value = 0;
+            node->op = OP_ERR;
+        } else {
+            node = allocate_node();
+            node->op = OP_ERR;
+        }
+        return node;
+    }
+
+    /**
      * @desc prints the character representation of a parse_nodes op value
      * @param struct parse_node* node - the node to print
      * @return Function return
@@ -221,6 +241,7 @@ namespace ORPG {
         case OP_MINUS:  return "-";
         case OP_TIMES:  return "*";
         case OP_DIV:    return "/";
+        case OP_MOD:    return "%";
         case OP_HIGH:   return "high";
         case OP_LOW:    return "low";
         case OP_GT:     return ">";
@@ -228,7 +249,6 @@ namespace ORPG {
         case OP_LT:     return "<";
         case OP_LE:     return "<=";
         case OP_NE:     return "!=";
-        // case OP_REP:    return "rep";
         default :       return "unknown node ("+ std::to_string(node->value) +", "+ std::to_string(node->op) +")";
         }
     }
@@ -280,7 +300,16 @@ namespace ORPG {
 
         int sum = 0;
 
+        if(!curr->op && !curr->value) {
+            return 0;
+        }
+
         switch(curr->op) {
+        // error node
+        case OP_ERR: {
+            return 0;
+        } break;
+
         // number node
         case OP_NUMBER: {
             sum = curr->value;
@@ -289,7 +318,7 @@ namespace ORPG {
         // multiplication node
         case OP_TIMES: {
             sum = checked_multiplication(parse_tree(curr->left),
-                                        parse_tree(curr->right));
+                                         parse_tree(curr->right));
         } break;
 
         // integer division node
@@ -314,20 +343,25 @@ namespace ORPG {
         // addition node
         case OP_PLUS: {
             sum = checked_sum(parse_tree(curr->left),
-                            parse_tree(curr->right));
+                              parse_tree(curr->right));
         } break;
         
         // subtraction node
         case OP_MINUS: {
             sum = checked_sum(parse_tree(curr->left),
-                            -parse_tree(curr->right));
+                             -parse_tree(curr->right));
+        } break;
+
+        // modulo node
+        case OP_MOD: {
+            sum = parse_tree(curr->left) % parse_tree(curr->right);
         } break;
         
         // keep highest results node
         case OP_HIGH: {
             reps = parse_tree(curr->left->left);
             high = parse_tree(curr->right);
-            size    = parse_tree(curr->left->right);
+            size = parse_tree(curr->left->right);
 
             // array to store the results to sort
             if (!(results = new int[reps])) {
@@ -440,16 +474,8 @@ namespace ORPG {
             return ret;
         } break;
 
-        // number of rolls (reps)
-        // case OP_REP: {
-        //     int reps = parse_tree(curr->left);
-        //     for (i = 0; i < reps; i++)
-        //         sum = checked_sum(sum, parse_tree(curr->right));
-        // } break;
-
         default: {
-            fprintf(stderr, "Invalid option - %c\n", curr->op);
-            
+            if(Core::VB_FLAG) fprintf(stderr, "Expression Parse Error: Invalid option - %c\n", curr->op);
             exit(EXIT_FAILURE);
         }
         }
@@ -584,6 +610,10 @@ namespace ORPG {
                     curr = new_op(curr, OP_DIV);
                 } break;
 
+                case '%': {
+                    curr = new_op(curr, OP_MOD);
+                } break;
+
                 case 'd': {
                     curr = new_die(curr);
                 } break;
@@ -622,7 +652,9 @@ namespace ORPG {
                         } break;
 
                         default: {
-                            fprintf(stderr, "Invalid character %c found in expression\n", curr_ch);
+                            if(Core::VB_FLAG) fprintf(stderr, "Expression parse error: Invalid character %c found in expression\n", curr_ch);
+                            // Set the head to a error
+                            head = node_error(head);
                             return false;
                         }
                         }
@@ -662,8 +694,8 @@ namespace ORPG {
                     * This set of characters will include all
                     * charcters not included above
                     */
-                    fprintf(stderr, "Invalid character %c found in expression\n", curr_ch);
-                    
+                    if(Core::VB_FLAG) fprintf(stderr, "Expression parse error: Invalid character %c found in expression\n", curr_ch);
+                    head = node_error(head);
                     return false;
                 }
                 }
@@ -743,7 +775,6 @@ namespace ORPG {
         int result = op1 * op2;
         if(op1 != 0 && result / op1 != op2 )
             printf("overflow");
-        
         return result;
     }
 }

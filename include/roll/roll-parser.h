@@ -18,23 +18,24 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "roll/die.h"
 
 #define FUDGE_DIE       -2 // represents a fudge die
-#define HUNDRED         -1 // represents d100
 
-/* parse tree nodes */
+/* parse tree nodes ops */
+#define OP_ERR          -1 // Error node (halts tree traversal)
 #define OP_NUMBER        1 // number node
-#define OP_TIMES         2 // multiplication node
-#define OP_DIV           3 // integer division node
-#define OP_DIE           4 // n-sided die node
+#define OP_DIE           2 // n-sided die node
+#define OP_TIMES         3 // multiplication node
+#define OP_DIV           4 // integer division node
 #define OP_PLUS          5 // addition node
 #define OP_MINUS         6 // subtraction node
-#define OP_HIGH          7 // keep highest results node
-#define OP_LOW           8 // keep lowest resutls node
-#define OP_GT            9 // keep results greater than
-#define OP_GE           10 // keep results greater or equal than
-#define OP_LT           11 // keep results less than
-#define OP_LE           12 // keep results less or equal than
-#define OP_NE           13 // keep results not equal to
-#define OP_REP          14 // number of rolls (repetitions)
+#define OP_MOD           7 // modulo node
+#define OP_HIGH          8 // keep highest results node
+#define OP_LOW           9 // keep lowest resutls node
+#define OP_GT           10 // keep results greater than
+#define OP_GE           11 // keep results greater or equal than
+#define OP_LT           12 // keep results less than
+#define OP_LE           13 // keep results less or equal than
+#define OP_NE           14 // keep results not equal to
+#define OP_REP          15 // number of rolls (repetitions)
 
 namespace ORPG {
     namespace Roll {
@@ -49,7 +50,7 @@ namespace ORPG {
         struct parse_node* left;    // left node
         struct parse_node* right;   // right node
         struct parse_node* parent;  // this nodes parent
-        unsigned short int op;      // node type
+        short int op;               // node type
         int value;                  // node value
     };
 
@@ -59,6 +60,7 @@ namespace ORPG {
         parse_node* new_number(struct parse_node* cur, int* numBytesToRead = 0);
         parse_node* new_op(struct parse_node* cur, unsigned short int op);
         parse_node* new_die(struct parse_node* cur);
+        parse_node* node_error(struct parse_node* node);
         
         int parse_input_string(std::string* buff, int* numBytesRead, int maxBytesToRead);
         int parse_tree(struct parse_node* node);
@@ -82,7 +84,22 @@ namespace ORPG {
          */
         int parse_expression() { return parse_tree(head); };
         
+        /**
+         * @desc outputs an error with ERROR_CODE if there
+         *     would be an addition overflow
+         * @param int op1 - an integer to be added
+         * @param int op2 - an integer to be added
+         * @return int - op1 + op2
+         */
         int checked_sum(int op1, int op2);
+
+        /**
+         * @desc outputs an error with ERROR_CODE if there
+         *     would be a multiplication overflow
+         * @param int op1 - an integer to be multiplied
+         * @param int op2 - an integer to be multiply by
+         * @return int - op1 * op2
+         */
         int checked_multiplication(int op1, int op2);
         
         /**
@@ -91,7 +108,7 @@ namespace ORPG {
          * @return string - a string representation of the current tree
          */
         std::string to_string() { 
-            if(head->op == 0) {
+            if(head->op == 0 || head->op == OP_ERR) {
                 return "expression not yet set";
             }
 
@@ -104,6 +121,7 @@ namespace ORPG {
          */
         std::string get_input_string() { return inputString; }
 
+        // TODO sanatize input - lets not get people (or ourselves) hacked!
         static bool is_expression_valid(const std::string exp);
     };
 }
