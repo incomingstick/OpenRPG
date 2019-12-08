@@ -26,7 +26,8 @@ const ORPG = require(prefix + 'orpgNode');
 var assert = require('assert');
 
 // Control variables go here
-const LOOP_INT = 1e4;
+const LOOP_INT = 1e4;   // The number of times we want to run loops
+const LOOP_COMP = 0.75; // For higher processing computations this is used to compress/decrease the loop count
 
 // TODO shrink this via the use of lists and loops!
 describe('OpenRPG', () => {
@@ -203,14 +204,13 @@ describe('OpenRPG', () => {
 
             it('expression \'(2d6 + 4)d6 + 5\' >= 11 && <= 101', () => {
                 exp.set_expression('(2d6 + 4)d6 + 5');
-                for(i = 0; i < LOOP_INT; i++) {
+                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     val = exp.parse_expression();
                     assert.ok(val >= 11);
                     assert.ok(val <= 101);
                 }
             });
 
-            // FIXME get this expression working
             it('expression \'2d(1d6 + 2) / 2\' >= 1 && <= 8', () => {
                 exp.set_expression('2d(1d6 + 2) / 2');
                 for(i = 0; i < LOOP_INT; i++) {

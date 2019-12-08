@@ -35,7 +35,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define OP_LT           12 // keep results less than
 #define OP_LE           13 // keep results less or equal than
 #define OP_NE           14 // keep results not equal to
-#define OP_REP          15 // number of rolls (repetitions)
+#define OP_EXPR         15 // notates the top of an Expression
 
 namespace ORPG {
     namespace Roll {
@@ -58,7 +58,7 @@ namespace ORPG {
     private:
         parse_node* allocate_node();
         parse_node* new_number(struct parse_node* cur, int* numBytesToRead = 0);
-        parse_node* new_op(struct parse_node* cur, unsigned short int op);
+        parse_node* new_op(struct parse_node* cur, short int op);
         parse_node* new_die(struct parse_node* cur);
         parse_node* node_error(struct parse_node* node);
         

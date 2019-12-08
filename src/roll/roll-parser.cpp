@@ -163,15 +163,25 @@ namespace ORPG {
      * @desc sets curr to a parse_node with an op value of op and a new node as the right
      *     child of the curr node and returns the right child
      * @param struct parse_node* curr - the current node
-     * @param unsigned short int op - the operator to be assigned to the curr parse_node 
+     * @param short int op - the operator to be assigned to the curr parse_node 
      * @return struct parse_node* - a pointer to the right child of curr
      */
-    parse_node* ExpressionTree::new_op(struct parse_node* curr, unsigned short int op) {
+    parse_node* ExpressionTree::new_op(struct parse_node* curr, short int op) {
         if(curr->op) {
-            while(curr->parent) curr = curr->parent;
-            curr->parent = allocate_node();
-            curr->parent->left = curr;
-            curr = curr->parent;
+            while(curr->parent && curr->parent->op != OP_EXPR) curr = curr->parent;
+            if(!curr->parent) {
+                curr->parent = allocate_node();
+                curr->parent->left = curr;
+                curr = curr->parent;
+            } else if(curr->parent->op == OP_EXPR) {
+                auto swapAddr = curr->parent;
+                curr->parent = allocate_node();
+                curr->parent->parent = swapAddr;
+                curr->parent->parent->left = curr->parent;
+                curr->parent->parent->right = curr->parent;
+                curr->parent->left = curr;
+                curr = curr->parent;
+            }
         }
         
         curr->op = op;
@@ -190,10 +200,17 @@ namespace ORPG {
      */
     parse_node* ExpressionTree::new_die(struct parse_node* curr) {
         if(curr->op) {
-            while(curr->parent) curr = curr->parent;
-            curr->parent = allocate_node();
-            curr->parent->left = curr;
-            curr = curr->parent;
+            while(curr->parent && curr->parent->op != OP_EXPR) curr = curr->parent;
+            if(curr->op != OP_EXPR) {
+                curr->parent = allocate_node();
+                curr->parent->left = curr;
+                curr = curr->parent;
+            } else if(curr->op == OP_EXPR) {
+                auto swapAddr = curr->parent;
+                curr->parent = allocate_node();
+                curr->parent->parent = swapAddr;
+                curr = curr->parent;
+            }
         }
 
         if(!curr->left) {
@@ -582,11 +599,31 @@ namespace ORPG {
                 case '{':
                 case '[':
                 case '(': {
-                    if(curr->op && !curr->right) {
-                        curr->right = allocate_node();
-                        curr->right->parent = curr;
-                        curr = curr->right;
-                        curr->op = OP_REP;
+                    if(curr->op) {
+                        /**
+                         * If we currently have an op, try and create a new expression node as child.
+                         * An expression node has a single child that should be thought of as it's own
+                         * expression tree
+                         **/
+                        if(!curr->left) {
+                            curr->left = allocate_node();
+                            curr->left->parent = curr;
+                            curr = curr->left;
+                            curr->op = OP_EXPR;
+                        } else if(!curr->right) {
+                            curr->right = allocate_node();
+                            curr->right->parent = curr;
+                            curr = curr->right;
+                            curr->op = OP_EXPR;
+                        }
+
+                        // If we successfully made the OP_EXPR node, create the left child and move to it
+                        if(curr->op == OP_EXPR) {
+                            curr->left = allocate_node();
+                            curr->left->parent = curr;
+                            curr->right = curr->left;
+                            curr = curr->left;
+                        }
                     }
                 } break;
 
@@ -661,11 +698,12 @@ namespace ORPG {
                     }
                 } break;
 
-                /* 4) If the current token is a ')', ']', or '}, go to the parent of the current node. */
+                /* 4) If the current token is a ')', ']', or '}, go to the parent of the current node tree */
                 case '}':
                 case ']':
                 case ')': {
                     if(curr->parent) {
+                        // ensure that if the currrent node is empty, that we bring up its child
                         if(!curr->op && !curr->value) {
                             if(curr->left) {
                                 curr->left->parent = curr->parent;
@@ -684,6 +722,15 @@ namespace ORPG {
                             }
 
                             curr = curr->parent;
+                        }
+
+                        // we are leaving the current expression so lets remove the OP_EXPR node
+                        if(curr->parent && curr->parent->op == OP_EXPR) {
+                            if(curr->parent->parent->left == curr->parent)
+                                curr->parent->parent->left = curr;
+                            else if(curr->parent->parent->right == curr->parent)
+                                curr->parent->parent->right = curr;
+                            curr->parent = curr->parent->parent;
                         }
                     }
                 } break;

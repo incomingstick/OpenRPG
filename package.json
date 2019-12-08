@@ -1,6 +1,6 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "start": "node src/nodejs/export.js",
@@ -15,8 +15,8 @@
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
   "cmake-js": {
-    "runtime": "node",
-    "runtimeVersion": "13.3.0"
+    "runtime": "electron",
+    "runtimeVersion": "6.1.5"
   },
   "repository": {
     "type": "git",
