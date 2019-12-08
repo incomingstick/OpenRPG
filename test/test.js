@@ -27,7 +27,7 @@ var assert = require('assert');
 
 // Control variables go here
 const LOOP_INT = 1e4;   // The number of times we want to run loops
-const LOOP_COMP = 0.75; // For higher processing computations this is used to compress/decrease the loop count
+const LOOP_COMP = 0.9;  // For higher processing computations this is used to compress/decrease the loop count
 
 // TODO shrink this via the use of lists and loops!
 describe('OpenRPG', () => {
@@ -230,6 +230,26 @@ describe('OpenRPG', () => {
                 assert.ok(exp.parse_expression() === 0);
             });
 
+            it('expression \'0\' to_string() === \'head->(0)\\n\'', () => {
+                exp.set_expression('0');
+                assert.ok(exp.to_string() === 'head->(0)\n');
+            });
+
+            it('expression \'0\' === 0', () => {
+                exp.set_expression('0');
+                assert.ok(exp.parse_expression() === 0);
+            });
+
+            it('expression \'42\' to_string() === \'head->(42)\\n\'', () => {
+                exp.set_expression('42');
+                assert.ok(exp.to_string() === 'head->(42)\n');
+            });
+
+            it('expression \'42\' === 42', () => {
+                exp.set_expression('42');
+                assert.ok(exp.parse_expression() === 42);
+            });
+
             it('expression \'dhgdshd\' to_string() === \'expression not yet set\'', () => {
                 exp.set_expression('dhgdshd');
                 assert.ok(exp.to_string() === 'expression not yet set');
@@ -239,6 +259,17 @@ describe('OpenRPG', () => {
                 exp.set_expression('dhgdshd');
                 assert.ok(exp.parse_expression() === 0);
             });
+
+            // FIXME: debug these tests
+            // it('expression \'-1d0\' === 0', () => {
+            //     exp.set_expression('-1d0');
+            //     assert.ok(exp.parse_expression() === 0);
+            // });
+
+            // it('expression \'0d-1\' === 0', () => {
+            //     exp.set_expression('0d-1');
+            //     assert.ok(exp.parse_expression() === 0);
+            // });
 
             // TODO continue adding expression tests to esure we fully test our ExpressionParser
         });

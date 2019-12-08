@@ -568,20 +568,24 @@ namespace ORPG {
 
         struct parse_node* curr = head;
 
-        /* Basic rules of a math expression parser (these WILL need improvement)
-        1) If the current token is a '(', add a new node as the left
-            child of the current node, and descend to the left child.
-
-        2) If the current token is in the list ['+','-','/','*'],
-            set value of the current node to the operator code
-            representation of the current token. Add a new node as the
-            right child of the current node and descend to the right child.
-
-        3) If the current token is a number, set the root value of the
-            current node to the number and return to the parent.
-
-        4) If the current token is a ')', go to the parent of the current node.
-        */
+        /**
+         * Basic rules of a math expression parser (these WILL need improvement)
+         *  1) If the current token is a '(', add a new node as the left
+         *      child of the current node, and descend to the left child.
+         * 
+         *  2) If the current token is in the list ['+','-','/','*'],
+         *      set value of the current node to the operator code
+         *      representation of the current token. Add a new node as the
+         *      right child of the current node and descend to the right child.
+         * 
+         *  3) If the current token is a number, set the root value of the
+         *      current node to the number and return to the parent.
+         * 
+         *  4) If the current token is a ')', go to the parent of the current node.
+         * 
+         * FIXME(incomingstick): Currently an expression could be opened with a '(' and
+         * closed with a ']' or '}' or vice versa
+         **/
         for(auto it = inputString.begin(); it != inputString.end(); ++it) {
             auto curr_ch = *it;
             if(isdigit(curr_ch)) {
@@ -704,10 +708,14 @@ namespace ORPG {
                 case ')': {
                     if(curr->parent) {
                         // ensure that if the currrent node is empty, that we bring up its child
+                        // if our current node's op and value are empty, we consider it an empty node
                         if(!curr->op && !curr->value) {
+                            // check if our current node has a left or right child, and set that childs
+                            // parent to our current parent
                             if(curr->left) {
                                 curr->left->parent = curr->parent;
 
+                                // if we are the left or right of our parent, set our child to that node
                                 if(curr->parent->left == curr)
                                     curr->parent->left = curr->left;
                                 else if(curr->parent->right == curr)
@@ -715,6 +723,7 @@ namespace ORPG {
                             } else if(curr->right) {
                                 curr->right->parent = curr->parent;
 
+                                // if we are the left or right of our parent, set our child to that node
                                 if(curr->parent->left == curr)
                                     curr->parent->left = curr->right;
                                 else if(curr->parent->right == curr)
@@ -724,7 +733,8 @@ namespace ORPG {
                             curr = curr->parent;
                         }
 
-                        // we are leaving the current expression so lets remove the OP_EXPR node
+                        // we are leaving the current expression so lets remove the OP_EXPR node by setting
+                        // the subtree's head as this node
                         if(curr->parent && curr->parent->op == OP_EXPR) {
                             if(curr->parent->parent->left == curr->parent)
                                 curr->parent->parent->left = curr;
@@ -753,10 +763,14 @@ namespace ORPG {
                     current node to the number and return to the parent. */
                 if(numBytesToRead > 0){
                     curr = new_number(curr, &numBytesToRead);
+                    // if our current node's op and value are empty, we consider it an empty node
                     if(!curr->op && !curr->value) {
+                        // check if our current node has a left or right child, and set that childs
+                        // parent to our current parent
                         if(curr->left) {
                             curr->left->parent = curr->parent;
 
+                            // if we are the left or right of our parent, set our child to that node
                             if(curr->parent->left == curr)
                                 curr->parent->left = curr->left;
                             else if(curr->parent->right == curr)
@@ -764,6 +778,7 @@ namespace ORPG {
                         } else if(curr->right) {
                             curr->right->parent = curr->parent;
 
+                            // if we are the left or right of our parent, set our child to that node
                             if(curr->parent->left == curr)
                                 curr->parent->left = curr->right;
                             else if(curr->parent->right == curr)
@@ -782,13 +797,22 @@ namespace ORPG {
             if(it + 1 == inputString.end() && numBytesToRead > 0) {
                 curr = new_number(curr, &numBytesToRead);
                 if(!curr->op && !curr->value) {
-                    // NOTE(incomingstick): because this is the last item, we can assume it was place
+                    // because this is the last item, we can assume it was placed
                     // to the left of our current node
                     curr->left->parent = curr->parent;
-                    if(curr->parent->left == curr)
+
+                    // if our parent exists, set our child to our current position relative to our parent
+                    // otherwise we assume our child should become the head node
+                    if(curr->parent && curr->parent->left == curr)
                         curr->parent->left = curr->left;
-                    else if(curr->parent->right == curr)
+                    else if(curr->parent && curr->parent->right == curr)
                         curr->parent->right = curr->left;
+                    else {
+                        // we can assume the number node we just created is the only node
+                        // so set head to that node
+                        head = curr->left;
+                    }
+
                     curr = curr->parent;
                 }
             }
