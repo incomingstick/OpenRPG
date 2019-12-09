@@ -250,9 +250,9 @@ describe('OpenRPG', () => {
                 assert.ok(exp.parse_expression() === 42);
             });
 
-            it('expression \'dhgdshd\' to_string() === \'expression not yet set\'', () => {
+            it('expression \'dhgdshd\' to_string() === \'invalid expression\'', () => {
                 exp.set_expression('dhgdshd');
-                assert.ok(exp.to_string() === 'expression not yet set');
+                assert.ok(exp.to_string() === 'invalid expression');
             });
 
             it('expression \'dhgdshd\' === 0', () => {
@@ -260,16 +260,15 @@ describe('OpenRPG', () => {
                 assert.ok(exp.parse_expression() === 0);
             });
 
-            // FIXME: debug these tests
-            // it('expression \'-1d0\' === 0', () => {
-            //     exp.set_expression('-1d0');
-            //     assert.ok(exp.parse_expression() === 0);
-            // });
+            it('expression \'-1d0\' === 0', () => {
+                exp.set_expression('-1d0');
+                assert.ok(exp.parse_expression() === 0);
+            });
 
-            // it('expression \'0d-1\' === 0', () => {
-            //     exp.set_expression('0d-1');
-            //     assert.ok(exp.parse_expression() === 0);
-            // });
+            it('expression \'0d-1\' === -1', () => {
+                exp.set_expression('0d-1');
+                assert.ok(exp.parse_expression() === -1);
+            });
 
             // TODO continue adding expression tests to esure we fully test our ExpressionParser
         });

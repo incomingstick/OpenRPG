@@ -168,7 +168,11 @@ namespace ORPG {
      */
     parse_node* ExpressionTree::new_op(struct parse_node* curr, short int op) {
         if(curr->op) {
-            while(curr->parent && curr->parent->op != OP_EXPR) curr = curr->parent;
+            while(curr->parent &&
+                curr->parent->op != OP_EXPR) {
+                curr = curr->parent;
+            }
+
             if(!curr->parent) {
                 curr->parent = allocate_node();
                 curr->parent->left = curr;
@@ -317,7 +321,7 @@ namespace ORPG {
 
         int sum = 0;
 
-        if(!curr->op && !curr->value) {
+        if(!curr || (!curr->op && !curr->value)) {
             return 0;
         }
 
@@ -332,6 +336,29 @@ namespace ORPG {
             sum = curr->value;
         } break;
 
+        // n-sided die node
+        case OP_DIE: {
+            reps = curr->left ? parse_tree(curr->left) : 1;
+            size = parse_tree(curr->right);
+
+            if(reps == 0) {
+                break;
+            }
+
+            if(size < 2 && size > -2) {
+                sum = checked_sum(sum, size);
+                break;
+            }
+
+            die = new Die(size); 
+            
+            for(i = 0; i < reps; i++) {
+                sum = checked_sum(sum, die->roll());
+            }
+            
+            delete[] die;
+        } break;
+
         // multiplication node
         case OP_TIMES: {
             sum = checked_multiplication(parse_tree(curr->left),
@@ -343,18 +370,6 @@ namespace ORPG {
             sum = (int)
             ceil((float)parse_tree(curr->left) /
                         parse_tree(curr->right));
-        } break;
-
-        // n-sided die node
-        case OP_DIE: {
-            reps = curr->left ? parse_tree(curr->left) : 1;
-            die = new Die(parse_tree(curr->right));
-            
-            for(i = 0; i < reps; i++) {
-                sum = checked_sum(sum, die->roll());
-            }
-            
-            delete[] die;
         } break;
         
         // addition node
@@ -380,9 +395,19 @@ namespace ORPG {
             high = parse_tree(curr->right);
             size = parse_tree(curr->left->right);
 
+            if(reps == 0) {
+                break;
+            }
+
+            if(size < 2 && size > -2) {
+                sum = checked_sum(sum, size);
+                break;
+            }
+
             // array to store the results to sort
             if (!(results = new int[reps])) {
                 printf("out of memory");
+                break;
             }
         
             Die* die = new Die(size);
@@ -407,10 +432,20 @@ namespace ORPG {
             reps    = parse_tree(curr->left->left);
             low     = parse_tree(curr->right);
             size    = parse_tree(curr->left->right);
+
+            if(reps == 0) {
+                break;
+            }
+
+            if(size < 2 && size > -2) {
+                sum = checked_sum(sum, size);
+                break;
+            }
                     
             /* array to store the results to sort */
             if (!(results = new int[reps])) {
                 printf("out of memory");
+                break;
             }
         
             Die* die = new Die(size);

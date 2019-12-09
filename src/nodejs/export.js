@@ -26,7 +26,7 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
 let ORPG = require(prefix + 'orpgNode');
 
 let exp = new ORPG.ExpressionTree();
-exp.set_expression('-1d0');
+exp.set_expression('0d-1');
 console.log(exp.to_string(), '\n' + exp.get_input_string() + ' ->', exp.parse_expression());
 
 module.exports = ORPG;

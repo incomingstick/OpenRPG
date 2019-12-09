@@ -108,8 +108,12 @@ namespace ORPG {
          * @return string - a string representation of the current tree
          */
         std::string to_string() { 
-            if(head->op == 0 || head->op == OP_ERR) {
+            if(head->op == 0) {
                 return "expression not yet set";
+            }
+
+            if(head->op == OP_ERR) {
+                return "invalid expression";
             }
 
             return tree_string(head, 0); 
