@@ -2,7 +2,7 @@ set(ROLL_ADDON_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/roll/)
 
 set(ROLL_ADDON_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/nodeAddon.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/roll/rollWrapper.cpp
+    ${CMAKE_SOURCE_DIR}/src/roll/rollWrapper.cpp
 )
 
 add_library(orpgNode SHARED ${ROLL_ADDON_SOURCES} ${CMAKE_JS_SRC})

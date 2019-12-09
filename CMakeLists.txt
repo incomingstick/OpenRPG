@@ -44,6 +44,11 @@ else()
 endif()
 
 if(MSVC OR WIN32)
+    # if this is a cmake-js build ignore the node.exe link warning
+    if (CMAKE_JS_VERSION)
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /ignore:4199")
+    endif()
+
     # Force to always compile with W1
     if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
         string(REGEX REPLACE "/W[0-4]" "/W1" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")

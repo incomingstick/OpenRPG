@@ -1,28 +1,4 @@
-const os = require('os');
-const path = require('path');
-
-/**
- * define the location to import the node addon wrappers from
- * Windows:         ../build/Releasse/
- * Linux and macOS: ../build/lib/openrpg/
- **/
-let prefix;
-const appDir = path.dirname(__dirname);
-
-if (os.type() === 'Linux' || os.type() === 'Darwin') {
-    prefix = path.join(appDir, '/build/lib/openrpg/');
-} else if (os.type() === 'Windows_NT') {
-    const fs = require("fs");
-
-    if (fs.existsSync(path.join(appDir, '/build/Debug/'))) {
-        prefix = path.join(appDir, '/build/Debug/');
-    } else
-        prefix = path.join(appDir, '/build/Release/');
-
-} else
-   throw new Error("Unsupported OS found: " + os.type());
-
-const ORPG = require(prefix + 'orpgNode');
+const ORPG = require('../src/nodejs/export');
 var assert = require('assert');
 
 // Control variables go here
