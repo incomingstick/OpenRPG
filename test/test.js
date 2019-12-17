@@ -3,7 +3,7 @@ var assert = require('assert');
 
 // Control variables go here
 const LOOP_INT = 1e4;   // The number of times we want to run loops
-const LOOP_COMP = 0.9;  // For higher processing computations this is used to compress/decrease the loop count
+const LOOP_COMP = 3e-1;  // For higher processing computations this is used to compress/decrease the loop count
 
 // TODO shrink this via the use of lists and loops!
 describe('OpenRPG', () => {
@@ -180,7 +180,7 @@ describe('OpenRPG', () => {
 
             it('expression \'(2d6 + 4)d6 + 5\' >= 11 && <= 101', () => {
                 exp.set_expression('(2d6 + 4)d6 + 5');
-                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
+                for(i = 0; i < LOOP_INT; i++) {
                     val = exp.parse_expression();
                     assert.ok(val >= 11);
                     assert.ok(val <= 101);
@@ -257,27 +257,64 @@ describe('OpenRPG', () => {
             let last;
             let full;
 
-            it('NameGenerator() !== \"NULL\"', () => {
+            it('NameGenerator() > 0', () => {
+                // Apparently the default constructor for NameGenerator is AWFULY slow
                 ng = new ORPG.NameGenerator();
-
-                for(i = 0; i < LOOP_INT; i++) {
+                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     first = ng.make_first();
                     last = ng.make_last();
                     full = ng.make_name();
             
                     // Check first name function
-                    assert.ok(first === "NULL");
                     assert.ok(first.length > 0);
             
                     // Check last name function
-                    assert.ok(last !== "NULL");
                     assert.ok(last.length > 0);
             
                     // Check full name function
-                    assert.ok(full !== "NULL");
                     assert.ok(full.length > 0);
                 }
             });
+
+            it('NameGenerator(\'aarakocra\') > 0', () => {
+                ng = new ORPG.NameGenerator('aarakocra');
+                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
+                    first = ng.make_first();
+                    last = ng.make_last();
+                    full = ng.make_name();
+            
+                    // Check first name function
+                    assert.ok(first.length > 0);
+            
+                    // Check last name function
+                    // Aarakocra dont have last names
+                    assert.ok(last.length === 0);
+            
+                    // Check full name function
+                    assert.ok(full.length > 0);
+                }
+            });
+
+            it('NameGenerator(\'changeling\') > 0', () => {
+                ng = new ORPG.NameGenerator('changeling');
+                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
+                    first = ng.make_first();
+                    last = ng.make_last();
+                    full = ng.make_name();
+            
+                    // Check first name function
+                    assert.ok(first.length > 0);
+            
+                    // Check last name function
+                    // Changeling dont have last names
+                    assert.ok(last.length === 0);
+            
+                    // Check full name function
+                    assert.ok(full.length > 0);
+                }
+            });
+
+            // TODO find a way to automate this before continuing
         });
     });
 });

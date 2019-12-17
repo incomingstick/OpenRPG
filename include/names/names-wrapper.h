@@ -27,6 +27,12 @@ namespace ORPGGUI {
             static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
             static v8::Persistent<v8::Function> constructor;
 
+            static void get_race(const v8::FunctionCallbackInfo<v8::Value>& args);
+            static void get_gender(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+            static void set_race(const v8::FunctionCallbackInfo<v8::Value>& args);
+            static void set_gender(const v8::FunctionCallbackInfo<v8::Value>& args);
+
             static void make_name(const v8::FunctionCallbackInfo<v8::Value>& args);
             static void make_first(const v8::FunctionCallbackInfo<v8::Value>& args);
             static void make_last(const v8::FunctionCallbackInfo<v8::Value>& args);

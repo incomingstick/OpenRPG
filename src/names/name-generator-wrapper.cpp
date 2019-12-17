@@ -54,6 +54,10 @@ namespace ORPGGUI {
         tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
         // Prototype
+        NODE_SET_PROTOTYPE_METHOD(tpl, "get_race", get_race);
+        NODE_SET_PROTOTYPE_METHOD(tpl, "get_gender", get_gender);
+        NODE_SET_PROTOTYPE_METHOD(tpl, "set_race", set_race);
+        NODE_SET_PROTOTYPE_METHOD(tpl, "set_gender", set_gender);
         NODE_SET_PROTOTYPE_METHOD(tpl, "make_name", make_name);
         NODE_SET_PROTOTYPE_METHOD(tpl, "make_first", make_first);
         NODE_SET_PROTOTYPE_METHOD(tpl, "make_last", make_last);
@@ -76,9 +80,9 @@ namespace ORPGGUI {
             std::vector<std::string> argv;
 
             for(int i = 0; i < args.Length(); i++) {
-                v8::String::Utf8Value str(isolate, args[i]);
-                std::string cppStr(*str);
-                argv.push_back(cppStr);
+                v8::String::Utf8Value v8Str(isolate, args[i]);
+                std::string str(*v8Str);
+                argv.push_back(str);
             }
 
             switch (argv.size()) {
@@ -117,6 +121,48 @@ namespace ORPGGUI {
                 cons->NewInstance(context, argc, argv).ToLocalChecked();
             args.GetReturnValue().Set(result);
         }
+    }
+
+    void NameGeneratorWrapper::get_race(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        auto raceString = wrappedGenerator.get_race();
+        const char*  str = raceString.c_str();
+
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str, NewStringType::kNormal).ToLocalChecked());
+    }
+
+    void NameGeneratorWrapper::get_gender(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        auto genderString = wrappedGenerator.get_gender();
+        const char*  str = genderString.c_str();
+
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str, NewStringType::kNormal).ToLocalChecked());
+    }
+
+    void NameGeneratorWrapper::set_race(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        String::Utf8Value v8Str(isolate, args[0]);
+
+        std::string str = *v8Str ? *v8Str : "dwarf";
+
+        wrappedGenerator.set_race(str);
+
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str(), NewStringType::kNormal).ToLocalChecked());
+    }
+
+    void NameGeneratorWrapper::set_gender(const v8::FunctionCallbackInfo<v8::Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        String::Utf8Value v8Str(isolate, args[0]);
+
+        std::string str = *v8Str ? *v8Str : "";
+
+        wrappedGenerator.set_gender(str);
+
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str(), NewStringType::kNormal).ToLocalChecked());
     }
 
     void NameGeneratorWrapper::make_name(const v8::FunctionCallbackInfo<v8::Value>& args) {

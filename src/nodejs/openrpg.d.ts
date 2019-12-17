@@ -81,11 +81,61 @@ declare module 'openrpg-libs' {
         public gender: string;
 
         public constructor(_race: string);
+
+        /**
+         * @desc Constructor for NameGenerator that is passed two optional
+         * arguments. It sets race equal to _race and sets gender to _gender.
+         *
+         * @param string _race = "dwarf" - the race to use. defaults to dwarf
+         * @param string _gender = "" - the gender of our race. defaults to
+         * empty
+         **/
         public constructor(_race: string, _gender: string);
+
+        /**
+         * @desc Constructor for NameGenerator that is passed three arguments.
+         * It sets race equal to _race, gender to _gender, and location to
+         * _location
+         *
+         * @param string _race - the race to use
+         * @param string _gender - the gender of our race
+         * @param string _location - the toplevel location to check for lst files.
+         * note that /names will be appended to this location
+         **/
         public constructor(_race: string, _gender: string, _location: string);
 
+        /**
+         * @desc Generates a random full name by calling make_first and make_last,
+         * checking their outputs, and concatenating a string together. If either
+         * make_first or make_last return an emprt string it added to the full
+         * name. If the string would be empty, this function returns an empty
+         * string
+         *
+         * @return string - a concatenated string containing a full name. If no
+         * string could be produced it will return an empty string
+         **/
         public make_name(): string;
+
+        /**
+         * @desc Generates a random first name by reading from a random namelist
+         * in the given location with the given race. If the race is gendered, but
+         * no gender is currently set, we will randomly set gender to either female
+         * or male. If no name can be generated this function will return an empty
+         * string
+         *
+         * @return string - a string containing a first name. If no name could be
+         * produced it will return an empty string.
+         **/
         public make_first(): string;
+
+        /**
+         * @desc Generates a random last name by reading from a random namelist
+         * in the given location with the given race. If no name can be generated
+         * this function will return an empty string
+         *
+         * @return string - a string containing a last name. If no name could be
+         * produced it will return an empty string.
+         **/
         public make_last(): string;
     }
 }
