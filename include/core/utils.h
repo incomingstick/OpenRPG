@@ -99,6 +99,8 @@ namespace ORPG {
 
         int UTILS_EXPORT randomInt(int min, int max);
 
+        bool UTILS_EXPORT randomBool();
+
         /* Compute the greatest common divisor of a and b. */
         int UTILS_EXPORT gcd(int a, int b);
     }
