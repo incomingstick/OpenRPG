@@ -74,4 +74,18 @@ declare module 'openrpg-libs' {
          */
         public get_input_string(): string;
     }
+
+    export class NameGenerator {
+        public race: string;
+        public subrace: string;
+        public gender: string;
+
+        public constructor(_race: string);
+        public constructor(_race: string, _gender: string);
+        public constructor(_race: string, _gender: string, _location: string);
+
+        public make_name(): string;
+        public make_first(): string;
+        public make_last(): string;
+    }
 }

@@ -249,4 +249,35 @@ describe('OpenRPG', () => {
             // TODO continue adding expression tests to esure we fully test our ExpressionParser
         });
     });
+
+    describe('Names Module', () => {
+        describe('NameGenerator', () => {
+            let ng;
+            let first;
+            let last;
+            let full;
+
+            it('NameGenerator() !== \"NULL\"', () => {
+                ng = new ORPG.NameGenerator();
+
+                for(i = 0; i < LOOP_INT; i++) {
+                    first = ng.make_first();
+                    last = ng.make_last();
+                    full = ng.make_name();
+            
+                    // Check first name function
+                    assert.ok(first === "NULL");
+                    assert.ok(first.length > 0);
+            
+                    // Check last name function
+                    assert.ok(last !== "NULL");
+                    assert.ok(last.length > 0);
+            
+                    // Check full name function
+                    assert.ok(full !== "NULL");
+                    assert.ok(full.length > 0);
+                }
+            });
+        });
+    });
 });
