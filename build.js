@@ -18,14 +18,14 @@ else if (os.type() === 'Windows_NT')
 else
    throw new Error("Unsupported OS found: " + os.type());
 
-build.stdout.on('data', function (data) {
+build.stdout.on('data', (data) => {
    process.stdout.write(data.toString());
 });
    
-build.stderr.on('data', function (data) {
+build.stderr.on('data', (data) => {
    process.stderr.write(data.toString());
 });
    
-build.on('exit', function (code) {
+build.on('exit', (code) => {
    console.log('child process exited with code ' + code.toString());
 });

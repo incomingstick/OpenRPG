@@ -51,6 +51,7 @@ exports/
 *.un~
 *.un
 node_modules/
+[Dd]ist/
 
 # Rust files
 Cargo.lock
@@ -59,7 +60,3 @@ Cargo.lock
 *.zip
 *.tar
 *.tar.*
-
-# Temp until GUI is merged into dev branch
-app/
-*.swp
