@@ -20,7 +20,7 @@ set(CUR_TEST_SRC
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
-target_link_libraries(${CUR_TEST} utils names)
+target_link_libraries(${CUR_TEST} core names)
 
 macro(do_test test arg1)
     set(ExtraMacroArgs ${ARGN})
@@ -113,7 +113,7 @@ set(CUR_TEST_SRC
 )
 
 add_executable(${CUR_TEST} ${TEST_COMMON_SRC} ${CUR_TEST_SRC})
-target_link_libraries(${CUR_TEST} utils roll-parser)
+target_link_libraries(${CUR_TEST} core roll-parser)
 
 macro(do_test test)
     add_test(${test}-die ${test})

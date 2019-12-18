@@ -13,7 +13,7 @@ GENERATE_EXPORT_HEADER(roll-parser
 )
 endif()
 
-target_link_libraries(roll-parser utils)
+target_link_libraries(roll-parser core)
 
 # if the roll-parser library needs a higher standard than C++11 please update here
 set_property(TARGET roll-parser PROPERTY CXX_STANDARD 11)
@@ -24,7 +24,7 @@ set(R_SOURCES
 )
 
 add_executable(roll ${R_SOURCES})
-target_link_libraries(roll roll-parser utils)
+target_link_libraries(roll roll-parser core)
 
 # if the roll executable needs a higher standard than C++11 please update here
 set_property(TARGET roll PROPERTY CXX_STANDARD 11)

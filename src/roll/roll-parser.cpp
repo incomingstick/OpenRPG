@@ -44,8 +44,8 @@ namespace ORPG {
                         "\t-V --version                Print version info\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-                "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
+                "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man name-generator' for more information [TODO add man pages].\n",
                 stdout);
             exit(EXIT_SUCCESS);
@@ -75,8 +75,8 @@ namespace ORPG {
                 "Usage: roll [options] XdY [+|-] AdB [+|-] N [...]\n"
                 "\n"
                 "Long options may not be passed with a single dash.\n"
-                "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
-                "OpenRPG home page: <https://github.com/incomingstick/OpenRPG>\n"
+                "OpenRPG home page: < https://www.openrpg.io >\n"
+                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
                 "See 'man name-generator' for more information [TODO add man pages].\n",
                 stdout);
         }
@@ -90,8 +90,8 @@ namespace ORPG {
      * @return int - >  1, < -1, =  0
      */
     int compare(const void* p1, const void* p2) {
-        const int i1 = *((const int *)p1);
-        const int i2 = *((const int *)p2);
+        auto i1 = *((const int *)p1);
+        auto i2 = *((const int *)p2);
 
         if (i1 > i2) return 1;
         else if (i1 < i2) return -1;
@@ -147,7 +147,8 @@ namespace ORPG {
         curr->value = stoi(currParseString);
         curr->op = OP_NUMBER;
 
-        if(!curr->parent && (size_t) numBytesRead != inputString.length()) {
+
+        if(curr->parent == NULL && (size_t)numBytesRead != inputString.length()) {
             curr->parent = allocate_node();
             curr->parent->left = curr;
         }
@@ -317,7 +318,7 @@ namespace ORPG {
         int ret = 0;
 
         /* sets our current node to node */
-        struct parse_node* curr = node;
+        auto curr = node;
 
         int sum = 0;
 
@@ -601,7 +602,7 @@ namespace ORPG {
     bool ExpressionTree::build_expression_tree(void) {
         int numBytesToRead = 0;
 
-        struct parse_node* curr = head;
+        auto curr = head;
 
         /**
          * Basic rules of a math expression parser (these WILL need improvement)

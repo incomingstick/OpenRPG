@@ -1,5 +1,5 @@
 /*
-character-generator - character.h
+characters - character.h
 Created on: Jan 30, 2017
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
@@ -15,218 +15,353 @@ There is NO WARRANTY, to the extent permitted by law.
 #	define CHARACTER_EXPORT
 #endif
 
-#include <map>
-
-using namespace std;
+#include "ability-scores.h"
+#include "skills.h"
+#include "races.h"
+#include "backgrounds.h"
+#include "classes.h"
 
 namespace ORPG {
-	namespace Characters {
-		void CHARACTER_EXPORT print_version_flag();
-		void CHARACTER_EXPORT print_help_flag();
-		void CHARACTER_EXPORT print_basic_version();
-		void CHARACTER_EXPORT print_basic_help();
-	}
+    /* predefinition of Character class incase functions in the Characters
+        namespace need it */
+    class Character;
 
-	/* NOTE: These are just the 5E character requirements */
+    namespace Characters {
+        /**
+         * @desc prints the version info when -V or --version is an argument to the command.
+         * This adhears to the GNU standard for version printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
+        void CHARACTER_EXPORT print_version_flag();
 
-	/* an arrray that holds the EXP needed for each level */
-	extern const int CHARACTER_EXPORT levels[];
+        /**
+         * @desc prints the help info when -h or --help is an argument to the command.
+         * This adhears to the GNU standard for help printing, and immediately terminates
+         * the program with exit code EXIT_SUCCESS
+         **/
+        void CHARACTER_EXPORT print_help_flag();
 
-	enum CHARACTER_EXPORT Alignment {
-		LawfulGood,
-		NeutralGood,
-		ChaoticGood,
-		
-		LawfulNeutral,
-		TrueNeutral,
-		ChaoticNeutral,
+        /**
+         * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
+        void CHARACTER_EXPORT print_basic_version();
 
-		LawfulEvil,
-		NeutralEvil,
-		ChaoticEvil
-	};
+        /**
+         * @desc prints the help info when help, h, or H are called in the ORPG shell.
+         * Because this is called from within our ORPG shell, the program will continue running.
+         **/
+        void CHARACTER_EXPORT print_basic_help();
 
-	enum CHARACTER_EXPORT Language {
-		Common,    Dwarvish,   Elvish,
-		Giant,     Gnomish,    Goblin,
-		Halfling,  Orc,        Abyssal,
-		Celestial, Draconic,   DeepSpeech,
-		Infernal,  Primordial, Silvian,
-		Undercommon
-	};
+        /**
+         * TODO comments 
+         * NOTE(incomingstick): This function is not exported because it does not yet need to be
+         **/
+        class RaceSelector {
+        private: 
+            struct race_node {
+                uint raceID;
+                bool required;
 
-	enum CHARACTER_EXPORT Gender {
-		Male,
-		Female,
-		Agender
-	};
+                race_node* parent;
+                std::vector<race_node* > children;
+            };
 
-	enum CHARACTER_EXPORT Size {
-		Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
-		Small,       // 5 by 5 ft.            [2 to 4 feet tall]
-		Medium,      // 5 by 5 ft.            [4 to 8 feet tall]
-		Large,       // 10 by 10 ft.          [8 to 12 feet tall]
-		Huge,        // 15 by 15 ft.          [12 to 16 feet tall]
-		Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
-	};
+            race_node* head;
+            race_node* current;
+            race_node* allocate_node(uint raceID,
+                                    bool required,
+                                    race_node* parent);
+        public:
+            RaceSelector();
+            ~RaceSelector();
 
-	struct CHARACTER_EXPORT Ability {
-		int STR = 10;   // Strength
-		int DEX = 10;   // Dexterity
-		int CON = 10;   // Constitution
-		int INT = 10;   // Intelligence
-		int WIS = 10;   // Wisdom
-		int CHA = 10;   // Charisma
-	};
+            void reset() { current = head; };
+            std::vector<std::string> current_options();
+            bool has_options();
+            void select_option(int8 index);
+            uint current_id();
+        };
 
-	class CHARACTER_EXPORT Skill {
-		public:
-			Skill(void);
-			Skill(char modifier, unsigned char proficiency);
-			~Skill(void);
-			void set(char newMod, unsigned char newProficiency);
-			void setMod(char newMod);
-			void setProf(unsigned char newProficiency);
-			char getMod(void);
-			unsigned char getProf(void);
+        /**
+         * @desc Currently this function just checks to ensure the string contains
+         * only digits, and returns true. It will return false otherwise.
+         * If the provided string is empty, this function returns false.
+         * 
+         * TODO(incomingstick): ensure we are at least coming in as an int32.
+         *
+         * NOTE(incomingsting): This could, and probably should, be improved
+         * to also ensure we are within the bounds on the "question" being asked.
+         * 
+         * NOTE(incomingstick): This function is not exported because it does not yet need to be
+         *
+         * @param: string check - this string to be checked
+         * @return bool - returns true if check contains only numbers
+         **/
+        bool safety_check_stoi(std::string check);
 
-		private:
-			char mod = 0;
-			unsigned char prof = 0;
-	};
+        /**
+         * @desc This function is built to work in tandem specifically with the Character
+         * module. It takes in a CharacterFactory and checks what stage it is
+         * currently in, prompting the user for any required input from cin.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '1') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * @param: CharacterFactory factory - the factory to check and prompt from
+         * @return auto - the selected input
+         **/
+        int request_selection(RaceSelector factory);
+        
+        /**
+         * @desc This function is build to work specifically in tandem with the Character
+         * module. It prompts to stdout a request for user input, from stdin, to help determine
+         * whether or not we should just randomly create the character
+         *
+         * TODO character creator switch ('-r' argv should ALSO handle this)
+         * 
+         * @return bool - true if user wants to be random, false otherwise
+         **/
+        bool CHARACTER_EXPORT request_is_random();
 
-	enum CHARACTER_EXPORT EnumSkill{
-		ACR, ANM, ARC, ATH, DEC, 
-		HIS, INS, ITM, INV, MED, 
-		NAT, PRC, PRF, PRS, REL, 
-		SLE, STL, SUR
-	};
+        /**
+         * @desc This function prompts the user for their race by using the RaceSelector
+         * to first prompt to stdout the base race, requesting a corresponding number
+         * via stdin. It repeats this process for the subrace, and will continue prompting
+         * until no other race types could possibly be chosen.
+         * 
+         * @return auto - the current race ID from the RaceSelector
+         **/
+        CHARACTER_EXPORT Race* request_race();
 
-	class CHARACTER_EXPORT Skills {
-		public:
-			Skills(void);
-			~Skills(void);
-			Skill* get(EnumSkill skill);
-			char getMod(EnumSkill skill) {
-				return skillsMap[skill]->getMod();
-			}
-			unsigned char getProf(EnumSkill skill);
+        /**
+         * @desc This function prompts the user, via stdout, for 6 numbers to
+         * use as their characters abilities. It specifically request their
+         * ability scores in the following order: Strength, Dexterity,
+         * Constitution, Intelligence, Wisdom, Charisma.
+         *
+         * NOTE(incomingsting): currently, we are only using numbered input
+         * (i.e '12') so the above purity check function strictly ensures the input
+         * will only contain digits. If it does not, it will continue to prompt the
+         * user.
+         *
+         * This function could likely also be cleaner. Its just a giant switch
+         * currently, which looks kinda ungly, and takes up space. Like this comment.
+         *
+         * @return AbilityScores - an AbilityScores object containing the users input
+         * scores
+         **/
+        CHARACTER_EXPORT AbilityScores* request_scores();
 
-		private:
-			std::map <EnumSkill, Skill*> skillsMap = {
-				{ ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
-				{ ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
-				{ ARC, new Skill(0, 0) },    // Arcana           (INT)
-				{ ATH, new Skill(0, 0) },    // Athletics        (STR)
-				{ DEC, new Skill(0, 0) },    // Deception        (CHA)
-				{ HIS, new Skill(0, 0) },    // History          (INT)
-				{ INS, new Skill(0, 0) },    // Insight          (WIS)
-				{ ITM, new Skill(0, 0) },    // Intimidation     (CHA)
-				{ INV, new Skill(0, 0) },    // Investigation    (INT)
-				{ MED, new Skill(0, 0) },    // Medicine         (WIS)
-				{ NAT, new Skill(0, 0) },    // Nature           (INT)
-				{ PRC, new Skill(0, 0) },    // Perception       (WIS)
-				{ PRF, new Skill(0, 0) },    // Performance      (CHA)
-				{ PRS, new Skill(0, 0) },    // Persuasion       (CHA)
-				{ REL, new Skill(0, 0) },    // Religion         (INT)
-				{ SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
-				{ STL, new Skill(0, 0) },    // Stealth          (DEX)
-				{ SUR, new Skill(0, 0) }     // Survival         (WIS)
-			};
-	};
+        /**
+         * @desc This function prompts the user via stdout for a name, and reading
+         * from stdin the input. We use the safeGetline function via the ORPG::Utils
+         * namespace to ensure integrity across platforms.
+         * 
+         * @return string - the user input string to be used as a name
+         **/
+        std::string CHARACTER_EXPORT request_name();
 
-	enum CHARACTER_EXPORT VisionType {
-		Normal,
-		Blindsight,
-		DarkVision,
-		TrueSight
-	};
+        /**
+         * @desc prints "Background\n" to stdout
+         *
+         * TODO(incomingstick): Add backgrounds
+         *
+         * @return bool - always will return true
+         **/
+        uint CHARACTER_EXPORT request_background();
 
-	struct CHARACTER_EXPORT Vision {
-		VisionType type;    // type of sight
-		int radius;         // radius of vision in feet (-1 == infinite IF unobstructed)
-	};
+        /**
+         * @desc prints "Wizard Class Automatically Chosen\n" to stdout
+         * and returns a pointer to a new Wizard.
+         *
+         * TODO(incomingstick): Add more character classes
+         *
+         * @return CharacterClass* - always will return a pointer to a Wizard
+         **/
+        CHARACTER_EXPORT CharacterClass* request_class();
 
-	/* Generates a stat > 1 && < 20 */
-	int CHARACTER_EXPORT gen_stat();
+        /**
+         * @desc prints "Skill select based on class\n" to stdout
+         *
+         * TODO(incomingstick): Improve skills once classes are added
+         *
+         * @return bool - always will return true
+         **/
+        CHARACTER_EXPORT Skills* request_skills();
 
-	/* Generates an array of stats > 1 && < 20 */
-	std::vector<int> CHARACTER_EXPORT ability_vector();
-	Ability CHARACTER_EXPORT ability_struct();
+        /**
+         * @desc prints "Hit points\n" to stdout
+         *
+         * TODO(incomingstick): Set hitpoints based on classes hit die
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_hitpoints(CharacterClass* classPtr);
 
-	/* 
-	* returns an integer representation of the passed abilities modifier 
-	* 
-	* NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
-	*/
-	inline int CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
+        /**
+         * @desc prints "Equipment\n" to stdout
+         *
+         * TODO(incomingstick): Choose equipment based on class
+         * and background
+         *
+         * @return bool - always will return true
+         **/
+        bool CHARACTER_EXPORT request_equipment();
 
-	// TODO take an in depth look at what should and should not be public here
-	class CHARACTER_EXPORT Character {
-		protected:
-			struct Vision vision;               // information about the characters vision
-			size_t age;                         // the age of the character
-			Alignment alignment;                // the character alignment
-			Size size;                          // the size type
-			std::string firstName;              // the characters first name
-			std::string lastName;               // the characters first name
-			Ability abils;                      // struct of ability scores
-			Skills skills;                      // struct of skill checks
-			int curr_hp;                        // current hit points
-			int temp_hp;                        // temporary hit points
-			int max_hp;                         // maximum hit points
-			int prof;                           // proficiency bonus
-			int level;                          // character level total
-			int cur_exp;                        // current experience
-			int max_exp;                        // experience needed for next level
-			std::vector<Language> languages;    // the array of known languages
-			Gender gender;                      // the characters gender
-		
-			void Initialize();
+        /**
+         * @desc import_character takes in the location of a file as a string
+         * and attempts to load it as a character class. If a new Character is
+         * able to be created from the file, it will return a pointer to that
+         * character.
+         * 
+         * @return Character* - a pointer to a character created via the file
+         **/
+        CHARACTER_EXPORT Character* import_character(std::string file);
+    }
 
-		public:
-			Character();
-			Character(Ability ab);
-			~Character();
-		
-			std::string format_mod(int mod, int spaces);
-		
-			void update_skills();
+    /* NOTE: These are just the 5E character requirements */
 
-			// an integer that represents the Character class
-			static const int ID = 0x0000;
-			// our characters race (also denoted via the subclass)		
-			static const std::string race;      
+    /* an arrray that holds the EXP needed for each level */
+    extern const int CHARACTER_EXPORT EXP[];
 
-			// Returns a copy of our Ability abils struct
-			Ability get_ability_copy() { return abils; };
+    enum CHARACTER_EXPORT Alignment {
+        LawfulGood, 	NeutralGood, 	ChaoticGood,
+        LawfulNeutral, 	TrueNeutral, 	ChaoticNeutral,
+        LawfulEvil, 	NeutralEvil, 	ChaoticEvil
+    };
 
-			// Returns a copy of our Skills skills struct
-			// NOTE(var_username): Commented out because I broke it
-			// Skills get_skills_copy() { return skills; };
-		
-			/* accessor functions for ability score modifiers */
-			int STR() { return abils.STR; };
-			int DEX() { return abils.DEX; };
-			int CON() { return abils.CON; };
-			int INT() { return abils.INT; };
-			int WIS() { return abils.WIS; };
-			int CHA() { return abils.CHA; };
-		
-			/* accessor functions for ability score modifiers */
-			int STR_MOD() { return modifier(abils.STR); };
-			int DEX_MOD() { return modifier(abils.DEX); };
-			int CON_MOD() { return modifier(abils.CON); };
-			int INT_MOD() { return modifier(abils.INT); };
-			int WIS_MOD() { return modifier(abils.WIS); };
-			int CHA_MOD() { return modifier(abils.CHA); };
-		
-			// allows quick conversion of a skill for its passive check
-			int passive_stat(int stat) { return 8 + prof + stat; };
-		
-			std::string to_string();
-			std::string to_sheet();
-	};
+    /**
+     * An enum containing genders
+     *
+     * NOTE(incomingstick): How far do we want to take this? We could
+     * put ourselves in a tricky place if this is done wrong.
+     **/
+    enum CHARACTER_EXPORT Gender {
+        Male,
+        Female,
+        Agender
+    };
+
+    enum CHARACTER_EXPORT Size {
+        Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
+        Small,       // 5 by 5 ft.            [2 to 4 feet tall]
+        Medium,      // 5 by 5 ft.            [4 to 8 feet tall]
+        Large,       // 10 by 10 ft.          [8 to 12 feet tall]
+        Huge,        // 15 by 15 ft.          [12 to 16 feet tall]
+        Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
+    };
+
+    enum CHARACTER_EXPORT VisionType {
+        Normal,
+        Blindsight,
+        DarkVision,
+        TrueSight
+    };
+
+    struct CHARACTER_EXPORT Vision {
+        VisionType type;    // type of sight
+        int radius;         // radius of vision in feet (-1 == infinite IF unobstructed)
+    };
+
+    /* Generates a stat > 1 && < 20 */
+    uint8 CHARACTER_EXPORT gen_stat();
+
+    /* Generates an array of stats > 1 && < 20 */
+    std::vector<uint8> CHARACTER_EXPORT ability_score_vector();
+
+    /**
+     * returns an integer representation of the passed abilities modifier
+     *
+     * NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
+     **/
+    inline int8 CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
+
+    // TODO take an in depth look at what should and should not be public here
+    class CHARACTER_EXPORT Character {
+    private:
+        Race* race;			                // The race of our character
+        AbilityScores* abils;               // struct of ability scores
+        CharacterClass* cClass;             // the characters class
+        Background* bg;                     // the characters background
+        Skills* skills;                     // struct of skill checks
+        Alignment alignment;                // the character alignment
+        Gender gender;                      // the characters gender
+        Size size;                          // the size type
+        struct Vision vision;               // information about the characters vision
+        std::string firstName;              // the characters first name
+        std::string lastName;               // the characters first name
+        int curr_hp;                        // current hit points
+        int temp_hp;                        // temporary hit points
+        int max_hp;                         // maximum hit points
+        int prof;                           // proficiency bonus
+        int level;                          // character level total
+        int curr_exp;                       // current experience
+        int max_exp;                        // experience needed for next level
+        std::vector<Language> langs;        // the array of known languages
+        uint8 age;                          // the age of the character
+
+        void Initialize();
+        std::string format_mod(int mod, int spaces);
+
+    public:
+        Character(Race* racePtr = Characters::new_random_race(),
+                  AbilityScores* ab = new AbilityScores,
+                  CharacterClass* classPtr = Characters::new_random_character_class(),
+                  const int bgID = -1,
+                  Skills* sk = new Skills,
+                  std::string name = "");
+        ~Character();
+
+
+        void update_skills();
+
+        // Returns a copy of our Ability abils struct
+        AbilityScores get_ability_copy() { return *abils; };
+
+        // Returns a copy of our Skills skills struct
+        // NOTE(var_username): Commented out because I broke it
+        // Skills get_skills_copy() { return skills; };
+
+        /* TODO(incomingstick): We don't need all of these functions,
+            however they could still be useful. Pros and Cons? */
+        /* accessor functions for ability scores */
+        uint8 ABILITY_SCORE(EnumAbilityScore score) { return abils->get_score(score); }
+        uint8 STR() { return abils->get_score(EnumAbilityScore::STR); };
+        uint8 DEX() { return abils->get_score(EnumAbilityScore::DEX); };
+        uint8 CON() { return abils->get_score(EnumAbilityScore::CON); };
+        uint8 INT() { return abils->get_score(EnumAbilityScore::INT); };
+        uint8 WIS() { return abils->get_score(EnumAbilityScore::WIS); };
+        uint8 CHA() { return abils->get_score(EnumAbilityScore::CHA); };
+
+        /* accessor functions for ability score modifiers */
+        int8 SCORE_MOD(EnumAbilityScore score) { return abils->get_mod(score); }
+        int8 STR_MOD() { return abils->get_mod(EnumAbilityScore::STR); };
+        int8 DEX_MOD() { return abils->get_mod(EnumAbilityScore::DEX); };
+        int8 CON_MOD() { return abils->get_mod(EnumAbilityScore::CON); };
+        int8 INT_MOD() { return abils->get_mod(EnumAbilityScore::INT); };
+        int8 WIS_MOD() { return abils->get_mod(EnumAbilityScore::WIS); };
+        int8 CHA_MOD() { return abils->get_mod(EnumAbilityScore::CHA); };
+
+        /* accessor functions for ability score saves */
+        int8 SCORE_SAVE(EnumAbilityScore score) { return abils->get_save(score); }
+        int8 STR_SAVE() { return abils->get_save(EnumAbilityScore::STR); };
+        int8 DEX_SAVE() { return abils->get_save(EnumAbilityScore::DEX); };
+        int8 CON_SAVE() { return abils->get_save(EnumAbilityScore::CON); };
+        int8 INT_SAVE() { return abils->get_save(EnumAbilityScore::INT); };
+        int8 WIS_SAVE() { return abils->get_save(EnumAbilityScore::WIS); };
+        int8 CHA_SAVE() { return abils->get_save(EnumAbilityScore::CHA); };
+
+        int get_proficiency_bonus() { return prof; };
+
+        // allows quick conversion of a skill for its passive check
+        int8 passive_stat(int mod) { return 8 + prof + mod; };
+
+        std::string to_string();
+        std::string to_ascii_sheet();
+    };
 }
 
-#endif /* CHARACTER_H_ */
+#endif /* SRC_CHARACTER_H_ */

@@ -47,14 +47,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split .github/ISSUE_TEMPLATE.md into two files:
     - .github/FEATURE_REQUEST.md
     - .github/BUG_REPORT.md
-- Renamed `int random(...)` to `int randomInt(...)` in the Utils library thanks to [@var-username](https://github.com/var-username)
+- Renamed `int random(...)` to `int randomInt(...)` in the Utils namespace thanks to [@var-username](https://github.com/var-username)
 - Fixed some install locations to better form to different platforms
 - build.bat now has actual commands such as `> .\build.bat clean`, or `> .\build.bat rebuild` as well as better error reporting
 - Make sure we don't accidentally add some packaged/compressed files to the repo, cuz that would be obnoxious
 - Lots of "auto-fication" across the project, as well as other C++11 improvements
 - Lots of restructuring within the files themeselves to help keep things better organized
 - Lots of additional documention comments throughout the project for you other devs out there
-- Levels is now an externally definded global variable in the `include/character/character.h` header, so you must link to the Character library to use is
+- `levels[]` is now an externally definded global variable renamed to `EXP[]` in the `include/character/character.h` header, so you must link to the Character library to use is
 - The `Skills` struct is now a class that acts as a wrapper of sorts for the `Skill` class and the `EnumSkill` enum thanks to [@var-username](https://github.com/var-username)
 - `Character` class now uses the `Skills` class internally and has a new function to interface with it via `void update_skills()` thanks to [@var-username](https://github.com/var-username)
 - Some header guards improved to better show their purpose in the project file system
@@ -129,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A function `int gen_stat()` that generates an array of stats > 1 && < 20 in the Character library
 - A function `int modifier(...)` that returns an integer representation of the passed ability modifier defined as `(abil - 10) / 2` exactly
     - Note, this is intended to always round down. Data loss is acceptable, as it is a floor function
-- A `Character` class that is the general outline for a 5e character sheet, with a few additions that a programmer may find handy, such as a `static const int ID = 0x0000`
+- A `Character` class that is the general outline for a 5e character sheet, with a few additions that a programmer may find handy
 - "Race" classes that are children of the `Character` class that make use of the `Ability` struct to apply racial bonuses:
     - `class Human : public Character {...}`
     - `class Dwarf : public Character {...}`
@@ -171,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Renamed some header guards for better consistancy across the library
+- Renamed Utils library to Core
 - Moved C++ standard back to C++14
 - Improved `openrpg -n` call to `NameGenerator` to account for gender and warn when too few arguments are given
 - Better error reporting when invalid syntax is provided to `roll`

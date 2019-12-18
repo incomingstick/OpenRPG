@@ -46,7 +46,7 @@ namespace ORPG {
                 std::mt19937 mt(rd());
                 std::uniform_int_distribution<int> dist(1, _MAX);
 
-                int ret = dist(mt);
+                auto ret = dist(mt);
 
                 /* verbosely prints die rolls in the form "dX -> N" */
                 if(Core::VB_FLAG) printf("d%i -> %i\n", _MAX, ret);
