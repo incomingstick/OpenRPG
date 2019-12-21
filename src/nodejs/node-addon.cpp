@@ -20,6 +20,9 @@ namespace ORPGGUI {
         DieWrapper::Init(exports);
         ExpressionTreeWrapper::Init(exports);
         NameGeneratorWrapper::Init(exports);
+
+        NODE_SET_METHOD(exports, "race_has_last", race_has_last);
+        NODE_SET_METHOD(exports, "race_is_gendered", race_is_gendered);
     }
 
     NODE_MODULE(orpg, InitAll)

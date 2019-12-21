@@ -33,7 +33,7 @@ declare module 'openrpg-libs' {
 
         /**
          * @desc sets the input string to be scanned and parsed equal to the string exp
-         * @param const std::string exp - the string to become the input string
+         * @param const string exp - the string to become the input string
          */
         public set_expression(exp: string): boolean;
 
@@ -75,6 +75,34 @@ declare module 'openrpg-libs' {
         public get_input_string(): string;
     }
 
+    /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races without last names, to determine if it
+     * would have a last name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a last name list
+     * @return boolean - a boolean value containing weather the given race would
+     *                  have a last name list
+     **/
+    export function race_has_last(race: string): boolean;
+
+    /**
+     * @desc this function takes in a string value representing a race and checks
+     * against a hard coded list of races with gendered lists, to determine if it
+     * would have a gendered name list in our data folder.
+     *
+     * NOTE(incomingstick): Is is worth putting this in a header and making it a
+     * part of the public lib?
+     *
+     * @param string race - the race to check if it would have a gendered name list
+     * @return boolean - a boolean value containing weather the given race would
+     *                  have a gendered name list
+     **/
+    export function race_is_gendered(race: string): boolean;
+
     export class NameGenerator {
         public race: string;
         public subrace: string;
@@ -103,6 +131,38 @@ declare module 'openrpg-libs' {
          * note that /names will be appended to this location
          **/
         public constructor(_race: string, _gender: string, _location: string);
+
+        /**
+         * @desc Getter function for the race string of the NameGenerator
+         * class
+         *
+         * @return string - the current race string
+         **/
+        public get_race(): string;
+
+        /**
+         * @desc Getter function for the gender string of the NameGenerator
+         * class
+         *
+         * @return string - the current gender string
+         **/
+        public get_gender(): string;
+
+        /**
+         * @desc Setter function for the race string of the NameGenerator
+         * class
+         *
+         * @param string newRaceStr - a string to set as the new race
+         **/
+        public set_race(newRaceStr: string): void;
+
+        /**
+         * @desc Setter function for the gender string of the NameGenerator
+         * class
+         *
+         * @param string newRaceStr - a string to set as the new race
+         **/
+        public set_gender(setGenderStr: string): void;
 
         /**
          * @desc Generates a random full name by calling make_first and make_last,

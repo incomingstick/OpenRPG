@@ -23,4 +23,19 @@ if (os.type() === 'Linux' || os.type() === 'Darwin') {
    throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
-module.exports = require(prefix + 'orpgNode');
+const ORPG = require(prefix + 'orpgNode');
+
+let ng = new ORPG.NameGenerator();
+ng.set_race('dwarf');
+
+console.log(ng.make_first());
+console.log(ng.make_last());
+console.log(ng.make_name());
+
+ng.set_race('aarakocra');
+
+console.log(ng.make_first());
+console.log(ng.make_last());
+console.log(ng.make_name());
+
+module.exports = ORPG;

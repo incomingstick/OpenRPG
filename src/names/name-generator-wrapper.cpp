@@ -26,12 +26,28 @@ namespace ORPGGUI {
 
     using namespace ORPG;
 
+    void race_has_last(const FunctionCallbackInfo<Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        String::Utf8Value v8Str(isolate, args[0]);
+
+        std::string str = *v8Str ? *v8Str : "";
+
+        args.GetReturnValue().Set(Boolean::New(isolate, ORPG::race_has_last(str)));
+    }
+
+    void race_is_gendered(const FunctionCallbackInfo<Value>& args) {
+        Isolate* isolate = args.GetIsolate();
+
+        String::Utf8Value v8Str(isolate, args[0]);
+
+        std::string str = *v8Str ? *v8Str : "";
+
+        args.GetReturnValue().Set(Boolean::New(isolate, ORPG::race_is_gendered(str)));
+    }
+
     Persistent<Function> NameGeneratorWrapper::constructor;
     NameGenerator NameGeneratorWrapper::wrappedGenerator;
-
-    NameGeneratorWrapper::NameGeneratorWrapper(std::string _race) : NameGenerator(_race) {
-        // does nothing
-    }
 
     NameGeneratorWrapper::NameGeneratorWrapper(std::string _race, std::string _gender) : NameGenerator(_race, _gender) {
         // does nothing
@@ -86,12 +102,6 @@ namespace ORPGGUI {
             }
 
             switch (argv.size()) {
-            case 1: {
-                wrappedGenerator = NameGenerator(argv[0]);
-                obj = new NameGeneratorWrapper(argv[0]);
-                break;
-            }
-
             case 2: {
                 obj = new NameGeneratorWrapper(argv[0], argv[1]);
                 wrappedGenerator = NameGenerator(argv[0], argv[1]);
@@ -105,8 +115,8 @@ namespace ORPGGUI {
             }
 
             default: {
-                wrappedGenerator = NameGenerator();
                 obj = new NameGeneratorWrapper();
+                wrappedGenerator = NameGenerator();
             }
             }
 

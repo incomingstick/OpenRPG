@@ -15,12 +15,14 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "names.h"
 
 namespace ORPGGUI {
+    void race_is_gendered(const v8::FunctionCallbackInfo<v8::Value>& args);
+    void race_has_last(const v8::FunctionCallbackInfo<v8::Value>& args);
+
     class NameGeneratorWrapper : public ORPG::NameGenerator, public node::ObjectWrap {
         private:
             static ORPG::NameGenerator wrappedGenerator;
 
-            explicit NameGeneratorWrapper(std::string _race = "dwarf");
-            explicit NameGeneratorWrapper(std::string _race, std::string _gender);
+            explicit NameGeneratorWrapper(std::string _race = "dwarf", std::string _gender = "");
             explicit NameGeneratorWrapper(std::string _race, std::string _gender, std::string _location);
             ~NameGeneratorWrapper();
 

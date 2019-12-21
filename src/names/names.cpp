@@ -232,6 +232,7 @@ namespace ORPG {
      **/
     void NameGenerator::set_race(std::string newRaceStr) {
         race = newRaceStr;
+        raceFile = newRaceStr;
 
         Initialize();
     }
@@ -314,9 +315,12 @@ namespace ORPG {
      * produced it will return an empty string.
      **/
     string NameGenerator::make_first() {
-        if(race_is_gendered(raceFile) && gender.empty()) {
+        bool gendered = race_is_gendered(raceFile);
+        if(gendered && gender.empty()) {
             if(Utils::randomBool()) gender = "female";
             else gender = "male";
+        } else if(!gendered) {
+            gender = "";
         }
 
         string loc;

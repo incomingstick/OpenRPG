@@ -252,14 +252,13 @@ describe('OpenRPG', () => {
 
     describe('Names Module', () => {
         describe('NameGenerator', () => {
-            let ng;
             let first;
             let last;
             let full;
-
+            let ng = new ORPG.NameGenerator();
+            
             it('NameGenerator() > 0', () => {
                 // Apparently the default constructor for NameGenerator is AWFULY slow
-                ng = new ORPG.NameGenerator();
                 for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     first = ng.make_first();
                     last = ng.make_last();
@@ -269,7 +268,7 @@ describe('OpenRPG', () => {
                     assert.ok(first.length > 0);
             
                     // Check last name function
-                    assert.ok(last.length > 0);
+                    assert.ok(ORPG.race_has_last('') && last.length > 0);
             
                     // Check full name function
                     assert.ok(full.length > 0);
@@ -277,7 +276,7 @@ describe('OpenRPG', () => {
             });
 
             it('NameGenerator(\'aarakocra\') > 0', () => {
-                ng = new ORPG.NameGenerator('aarakocra');
+                ng.set_race('aarakocra');
                 for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     first = ng.make_first();
                     last = ng.make_last();
@@ -285,9 +284,9 @@ describe('OpenRPG', () => {
             
                     // Check first name function
                     assert.ok(first.length > 0);
-            
                     // Check last name function
                     // Aarakocra dont have last names
+                    assert.ok(!ORPG.race_has_last('aarakocra'));
                     assert.ok(last.length === 0);
             
                     // Check full name function
@@ -296,7 +295,7 @@ describe('OpenRPG', () => {
             });
 
             it('NameGenerator(\'changeling\') > 0', () => {
-                ng = new ORPG.NameGenerator('changeling');
+                ng.set_race('changeling');
                 for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     first = ng.make_first();
                     last = ng.make_last();
@@ -307,6 +306,7 @@ describe('OpenRPG', () => {
             
                     // Check last name function
                     // Changeling dont have last names
+                    assert.ok(!ORPG.race_has_last('changeling'));
                     assert.ok(last.length === 0);
             
                     // Check full name function
@@ -315,6 +315,8 @@ describe('OpenRPG', () => {
             });
 
             // TODO find a way to automate this before continuing
+            // We at least know the basics work and the NameGenerator
+            // could be optimized.
         });
     });
 });
