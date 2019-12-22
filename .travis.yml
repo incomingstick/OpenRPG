@@ -21,7 +21,7 @@ jobs:
       stage: GitHub Release
       script: 
         - echo "Deploying to GitHub releases ..."
-        - cd build && cmake --build . --target package && cd ..
+        - npm run dist
       deploy:
         provider: releases
         api_key: $GH_TOKEN
@@ -38,7 +38,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs; PATH="$PATH:/c/Program Files/nodejs"; fi
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.bat release; else ./build.sh release; fi
+  - npm install
 
 script:
-  - cd build && npm -v && cd ..
+  - npm test
