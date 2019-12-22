@@ -19,3 +19,19 @@ before_install:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.bat; else ./build.sh; fi
+
+
+jobs:
+  include:
+    - script: echo "Running unit tests (1)"
+    - script: echo "Running unit tests (2)"
+    - stage: GitHub Release
+      script: echo "Deploying to GitHub releases ..."
+      deploy:
+        provider: releases
+        api_key: $GH_TOKEN
+        file:
+          - ""
+        skip_cleanup: true
+        on:
+          tags: true
