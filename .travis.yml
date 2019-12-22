@@ -16,7 +16,7 @@ notifications:
 jobs:
   include:
     - os: windows
-    - stage: GitHub Release
+      stage: GitHub Release
       script: 
         - echo "Deploying to GitHub releases ..."
         - cd build && cmake --build . --target package && cd ..
