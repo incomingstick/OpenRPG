@@ -19,6 +19,13 @@ target_link_libraries(names core)
 set_property(TARGET names PROPERTY CXX_STANDARD 14)
 set_property(TARGET names PROPERTY CXX_STANDARD_REQUIRED ON)
 
+install(TARGETS names
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Modules
+)
+
 set(NG_SOURCES 
     ${CMAKE_CURRENT_SOURCE_DIR}/name-generator.cpp  
 )
@@ -30,9 +37,7 @@ target_link_libraries(name-generator core names)
 set_property(TARGET name-generator PROPERTY CXX_STANDARD 14)
 set_property(TARGET name-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
-install(TARGETS name-generator DESTINATION bin)
-install(TARGETS names
-    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-    COMPONENT library
+install(TARGETS name-generator
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Programs
 )

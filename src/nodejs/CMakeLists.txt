@@ -14,4 +14,17 @@ target_link_libraries(orpgNode ${CMAKE_JS_LIB} roll-parser names)
 set_property(TARGET orpgNode PROPERTY CXX_STANDARD 11)
 set_property(TARGET orpgNode PROPERTY CXX_STANDARD_REQUIRED ON)
 
-install(TARGETS orpgNode DESTINATION ${LIB_INSTALL_DIR})
+install(TARGETS orpgNode
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT NodeJS
+)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/export.js
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT NodeJS
+)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/openrpg.d.ts
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT NodeJS
+)

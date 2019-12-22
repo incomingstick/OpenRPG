@@ -12,8 +12,10 @@ target_link_libraries(openrpg core names roll-parser)
 set_property(TARGET openrpg PROPERTY CXX_STANDARD 11)
 set_property(TARGET openrpg PROPERTY CXX_STANDARD_REQUIRED ON)
 
-install(TARGETS openrpg DESTINATION bin)
-
+install(TARGETS openrpg
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Programs
+)
 
 # if we are being called for node we need to build the wrapper
 if (CMAKE_JS_VERSION)

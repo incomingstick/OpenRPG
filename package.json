@@ -8,17 +8,17 @@
     "build": "cmake-js build --debug --verbose",
     "rebuild": "cmake-js rebuild --debug --verbose",
     "compile": "cmake-js compile --verbose",
-    "install:dist": "cmake-js --CDCMAKE_INSTALL_PREFIX=\"./dist\" --verbose --target install",
+    "dist": "cmake-js --verbose --target package",
     "clean": "cmake-js clean --verbose",
     "build:core": "node build.js",
     "release:core": "node build.js release",
-    "install": "cmake-js --CDCMAKE_INSTALL_PREFIX=\"./dist\" --silent --target install"
+    "install": "cmake-js compile --silent "
   },
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
   "cmake-js": {
     "runtime": "node",
-    "runtimeVersion": "13.3.0"
+    "runtimeVersion": "13.5.0"
   },
   "repository": {
     "type": "git",

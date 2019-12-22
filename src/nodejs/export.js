@@ -6,36 +6,33 @@ const path = require('path');
  * Windows:         ../build/Releasse/
  * Linux and macOS: ../build/lib/openrpg/
  **/
-let prefix;
+let prefix = null;
 const appDir = path.dirname(path.dirname(__dirname));
 
-if (os.type() === 'Linux' || os.type() === 'Darwin') {
-    prefix = path.join(appDir, '/build/lib/openrpg/');
-} else if (os.type() === 'Windows_NT') {
+const locations = [
+    path.join(appDir, '/build/lib/openrpg/'),
+    path.join(appDir, '/build/Debug/'),
+    path.join(appDir, '/build/Release/'),
+    'c:/Program Files/OpenRPG/',
+    'c:/Program Files (x86)/OpenRPG/'
+]
+
+if (os.type() === 'Windows_NT' ||
+    os.type() === 'Linux' ||
+    os.type() === 'Darwin') {
     const fs = require("fs");
 
-    if (fs.existsSync(path.join(appDir, '/build/Debug/'))) {
-        prefix = path.join(appDir, '/build/Debug/');
-    } else
-        prefix = path.join(appDir, '/build/Release/');
+    for(let index in locations) {
+        if (fs.existsSync(locations[index])) {
+            prefix = locations[index];
+            break;
+        }
+    }
+    if(prefix === null)
+        throw new Error("Error: Unable to locate OpenRPG!");
 
 } else
    throw new Error("Unsupported OS found: " + os.type());
 
 // define the export libraries here
-const ORPG = require(prefix + 'orpgNode');
-
-let ng = new ORPG.NameGenerator();
-ng.set_race('dwarf');
-
-console.log(ng.make_first());
-console.log(ng.make_last());
-console.log(ng.make_name());
-
-ng.set_race('aarakocra');
-
-console.log(ng.make_first());
-console.log(ng.make_last());
-console.log(ng.make_name());
-
-module.exports = ORPG;
+module.exports = require(prefix + 'orpgNode');

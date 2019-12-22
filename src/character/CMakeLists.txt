@@ -21,6 +21,13 @@ target_link_libraries(character core roll-parser names)
 set_property(TARGET character PROPERTY CXX_STANDARD 14)
 set_property(TARGET character PROPERTY CXX_STANDARD_REQUIRED ON)
 
+install(TARGETS character
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Modules
+)
+
 set(CG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/character-generator.cpp
 )
@@ -32,9 +39,7 @@ target_link_libraries(character-generator core character roll-parser names)
 set_property(TARGET character-generator PROPERTY CXX_STANDARD 14)
 set_property(TARGET character-generator PROPERTY CXX_STANDARD_REQUIRED ON)
 
-install(TARGETS character-generator DESTINATION bin)
-install(TARGETS character
-    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-    COMPONENT library
+install(TARGETS character-generator
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Programs
 )

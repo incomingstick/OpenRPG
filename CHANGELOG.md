@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Clone us out of the AUR yourself by running `git clone https://aur.archlinux.org/openrpg-git.git && cd openrpg-git && makepkg -si`
     - You can use your favorite AUR helper, such as `yay`
         - Run `$ yay -S openrpg`
+- We have improved our CMake logic to include the use of CPack for packaging, especially on Windows! Check out our [downloads](https://openrpg.io/download/) page for your systems installer!
+- NodeJS and `npm` integrated into the project workflow. You can now use npm and subsequently cmake-js to compile an additional `orpgAddon.node` binary that is a compiled node module. 
 - An ASCII character sheet in `data/` thanks to [@var-username](https://github.com/var-username)
     - data/character_sheets/ascii_char_sheet
     - "data/character_sheets/Blank ASCII Character Sheet.txt"
@@ -71,7 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing note in Core::print_basic_help() about how to exit OpenRPG.
 - Fixed a bug in the ExpressionTree where the `globalReadOffset` was not being reset when a new expression was set
 - Fixed a bug when stringing multiple rolls together that would causing the tree to parse an expression such as 2d6+4d8 as (2d6+4)d8
-- Fixed a bug in NameGenerator that wasn't resetting the raceFile when a new race was set.
+- Fixed a bug in NameGenerator that wasn't resetting the raceFile when a new race was set
 
 ### Removed
 - Obliterated the old Name Generator test src/tests/name-generator-test.cpp

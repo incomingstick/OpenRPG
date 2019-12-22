@@ -19,6 +19,13 @@ target_link_libraries(roll-parser core)
 set_property(TARGET roll-parser PROPERTY CXX_STANDARD 11)
 set_property(TARGET roll-parser PROPERTY CXX_STANDARD_REQUIRED ON)
 
+install(TARGETS roll-parser
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Modules
+)
+
 set(R_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/roll.cpp
 )
@@ -30,9 +37,7 @@ target_link_libraries(roll roll-parser core)
 set_property(TARGET roll PROPERTY CXX_STANDARD 11)
 set_property(TARGET roll PROPERTY CXX_STANDARD_REQUIRED ON)
 
-install(TARGETS roll DESTINATION bin)
-install(TARGETS roll-parser
-    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-    COMPONENT library
+install(TARGETS roll
+    DESTINATION ${BIN_INSTALL_DIR}
+    COMPONENT Programs
 )
