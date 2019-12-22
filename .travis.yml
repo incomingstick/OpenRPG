@@ -35,7 +35,7 @@ jobs:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then PATH="$PATH:/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs; PATH="$PATH:/c/Program Files/nodejs" fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs; PATH="$PATH:/c/Program Files/nodejs"; fi
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.bat release; else ./build.sh release; fi
