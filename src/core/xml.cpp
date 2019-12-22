@@ -280,7 +280,7 @@ bool XMLDocument::load_file(string filename) {
     if(xml.is_open()) {
         string buffer;
 
-        XMLElementClosingType closeType;
+        XMLElementClosingType closeType = XMLElementClosingType::DEFAULT;
         XMLElement* currElement = root;
 
         currLine = 0;

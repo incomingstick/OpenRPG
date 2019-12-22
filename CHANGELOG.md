@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - You can use your favorite AUR helper, such as `yay`
         - Run `$ yay -S openrpg`
 - We have improved our CMake logic to include the use of CPack for packaging, especially on Windows! Check out our [downloads](https://openrpg.io/download/) page for your systems installer!
+- Build scripts now include a package target for packaging with CPack
 - NodeJS and `npm` integrated into the project workflow. You can now use npm and subsequently cmake-js to compile an additional `orpgAddon.node` binary that is a compiled node module. 
 - An ASCII character sheet in `data/` thanks to [@var-username](https://github.com/var-username)
     - data/character_sheets/ascii_char_sheet

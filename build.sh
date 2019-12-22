@@ -64,7 +64,12 @@ if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; t
                 exit 0
             fi
 
-            make
+            if [[ $1 == "package" || $2 == "package" ]]; then
+                make package
+            else
+                make
+            fi
+
             popd
 
             exit 0

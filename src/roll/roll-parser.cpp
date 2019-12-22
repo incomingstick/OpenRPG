@@ -417,7 +417,7 @@ namespace ORPG {
                 results[i] = die->roll();
             }
 
-            delete[] die;
+            delete die;
 
             qsort(results, reps, sizeof(int), &compare);
 
@@ -455,7 +455,7 @@ namespace ORPG {
                 results[i] = die->roll();
             }
 
-            delete[] die;
+            delete die;
 
             qsort(results, reps, sizeof(int), &compare);
         

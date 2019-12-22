@@ -54,6 +54,14 @@ if exist build/ (
     :msbuildFound
     msbuild OpenRPG.sln /property:Configuration=%buildType%
 
+    if "%1" == "package"    goto package
+    if "%2" == "package"    goto package
+    goto poptag
+    
+    :package
+    cmake --build . --target package
+
+    :poptag
     popd
     goto commonExit
 )
@@ -74,4 +82,3 @@ exit 1
 
 :commonExit
 echo exiting
-exit 0

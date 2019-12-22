@@ -329,6 +329,7 @@ namespace ORPG {
          *      CLOSING     i.e </foo>
          **/
         enum XMLElementClosingType {
+            DEFAULT,    // <>
             OPEN,		// <foo>
             CLOSED,		// <foo/>
             CLOSING		// </foo>
