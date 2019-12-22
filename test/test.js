@@ -1,9 +1,11 @@
 const ORPG = require('../src/nodejs/export');
-var assert = require('assert');
+const path = require('path');
+const assert = require('assert');
 
 // Control variables go here
 const LOOP_INT = 1e4;   // The number of times we want to run loops
 const LOOP_COMP = 3e-1;  // For higher processing computations this is used to compress/decrease the loop count
+const TESTING_ASSET_LOC = path.join(path.dirname(__dirname), 'data/');
 
 // TODO shrink this via the use of lists and loops!
 describe('OpenRPG', () => {
@@ -255,64 +257,70 @@ describe('OpenRPG', () => {
             let first;
             let last;
             let full;
-            let ng = new ORPG.NameGenerator();
-            
-            it('NameGenerator() > 0', () => {
-                // Apparently the default constructor for NameGenerator is AWFULY slow
-                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
-                    first = ng.make_first();
-                    last = ng.make_last();
-                    full = ng.make_name();
-            
-                    // Check first name function
-                    assert.ok(first.length > 0);
-            
-                    // Check last name function
-                    assert.ok(ORPG.race_has_last('') && last.length > 0);
-            
-                    // Check full name function
-                    assert.ok(full.length > 0);
-                }
-            });
+            let ng = new ORPG.NameGenerator('dwarf', 'male', TESTING_ASSET_LOC);
 
-            it('NameGenerator(\'aarakocra\') > 0', () => {
-                ng.set_race('aarakocra');
-                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
-                    first = ng.make_first();
-                    last = ng.make_last();
-                    full = ng.make_name();
-            
-                    // Check first name function
-                    assert.ok(first.length > 0);
-                    // Check last name function
-                    // Aarakocra dont have last names
-                    assert.ok(!ORPG.race_has_last('aarakocra'));
-                    assert.ok(last.length === 0);
-            
-                    // Check full name function
-                    assert.ok(full.length > 0);
+            const raceList = [
+                {
+                    race: '',
+                    gender: ''
+                },
+                {
+                    race: 'aarakocra',
+                    gender: ''
+                },
+                {
+                    race: 'changeling',
+                    gender: ''
+                },
+                {
+                    race: 'dragonborn',
+                    gender: 'male'
+                },
+                {
+                    race: 'dragonborn',
+                    gender: 'female'
+                },
+                {
+                    race: 'dwarf',
+                    gender: 'male'
+                },
+                {
+                    race: 'dwarf',
+                    gender: 'female'
+                },
+                {
+                    race: 'elf',
+                    gender: 'male'
+                },
+                {
+                    race: 'elf',
+                    gender: 'female'
                 }
-            });
+            ];
 
-            it('NameGenerator(\'changeling\') > 0', () => {
-                ng.set_race('changeling');
-                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
-                    first = ng.make_first();
-                    last = ng.make_last();
-                    full = ng.make_name();
-            
-                    // Check first name function
-                    assert.ok(first.length > 0);
-            
-                    // Check last name function
-                    // Changeling dont have last names
-                    assert.ok(!ORPG.race_has_last('changeling'));
-                    assert.ok(last.length === 0);
-            
-                    // Check full name function
-                    assert.ok(full.length > 0);
-                }
-            });
+            for(item in raceList) {
+                it('NameGenerator(\''+ raceList[item].race +'\', \''+ raceList[item].gender +'\') > 0', () => {
+                    ng = new ORPG.NameGenerator(raceList[item].race, raceList[item].gender, TESTING_ASSET_LOC);
+                    for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
+                        first = ng.make_first();
+                        last = ng.make_last();
+                        full = ng.make_name();
+                
+                        // Check first name function
+                        assert.ok(first.length > 0);
+                
+                        // Check last name function
+                        if(ORPG.race_has_last(raceList[item].race)) {
+                            assert.ok(last.length > 0);
+                        } else {
+                            assert.ok(last.length === 0);
+                        }
+                
+                        // Check full name function
+                        assert.ok(full.length > 0);
+                    }
+                });
+            }
 
             // TODO find a way to automate this before continuing
             // We at least know the basics work and the NameGenerator
