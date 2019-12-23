@@ -1,4 +1,7 @@
 
+# NOTE
+This repository is for the back end libraries for OpenRPG. If you are looking for the App, please visit our sister repository, [here](https://github.com/incomingstick/OpenRPG-App).
+
 # OpenRPG
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
 ![Version Number](https://img.shields.io/badge/version-v0.5.0--dev-blue.svg)

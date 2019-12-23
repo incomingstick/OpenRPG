@@ -32,6 +32,19 @@ jobs:
         overwrite: true
         skip_cleanup: true
         draft: true
+    - os: osx
+      stage: GitHub Release
+      script: 
+        - echo "Deploying to GitHub releases..."
+        - npm run dist
+      deploy:
+        provider: releases
+        api_key: $GH_TOKEN
+        file:
+          - "build/OpenRPG-0.5.0-*.sha512"
+        overwrite: true
+        skip_cleanup: true
+        draft: true
     - os: windows
       stage: GitHub Release
       script: 

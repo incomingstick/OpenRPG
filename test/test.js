@@ -295,6 +295,94 @@ describe('OpenRPG', () => {
                 {
                     race: 'elf',
                     gender: 'female'
+                },
+                {
+                    race: 'gnome',
+                    gender: 'male'
+                },
+                {
+                    race: 'gnome',
+                    gender: 'female'
+                },
+                {
+                    race: 'goliath',
+                    gender: 'male'
+                },
+                {
+                    race: 'goliath',
+                    gender: 'female'
+                },
+                {
+                    race: 'half-elf',
+                    gender: 'male'
+                },
+                {
+                    race: 'half-elf',
+                    gender: 'female'
+                },
+                {
+                    race: 'half-orc',
+                    gender: 'male'
+                },
+                {
+                    race: 'half-orc',
+                    gender: 'female'
+                },
+                {
+                    race: 'halfling',
+                    gender: 'male'
+                },
+                {
+                    race: 'halfling',
+                    gender: 'female'
+                },
+                {
+                    race: 'human',
+                    gender: 'male'
+                },
+                {
+                    race: 'human',
+                    gender: 'female'
+                },
+                {
+                    race: 'kalashtar',
+                    gender: 'male'
+                },
+                {
+                    race: 'kalashtar',
+                    gender: 'female'
+                },
+                {
+                    race: 'kor',
+                    gender: 'male'
+                },
+                {
+                    race: 'kor',
+                    gender: 'female'
+                },
+                {
+                    race: 'minotaur',
+                    gender: 'male'
+                },
+                {
+                    race: 'minotaur',
+                    gender: 'female'
+                },
+                {
+                    race: 'shifter',
+                    gender: ''
+                },
+                {
+                    race: 'tiefling',
+                    gender: 'male'
+                },
+                {
+                    race: 'tiefling',
+                    gender: 'female'
+                },
+                {
+                    race: 'warforged',
+                    gender: ''
                 }
             ];
 
