@@ -41,7 +41,10 @@ jobs:
         provider: releases
         api_key: $GH_TOKEN
         file:
-          - "build/OpenRPG-0.5.0-*.sha512"
+          - "build/OpenRPG-0.5.0-Darwin.sh"
+          - "build/OpenRPG-0.5.0-Darwin.sh.sha512"
+          - "build/OpenRPG-0.5.0-Darwin.tar.gz"
+          - "build/OpenRPG-0.5.0-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
