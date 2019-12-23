@@ -1,6 +1,4 @@
-language:
-  - cpp
-  - node_js
+language: cpp
 
 compiler:
   - clang
@@ -17,6 +15,23 @@ notifications:
 
 jobs:
   include:
+    - os: linux
+      stage: GitHub Release
+      script: 
+        - echo "Deploying to GitHub releases..."
+        - npm run dist
+      deploy:
+        provider: releases
+        api_key: $GH_TOKEN
+        file:
+          - "build/OpenRPG-0.5.0-Linux.deb"
+          - "build/OpenRPG-0.5.0-Linux.sh"
+          - "build/OpenRPG-0.5.0-Linux.tar.gz"
+          - "build/OpenRPG-0.5.0-Linux.tar.Z"
+          - "build/OpenRPG-0.5.0-Linux.sha512"
+        overwrite: true
+        skip_cleanup: true
+        draft: true
     - os: windows
       stage: GitHub Release
       script: 
@@ -31,6 +46,7 @@ jobs:
         overwrite: true
         skip_cleanup: true
         draft: true
+      jobs:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
