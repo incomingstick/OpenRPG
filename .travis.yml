@@ -69,7 +69,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs nsis; PATH="$PATH:/c/Program Files/nodejs:/c/Program Files (x86)/NSIS"; fi
 
 install:
-  - npm run compile
+  - npm install && npm run clean && npm run compile
 
 script:
   - npm test
