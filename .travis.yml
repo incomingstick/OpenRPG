@@ -36,8 +36,6 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
-        on:
-          tags: true
     - os: osx
       stage: Publish
       script: 
@@ -54,8 +52,6 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
-        on:
-          tags: true
     - os: windows
       stage: Publish
       script: 
@@ -70,8 +66,6 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
-        on:
-          tags: true
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
