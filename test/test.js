@@ -4,7 +4,7 @@ const assert = require('assert');
 
 // Control variables go here
 const LOOP_INT = 1e4;   // The number of times we want to run loops
-const LOOP_COMP = 3e-1;  // For higher processing computations this is used to compress/decrease the loop count
+const LOOP_COMP = 3e-1;  // For higher processing computations this is used to compress/decrease the loop count (aim to remove this)
 const TESTING_ASSET_LOC = path.join(path.dirname(__dirname), 'data/');
 
 // TODO shrink this via the use of lists and loops!
@@ -182,7 +182,7 @@ describe('OpenRPG', () => {
 
             it('expression \'(2d6 + 4)d6 + 5\' >= 11 && <= 101', () => {
                 exp.set_expression('(2d6 + 4)d6 + 5');
-                for(i = 0; i < LOOP_INT; i++) {
+                for(i = 0; i < LOOP_INT * LOOP_COMP; i++) {
                     val = exp.parse_expression();
                     assert.ok(val >= 11);
                     assert.ok(val <= 101);
