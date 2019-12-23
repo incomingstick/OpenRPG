@@ -8,7 +8,7 @@ const LOOP_COMP = 3e-1;  // For higher processing computations this is used to c
 const TESTING_ASSET_LOC = path.join(path.dirname(__dirname), 'data/');
 
 // TODO shrink this via the use of lists and loops!
-describe('OpenRPG', () => {
+describe('OpenRPG '+ ORPG.ORPG_VERSION(), () => {
     describe('Roll Module', () => {
         describe('Die', () => {
             let val;

@@ -1,5 +1,5 @@
 /*
-name-generator - names.cpp
+names - names.cpp
 Created on: Nov 10, 2016
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>

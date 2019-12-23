@@ -14,7 +14,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "names.h"
 
-namespace ORPGGUI {
+namespace ORPGJS {
     void race_is_gendered(const v8::FunctionCallbackInfo<v8::Value>& args);
     void race_has_last(const v8::FunctionCallbackInfo<v8::Value>& args);
 

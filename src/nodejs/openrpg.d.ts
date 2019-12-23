@@ -5,6 +5,12 @@
  * Definitions by: incomingstick <https://github.com/incomingstick>
  */
 declare module 'openrpg-libs' {
+    /**
+     * @desc This function exports the version number of the built OpenRPG libraries that are being used
+     * @return string - the version number of the built OpenRPG libraries that are being used
+     **/
+    export function ORPG_VERSION(): string;
+    
     export class Die {
         public constructor(max: number);
 

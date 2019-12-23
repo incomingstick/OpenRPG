@@ -1,5 +1,4 @@
-
-# NOTE
+## NOTE
 This repository is for the back end libraries for OpenRPG. If you are looking for the App, please visit our sister repository, [here](https://github.com/incomingstick/OpenRPG-App).
 
 # OpenRPG

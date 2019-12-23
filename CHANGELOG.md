@@ -5,15 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). However, note that all pre-v0.5.0 releases will have the suffix "-dev"
 
 ## [Unreleased]
+There is likely a TON that has changed that is not noted below. This release is a HUGE one, so we likely missed something. If you notice something is missing, please open a PR to fix it (with commit citations please)!
+
 ### Added
 - We are now on the Arch User Repository and supporting Arch as our first Linux distro, as it is what I ([@incomingstick](http://github.comincomingstick)) use!
     - You can use the PKGBUILD branch of this Repo to build from `makepkg` that way
     - Clone us out of the AUR yourself by running `git clone https://aur.archlinux.org/openrpg-git.git && cd openrpg-git && makepkg -si`
     - You can use your favorite AUR helper, such as `yay`
         - Run `$ yay -S openrpg`
-- We have improved our CMake logic to include the use of CPack for packaging, especially on Windows! Check out our [downloads](https://openrpg.io/download/) page for your systems installer!
+- We have improved our CMake logic to include the use of CPack for packaging, for all supported OS's! Check out our [downloads](https://openrpg.io/download/) page for your systems installer!
 - Build scripts now include a package target for packaging with CPack
-- NodeJS and `npm` integrated into the project workflow. You can now use npm and subsequently cmake-js to compile an additional `orpgAddon.node` binary that is a compiled node module. 
+- NodeJS and `npm` integrated into the project workflow. You can now use `npm` and subsequently `cmake-js` to compile an additional `orpgAddon.node` binary that is a compiled Node module. 
+    - This NodeJS addon aims to be a complete wrap of the C++ libraries. As such, most functions and classes should operate as you would expect the C++ counterpart.
+    - Expose the `VERSION` preprocessor definition via the `ORPG_VERSION()` function
 - An ASCII character sheet in `data/` thanks to [@var-username](https://github.com/var-username)
     - data/character_sheets/ascii_char_sheet
     - "data/character_sheets/Blank ASCII Character Sheet.txt"
@@ -35,9 +39,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `ORPG::Names`
     - `ORPG::Character`
 - `NameGenerator` class now has a constructor that takes a file location as a `std::string`, here are some important notes:
-    - By creating this constructor we are allowing an end user to specify the location the namelist we will read from. It is extremely important we explore this further. I [@incomingstick](http://github.comincomingstick)) do think this could prove a beneficial feature, if we allow end users to specify namelists.
-    - I [@incomingstick](http://github.comincomingstick)) created this function specifically to help the test suite. When testing on a fresh system, we are built before we test, but the release builds defines ASSET_LOC as: "/usr/local/data/openrpg" Because of this, it attempts to check a folder that has not been installed yet, and we need a way to NameGenerator to our source data folder.
-- Character Generator program now takes full advantage of our Names library to allow for the use of first and last names
+    - By creating this constructor we are allowing an end user to specify the location the namelist we will read from. It is extremely important we explore any possible security implications of this further. I [@incomingstick](http://github.comincomingstick)) do think it could prove a beneficial feature to allow end users to specify namelists.
+    - I, [@incomingstick](http://github.comincomingstick), created this function specifically to help the test suite. When testing on a fresh system, we are built before we test, but the release builds defines ASSET_LOC as: "/usr/local/data/openrpg" Because of this, it attempts to check a folder that has not been installed yet, and we need a way to point NameGenerator to our source data folder.
+- Character module  now takes full advantage of our Names library to allow for the use of first and last names
 - Added the Elf race to the Characters library
     - `class Elf : public Character`
     - `class HighElf : public Elf`
@@ -74,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing note in Core::print_basic_help() about how to exit OpenRPG.
 - Fixed a bug in the ExpressionTree where the `globalReadOffset` was not being reset when a new expression was set
 - Fixed a bug when stringing multiple rolls together that would causing the tree to parse an expression such as 2d6+4d8 as (2d6+4)d8
+    - Honestly there are a TON of bug fixes with the roll parser now that we are using the Mocha test suite
 - Fixed a bug in NameGenerator that wasn't resetting the raceFile when a new race was set
 
 ### Removed
@@ -461,7 +466,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `openrpg` command welcome banner
     - src/assets/banners/welcome_mat1
 
-[Unreleased]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...patch-v0.5.0-dev
+[Unreleased]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...master
 [0.4.4-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.3-dev...v0.4.4-dev
 [0.4.3-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.2-dev...v0.4.3-dev
 [0.4.2-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.1-dev...v0.4.2-dev

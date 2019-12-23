@@ -14,7 +14,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "roll.h"
 
-namespace ORPGGUI {
+namespace ORPGJS {
     class DieWrapper : public ORPG::Die, public node::ObjectWrap {
         private:
             explicit DieWrapper(int max);

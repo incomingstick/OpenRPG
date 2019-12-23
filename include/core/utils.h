@@ -60,6 +60,12 @@ namespace ORPG {
          **/
         void CORE_EXPORT print_basic_help();
 
+        /**
+         * @desc returns a std::string of the preprocessor definition of VERSION
+         * 
+         * @return std::string - the preprocessor definition of VERSION
+         **/
+        std::string CORE_EXPORT version_string();
 
         extern bool CORE_EXPORT VB_FLAG;
         extern bool CORE_EXPORT QUIET_FLAG;

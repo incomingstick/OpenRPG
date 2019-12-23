@@ -1,5 +1,5 @@
 /*
-roll - DieWrapper.cpp
+names - name-generator-wrapper.cpp
 Created on: June 26, 2017
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <http://www.openrpg.io/about/license/>
@@ -9,7 +9,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <vector>
 #include "names/names-wrapper.h"
 
-namespace ORPGGUI {
+namespace ORPGJS {
     using v8::Context;
     using v8::Function;
     using v8::FunctionCallbackInfo;
@@ -81,7 +81,7 @@ namespace ORPGGUI {
         Local<Context> context = isolate->GetCurrentContext();
         constructor.Reset(isolate, tpl->GetFunction(context).ToLocalChecked());
         exports->Set(context, String::NewFromUtf8(isolate, "NameGenerator", NewStringType::kNormal).ToLocalChecked(),
-                     tpl->GetFunction(context).ToLocalChecked());
+                     tpl->GetFunction(context).ToLocalChecked()).Check();
     }
 
     void NameGeneratorWrapper::New(const FunctionCallbackInfo<Value>& args) {

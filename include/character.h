@@ -1,5 +1,5 @@
 /*
-character-generator - Character module global include
+characters - Character module global include
 Created on: May 28, 2017
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>

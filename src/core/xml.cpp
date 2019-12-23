@@ -1,5 +1,5 @@
 /*
-openrpg - xml.h
+core - xml.h
 Created on: Sept 1, 2019
 
 OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>
@@ -272,6 +272,8 @@ XMLDocument::~XMLDocument() {
 
 /**
  * TODO doc comments
+ * FIXME this crashes with the following error
+ *  Expression: cannot dereference string iterator because it is out of range (e.g. an end iterator)
  **/
 bool XMLDocument::load_file(string filename) {
     //TODO load file
