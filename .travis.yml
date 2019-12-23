@@ -35,6 +35,8 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
+        on:
+          tags: true
     - os: osx
       stage: GitHub Release
       script: 
@@ -53,6 +55,8 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
+        on:
+          tags: true
     - os: windows
       stage: GitHub Release
       script: 
@@ -60,6 +64,7 @@ jobs:
       deploy:
         provider: releases
         api_key: $GH_TOKEN
+        name: "v0.5.0"
         tag_name: "v0.5.0"
         file:
           - "build/OpenRPG-0.5.0-win64.exe"
@@ -68,6 +73,8 @@ jobs:
         skip_cleanup: true
         draft: true
         prerelease: true
+        on:
+          tags: true
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
