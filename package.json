@@ -12,14 +12,10 @@
     "clean": "cmake-js clean --verbose",
     "build:core": "node build.js",
     "release:core": "node build.js release",
-    "install": "cmake-js compile --silent "
+    "install": "cmake-js compile --runtime electron --runtime-version 6.1.7 --silent"
   },
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
-  "cmake-js": {
-    "runtime": "node",
-    "runtimeVersion": "13.5.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/incomingstick/OpenRPG.git"
