@@ -259,6 +259,7 @@ describe('OpenRPG', () => {
             let full;
             let ng = new ORPG.NameGenerator('dwarf', 'male', TESTING_ASSET_LOC);
 
+            // Alphabetical list of races (and genders) to test
             const raceList = [
                 {
                     race: '',
@@ -386,6 +387,7 @@ describe('OpenRPG', () => {
                 }
             ];
 
+            // TODO the NameGenerator could be optimized.
             for(item in raceList) {
                 it('NameGenerator(\''+ raceList[item].race +'\', \''+ raceList[item].gender +'\') > 0', () => {
                     ng = new ORPG.NameGenerator(raceList[item].race, raceList[item].gender, TESTING_ASSET_LOC);
@@ -409,10 +411,6 @@ describe('OpenRPG', () => {
                     }
                 });
             }
-
-            // TODO find a way to automate this before continuing
-            // We at least know the basics work and the NameGenerator
-            // could be optimized.
         });
     });
 });
