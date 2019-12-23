@@ -23,15 +23,18 @@ jobs:
       deploy:
         provider: releases
         api_key: $GH_TOKEN
+        name: "v0.5.0"
         file:
           - "build/OpenRPG-0.5.0-Linux.deb"
           - "build/OpenRPG-0.5.0-Linux.sh"
           - "build/OpenRPG-0.5.0-Linux.tar.gz"
+          - "build/OpenRPG-0.5.0-Linux.tar.xz"
           - "build/OpenRPG-0.5.0-Linux.tar.Z"
           - "build/OpenRPG-0.5.0-Linux.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
+        prerelease: true
     - os: osx
       stage: GitHub Release
       script: 
@@ -40,6 +43,7 @@ jobs:
       deploy:
         provider: releases
         api_key: $GH_TOKEN
+        name: "v0.5.0"
         file:
           - "build/OpenRPG-0.5.0-Darwin.sh"
           - "build/OpenRPG-0.5.0-Darwin.sh.sha512"
@@ -48,6 +52,7 @@ jobs:
         overwrite: true
         skip_cleanup: true
         draft: true
+        prerelease: true
     - os: windows
       stage: GitHub Release
       script: 
@@ -56,12 +61,14 @@ jobs:
       deploy:
         provider: releases
         api_key: $GH_TOKEN
+        name: "v0.5.0"
         file:
           - "build/OpenRPG-0.5.0-win64.exe"
           - "build/OpenRPG-0.5.0-win64.exe.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
+        prerelease: true
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
