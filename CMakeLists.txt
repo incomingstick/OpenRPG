@@ -46,6 +46,7 @@ if(NOT (MSVC OR WIN32))
     set(LIB_INSTALL_DIR lib/openrpg)
 elseif(MSVC OR WIN32)
     set(CMAKE_INSTALL_PREFIX "C:/Program Files")
+    set(WINDOWS_FOLDER_NAME "OpenRPG/")
     set(LIB_INSTALL_DIR lib)
 endif(NOT (MSVC OR WIN32))
 
