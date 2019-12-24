@@ -22,7 +22,7 @@ edit the original config.h.in file NOT THIS FILE.
 #define VERSION "v@OpenRPG_VERSION_MAJOR@.@OpenRPG_VERSION_MINOR@.@OpenRPG_VERSION_TWEAK@"
 #define AUTHOR "@OpenRPG_AUTHOR@"
 #define COPYRIGHT "(C) 2016-@YEAR@ @OpenRPG_AUTHOR@"
-#define ASSET_LOC "${DATA_INSTALL_DIR}"
+#define ASSET_LOC "${CMAKE_INSTALL_PREFIX}/${DATA_INSTALL_DIR}"
 #define ${CMAKE_BUILD_TYPE} 1
 
 #endif  /* CONFIG_H_ */
