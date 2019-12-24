@@ -26,12 +26,12 @@ jobs:
         provider: releases
         api_key: $GH_TOKEN
         file:
-          - "build/OpenRPG-0.5.0-Linux.deb"
-          - "build/OpenRPG-0.5.0-Linux.sh"
-          - "build/OpenRPG-0.5.0-Linux.tar.gz"
-          - "build/OpenRPG-0.5.0-Linux.tar.xz"
-          - "build/OpenRPG-0.5.0-Linux.tar.Z"
-          - "build/OpenRPG-0.5.0-Linux.sha512"
+          - "dist/OpenRPG-0.5.0-Linux.deb"
+          - "dist/OpenRPG-0.5.0-Linux.sh"
+          - "dist/OpenRPG-0.5.0-Linux.tar.gz"
+          - "dist/OpenRPG-0.5.0-Linux.tar.xz"
+          - "dist/OpenRPG-0.5.0-Linux.tar.Z"
+          - "dist/OpenRPG-0.5.0-Linux.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -44,10 +44,10 @@ jobs:
         provider: releases
         api_key: $GH_TOKEN
         file:
-          - "build/OpenRPG-0.5.0-Darwin.sh"
-          - "build/OpenRPG-0.5.0-Darwin.sh.sha512"
-          - "build/OpenRPG-0.5.0-Darwin.tar.gz"
-          - "build/OpenRPG-0.5.0-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.0-Darwin.sh"
+          - "dist/OpenRPG-0.5.0-Darwin.sh.sha512"
+          - "dist/OpenRPG-0.5.0-Darwin.tar.gz"
+          - "dist/OpenRPG-0.5.0-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -60,8 +60,8 @@ jobs:
         provider: releases
         api_key: $GH_TOKEN
         file:
-          - "build/OpenRPG-0.5.0-win64.exe"
-          - "build/OpenRPG-0.5.0-win64.exe.sha512"
+          - "dist/OpenRPG-0.5.0-win64.exe"
+          - "dist/OpenRPG-0.5.0-win64.exe.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true

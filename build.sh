@@ -12,14 +12,24 @@ if [[ $1 == "help" || $1 == "-h" ]]; then
 fi
 
 # TODO finish this logics
-if [[ ($1 == "clean" || $1 == "rebuild" || $1 == "install" || $2 == "install") && -d "$cwd/build" ]]; then
+if [[ ($1 == "nuke" || $1 == "clean" || $1 == "rebuild" || $1 == "install" || $2 == "install") && -d "$cwd/build" ]]; then
     rm -rfv $cwd/build
     rm -rfv $cwd/include/**/exports/
     rm -fv  $cwd/include/core/config.h
 
-    if [[ $1 == "clean" ]]; then
-        exit 0
+    if [[ $1 == "nuke" && -d "$cwd/dist" ]]; then
+        echo "Warning, if you continue this will nuke the dist/ and node_modules/ folders, which do not need to be cleaned often!"
+        read -e -p "Continue (y/N)? " confirm
+        if [[ $confirm == "y" || $confirm == "yes" ]]; then
+            rm -rfv $cwd/dist
+            rm -rfv $cwd/node_modules
+        fi
     fi
+fi
+
+if [[ $1 == "clean" || $1 == "nuke" ]]; then
+    echo "exiting..."
+    exit 0
 fi
 
 if [[ $1 == "release" || $2 == "release" || $1 == "install" || $2 == "install" ]]; then
