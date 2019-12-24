@@ -106,6 +106,14 @@ message(STATUS "DATA_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/${DATA_INSTALL_DIR}
 message(STATUS "LIB_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 message(STATUS "BIN_INSTALL_DIR:\t" ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR})
 
+# RPATH stuff here
+# use, i.e. don't skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+
+# when building, don't use the install RPATH already
+# (but later on when installing)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+
 set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
@@ -164,6 +172,8 @@ elseif(APPLE AND NOT (MSVC OR WIN32) AND NOT UNIX)
     set(CPACK_GENERATOR "OSXX11;PackageMaker;productbuild;TGZ;ZIP")
 endif((MSVC OR WIN32) AND NOT UNIX AND NOT APPLE)
 include(CPack)
+
+message(STATUS "CPACK_INSTALL_PREFIX:\t" ${CPACK_INSTALL_PREFIX})
 
 # uninstall target
 if(NOT TARGET uninstall)
