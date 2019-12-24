@@ -7,6 +7,7 @@ if "%1" == "help"   goto notYetSupported
 if "%1" == "/h"     goto notYetSupported
 
 if "%1" == "clean"      goto cleanBuild
+if "%1" == "nuke"       goto cleanBuild
 if "%1" == "rebuild"    goto cleanBuild
 if "%1" == "install"    goto cleanBuild
 if "%2" == "install"    goto cleanBuild
@@ -22,6 +23,7 @@ goto checkBuild
         if exist include\roll\exports (rd /s /q include\roll\exports)
     )
     if "%1" == "clean" goto commonExit
+    if "%1" == "nuke"  goto commonExit
 )
 
 :checkBuild
