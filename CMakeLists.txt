@@ -42,10 +42,12 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
 endif()
 
 if(NOT (MSVC OR WIN32))
+    set(CMAKE_INSTALL_PREFIX "/usr")
     set(LIB_INSTALL_DIR lib/openrpg)
-else()
+elseif(MSVC OR WIN32)
+    set(CMAKE_INSTALL_PREFIX "C:/Program Files")
     set(LIB_INSTALL_DIR lib)
-endif()
+endif(NOT (MSVC OR WIN32))
 
 if(MSVC OR WIN32)
     # if this is a cmake-js build ignore the node.exe link warning
@@ -115,13 +117,7 @@ set(CMAKE_SKIP_BUILD_RPATH FALSE)
 # (but later on when installing)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 
-message(STATUS "CPACK_PACKAGING_PREFIX:\t" ${CPACK_PACKAGING_PREFIX})
-message(STATUS "CMAKE_INSTALL_PREFIX:\t" ${CMAKE_INSTALL_PREFIX})
-message(STATUS "CPACK_INSTALL_PREFIX:\t" ${CPACK_INSTALL_PREFIX})
-message(STATUS "CPACK_PACKAGE_INSTALL_DIRECTORY:\t" ${CPACK_PACKAGE_INSTALL_DIRECTORY})
-message(STATUS "CPACK_PACKAGING_INSTALL_PREFIX:\t" ${CPACK_PACKAGING_INSTALL_PREFIX})
-
-# TODO load DLLs and SO's internally, rather than via RPATHS
+# TODO load DLLs and so's internally, rather than via RPATHS
 set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
