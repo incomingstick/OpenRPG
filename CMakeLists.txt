@@ -149,7 +149,7 @@ install(DIRECTORY ${DATA}/
 )
 
 # TODO gzip man pages before installing them
-if(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
+if(NOT (MSVC OR WIN32))
     install(DIRECTORY ${MAN}/
         DESTINATION ${MAN_INSTALL_DIR}
         COMPONENT Modules
