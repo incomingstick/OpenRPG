@@ -42,10 +42,14 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
 endif()
 
 if(NOT (MSVC OR WIN32))
-    set(CMAKE_INSTALL_PREFIX "/usr")
+    if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+        set(CMAKE_INSTALL_PREFIX "/usr")
+    endif()
     set(LIB_INSTALL_DIR lib/openrpg)
 elseif(MSVC OR WIN32)
-    set(CMAKE_INSTALL_PREFIX "C:/Program Files")
+    if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+        set(CMAKE_INSTALL_PREFIX "C:/Program Files")
+    endif()
     set(WINDOWS_FOLDER_NAME "OpenRPG/")
     set(LIB_INSTALL_DIR lib)
 endif(NOT (MSVC OR WIN32))
@@ -144,6 +148,7 @@ install(DIRECTORY ${DATA}/
     COMPONENT Modules
 )
 
+# TODO gzip man pages before installing them
 if(CMAKE_BUILD_TYPE MATCHES RELEASE AND NOT (MSVC OR WIN32))
     install(DIRECTORY ${MAN}/
         DESTINATION ${MAN_INSTALL_DIR}
