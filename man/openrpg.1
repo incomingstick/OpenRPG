@@ -1,0 +1,77 @@
+.\"        Title: openrpg
+.\"       Author: [see the "Authors" section]
+.\"         Date: 12/24/2019
+.\"     Language: English
+
+.\" View this man page with the command
+.\" man -l openrpg.1
+.\" When installing, gzip this file and place it in the man folder
+
+.\" For information on macros used in this file, see man page
+.\" groff_man(7)
+.\" http://man7.org/linux/man-pages/man7/groff_man.7.html
+
+.\" Header and footer information
+.TH "OPENRPG" "1" "2019-12-24" "OPENRPG" "OpenRPG Manual"
+
+.\" NAME section
+.\" TODO: Redo this text
+.SH "NAME"
+openrpg \- emulates ttrpg systems
+
+.\" SYNOPSIS section, includes basic command form
+.SH "SYNOPSIS"
+.B openrpg
+[\fI\,OPTION\/\fR]... <command> [<args>]
+
+.\" DESCRIPTION section, includes command line arguments
+.SH "DESCRIPTION"
+.PP
+.\" TODO: redo this text
+OpenRPG allows the user to quickly create characters, generate names, and roll virtual dice from the command line
+.PP
+Commands and options are split up, as commands are created as different binaries, however some arguments link to different commands. These instances will be marked. 
+
+.\" List of options, alphabetical
+.SS "OPTIONS"
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+displays the help message and exits
+.TP
+\fB\-n\fR, \fB\-\-name\fR=\fI\,RACE\/\fR, \fI\,GENDER\/\fR
+links to the name command, launches the subprogram \fBname-generator\fR. See man page \fBopenrpg-name-generator(1)\fR
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+don't print the banner on startup
+.TP
+\fB\-r\fR, \fB\-\-roll\fR=\fI\,XdY\/\fR
+links to the roll command, launches the subprogram \fBroll\fR. See man page \fBopenrpg-roll(1)\fR
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+.\" TODO: redo this text
+supresses quiet flag and sets verbose flag
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+print version info
+
+.\" List of commands, alphabetical
+.SS "COMMANDS"
+.TP
+\fBexit\fR, \fBquit\fR, \fBq\fR
+exits the program
+.TP
+\fBhelp\fR, \fBh\fR \fI\,COMMAND\/\fR
+prints help text for the command, if the argument is provided. Otherwise prints the help text for the openrpg program
+.TP
+\fBgenerate\fR, \fBgen\fR \fI\,RACE\/\fR, \fI\,GENDER\/\fR
+launches the subprogram \fBname-generator\fR. See man page \fBopenrpg-name-generator(1)\fR
+.TP
+\fBroll\fR, \fBr\fR \fI\,XdY\/\fR
+launches the subprogram \fBroll\fR. See man page \fBopenrpg-roll(1)\fR
+.TP
+\fBversion\fR, \fBver\fR, \fBv\fR
+print version info
+.SH "COPYRIGHT"
+.\" TODO copyright text
+.\" What's the proper copyright text? For now I'm just putting the license
+OpenRPG Software License \- Version 1.0 \- February 10th, 2017 \fB\fI\,https://openrpg.io/about/license/\/\fR

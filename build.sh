@@ -9,6 +9,21 @@ buildVars=''
 if [[ $1 == "help" || $1 == "-h" ]]; then
     echo "This option is not yet supported: $1"
     exit 1
+
+#    echo    "openrpg " VERSION " - " COPYRIGHT "\n"
+#            "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
+#            "This is free software: you are free to change and redistribute it.\n"
+#            "There is NO WARRANTY, to the extent permitted by law.\n\n"
+#            "Usage: sh build.sh\n"
+#                "\t-h help                   Print this help screen.\n"
+#                "\t   nuke | clean           Delete the dist/ and node_modules/ folders, if they exist"
+#                "\t   release | install      Adds a release flag to the CMake build variables"
+#                "\t   uninstall              "
+#            "\n"
+#            "Long options may not be passed with a single dash.\n"
+#            "OpenRPG home page: <https://openrpg.io>\n"
+#            "Report bugs to: <https://github.com/incomingstick/OpenRPG/issues>\n"
+#            "See 'man openrpg' for more information [TODO add man pages].\n",
 fi
 
 # TODO finish this logics
