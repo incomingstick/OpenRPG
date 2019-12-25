@@ -102,6 +102,7 @@ else() #other
     set(DATA_INSTALL_DIR data)
     set(BIN_INSTALL_DIR bin)
     set(LEGAL_INSTALL_DIR ${DATA_INSTALL_DIR})
+    set(MAN_INSTALL_DIR share/man)
 endif()
 
 
