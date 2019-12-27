@@ -13,6 +13,11 @@ const locations = [
     path.join(appDir, '/build/lib/openrpg/'),
     path.join(appDir, '/build/Debug/'),
     path.join(appDir, '/build/Release/'),
+    path.join(appDir, '/bin/'),
+    path.join(appDir, '/dist/'),
+    '/bin',
+    '/usr/bin',
+    '/usr/share/bin',
     'c:/Program Files/OpenRPG/',
     'c:/Program Files (x86)/OpenRPG/'
 ]

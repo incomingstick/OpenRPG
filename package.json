@@ -17,6 +17,7 @@
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
   "files": [
+    "build.js",
     "src/nodejs/openrpg.d.ts",
     "man/",
     "data/"
