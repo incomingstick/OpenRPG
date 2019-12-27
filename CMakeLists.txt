@@ -98,6 +98,7 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE AND (MSVC OR WIN32)) #windows
     set(DATA_INSTALL_DIR data)
     set(BIN_INSTALL_DIR /)
     set(LEGAL_INSTALL_DIR ${BIN_INSTALL_DIR})
+    set(MAN_INSTALL_DIR docs)
 else() #other
     set(DATA_INSTALL_DIR data)
     set(BIN_INSTALL_DIR bin)
@@ -150,12 +151,10 @@ install(DIRECTORY ${DATA}/
 )
 
 # TODO gzip man pages before installing them
-if(NOT (MSVC OR WIN32))
-    install(DIRECTORY ${MAN}/
-        DESTINATION ${MAN_INSTALL_DIR}
-        COMPONENT Modules
-    )
-endif()
+install(DIRECTORY ${MAN}/
+    DESTINATION ${MAN_INSTALL_DIR}
+    COMPONENT Documentation
+)
 
 install(DIRECTORY ${INCLUDE}/
     DESTINATION ${INCLUDE_INSTALL_DIR}
