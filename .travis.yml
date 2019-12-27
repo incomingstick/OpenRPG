@@ -62,6 +62,10 @@ jobs:
         file:
           - "dist/OpenRPG-0.5.0-win64.exe"
           - "dist/OpenRPG-0.5.0-win64.exe.sha512"
+          - "dist/OpenRPG-0.5.0-win64.tar.gz"
+          - "dist/OpenRPG-0.5.0-win64.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.0-win64.zip"
+          - "dist/OpenRPG-0.5.0-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
