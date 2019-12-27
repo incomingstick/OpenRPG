@@ -27,11 +27,15 @@ jobs:
         api_key: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.0-Linux.deb"
+          - "dist/OpenRPG-0.5.0-Linux.deb.sha512"
           - "dist/OpenRPG-0.5.0-Linux.sh"
+          - "dist/OpenRPG-0.5.0-Linux.sh.sha512"
           - "dist/OpenRPG-0.5.0-Linux.tar.gz"
+          - "dist/OpenRPG-0.5.0-Linux.tar.gz.sha512"
           - "dist/OpenRPG-0.5.0-Linux.tar.xz"
+          - "dist/OpenRPG-0.5.0-Linux.tar.xz.sha512"
           - "dist/OpenRPG-0.5.0-Linux.tar.Z"
-          - "dist/OpenRPG-0.5.0-Linux.sha512"
+          - "dist/OpenRPG-0.5.0-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
