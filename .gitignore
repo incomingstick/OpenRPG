@@ -60,3 +60,5 @@ Cargo.lock
 *.zip
 *.tar
 *.tar.*
+*.tgz
+*.deb

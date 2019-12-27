@@ -16,6 +16,12 @@
   },
   "main": "src/nodejs/export.js",
   "types": "src/nodejs/openrpg.d.ts",
+  "directories": {
+    "man": "man/"
+  },
+  "files": [
+    "src/nodejs/openrpg.d.ts"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/incomingstick/OpenRPG.git"
