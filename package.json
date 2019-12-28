@@ -1,6 +1,6 @@
 {
   "name": "openrpg-libs",
-  "version": "0.0.32",
+  "version": "0.1.0",
   "description": "A set of tools for someone to use to quickly create content for a tabletop RPG world. These are the backend libraries for OpenRPG.",
   "scripts": {
     "start": "node src/nodejs/export.js",
@@ -18,13 +18,11 @@
   "types": "src/nodejs/openrpg.d.ts",
   "files": [
     "build.js",
-    "src/nodejs/openrpg.d.ts",
-    "man/",
-    "data/"
+    "src/nodejs/openrpg.d.ts"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/incomingstick/OpenRPG.git"
+    "url": "https://github.com/incomingstick/OpenRPG"
   },
   "author": "Nick Gaulke",
   "license": "OSL",
@@ -33,7 +31,8 @@
   },
   "homepage": "https://openrpg.io",
   "dependencies": {
-    "cmake-js": "^6.0.0"
+    "cmake-js": "^6.0.0",
+    "tar": "^5.0.5"
   },
   "devDependencies": {
     "mocha": "^6.2.2"

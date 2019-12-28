@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). However, note that all pre-v0.5.0 releases will have the suffix "-dev"
 
-## [Unreleased]
+## [0.5.0]
 There is likely a TON that has changed that is not noted below. This release is a HUGE one, so we likely missed something. If you notice something is missing, please open a PR to fix it (with commit citations please)!
 
 ### Added
@@ -466,7 +466,8 @@ There is likely a TON that has changed that is not noted below. This release is 
 - The `openrpg` command welcome banner
     - src/assets/banners/welcome_mat1
 
-[Unreleased]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...master
+[Unreleased]: https://github.com/incomingstick/OpenRPG/compare/v0.5.0...master
+[0.5.0]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...v0.5.0
 [0.4.4-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.3-dev...v0.4.4-dev
 [0.4.3-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.2-dev...v0.4.3-dev
 [0.4.2-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.1-dev...v0.4.2-dev
