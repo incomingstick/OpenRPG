@@ -96,7 +96,7 @@ if(args[0] !== 'download') {
 
    // TODO sha256 check the download before writing
    const tar = require('tar');
-   const unzip = require('zlib').createnzip();
+   const unzip = require('zlib').createUnzip();
 
    const comp = fs.createReadStream(download);
    const tarball = fs.createWriteStream(path.join(tmpdir, 'openrpg.tar'));
