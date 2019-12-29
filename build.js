@@ -74,7 +74,7 @@ if(args[0] !== 'download') {
    const url = require('url');
 
    var file = fs.createWriteStream(download);
-   var request = https.get(gitURL, (response) => {
+   https.get(gitURL, (response) => {
       if (response.statusCode > 300 && response.statusCode < 400 && response.headers.location) {
          if (url.parse(response.headers.location).hostname) {
             https.get(response.headers.location, (data) => {
@@ -92,15 +92,21 @@ if(args[0] !== 'download') {
       console.error(error);
    });
 
-   // TODO sha256 check the download before writing
-   const comp = path.join(tmpdir, filename);
-   const tar = require('tar');
+   console.log(download);
 
-   console.log(comp);
+   // TODO sha256 check the download before writing
+   const tar = require('tar');
+   const unzip = require('zlib').createnzip();
+
+   const comp = fs.createReadStream(download);
+   const tarball = fs.createWriteStream(path.join(tmpdir, 'openrpg.tar'));
+
+   comp.pipe(unzip).pipe(tarball);
+
    // FIXME(incomingstick): I have no clue why we aren't downloading the correct data...
    tar.extract({
       cwd: tmpdir,
-      file: comp,
+      file: tarball.path,
       sync: true
    });
 
