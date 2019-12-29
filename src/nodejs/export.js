@@ -15,12 +15,12 @@ const locations = [
     path.join(appDir, '/build/Release/'),
     path.join(appDir, '/bin/'),
     path.join(appDir, '/dist/'),
-    path.join(appDir, '/dist/bin'),
-    path.join(appDir, '/dist/usr/bin'),
-    path.join(appDir, '/dist/usr/share/bin'),
+    path.join(appDir, '/dist/bin/'),
+    path.join(appDir, '/dist/usr/bin/'),
+    path.join(appDir, '/dist/usr/local/bin/'),
     '/bin',
     '/usr/bin',
-    '/usr/share/bin',
+    '/usr/local/bin',
     'c:/Program Files/OpenRPG/',
     'c:/Program Files (x86)/OpenRPG/'
 ]
@@ -31,7 +31,7 @@ if (os.type() === 'Windows_NT' ||
     const fs = require("fs");
 
     for(let index in locations) {
-        if (fs.existsSync(locations[index])) {
+        if (fs.existsSync(path.join(locations[index], 'orpgNode.node'))) {
             prefix = locations[index];
             break;
         }

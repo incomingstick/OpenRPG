@@ -91,31 +91,26 @@ if(args[0] !== 'download') {
       console.error(error);
    });
 
-   console.log('Unzipping...\t', download);
-
    // TODO sha256 check the download before writing
-   /**
-    * FIXME tar and zlib seem to both fail when passed our downloaded 
-    **/
-   const tar = require('tar');
-   // const unzip = require('zlib').createUnzip();
+   file.on('finish', () => {
+      const tar = require('tar');
+      
+      console.log('Unzipping...\t', download);
+      tar.extract({
+         cwd: tmpdir,
+         file: file.path,
+         sync: true
+      });
 
-   // switch to reading from writing to the downloaded file
-   const comp = fs.createReadStream(download);
-   // const tarball = fs.createWriteStream(path.join(tmpdir, 'openrpg.tar'));
-   // comp.pipe(unzip).pipe(tarball);
+      let uncomp = path.join(tmpdir, base);
+      var dist = path.join(__dirname, 'dist');
 
-   tar.extract({
-      cwd: tmpdir,
-      file: comp.path,
-      sync: true
-   });
+      const mv = require('mv');
+      if(fs.existsSync(dist)) fs.rmdirSync(dist, { recursive: true });
+      if(fs.existsSync(uncomp)) mv(uncomp, dist, (error) => { if(error) throw error; });
 
-   let uncomp = path.join(tmpdir, base);
-   var dist = path.join(tmpdir, 'openrpg');
+      console.log(file.path, '->', dist);
 
-   if(fs.existsSync(dist)) fs.rmdirSync(dist, { recursive: true });
-   if(fs.existsSync(uncomp)) fs.rename(uncomp, dist, (error) => { if(error) throw error; });
-
-   // fs.unlinkSync(file.path);
+      fs.unlinkSync(file.path);
+    });
 }

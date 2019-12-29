@@ -32,6 +32,7 @@
   "homepage": "https://openrpg.io",
   "dependencies": {
     "cmake-js": "^6.0.0",
+    "mv": "^2.1.1",
     "tar": "^5.0.5"
   },
   "devDependencies": {
