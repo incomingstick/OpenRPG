@@ -69,19 +69,29 @@ namespace ORPG {
 
         extern bool CORE_EXPORT VB_FLAG;
         extern bool CORE_EXPORT QUIET_FLAG;
+
+        /**
+         * @desc searches the following directories to find our data location, returning false if it is unable
+         * to locate the data, true otherwise:
+         * 
+         * @return bool - returns false if unable to locate the data, true otherwise
+         **/
+        bool CORE_EXPORT LOCATE_DATA();
+
+        std::string CORE_EXPORT DATA_LOCATION();
     };
 };
 
 namespace ORPG {
     namespace Utils {
         /**
-         * Loads the menu file of the given type to be used
+         * @desc Loads the menu file of the given type to be used
          * for printing the UI
          **/
         std::string CORE_EXPORT get_display_screen(std::string file);
 
         /**
-         * Converts the given file to an exact string copy
+         * @desc Converts the given file to an exact string copy
          * used to create images and other printed files.
          **/
         std::string CORE_EXPORT file_to_string(std::string fileName);
@@ -90,18 +100,18 @@ namespace ORPG {
         std::istream CORE_EXPORT & safeGetline(std::istream& is, std::string& t);
 
         /**
-         * Prints the text contents of the given file to stdout
+         * @desc Prints the text contents of the given file to stdout
          **/
         bool CORE_EXPORT print_file(std::string file);
 
         /**
-         * Example: str = "hi", len = "5", ch = '-'
+         * @desc Example: str = "hi", len = "5", ch = '-'
          * Return: "---hi"
          **/
         std::string CORE_EXPORT leftpad(std::string str, int len = 0, char ch = ' ');
 
         /**
-         * Example: str = "hi", len = "5", ch = '-'
+         * @desc Example: str = "hi", len = "5", ch = '-'
          * Return: "hi---"
          **/
         std::string CORE_EXPORT rightpad(std::string str, int len = 0, char ch = ' ');

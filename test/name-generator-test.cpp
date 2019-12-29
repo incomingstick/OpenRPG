@@ -10,10 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #include "names/names.h"
 
-#ifndef TESTING_ASSET_LOC
-#   define TESTING_ASSET_LOC ""
-#endif
-
 using namespace ORPG;
 
 int main(int argc, char* argv[]) {

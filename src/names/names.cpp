@@ -183,7 +183,7 @@ namespace ORPG {
      * @param string _gender = "" - the gender of our race. defaults to empty
      **/
     NameGenerator::NameGenerator(string _race, string _gender)
-        :location(ASSET_LOC), race(_race), raceFile(_race), gender(_gender) {
+        :location(Core::DATA_LOCATION()), race(_race), raceFile(_race), gender(_gender) {
         location += "/names";
 
         Initialize();
@@ -216,7 +216,7 @@ namespace ORPG {
         :location(_location), race(_race), raceFile(_race), gender(_gender) {
 
         if(location.empty()) {
-            location = ASSET_LOC;
+            location = Core::DATA_LOCATION();
         }
 
         location += "/names";

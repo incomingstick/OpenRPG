@@ -10,16 +10,13 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <string>
 #include <functional>
 #include <random>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "core/config.h"
 #include "core/utils.h"
 
 using namespace std;
-
-#ifdef TESTING_FLAG
-#   undef ASSET_LOC
-#   define ASSET_LOC TESTING_ASSET_LOC
-#endif
 
 namespace ORPG {
     namespace Core {
@@ -106,20 +103,47 @@ namespace ORPG {
 
         bool VB_FLAG = false;
         bool QUIET_FLAG = false;
+
+        string LOCATION;
+
+        /**
+         * @desc searches the following directories to find our data location, returning false if it is unable
+         * to locate the data, true otherwise:
+         * 
+         * @return bool - returns false if unable to locate the data, true otherwise
+         **/
+        bool LOCATE_DATA() {
+            struct stat info;
+
+            string path = "../../data";
+            
+            if(stat(path.c_str(), &info) != 0)
+                printf("cannot access %s\n", path.c_str());
+            else if(info.st_mode & S_IFDIR) 
+                printf("%s is a directory\n", path.c_str());
+            else
+                printf("%s is no directory\n", path.c_str());
+
+            return true;
+        }
+
+        string DATA_LOCATION() {
+            if(LOCATION.empty() && !LOCATE_DATA()) throw "Unable to locate the OpenRPG data directory!";
+
+            return LOCATION;
+        }
     }
 }
 
 namespace ORPG {
     namespace Utils {
-        string asset_loc = ASSET_LOC;
-
         /**
          * Loads the menu file of the given type to be used
          * for printing the UI
          **/
         string get_display_screen(string file) {
             // Open the data file for the current screen
-            ifstream screen_file(asset_loc+"/"+file);
+            ifstream screen_file(Core::DATA_LOCATION()+"/"+file);
             string ret = "";
 
             if (screen_file.is_open()) {
@@ -136,7 +160,7 @@ namespace ORPG {
             else {
                 // TODO: Raise an exception here, if an asset file
                 // cannot be opened then something serious has gone wrong.
-                printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
+                printf("file %s/%s could not be opened\n", Core::DATA_LOCATION().c_str(), file.c_str());
             }
 
             return ret;
@@ -148,7 +172,7 @@ namespace ORPG {
          **/
         string file_to_string(string file) {
             // Open the data file for the current screen
-            ifstream screen_file(asset_loc+"/"+file);
+            ifstream screen_file(Core::DATA_LOCATION()+"/"+file);
             string ret = "";
 
             if (screen_file.is_open()) {
@@ -162,7 +186,7 @@ namespace ORPG {
             else {
                 // TODO: Raise an exception here, if an asset file
                 // cannot be opened then something serious has gone wrong.
-                printf("file %s/%s could not be opened\n", asset_loc.c_str(), file.c_str());
+                printf("file %s/%s could not be opened\n", Core::DATA_LOCATION().c_str(), file.c_str());
             }
 
             return ret;
@@ -224,16 +248,16 @@ namespace ORPG {
          * Return: "---hi"
          **/
         string leftpad(string str, int len, char ch) {
-        int i = -1;
+            int i = -1;
 
-        len = len - str.size();
-        if (len <= 0) return str; // doesn't need to pad
+            len = len - str.size();
+            if (len <= 0) return str; // doesn't need to pad
 
-        while (++i < len) {
-            str = ch + str;
-        }
+            while (++i < len) {
+                str = ch + str;
+            }
 
-        return str;
+            return str;
         }
 
         /**
@@ -247,8 +271,8 @@ namespace ORPG {
             if (len <= 0) return str; // doesn't need to pad
 
             while (++i < len) {
-            str = str + ch;
-        }
+                str = str + ch;
+            }
 
             return str;
         }
