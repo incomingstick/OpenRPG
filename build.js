@@ -31,9 +31,8 @@ if(args[0] !== 'download') {
       console.log('child process exited with code ' + code.toString());
    });
 } else {
-   const package = require('./package.json');
    const fs = require('fs')
-   var tmpdir = os.tmpdir() + '\\';
+   var tmpdir = os.tmpdir();
 
    // make the tmpdir if it doesn't exist
    if(!fs.existsSync(tmpdir)) {
@@ -45,8 +44,8 @@ if(args[0] !== 'download') {
       tmpdir = './';
    }
 
-   var repo = package.repository.url;
-   var ver = package.version;
+   var repo = require('./package.json').repository.url;
+   var ver = require('./package.json').version;
    var ext = '.tar.gz'
    
    var osType;
@@ -68,7 +67,7 @@ if(args[0] !== 'download') {
    
    var download = path.join(tmpdir, filename);
 
-   console.log(gitURL);
+   console.log('Downloading...\t', gitURL);
 
    const https = require('https');
    const url = require('url');
@@ -92,21 +91,23 @@ if(args[0] !== 'download') {
       console.error(error);
    });
 
-   console.log(download);
+   console.log('Unzipping...\t', download);
 
    // TODO sha256 check the download before writing
+   /**
+    * FIXME tar and zlib seem to both fail when passed our downloaded 
+    **/
    const tar = require('tar');
-   const unzip = require('zlib').createUnzip();
+   // const unzip = require('zlib').createUnzip();
 
+   // switch to reading from writing to the downloaded file
    const comp = fs.createReadStream(download);
-   const tarball = fs.createWriteStream(path.join(tmpdir, 'openrpg.tar'));
+   // const tarball = fs.createWriteStream(path.join(tmpdir, 'openrpg.tar'));
+   // comp.pipe(unzip).pipe(tarball);
 
-   comp.pipe(unzip).pipe(tarball);
-
-   // FIXME(incomingstick): I have no clue why we aren't downloading the correct data...
    tar.extract({
       cwd: tmpdir,
-      file: tarball.path,
+      file: comp.path,
       sync: true
    });
 
