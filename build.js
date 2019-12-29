@@ -94,7 +94,7 @@ if(args[0] !== 'download') {
    // TODO sha256 check the download before writing
    file.on('finish', () => {
       const tar = require('tar');
-      
+
       console.log('Unzipping...\t', download);
       tar.extract({
          cwd: tmpdir,
