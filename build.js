@@ -44,7 +44,7 @@ if(args[0] !== 'download') {
       tmpdir = './';
    }
 
-   var repo = require('./package.json').repository.url;
+   var repo = require('./package.json').repository.url.replace('git+', '').replace('OpenRPG.git', 'OpenRPG');
    var ver = require('./package.json').version;
    var ext = '.tar.gz'
    
