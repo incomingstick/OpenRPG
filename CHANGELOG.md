@@ -80,6 +80,7 @@ There is likely a TON that has changed that is not noted below. This release is 
 - Fixed a bug when stringing multiple rolls together that would causing the tree to parse an expression such as 2d6+4d8 as (2d6+4)d8
     - Honestly there are a TON of bug fixes with the roll parser now that we are using the Mocha test suite
 - Fixed a bug in NameGenerator that wasn't resetting the raceFile when a new race was set
+- Fixed version sheild in CHANGELOG.md (it still had the '-dev'affix)
 
 ### Removed
 - Obliterated the old Name Generator test src/tests/name-generator-test.cpp

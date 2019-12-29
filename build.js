@@ -97,6 +97,7 @@ if(args[0] !== 'download') {
    const tar = require('tar');
 
    console.log(comp);
+   // FIXME(incomingstick): I have no clue why we aren't downloading the correct data...
    tar.extract({
       cwd: tmpdir,
       file: comp,
@@ -107,7 +108,7 @@ if(args[0] !== 'download') {
    var dist = path.join(tmpdir, 'openrpg');
 
    if(fs.existsSync(dist)) fs.rmdirSync(dist, { recursive: true });
-   fs.rename(uncomp, dist, (error) => { if(error) throw error; });
+   if(fs.existsSync(uncomp)) fs.rename(uncomp, dist, (error) => { if(error) throw error; });
 
-   fs.unlinkSync(file.path);
+   // fs.unlinkSync(file.path);
 }
