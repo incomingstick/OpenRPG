@@ -6,17 +6,18 @@ OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
  */
+#include <filesystem>
 #include <fstream>
-#include <string>
 #include <functional>
 #include <random>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <string>
+#include <vector>
 
 #include "core/config.h"
 #include "core/utils.h"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 namespace ORPG {
     namespace Core {
@@ -104,33 +105,60 @@ namespace ORPG {
         bool VB_FLAG = false;
         bool QUIET_FLAG = false;
 
-        string LOCATION;
+        fs::path LOCATION;
 
         /**
          * @desc searches the following directories to find our data location, returning false if it is unable
          * to locate the data, true otherwise:
-         * 
+         *      INSTALL_PREFIX,
+         *      INSTALL_PREFIX/usr/share/
+         *      INSTALL_PREFIX/usr/local/share
+         *      fs::current_path()
+         *      fs::current_path().parent_path()
+         * TODO fine ways to speed this up, it is SUPER slow according to Mocha tests
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
-            struct stat info;
+            // a list of locations to search for our data
+            vector<fs::path> paths = {
+                fs::path(INSTALL_PREFIX),
+                fs::path(INSTALL_PREFIX) / fs::path("/usr/share/"),
+                fs::path(INSTALL_PREFIX) / fs::path("/usr/local/share"),
+                fs::current_path(),
+                fs::current_path().parent_path()
+            };
 
-            string path = "../../data";
-            
-            if(stat(path.c_str(), &info) != 0)
-                printf("cannot access %s\n", path.c_str());
-            else if(info.st_mode & S_IFDIR) 
-                printf("%s is a directory\n", path.c_str());
-            else
-                printf("%s is no directory\n", path.c_str());
+            // go through the list of directories to check
+            for(auto it = paths.begin(); it != paths.end(); ++it) {
+                // check if our path exists before we check it's contents
+                // if it doesn't exist, check the next path
+                while(!fs::exists(*it) && it != paths.end()) ++it;
 
-            return true;
+                // check only immediate children of our path, we do not recurse down
+                for(auto dir = fs::directory_iterator(*it); dir != fs::directory_iterator();  ++dir) {
+                    const auto filename = dir->path().filename().string();
+
+                    // TODO add a check to ensure this is OUR data folder
+                    // perhaps a JSON file that acts as a table of contents?
+                    if(filename == "data") {
+                        LOCATION = dir->path();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
+        /**
+         * @desc returns the location of OpenRPG's data
+         * 
+         * @return string - the location of our data
+         **/
         string DATA_LOCATION() {
-            if(LOCATION.empty() && !LOCATE_DATA()) throw "Unable to locate the OpenRPG data directory!";
+            if(LOCATION.empty() && !LOCATE_DATA()) cerr << "Unable to locate the OpenRPG data directory!\n";
 
-            return LOCATION;
+            return LOCATION.string();
         }
     }
 }

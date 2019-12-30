@@ -13,9 +13,13 @@ GENERATE_EXPORT_HEADER(core
     STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
 )
 
-# if the core library needs a higher standard than C++11 please update here
-set_property(TARGET core PROPERTY CXX_STANDARD 11)
+# if the core library needs a higher standard than C++17 please update here
+set_property(TARGET core PROPERTY CXX_STANDARD 17)
 set_property(TARGET core PROPERTY CXX_STANDARD_REQUIRED ON)
+
+if(NOT (MSVC OR WIN32))
+    target_link_libraries(core PRIVATE "stdc++fs")
+endif(NOT (MSVC OR WIN32))
 
 install(TARGETS core 
     ARCHIVE DESTINATION ${LIB_INSTALL_DIR}

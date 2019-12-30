@@ -73,11 +73,20 @@ namespace ORPG {
         /**
          * @desc searches the following directories to find our data location, returning false if it is unable
          * to locate the data, true otherwise:
-         * 
+         *      INSTALL_PREFIX,
+         *      INSTALL_PREFIX/usr/share/
+         *      INSTALL_PREFIX/usr/local/share/
+         *      fs::current_path()
+         *      fs::current_path().parent_path()
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool CORE_EXPORT LOCATE_DATA();
 
+        /**
+         * @desc returns the location of OpenRPG's data
+         * 
+         * @return string - the location of our data
+         **/
         std::string CORE_EXPORT DATA_LOCATION();
     };
 };

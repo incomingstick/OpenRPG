@@ -3,7 +3,7 @@ var build;
 
 var os = require('os');
 //control OS
-//then run command depengin on the OS
+//then run command depending on the OS
 
 // ignore 'node' and 'build.js' and get all following args
 // these args get passed to the build scripts
