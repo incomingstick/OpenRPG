@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- `man openrpg` thanks to [@var-username](https://github.com/var-username)
 
 ### Changed
 - Moved the ASSET_LOC from a preprocessor definition to a Core function that searches multiple locations until it finds our data directory, throwing an error if no data can be found

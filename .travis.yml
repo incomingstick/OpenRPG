@@ -10,7 +10,7 @@ os:
   - windows
 
 dist: bionic
-osx_image: xcode11.3
+os_image: xcode11.3
 
 addons:
   apt:
@@ -104,7 +104,9 @@ before_install:
     fi
   # /usr/bin/gcc points to an older compiler on both Linux and macOS.
   - if [ "$TRAVIS_OS_NAME" = "linux" ] || [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      if [ "$CXX" = "g++" ]; then export CXX="g++-8" CC="gcc-8"; fi
+      if [ "$CXX" = "g++" ]; then
+        export CXX="g++-8" CC="gcc-8";
+      fi
     fi
   # /usr/bin/clang points to an older compiler on both Linux and macOS.
   #
@@ -112,16 +114,24 @@ before_install:
   # below don't work on macOS. Fortunately, the path change above makes the
   # default values (clang and clang++) resolve to the correct compiler on macOS.
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      if [ "$CXX" = "clang++" ]; then export CXX="clang++-9" CC="clang-9"; fi;
+      if [ "$CXX" = "clang++" ]; then
+        export CXX="clang++-9" CC="clang-9";
+      fi;
     fi
   - echo ${CC}
   - echo ${CXX}
   - ${CXX} --version
   - cmake --version
   # Linux builds don't have node installed by default
-  - if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash; nvm install node; fi
+  - if [[ "$TRAVIS_OS_NAME" = "linux" ]];
+      then curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash;
+      nvm install node; 
+    fi
   # Windows builds don't have node or NSIS installed by default
-  - if [[ "$TRAVIS_OS_NAME" = "windows" ]]; then choco install nodejs nsis; PATH="$PATH:/c/Program Files/nodejs:/c/Program Files (x86)/NSIS"; fi
+  - if [[ "$TRAVIS_OS_NAME" = "windows" ]]; then
+      choco install nodejs nsis;
+      PATH="$PATH:/c/Program Files/nodejs:/c/Program Files (x86)/NSIS";
+    fi
 
 install:
   - npm install && npm run clean && npm run compile
