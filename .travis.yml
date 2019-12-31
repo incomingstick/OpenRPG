@@ -1,15 +1,15 @@
 language: cpp
 
 compiler:
-  - clang
   - gcc
+  - clang
 
 os:
   - linux
   - osx
   - windows
 
-dist: Bionic
+dist: bionic
 osx_image: xcode11.3
 
 addons:
@@ -19,10 +19,10 @@ addons:
       key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
     - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
-    - clang-9
+    - llvm-9
     - cmake
-    - gcc-9
-    - g++-9
+    - gcc-8
+    - g++-8
   homebrew:
     packages:
     - cmake
@@ -97,8 +97,28 @@ jobs:
         prerelease: true
 
 before_install:
-  - echo $TRAVIS_OS_NAME
+  # The following Homebrew packages aren't linked by default, and need to be
+  # prepended to the path explicitly.
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      export PATH="$(brew --prefix llvm)/bin:$PATH";
+    fi
+  # /usr/bin/gcc points to an older compiler on both Linux and macOS.
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-9" CC="gcc-9"; fi
+  # /usr/bin/clang points to an older compiler on both Linux and macOS.
+  #
+  # Homebrew's llvm package doesn't ship a versioned clang++ binary, so the values
+  # below don't work on macOS. Fortunately, the path change above makes the
+  # default values (clang and clang++) resolve to the correct compiler on macOS.
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+      if [ "$CXX" = "clang++" ]; then export CXX="clang++-9" CC="clang-9"; fi;
+    fi
+  - echo ${CC}
+  - echo ${CXX}
+  - ${CXX} --version
+  - cmake --version
+  # Linux builds don't have node installed by default
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash; nvm install node; fi
+  # Windows builds don't have node or NSIS installed by default
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs nsis; PATH="$PATH:/c/Program Files/nodejs:/c/Program Files (x86)/NSIS"; fi
 
 install:
