@@ -45,7 +45,7 @@ jobs:
         - npm run dist
       deploy:
         provider: releases
-        api_key: $GH_TOKEN
+        token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-Linux.deb"
           - "dist/OpenRPG-0.5.1-Linux.deb.sha512"
@@ -58,7 +58,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-Linux.tar.Z"
           - "dist/OpenRPG-0.5.1-Linux.tar.Z.sha512"
         overwrite: true
-        skip_cleanup: true
+        cleanup: false
         draft: true
         prerelease: true
     - os: osx
@@ -67,14 +67,14 @@ jobs:
         - npm run dist
       deploy:
         provider: releases
-        api_key: $GH_TOKEN
+        token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-Darwin.sh"
           - "dist/OpenRPG-0.5.1-Darwin.sh.sha512"
           - "dist/OpenRPG-0.5.1-Darwin.tar.gz"
           - "dist/OpenRPG-0.5.1-Darwin.tar.gz.sha512"
         overwrite: true
-        skip_cleanup: true
+        cleanup: false
         draft: true
         prerelease: true
     - os: windows
@@ -83,7 +83,7 @@ jobs:
         - npm run dist
       deploy:
         provider: releases
-        api_key: $GH_TOKEN
+        token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-win64.exe"
           - "dist/OpenRPG-0.5.1-win64.exe.sha512"
@@ -92,7 +92,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-win64.zip"
           - "dist/OpenRPG-0.5.1-win64.zip.sha512"
         overwrite: true
-        skip_cleanup: true
+        cleanup: false
         draft: true
         prerelease: true
 
@@ -114,7 +114,7 @@ before_install:
     fi
   - echo ${CC}
   - echo ${CXX}
-  - ${CXX} --version
+  - eval "${CXX} --version"
   - cmake --version
   # Linux builds don't have node installed by default
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash; nvm install node; fi
