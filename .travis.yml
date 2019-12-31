@@ -19,14 +19,13 @@ addons:
       key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
     - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
-    - llvm-9
     - cmake
     - gcc-8
     - g++-8
   homebrew:
     packages:
     - cmake
-    - gcc@9
+    - gcc@8
     - llvm@9
     update: true
 
@@ -103,18 +102,18 @@ before_install:
       export PATH="$(brew --prefix llvm)/bin:$PATH";
     fi
   # /usr/bin/gcc points to an older compiler on both Linux and macOS.
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-9" CC="gcc-9"; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-8" CC="gcc-8"; fi
   # /usr/bin/clang points to an older compiler on both Linux and macOS.
   #
   # Homebrew's llvm package doesn't ship a versioned clang++ binary, so the values
   # below don't work on macOS. Fortunately, the path change above makes the
   # default values (clang and clang++) resolve to the correct compiler on macOS.
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      if [ "$CXX" = "clang++" ]; then export CXX="clang++-9" CC="clang-9"; fi;
+      if [ "$CXX" = "clang++" ]; then export CXX="clang++-8" CC="clang-8"; fi;
     fi
   - echo ${CC}
   - echo ${CXX}
-  - eval "${CXX} --version"
+  - ${CXX} --version
   - cmake --version
   # Linux builds don't have node installed by default
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash; nvm install node; fi
