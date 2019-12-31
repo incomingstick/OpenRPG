@@ -3,7 +3,6 @@ language: cpp
 compiler:
   - clang
   - gcc
-  - llvm
 
 os:
   - linux

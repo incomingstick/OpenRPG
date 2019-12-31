@@ -37,7 +37,7 @@ if (os.type() === 'Windows_NT' ||
         }
     }
     if(prefix === null)
-        throw new Error("Error: Unable to locate OpenRPG!");
+        throw new Error("Unable to locate OpenRPG!");
 
 } else
    throw new Error("Unsupported OS found: " + os.type());
