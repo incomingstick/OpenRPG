@@ -29,14 +29,14 @@ There is NO WARRANTY, to the extent permitted by law.
 
 #ifdef _WIN32
 #   define WIN32_LEAN_AND_MEAN
-#   include "core/win32.h"
 #   include "exports/core_exports.h"
 #else
-#   include "core/unix.h"
 #   define CORE_EXPORT
 #endif
 
 #include <string>
+
+#include "platform.h"
 
 namespace ORPG {
     namespace Core {

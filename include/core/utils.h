@@ -15,7 +15,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #   define WIN32_LEAN_AND_MEAN
 #   include "exports/core_exports.h"
 #else
-#   include "core/unix.h"
 #   define CORE_EXPORT
 #endif
 
