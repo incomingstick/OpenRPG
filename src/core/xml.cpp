@@ -381,7 +381,7 @@ bool XMLDocument::load_file(string filename) {
 
                     // XML definition tag found
                     case '?': {
-                        *ch++;
+                        ch++;
 
                         // getting the tag name here
                         while(ch != buffer.end() &&

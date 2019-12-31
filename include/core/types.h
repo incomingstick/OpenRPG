@@ -14,8 +14,10 @@ There is NO WARRANTY, to the extent permitted by law.
 #   include "core/win32.h"
 #   include "exports/core_exports.h"
 #else
+#   include "core/unix.h"
 #   define CORE_EXPORT
 #endif
+
 
 #include <cstdint>
 #include <cstddef>
