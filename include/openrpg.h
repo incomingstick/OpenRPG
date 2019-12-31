@@ -10,8 +10,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define OPENRPG_H
 
 #include "core/config.h"
-#include "core/win32.h"
-#include "core/unix.h"
+#include "core/platform.h"
 #include "core/xml.h"
 #include "core/utils.h"
 #include "core/types.h"
