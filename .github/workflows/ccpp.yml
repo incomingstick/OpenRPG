@@ -1,0 +1,23 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: install deps
+      run: npm install
+    - name: clean dist
+      run: npm run clean
+    - name: compile
+      run: npm run compile
+    - name: test
+      run: npm run test
