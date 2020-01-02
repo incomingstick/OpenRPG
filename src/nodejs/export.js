@@ -23,24 +23,19 @@ const locations = [
     '/usr/local/bin',
     'c:/Program Files/OpenRPG/',
     'c:/Program Files (x86)/OpenRPG/'
-]
+];
 
-if (os.type() === 'Windows_NT' ||
-    os.type() === 'Linux' ||
-    os.type() === 'Darwin') {
-    const fs = require("fs");
+if (os.type() === 'Windows_NT' || os.type() === 'Linux' || os.type() === 'Darwin') {
+    const fs = require('fs');
 
-    for(let index in locations) {
+    for (let index in locations) {
         if (fs.existsSync(path.join(locations[index], 'orpgNode.node'))) {
             prefix = locations[index];
             break;
         }
     }
-    if(prefix === null)
-        throw new Error("Unable to locate OpenRPG!");
-
-} else
-   throw new Error("Unsupported OS found: " + os.type());
+    if (prefix === null) throw new Error('Unable to locate OpenRPG!');
+} else throw new Error('Unsupported OS found: ' + os.type());
 
 // define the export libraries here
 module.exports = require(prefix + 'orpgNode');
