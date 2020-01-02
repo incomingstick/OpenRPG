@@ -27,6 +27,10 @@ if (args[0] !== 'download') {
         console.log('child process exited with code ' + code.toString());
     });
 } else {
+    /**
+     * TODO(incomingstick): Clean this up and functionize it where we can. I threw this together to get it working, so
+     * by no means is it perfect. 
+     */
     const fs = require('fs');
     var tmpdir = os.tmpdir();
 
@@ -184,7 +188,7 @@ if (args[0] !== 'download') {
     file.on('finish', () => {
         const tar = require('tar');
 
-        console.log('Unzipping...\t', download);
+        console.log('Unzipping...\t\t', download);
         tar.extract({
             cwd: tmpdir,
             file: file.path,

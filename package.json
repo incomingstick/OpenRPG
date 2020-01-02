@@ -9,9 +9,10 @@
     "rebuild": "cmake-js rebuild --debug --verbose",
     "compile": "cmake-js compile --verbose",
     "dist": "cmake-js --verbose --target package",
+    "dist:electron": "cmake-js --verbose --target package --runtime electron --runtime-version 6.1.7",
     "clean": "cmake-js clean --verbose",
-    "build:core": "node build.js",
-    "release:core": "node build.js release",
+    "core:build": "node build.js",
+    "core:release": "node build.js release",
     "install": "node build.js download"
   },
   "main": "src/nodejs/export.js",

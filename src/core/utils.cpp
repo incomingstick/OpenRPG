@@ -125,7 +125,8 @@ namespace ORPG {
                 fs::path(INSTALL_PREFIX) / fs::path("/usr/share/"),
                 fs::path(INSTALL_PREFIX) / fs::path("/usr/local/share"),
                 fs::current_path(),
-                fs::current_path().parent_path()
+                fs::current_path().parent_path(),
+                fs::current_path().parent_path().parent_path()
             };
 
             // go through the list of directories to check
