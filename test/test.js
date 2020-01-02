@@ -5,6 +5,7 @@ const assert = require('assert');
 // Control variables go here
 const LOOP_INT = 1e4; // The number of times we want to run loops
 const LOOP_COMP = 3e-1; // For higher processing computations this is used to compress/decrease the loop count (aim to remove this)
+const TESTING_ASSET_LOC = path.join(path.dirname(__dirname), 'data/');
 
 // TODO shrink this via the use of lists and loops!
 describe('OpenRPG ' + ORPG.ORPG_VERSION(), () => {
