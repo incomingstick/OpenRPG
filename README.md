@@ -45,7 +45,7 @@ We are now on the Arch User Repository! You can use your favorite AUR wrapper, o
 
 Thats it! You should now be able to run the following commands from the command line: `openrpg`, `roll`, `name-generator`, `character-generator` as well as linking against our shared libraries!
 
-## NodeJS (npm) Install
+### NodeJS (npm) Install
 We are also available via the NodeJS Package Manager (npm). You may use us in your own node projects by running the command under NPM Dependancy Install example, or install us globally via the NPM Global Install example.
 
 - **NPM Dependancy Install Example:** `$ npm install openrpg-libs`
