@@ -112,15 +112,15 @@ jobs:
         token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.deb"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.deb.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.sh"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.sh.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.xz"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.xz.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.Z"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.Z.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.deb.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.sh"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.sh.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.gz"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.xz"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.Z"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -134,9 +134,9 @@ jobs:
         token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.sh"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.sh.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.sh.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.tar.gz"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -150,11 +150,11 @@ jobs:
         token: $GH_TOKEN
         file:
           - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.exe"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.exe.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip"
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.exe.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.tar.gz"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.zip"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
