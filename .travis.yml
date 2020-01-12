@@ -35,7 +35,6 @@ notifications:
   email: false
 
 before_deploy:
-  - npm run clean
   - export TRAVIS_TAG="v0.5.1"
   - export NODE_VERSION="$(node -v | tr -d v)"
 
@@ -46,6 +45,7 @@ jobs:
     - os: linux
       stage: Core Publish
       script:
+        - npm run clean
         - npm run dist:core
       deploy:
         provider: releases
@@ -67,7 +67,8 @@ jobs:
         prerelease: true
     - os: osx
       stage: Core Publish
-      script: 
+      script:
+        - npm run clean
         - npm run dist:core
       deploy:
         provider: releases
@@ -83,7 +84,8 @@ jobs:
         prerelease: true
     - os: windows
       stage: Core Publish
-      script: 
+      script:
+        - npm run clean
         - npm run dist:core
       deploy:
         provider: releases
@@ -104,7 +106,7 @@ jobs:
     - os: linux
       stage: Node Publish
       script:
-        - npm run dist:core
+        - npm run dist
       deploy:
         provider: releases
         token: $GH_TOKEN
@@ -125,8 +127,8 @@ jobs:
         prerelease: true
     - os: osx
       stage: Node Publish
-      script: 
-        - npm run dist:core
+      script:
+        - npm run dist
       deploy:
         provider: releases
         token: $GH_TOKEN
@@ -142,7 +144,7 @@ jobs:
     - os: windows
       stage: Node Publish
       script: 
-        - npm run dist:core
+        - npm run dist
       deploy:
         provider: releases
         token: $GH_TOKEN
@@ -162,6 +164,7 @@ jobs:
     - os: linux
       stage: Electron Publish
       script:
+        - npm run clean
         - npm run dist:electron
       deploy:
         provider: releases
@@ -183,7 +186,8 @@ jobs:
         prerelease: true
     - os: osx
       stage: Electron Publish
-      script: 
+      script:
+        - npm run clean
         - npm run dist:electron
       deploy:
         provider: releases
@@ -199,7 +203,8 @@ jobs:
         prerelease: true
     - os: windows
       stage: Electron Publish
-      script: 
+      script:
+        - npm run clean
         - npm run dist:electron
       deploy:
         provider: releases
