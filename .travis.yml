@@ -35,7 +35,9 @@ notifications:
   email: false
 
 before_deploy:
+  - npm run clean
   - export TRAVIS_TAG="v0.5.1"
+  - export NODE_VERSION="$(node -v | tr -d v)"
 
 # TODO find ways to shrink this
 jobs:
@@ -107,7 +109,7 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.deb"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.deb"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.deb.sha512"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.sh"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.sh.sha512"
@@ -129,7 +131,7 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.sh"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.sh"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.sh.sha512"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz.sha512"
@@ -145,7 +147,7 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-13.6.0-win64.exe"
+          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.exe"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.exe.sha512"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.tar.gz"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.tar.gz.sha512"
