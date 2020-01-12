@@ -60,7 +60,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-Linux.tar.Z"
           - "dist/OpenRPG-0.5.1-Linux.tar.Z.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: osx
@@ -76,7 +76,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-Darwin.tar.gz"
           - "dist/OpenRPG-0.5.1-Darwin.tar.gz.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: windows
@@ -94,7 +94,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-win64.zip"
           - "dist/OpenRPG-0.5.1-win64.zip.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
 
@@ -118,7 +118,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.Z"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Linux.tar.Z.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: osx
@@ -134,7 +134,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz"
           - "dist/OpenRPG-0.5.1-node-13.6.0-Darwin.tar.gz.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: windows
@@ -152,7 +152,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     
@@ -176,7 +176,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z"
           - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: osx
@@ -192,7 +192,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz"
           - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
     - os: windows
@@ -210,7 +210,7 @@ jobs:
           - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip"
           - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip.sha512"
         overwrite: true
-        cleanup: false
+        skip_cleanup: true
         draft: true
         prerelease: true
 
