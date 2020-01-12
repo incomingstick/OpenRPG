@@ -37,6 +37,7 @@ notifications:
 before_deploy:
   - export TRAVIS_TAG="v0.5.1"
 
+# TODO find ways to shrink this
 jobs:
   include:
     # Core build and publish
@@ -150,6 +151,64 @@ jobs:
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.tar.gz.sha512"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip"
           - "dist/OpenRPG-0.5.1-node-13.6.0-win64.zip.sha512"
+        overwrite: true
+        cleanup: false
+        draft: true
+        prerelease: true
+    
+    # Electron build and publish
+    - os: linux
+      stage: Electron Publish
+      script:
+        - npm run dist:electron
+      deploy:
+        provider: releases
+        token: $GH_TOKEN
+        file:
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.deb"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.deb.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.sh"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.sh.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.gz"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.xz"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z.sha512"
+        overwrite: true
+        cleanup: false
+        draft: true
+        prerelease: true
+    - os: osx
+      stage: Electron Publish
+      script: 
+        - npm run dist:electron
+      deploy:
+        provider: releases
+        token: $GH_TOKEN
+        file:
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.sh"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.sh.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz.sha512"
+        overwrite: true
+        cleanup: false
+        draft: true
+        prerelease: true
+    - os: windows
+      stage: Electron Publish
+      script: 
+        - npm run dist:electron
+      deploy:
+        provider: releases
+        token: $GH_TOKEN
+        file:
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.exe"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.exe.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.tar.gz"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.tar.gz.sha512"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip"
+          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip.sha512"
         overwrite: true
         cleanup: false
         draft: true
