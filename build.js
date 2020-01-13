@@ -235,7 +235,9 @@ if (args[0] !== 'download') {
             });
     };
 
-    downloadTarball(gitURL);
+    file.on('open', () => {
+        downloadTarball(gitURL);
+    });
 
     file.on('finish', () => {
         const tar = require('tar');

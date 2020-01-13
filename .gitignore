@@ -43,9 +43,9 @@ exports/
 [Bb]in/
 *.cbp
 *.depend
-[Bb]uild/*
-[Bb]uild32/*
-[Bb]uild64/*
+[Bb]uild/
+[Bb]uild32/
+[Bb]uild64/
 .vscode
 [Gg]ifs/
 *.un~
