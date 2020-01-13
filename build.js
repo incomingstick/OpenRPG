@@ -8,12 +8,13 @@ var os = require('os');
 // ignore 'node' and 'build.js' and get all following args
 // these args get passed to the build scripts
 var args = process.argv.slice(2);
+var OS_TYPE = os.type();
 
 if (args[0] !== 'download') {
-    if (os.type() === 'Linux') build = spawn('./build.sh', args);
-    else if (os.type() === 'Darwin') build = spawn('./build.sh', args);
-    else if (os.type() === 'Windows_NT') build = spawn('build.bat', args);
-    else throw new Error('Unsupported OS found: ' + os.type());
+    if (OS_TYPE === 'Linux') build = spawn('./build.sh', args);
+    else if (OS_TYPE === 'Darwin') build = spawn('./build.sh', args);
+    else if (OS_TYPE === 'Windows_NT') build = spawn('build.bat', args);
+    else throw new Error('Unsupported OS found: ' + OS_TYPE);
 
     build.stdout.on('data', (data) => {
         process.stdout.write(data.toString());
@@ -29,7 +30,7 @@ if (args[0] !== 'download') {
 } else {
     /**
      * TODO(incomingstick): Clean this up and functionize it where we can. I threw this together to get it working, so
-     * by no means is it perfect. 
+     * by no means is it perfect.
      */
     const fs = require('fs');
     var tmpdir = os.tmpdir();
@@ -50,15 +51,46 @@ if (args[0] !== 'download') {
     var ver = require('./package.json').version;
     var ext = '.tar.gz';
 
-    var osType;
+    var osName;
 
-    if (os.type() === 'Windows_NT') osType = 'win64';
-    else if (os.type() === 'Linux' || os.type() === 'Darwin') osType = os.type();
-    else throw new Error('Unsupported OS found: ' + os.type());
+    if (OS_TYPE === 'Windows_NT') osName = 'win64';
+    else if (OS_TYPE === 'Linux' || OS_TYPE === 'Darwin') osName = OS_TYPE;
+    else throw new Error('Unsupported OS found: ' + OS_TYPE);
 
     const path = require('path');
 
-    const base = 'OpenRPG-' + ver + '-' + osType;
+    var target = '';
+    var targetVer = '';
+
+    var loadMainPackageJSON = (attempts) => {
+        attempts = attempts || 1;
+        if (attempts > 5) {
+            throw new Error("Can't resolve main package.json file");
+        }
+        var mainPath = attempts === 4 ? './' : Array(attempts).join('../');
+        try {
+            return require.main.require(mainPath + 'package.json');
+        } catch (e) {
+            return loadMainPackageJSON(attempts + 1);
+        }
+    };
+
+    var parentPackageJSON = loadMainPackageJSON();
+
+    var depVer = parentPackageJSON.dependencies.electron;
+    var devDepVer = parentPackageJSON.devDependencies.electron;
+
+    target = 'electron';
+    targetVer = depVer !== undefined ? depVer : devDepVer;
+
+    if(targetVer === undefined) {
+        target = 'node';
+        targetVer = process.version;
+    }
+
+    const targetString = '-' + target + '-' + targetVer.replace(/[\^\<\>\=v]/g, '');
+
+    const base = 'OpenRPG-' + ver + targetString + '-' + osName;
     var filename = base + ext;
     var gitURL = repo + '/releases' + '/download' + '/v' + ver + '/' + filename;
     var shaExt = '.sha512';
@@ -162,22 +194,13 @@ if (args[0] !== 'download') {
                     });
                 }
             } else {
-                const sha512 = crypto.createHash('sha512');
-                sha512.setEncoding('hex');
-
-                tarball.on('end', () => {
-                    sha512.end();
-
-                    const hex = sha512.read();
-
-                    if (hex !== checksum) {
-                        fs.unlinkSync(download);
-                        throw new Error('Checksum failed!');
-                    } else console.log('Checksum passed!');
-                });
-
-                tarball.pipe(file);
-                tarball.pipe(sha512);
+                // We we given a response code statusCode < 300 || response.statusCode > 400
+                switch(response.statusCode) {
+                case 404: {
+                    console.log('Error 404! URL not found: ', gitURL);
+                    break;
+                }
+                }
             }
         })
         .on('error', (error) => {
