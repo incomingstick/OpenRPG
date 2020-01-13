@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). However, note that all pre-v0.5.0 releases will have the suffix "-dev"
 
-## [Unreleased]
+## [0.5.1]
 ### Added
 - After installing you can now run `man openrpg` for Unix style Man Pages thanks to [@var-username](https://github.com/var-username)
+- Calling `npm install` on this package will attemmpt to download the prebuild binaries from the matching github release putting it in `dist/` (if `dist/` already exists, it is cleared). `build.js` attempts to determine the correct node or electron version to download, and if one cannot be found we fall back to the core libaries. If `build.js` is still unable to locate the files, or the sha512 checksum fails, nothing is downloaded.
 
 ### Changed
 - Moved the ASSET_LOC from a preprocessor definition to a Core module function that searches multiple locations until it finds our data directory, throwing an error if no data can be found
@@ -14,9 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated README.md with NodeJS info and updates to the build scripts, as well as some reorganization of pertinent information.
 - Check and specify system architecture in build.bat
 
-### Fixed
-
-### Removed
 
 ## [0.5.0]
 There is likely a TON that has changed that is not noted below. This release is a HUGE one, so we likely missed something. If you notice something is missing, please open a PR to fix it (with commit citations please)!
@@ -481,7 +479,7 @@ There is likely a TON that has changed that is not noted below. This release is 
 - The `openrpg` command welcome banner
     - src/assets/banners/welcome_mat1
 
-[Unreleased]: https://github.com/incomingstick/OpenRPG/compare/v0.5.0...master
+[0.5.1]: https://github.com/incomingstick/OpenRPG/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...v0.5.0
 [0.4.4-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.3-dev...v0.4.4-dev
 [0.4.3-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.2-dev...v0.4.3-dev
