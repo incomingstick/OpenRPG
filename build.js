@@ -83,7 +83,7 @@ if (args[0] !== 'download') {
     target = 'electron';
     targetVer = depVer !== undefined ? depVer : devDepVer;
 
-    if(targetVer === undefined) {
+    if (targetVer === undefined) {
         target = 'node';
         targetVer = process.version;
     }
@@ -101,113 +101,103 @@ if (args[0] !== 'download') {
     const url = require('url');
     const crypto = require('crypto');
 
-    console.log('Fetching Checksum...\t', gitURL + shaExt);
-
-    let checksum;
-    https
-        .get(gitURL + shaExt, (sha) => {
-            if (sha.statusCode > 300 && sha.statusCode < 400 && sha.headers.location) {
-                if (url.parse(sha.headers.location).hostname) {
-                    https.get(sha.headers.location, (data) => {
-                        let mem = '';
-
-                        data.on('data', (chunk) => {
-                            mem += chunk;
-                        });
-
-                        data.on('end', () => {
-                            checksum = mem.split(' ', 1)[0];
-                        });
-                    });
-                } else {
-                    https.get(url.resolve(url.parse(url).hostname, response.headers.location), (data) => {
-                        let mem = '';
-
-                        data.on('data', (chunk) => {
-                            mem += chunk;
-                        });
-
-                        data.on('end', () => {
-                            checksum = mem.split(' ', 1)[0];
-                        });
-                    });
-                }
-            } else {
-                let mem = '';
-
-                sha.on('data', (chunk) => {
-                    mem += chunk;
-                });
-
-                sha.on('end', () => {
-                    checksum = mem.split(' ', 1)[0];
-                });
-            }
-        })
-        .on('error', (error) => {
-            console.error(error);
-        });
-
-    console.log('Downloading GZip...\t', gitURL);
-
     var file = fs.createWriteStream(download);
-    https
-        .get(gitURL, (response) => {
-            if (response.statusCode > 300 && response.statusCode < 400 && response.headers.location) {
-                if (url.parse(response.headers.location).hostname) {
-                    https.get(response.headers.location, (tarball) => {
-                        const sha512 = crypto.createHash('sha512');
-                        sha512.setEncoding('hex');
+    const downloadTarball = (tarURL) => {
+        let checksum;
 
-                        tarball.on('end', () => {
-                            sha512.end();
+        console.log('Fetching Checksum...\t', gitURL + shaExt);
+        https
+            .get(tarURL + shaExt, (sha) => {
+                const getSha = (data) => {
+                    let mem = '';
 
-                            const hex = sha512.read();
-
-                            if (hex !== checksum) {
-                                fs.unlinkSync(download);
-                                throw new Error('Checksum failed!');
-                            } else console.log('Checksum passed!');
-                        });
-
-                        tarball.pipe(file);
-                        tarball.pipe(sha512);
+                    data.on('data', (chunk) => {
+                        mem += chunk;
                     });
+
+                    data.on('end', () => {
+                        return mem.split(' ', 1)[0];
+                    });
+                };
+
+                if (sha.statusCode > 300 && sha.statusCode < 400 && sha.headers.location) {
+                    if (url.parse(sha.headers.location).hostname) {
+                        https.get(sha.headers.location, (data) => {
+                            checksum = getSha(data);
+                        });
+                    } else {
+                        https.get(url.resolve(url.parse(url).hostname, response.headers.location), (data) => {
+                            checksum = getSha(data);
+                        });
+                    }
                 } else {
-                    https.get(url.resolve(url.parse(url).hostname, response.headers.location), (tarball) => {
-                        const sha512 = crypto.createHash('sha512');
-                        sha512.setEncoding('hex');
+                    // We were given a response code statusCode < 300 || response.statusCode > 400
+                    switch (sha.statusCode) {
+                        case 404: {
+                            console.log('Error 404! URL not found: ', gitURL + shaExt);
+                            break;
+                        }
+                    }
+                }
+            })
+            .on('finish', () => {
+                console.log('Downloading GZip...\t', gitURL);
+                https
+                    .get(tarURL, (response) => {
+                        // TODO sha256 check the download before writing
+                        const getTarball = (tarball) => {
+                            const sha512 = crypto.createHash('sha512');
+                            sha512.setEncoding('hex');
 
-                        tarball.on('end', () => {
-                            sha512.end();
+                            tarball.on('end', () => {
+                                sha512.end();
 
-                            const hex = sha512.read();
+                                const hex = sha512.read();
 
-                            if (hex !== checksum) {
-                                fs.unlinkSync(download);
-                                throw new Error('Checksum failed!');
-                            } else console.log('Checksum passed!');
-                        });
+                                if (hex !== checksum) {
+                                    fs.unlinkSync(download);
+                                    throw new Error('Checksum failed!');
+                                } else console.log('Checksum passed!');
+                            });
 
-                        tarball.pipe(file);
-                        tarball.pipe(sha512);
+                            tarball.pipe(file);
+                            tarball.pipe(sha512);
+                        };
+
+                        if (response.statusCode > 300 && response.statusCode < 400 && response.headers.location) {
+                            if (url.parse(response.headers.location).hostname) {
+                                https.get(response.headers.location, (tarball) => {
+                                    getTarball(tarball);
+                                });
+                            } else {
+                                https.get(
+                                    url.resolve(url.parse(url).hostname, response.headers.location),
+                                    (tarball) => {
+                                        getTarball(tarball);
+                                    }
+                                );
+                            }
+                        } else {
+                            // We were given a response code statusCode < 300 || response.statusCode > 400
+                            switch (response.statusCode) {
+                                case 404: {
+                                    console.log('Error 404! URL not found: ', gitURL);
+                                    break;
+                                }
+                            }
+                        }
+                    })
+                    .on('error', (error) => {
+                        console.error(error);
                     });
-                }
-            } else {
-                // We we given a response code statusCode < 300 || response.statusCode > 400
-                switch(response.statusCode) {
-                case 404: {
-                    console.log('Error 404! URL not found: ', gitURL);
-                    break;
-                }
-                }
-            }
-        })
-        .on('error', (error) => {
-            console.error(error);
-        });
+            })
+            .on('error', (error) => {
+                console.error(error);
+            });
+    };
 
-    // TODO sha256 check the download before writing
+    downloadTarball(gitURL);
+
     file.on('finish', () => {
         const tar = require('tar');
 
