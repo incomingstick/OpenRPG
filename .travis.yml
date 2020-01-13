@@ -86,7 +86,7 @@ jobs:
       stage: Core Publish
       script:
         - npm run clean
-        - npm run dist:core
+        - .\build.bat release package
       deploy:
         provider: releases
         token: $GH_TOKEN
