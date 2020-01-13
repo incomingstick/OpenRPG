@@ -256,6 +256,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" = "windows" ]]; then
       choco install nodejs nsis msbuild;
       PATH="/c/Program Files/nodejs:/c/Program Files (x86)/NSIS:/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin:$PATH";
+      dir /c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin
     fi
 
 install:
