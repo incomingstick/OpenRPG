@@ -254,9 +254,9 @@ before_install:
     fi
   # Windows builds don't have node or NSIS installed by default
   - if [[ "$TRAVIS_OS_NAME" = "windows" ]]; then
-      choco install nodejs nsis msbuild;
-      PATH="/c/Program Files/nodejs:/c/Program Files (x86)/NSIS:/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin:$PATH";
-      dir "/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin";
+      choco install nodejs nsis;
+      PATH="/Program Files/nodejs:/Program Files (x86)/NSIS:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin:$PATH";
+      dir "/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/Current/Bin";
     fi
 
 install:
