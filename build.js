@@ -71,7 +71,7 @@ if (args[0] !== 'download') {
         try {
             return require.main.require(mainPath + 'package.json');
         } catch (e) {
-            return loadMainPackageJSON(attempts + 1);
+            return loadMainPackageJSON(++attempts);
         }
     };
 
@@ -88,9 +88,8 @@ if (args[0] !== 'download') {
         targetVer = process.version;
     }
 
-    const targetString = '-' + target + '-' + targetVer.replace(/[\^\<\>\=v]/g, '');
-
-    const base = 'OpenRPG-' + ver + targetString + '-' + osName;
+    var targetString = '-' + target + '-' + targetVer.replace(/[\^\<\>\=v]/g, '');
+    var base = 'OpenRPG-' + ver + targetString + '-' + osName;
     var filename = base + ext;
     var gitURL = repo + '/releases' + '/download' + '/v' + ver + '/' + filename;
     var shaExt = '.sha512';
@@ -103,11 +102,11 @@ if (args[0] !== 'download') {
 
     var file = fs.createWriteStream(download);
     const downloadTarball = (tarURL) => {
-        let checksum;
+        var checksum;
 
-        console.log('Fetching Checksum...\t', gitURL + shaExt);
+        console.log('Fetching Checksum...\t', tarURL + shaExt);
         https
-            .get(tarURL + shaExt, (sha) => {
+            .get(tarURL + shaExt, (response) => {
                 const getSha = (data) => {
                     let mem = '';
 
@@ -116,32 +115,51 @@ if (args[0] !== 'download') {
                     });
 
                     data.on('end', () => {
-                        return mem.split(' ', 1)[0];
+                        checksum = mem.split(' ', 1)[0];
                     });
                 };
 
-                if (sha.statusCode > 300 && sha.statusCode < 400 && sha.headers.location) {
-                    if (url.parse(sha.headers.location).hostname) {
-                        https.get(sha.headers.location, (data) => {
-                            checksum = getSha(data);
+                if (response.statusCode > 300 && response.statusCode < 400 && response.headers.location) {
+                    if (url.parse(response.headers.location).hostname) {
+                        https.get(response.headers.location, (sha) => {
+                            getSha(sha);
                         });
                     } else {
-                        https.get(url.resolve(url.parse(url).hostname, response.headers.location), (data) => {
-                            checksum = getSha(data);
+                        https.get(url.resolve(url.parse(url).hostname, response.headers.location), (sha) => {
+                            getSha(sha);
                         });
                     }
                 } else {
-                    // We were given a response code statusCode < 300 || response.statusCode > 400
-                    switch (sha.statusCode) {
+                    // We were given a response.statusCode < 300 || response.statusCode > 400
+                    switch (response.statusCode) {
                         case 404: {
-                            console.log('Error 404! URL not found: ', gitURL + shaExt);
+                            console.log('Error 404 URL Not Found:', tarURL + shaExt);
+
+                            if (target === 'electron') {
+                                target = 'node';
+                                targetVer = process.version;
+                                targetString = '-' + target + '-' + targetVer.replace(/[\^\<\>\=v]/g, '');
+                            } else if (target === 'node') {
+                                target = 'core';
+                                targetVer = ver;
+                                targetString = '';
+                            } else
+                                break;
+
+                            base = 'OpenRPG-' + ver + targetString + '-' + osName;
+                            filename = base + ext;
+                            gitURL = repo + '/releases' + '/download' + '/v' + ver + '/' + filename;
+
+                            console.log('Falling back to:\t', gitURL);
+                            downloadTarball(gitURL);
+
                             break;
                         }
                     }
                 }
             })
-            .on('finish', () => {
-                console.log('Downloading GZip...\t', gitURL);
+            .on('close', () => {
+                console.log('Downloading GZip...\t', tarURL);
                 https
                     .get(tarURL, (response) => {
                         // TODO sha256 check the download before writing
@@ -155,6 +173,8 @@ if (args[0] !== 'download') {
                                 const hex = sha512.read();
 
                                 if (hex !== checksum) {
+                                    console.log('hex\t', hex);
+                                    console.log('checksum', checksum);
                                     fs.unlinkSync(download);
                                     throw new Error('Checksum failed!');
                                 } else console.log('Checksum passed!');
@@ -178,10 +198,29 @@ if (args[0] !== 'download') {
                                 );
                             }
                         } else {
-                            // We were given a response code statusCode < 300 || response.statusCode > 400
+                            // We were given a response.statusCode < 300 || response.statusCode > 400
                             switch (response.statusCode) {
                                 case 404: {
-                                    console.log('Error 404! URL not found: ', gitURL);
+                                    console.log('Error 404 URL Not Found:', tarURL);
+
+                                    if (target === 'electron') {
+                                        target = 'node';
+                                        targetVer = process.version;
+                                        targetString = '-' + target + '-' + targetVer.replace(/[\^\<\>\=v]/g, '');
+                                    } else if (target === 'node') {
+                                        target = 'core';
+                                        targetVer = ver;
+                                        targetString = '';
+                                    } else
+                                        break;
+
+                                    base = 'OpenRPG-' + ver + targetString + '-' + osName;
+                                    filename = base + ext;
+                                    gitURL = repo + '/releases' + '/download' + '/v' + ver + '/' + filename;
+
+                                    console.log('Falling back to:\t', gitURL);
+                                    downloadTarball(gitURL);
+
                                     break;
                                 }
                             }
