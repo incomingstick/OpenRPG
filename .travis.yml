@@ -35,7 +35,8 @@ notifications:
   email: false
 
 before_deploy:
-  - export TRAVIS_TAG="v0.5.1"
+  - export ORPG_VERSION="0.5.2"
+  - export TRAVIS_TAG="v${ORPG_VERSION}"
   - export NODE_VERSION="$(node -v | tr -d v)"
 
 # TODO find ways to shrink this
@@ -51,16 +52,16 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-Linux.deb"
-          - "dist/OpenRPG-0.5.1-Linux.deb.sha512"
-          - "dist/OpenRPG-0.5.1-Linux.sh"
-          - "dist/OpenRPG-0.5.1-Linux.sh.sha512"
-          - "dist/OpenRPG-0.5.1-Linux.tar.gz"
-          - "dist/OpenRPG-0.5.1-Linux.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-Linux.tar.xz"
-          - "dist/OpenRPG-0.5.1-Linux.tar.xz.sha512"
-          - "dist/OpenRPG-0.5.1-Linux.tar.Z"
-          - "dist/OpenRPG-0.5.1-Linux.tar.Z.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.deb"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.deb.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.xz"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.Z"
+          - "dist/OpenRPG-${ORPG_VERSION}-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -74,10 +75,10 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-Darwin.sh"
-          - "dist/OpenRPG-0.5.1-Darwin.sh.sha512"
-          - "dist/OpenRPG-0.5.1-Darwin.tar.gz"
-          - "dist/OpenRPG-0.5.1-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Darwin.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-Darwin.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-Darwin.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -91,12 +92,12 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-win64.exe"
-          - "dist/OpenRPG-0.5.1-win64.exe.sha512"
-          - "dist/OpenRPG-0.5.1-win64.tar.gz"
-          - "dist/OpenRPG-0.5.1-win64.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-win64.zip"
-          - "dist/OpenRPG-0.5.1-win64.zip.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.exe"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.exe.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.zip"
+          - "dist/OpenRPG-${ORPG_VERSION}-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -111,16 +112,16 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.deb"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.deb.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.sh"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.sh.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.xz"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.xz.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.Z"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Linux.tar.Z.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.deb"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.deb.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.xz"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.Z"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -133,10 +134,10 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.sh"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.sh.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Darwin.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Darwin.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Darwin.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -149,12 +150,12 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.exe"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.exe.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.tar.gz"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.zip"
-          - "dist/OpenRPG-0.5.1-node-${NODE_VERSION}-win64.zip.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.exe"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.exe.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.zip"
+          - "dist/OpenRPG-${ORPG_VERSION}-node-${NODE_VERSION}-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -170,16 +171,16 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.deb"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.deb.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.sh"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.sh.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.gz"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.xz"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.xz.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Linux.tar.Z.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.deb"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.deb.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.xz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.Z"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -193,10 +194,10 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.sh"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.sh.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -210,12 +211,12 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.exe"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.exe.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.tar.gz"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.tar.gz.sha512"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip"
-          - "dist/OpenRPG-0.5.1-electron-6.1.7-win64.zip.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.exe"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.exe.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.zip"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true

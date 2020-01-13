@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). However, note that all pre-v0.5.0 releases will have the suffix "-dev"
 
+
+## [0.5.2]
+### Fixed
+
+
 ## [0.5.1]
 ### Added
 - After installing you can now run `man openrpg` for Unix style Man Pages thanks to [@var-username](https://github.com/var-username)
@@ -479,6 +484,7 @@ There is likely a TON that has changed that is not noted below. This release is 
 - The `openrpg` command welcome banner
     - src/assets/banners/welcome_mat1
 
+[0.5.2]: https://github.com/incomingstick/OpenRPG/compare/v0.5.0...v0.5.2
 [0.5.1]: https://github.com/incomingstick/OpenRPG/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/incomingstick/OpenRPG/compare/v0.4.4-dev...v0.5.0
 [0.4.4-dev]: https://github.com/incomingstick/OpenRPG/compare/v0.4.3-dev...v0.4.4-dev
