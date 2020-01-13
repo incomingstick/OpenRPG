@@ -257,7 +257,7 @@ before_install:
       choco install nodejs nsis;
       PATH="/c/Program Files/nodejs:$PATH";
       PATH="/c/Program Files (x86)/NSIS:$PATH";
-      PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe:$PATH";
+      PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64:$PATH";
       PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin:$PATH";
     fi
 

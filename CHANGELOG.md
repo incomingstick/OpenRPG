@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved the ASSET_LOC from a preprocessor definition to a Core module function that searches multiple locations until it finds our data directory, throwing an error if no data can be found
 - Core now takes advantage of the STL C++17 Filesystem library to locate our data folder using an array of paths
 - Updated README.md with NodeJS info and updates to the build scripts, as well as some reorganization of pertinent information.
+- Check and specify system architecture in build.bat
 
 ### Fixed
 

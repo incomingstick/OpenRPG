@@ -1,7 +1,12 @@
 @echo off
 
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+
 set buildVars=
 set buildType=Debug
+
+if %OS%==32BIT set buildVars=%buildVars% -A Win32
+if %OS%==64BIT set buildVars=%buildVars% -A x64
 
 if "%1" == "help"   goto notYetSupported
 if "%1" == "/h"     goto notYetSupported
