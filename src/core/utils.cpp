@@ -124,10 +124,14 @@ namespace ORPG {
             // a list of locations to search for our data
             vector<fs::path> paths = {
                 fs::path(INSTALL_PREFIX),
-                fs::path(INSTALL_PREFIX) / fs::path("/share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("/share/openrpg"),
-                fs::path(INSTALL_PREFIX) / fs::path("/usr/share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("/usr/local/share"),
+                fs::path(INSTALL_PREFIX) / fs::path("share/"),
+                fs::path(INSTALL_PREFIX) / fs::path("share/openrpg"),
+                fs::path(INSTALL_PREFIX) / fs::path("usr/share/"),
+                fs::path(INSTALL_PREFIX) / fs::path("usr/local/share"),
+                fs::current_path() / fs::path("share/"),
+                fs::current_path() / fs::path("share/openrpg"),
+                fs::current_path().parent_path() / fs::path("share/"),
+                fs::current_path().parent_path() / fs::path("share/openrpg"),
                 fs::current_path(),
                 fs::current_path().parent_path(),
                 fs::current_path().parent_path().parent_path()
@@ -147,6 +151,9 @@ namespace ORPG {
                     // perhaps a JSON file that acts as a table of contents?
                     if(filename == "data") {
                         LOCATION = dir->path();
+                        return true;
+                    } else if(filename == "openrpg.json") {
+                        LOCATION = dir->path().parent_path();
                         return true;
                     }
                 }
