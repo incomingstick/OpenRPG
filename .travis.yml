@@ -36,6 +36,7 @@ notifications:
 
 before_deploy:
   - export ORPG_VERSION="0.5.2"
+  - export ELECTRON_VERSION="6.1.7"
   - export TRAVIS_TAG="v${ORPG_VERSION}"
   - export NODE_VERSION="$(node -v | tr -d v)"
 
@@ -171,16 +172,16 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.deb"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.deb.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.sh"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.sh.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.gz"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.gz.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.xz"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.xz.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.Z"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Linux.tar.Z.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.deb"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.deb.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.xz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.xz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.Z"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Linux.tar.Z.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -194,10 +195,10 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.sh"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.sh.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.tar.gz"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-Darwin.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Darwin.sh"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Darwin.sh.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Darwin.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-Darwin.tar.gz.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -211,12 +212,12 @@ jobs:
         provider: releases
         token: $GH_TOKEN
         file:
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.exe"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.exe.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.tar.gz"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.tar.gz.sha512"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.zip"
-          - "dist/OpenRPG-${ORPG_VERSION}-electron-6.1.7-win64.zip.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.exe"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.exe.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.tar.gz"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.tar.gz.sha512"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.zip"
+          - "dist/OpenRPG-${ORPG_VERSION}-electron-${ELECTRON_VERSION}-win64.zip.sha512"
         overwrite: true
         skip_cleanup: true
         draft: true
@@ -258,8 +259,8 @@ before_install:
       choco install nodejs nsis;
       PATH="/c/Program Files/nodejs:$PATH";
       PATH="/c/Program Files (x86)/NSIS:$PATH";
-      PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64:$PATH";
       PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin:$PATH";
+      PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64:$PATH";
     fi
 
 install:
