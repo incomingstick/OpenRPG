@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [0.5.2]
-### Fixed
+### Added
+- Added a openrpg.json file to our `data/` folder allowing us to better tell when we have found our data folder
 
+### Fixed
+- Added more check locations to both `export.js` as well as the `LOCATE_DATA()` function in the Utils module. The lack of these locations was causing OpenRPG to be unable to locate our `data/`
 
 ## [0.5.1]
 ### Added

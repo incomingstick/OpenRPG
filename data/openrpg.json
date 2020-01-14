@@ -1,0 +1,6 @@
+{
+    "name": "openrpg",
+    "version": "v0.5.2",
+    "license": "OSL",
+    "comment": "TODO figure out how we can better utilize this file, and possible automate it's creation. Currently it is used to discover our data folder."
+}
