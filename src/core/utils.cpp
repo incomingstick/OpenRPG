@@ -121,6 +121,8 @@ namespace ORPG {
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
+            cout << "LOCATE_DATA() called" << endl;
+
             // a list of locations to search for our data
             vector<fs::path> paths = {
                 fs::path(INSTALL_PREFIX),
@@ -137,27 +139,40 @@ namespace ORPG {
                 fs::current_path().parent_path().parent_path()
             };
 
+            cout << "LOCATE_DATA() list of paths created" << endl;
+
             // go through the list of directories to check
             for(auto it = paths.begin(); it != paths.end(); ++it) {
+                cout << "LOCATE_DATA() checking if paths exist" << endl;
+
                 // check if our path exists before we check it's contents
                 // if it doesn't exist, check the next path
                 while(!fs::exists(*it) && it != paths.end()) ++it;
+                if(it == paths.end()) break;
+
+                cout << "LOCATE_DATA() checking the found directory " << *it << endl;
 
                 // check only immediate children of our path, we do not recurse down
                 for(auto dir = fs::directory_iterator(*it); dir != fs::directory_iterator();  ++dir) {
+                    cout << "LOCATE_DATA() checking " << dir->path() << endl;
+
                     const auto filename = dir->path().filename().string();
 
                     // TODO add a check to ensure this is OUR data folder
                     // perhaps a JSON file that acts as a table of contents?
                     if(filename == "data") {
                         LOCATION = dir->path();
+                        cout << "LOCATE_DATA() found our data " << LOCATION.string() << endl;
                         return true;
                     } else if(filename == "openrpg.json") {
                         LOCATION = dir->path().parent_path();
+                        cout << "LOCATE_DATA() found our data " << LOCATION.string() << endl;
                         return true;
                     }
                 }
             }
+
+            cout << "LOCATE_DATA() unable to find our data " << endl;
 
             return false;
         }
@@ -168,7 +183,11 @@ namespace ORPG {
          * @return string - the location of our data
          **/
         string DATA_LOCATION() {
+            cout << "DATA_LOCATION() called" << endl;
+
             if(LOCATION.empty() && !LOCATE_DATA()) cerr << "Unable to locate the OpenRPG data directory!\n";
+
+            cout << "DATA_LOCATION() about to return " << LOCATION.string() << endl;
 
             return LOCATION.string();
         }
