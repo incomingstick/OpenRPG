@@ -118,33 +118,45 @@ namespace ORPG {
          *      fs::current_path()
          *      fs::current_path().parent_path()
          * TODO fine ways to speed this up, it is SUPER slow according to Mocha tests
+         * 
+         * FIXME(incomingstick): tracked via nodejs/help#2414
+         *  When a prebuild Linux orpgAddon.node binary is called via an import for a nodejs
+         *  script it crashes with the following error:
+         *      terminate called after throwing an instance of 'std::bad_alloc'
+         *          what():  std::bad_alloc
+         *      Aborted (core dumped)
+         * 
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
             cout << "[Core::LOCATE_DATA()] called" << endl;
 
+            cout << "[ORPG::Core::LOCATE_DATA()] creating list of paths" << endl;
+
+            // TODO find a more efficient way to do this
             // a list of locations to search for our data
             vector<fs::path> paths = {
+                fs::current_path(),
+                fs::current_path() / fs::path("share/"),
+                fs::current_path() / fs::path("share/openrpg"),
+                fs::current_path().parent_path(),
+                fs::current_path().parent_path() / fs::path("share/"),
+                fs::current_path().parent_path() / fs::path("share/openrpg"),
+                fs::current_path().parent_path().parent_path(),
+                fs::current_path().parent_path().parent_path() / fs::path("share/"),
+                fs::current_path().parent_path().parent_path() / fs::path("share/openrpg"),
                 fs::path(INSTALL_PREFIX),
                 fs::path(INSTALL_PREFIX) / fs::path("share/"),
                 fs::path(INSTALL_PREFIX) / fs::path("share/openrpg"),
                 fs::path(INSTALL_PREFIX) / fs::path("usr/share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("usr/local/share"),
-                fs::current_path() / fs::path("share/"),
-                fs::current_path() / fs::path("share/openrpg"),
-                fs::current_path().parent_path() / fs::path("share/"),
-                fs::current_path().parent_path() / fs::path("share/openrpg"),
-                fs::current_path(),
-                fs::current_path().parent_path(),
-                fs::current_path().parent_path().parent_path()
+                fs::path(INSTALL_PREFIX) / fs::path("usr/local/share")
             };
 
-            cout << "[ORPG::Core::LOCATE_DATA()] list of paths created" << endl;
+            cout << "[ORPG::Core::LOCATE_DATA()] created list of paths" << endl;
 
+            cout << "[ORPG::Core::LOCATE_DATA()] checking if paths exist" << endl;
             // go through the list of directories to check
             for(auto it = paths.begin(); it != paths.end(); ++it) {
-                cout << "[ORPG::Core::LOCATE_DATA()] checking if paths exist" << endl;
-
                 // check if our path exists before we check it's contents
                 // if it doesn't exist, check the next path
                 while(!fs::exists(*it) && it != paths.end()) ++it;
@@ -172,7 +184,7 @@ namespace ORPG {
                 }
             }
 
-            cout << "[ORPG::Core::LOCATE_DATA()] unable to find data folder " << endl;
+            cout << "[ORPG::Core::LOCATE_DATA()] unable to find data folder" << endl;
 
             return false;
         }
@@ -185,7 +197,7 @@ namespace ORPG {
         string DATA_LOCATION() {
             cout << "[ORPG::Core::DATA_LOCATION()] called" << endl;
 
-            if(LOCATION.empty() && !LOCATE_DATA()) cerr << "[Core::DATA_LOCATION()] Unable to locate the OpenRPG data directory!\n";
+            if(LOCATION.empty() && !LOCATE_DATA()) cerr << "[Core::DATA_LOCATION()] Unable to locate the OpenRPG data directory!" << endl;
 
             cout << "[ORPG::Core::DATA_LOCATION()] returning " << LOCATION.string() << endl;
 
