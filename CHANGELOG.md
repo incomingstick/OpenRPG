@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Added more check locations to both `export.js` as well as the `LOCATE_DATA()` function in the Utils module. The lack of these locations was causing OpenRPG to be unable to locate our `data/`
+- There is a bug in GCC-8 (used to compiled the prebuilts with TravisCI) that does not link to libraries correctly on Linux systems when using C++17, this has been resolved [here](https://github.com/nodejs/help/issues/2414) by switching GCC-8 to GCC-9 on TravisCI.
 
 ## [0.5.1]
 ### Added
