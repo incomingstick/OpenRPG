@@ -21,12 +21,12 @@ addons:
     packages:
     # - clang-9
     - cmake
-    - gcc-8
-    - g++-8
+    - gcc-9
+    - g++-9
   homebrew:
     packages:
     - cmake
-    - gcc@8
+    - gcc@9
     # - llvm@9
     update: true
 
@@ -232,7 +232,7 @@ before_install:
   # /usr/bin/gcc points to an older compiler on both Linux and macOS.
   - if [ "$TRAVIS_OS_NAME" = "linux" ] || [ "$TRAVIS_OS_NAME" = "osx" ]; then
       if [ "$CXX" = "g++" ]; then
-        export CXX="g++-8" CC="gcc-8";
+        export CXX="g++-9" CC="gcc-9";
       fi
     fi
   # /usr/bin/clang points to an older compiler on both Linux and macOS.
