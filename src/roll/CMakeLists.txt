@@ -7,10 +7,10 @@ set(ROLL_PARSER_SOURCE
 add_library(roll-parser SHARED ${ROLL_PARSER_SOURCE})
 
 if(MSVC OR WIN32)
-GENERATE_EXPORT_HEADER(roll-parser           
-    EXPORT_FILE_NAME ${ROLL_INCLUDE_DIR}/exports/parser_exports.h
-    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-)
+    GENERATE_EXPORT_HEADER(roll-parser           
+        EXPORT_FILE_NAME ${ROLL_INCLUDE_DIR}/exports/parser_exports.h
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
 endif()
 
 target_link_libraries(roll-parser core)

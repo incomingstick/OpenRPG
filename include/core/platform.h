@@ -13,7 +13,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #   include "platform/win32.h"
 #endif
 
-#ifdef uinix
+#ifdef __unix__
 #   include "platform/unix.h"
 #endif
 

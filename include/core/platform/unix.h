@@ -14,10 +14,10 @@ There is NO WARRANTY, to the extent permitted by law.
  * to be split in to multiple unix headers if it starts to cover more ground than just typedefs.
  **/
 
-#ifdef unix
+#ifdef __unix__
 
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-#endif /* unix */
+#endif /* __unix__ */
 #endif /* SRC_UNIX_H_ */

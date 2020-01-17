@@ -109,22 +109,9 @@ namespace ORPG {
 
         /**
          * @desc searches the following directories to find our data location, returning false if it is unable
-         * to locate the data, true otherwise:
-         *      INSTALL_PREFIX
-         *      INSTALL_PREFIX/share/
-         *      INSTALL_PREFIX/share/openrpg/
-         *      INSTALL_PREFIX/usr/share/
-         *      INSTALL_PREFIX/usr/local/share/
-         *      fs::current_path()
-         *      fs::current_path().parent_path()
-         * TODO fine ways to speed this up, it is SUPER slow according to Mocha tests
+         * to locate the data, true otherwise.
          * 
-         * FIXME(incomingstick): tracked via nodejs/help#2414
-         *  When a prebuild Linux orpgAddon.node binary is called via an import for a nodejs
-         *  script it crashes with the following error:
-         *      terminate called after throwing an instance of 'std::bad_alloc'
-         *          what():  std::bad_alloc
-         *      Aborted (core dumped)
+         * TODO fine ways to speed this up, it is SUPER slow according to Mocha tests
          * 
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
@@ -143,9 +130,7 @@ namespace ORPG {
                 fs::current_path().parent_path().parent_path() / fs::path("share/openrpg"),
                 fs::path(INSTALL_PREFIX),
                 fs::path(INSTALL_PREFIX) / fs::path("share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("share/openrpg"),
-                fs::path(INSTALL_PREFIX) / fs::path("usr/share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("usr/local/share")
+                fs::path(INSTALL_PREFIX) / fs::path("share/openrpg")
             };
 
             // go through the list of directories to check

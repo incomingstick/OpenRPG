@@ -7,10 +7,10 @@ set(NAMES_SOURCE
 add_library(names SHARED ${NAMES_SOURCE})
 
 if(MSVC OR WIN32)
-GENERATE_EXPORT_HEADER(names           
-    EXPORT_FILE_NAME ${NAMES_INCLUDE_DIR}/exports/names_exports.h
-    STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-)
+    GENERATE_EXPORT_HEADER(names           
+        EXPORT_FILE_NAME ${NAMES_INCLUDE_DIR}/exports/names_exports.h
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
 endif()
 
 target_link_libraries(names core)

@@ -3,7 +3,7 @@ This repository is for the back end libraries for OpenRPG. If you are looking fo
 
 # OpenRPG
 [![Build Status](https://travis-ci.org/incomingstick/OpenRPG.svg?branch=master)](https://travis-ci.org/incomingstick/OpenRPG)
-![Version Number](https://img.shields.io/badge/version-v0.5.2-blue.svg)
+![Version Number](https://img.shields.io/badge/version-v0.5.3-blue.svg)
 [![Discord Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/xEwaYE5)
 
 [![NPM](https://nodei.co/npm/openrpg-libs.png)](https://nodei.co/npm/openrpg-libs/)
