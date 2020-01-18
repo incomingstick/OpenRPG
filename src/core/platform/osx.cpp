@@ -8,3 +8,5 @@ There is NO WARRANTY, to the extent permitted by law.
  */
 
 #include "core/platform/osx.h"
+
+using namespace std;

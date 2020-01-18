@@ -19,5 +19,7 @@ There is NO WARRANTY, to the extent permitted by law.
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
+const char* EXEC_PATH();
+
 #endif /* __unix__ */
 #endif /* SRC_UNIX_H_ */

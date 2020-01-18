@@ -24,5 +24,7 @@ There is NO WARRANTY, to the extent permitted by law.
 typedef DWORD CORE_EXPORT uint;
 typedef DWORDLONG CORE_EXPORT ulong;
 
+const char* EXEC_PATH();
+
 #endif /* _WIN32 */
 #endif /* SRC_WIN32_H_ */
