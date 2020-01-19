@@ -115,33 +115,41 @@ namespace ORPG {
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
-            // TODO find a more efficient way to do this
+            // possible start paths (in the order we check them)
+            fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());
+            fs::path execPath(fs::path(EXEC_PATH().parent_path());
+            fs::path currPath(fs::current_path());
+            fs::path prefixPath(INSTALL_PREFIX);
+
+            // path tails to check
+            fs::path sharePath("share/");
+            fs::path shareORPGPath(sharePath / "openrpg");
+
             // a list of locations to search for our data
             vector<fs::path> paths = {
-                fs::current_path(),
-                fs::current_path() / fs::path("share/"),
-                fs::current_path() / fs::path("share/openrpg"),
-                fs::current_path().parent_path(),
-                fs::current_path().parent_path() / fs::path("share/"),
-                fs::current_path().parent_path() / fs::path("share/openrpg"),
-                fs::current_path().parent_path().parent_path(),
-                fs::current_path().parent_path().parent_path() / fs::path("share/"),
-                fs::current_path().parent_path().parent_path() / fs::path("share/openrpg"),
-                fs::path(INSTALL_PREFIX),
-                fs::path(INSTALL_PREFIX) / fs::path("share/"),
-                fs::path(INSTALL_PREFIX) / fs::path("share/openrpg")
+                callingPath,
+                callingPath / sharePath,
+                callingPath / shareORPGPath,
+                execPath,
+                execPath / sharePath,
+                execPath / shareORPGPath,
+                currPath,
+                currPath / sharePath,
+                currPath / shareORPGPath,
+                prefixPath,
+                prefixPath / sharePath,
+                prefixPath / shareORPGPath
             };
 
             // go through the list of directories to check
             for(auto it = paths.begin(); it != paths.end(); ++it) {
                 // check if our path exists before we check it's contents
-                // if it doesn't exist, check the next path
+                // if it doesn't exist, check the next path in the list
                 while(!fs::exists(*it) && it != paths.end()) ++it;
                 if(it == paths.end()) break;
 
                 // check only immediate children of our path, we do not recurse down
                 for(auto dir = fs::directory_iterator(*it); dir != fs::directory_iterator();  ++dir) {
-
                     const auto filename = dir->path().filename().string();
 
                     // TODO add a check to ensure this is OUR data folder
@@ -165,7 +173,7 @@ namespace ORPG {
          * @return string - the location of our data
          **/
         string DATA_LOCATION() {
-            if(LOCATION.empty() && !LOCATE_DATA()) cerr << "[Core::DATA_LOCATION()] Unable to locate the OpenRPG data directory!" << endl;
+            if(LOCATION.empty() && !LOCATE_DATA()) cerr << "Unable to locate the OpenRPG data directory!" << endl;
 
             return LOCATION.string();
         }
