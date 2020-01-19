@@ -36,7 +36,7 @@ set_property(TARGET core PROPERTY CXX_STANDARD 17)
 set_property(TARGET core PROPERTY CXX_STANDARD_REQUIRED ON)
 
 if(NOT (MSVC OR WIN32))
-    target_link_libraries(core "stdc++fs")
+    target_link_libraries(core "stdc++fs" ${CMAKE_DL_LIBS})
 endif(NOT (MSVC OR WIN32))
 
 install(TARGETS core 

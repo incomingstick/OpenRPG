@@ -10,7 +10,6 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <fstream>
 #include <functional>
 #include <random>
-#include <string>
 #include <vector>
 
 #include "core/config.h"

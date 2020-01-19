@@ -15,16 +15,19 @@ There is NO WARRANTY, to the extent permitted by law.
  **/
 
 #ifdef _WIN32
-
+// Windows Headers
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-
 #include "exports/core_exports.h"
+
+// Standard Library Headers
+#include <string>
 
 typedef DWORD CORE_EXPORT uint;
 typedef DWORDLONG CORE_EXPORT ulong;
 
-const char* EXEC_PATH();
+std::string EXEC_PATH();
+std::string CALL_PATH(void* func_ptr);
 
 #endif /* _WIN32 */
 #endif /* SRC_WIN32_H_ */

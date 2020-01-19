@@ -15,11 +15,14 @@ There is NO WARRANTY, to the extent permitted by law.
  **/
 
 #ifdef __APPLE__
+// Standard Library Headers
+#include <string>
 
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-const char* EXEC_PATH();
+std::string EXEC_PATH();
+std::string CALL_PATH(void* func_ptr);
 
 #endif /* __APPLE__ */
 #endif /* SRC_OSX_H_ */
