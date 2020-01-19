@@ -8,11 +8,6 @@ set(CORE_SOURCE
 )
 
 if(MSVC OR WIN32)
-    GENERATE_EXPORT_HEADER(core           
-        EXPORT_FILE_NAME ${CORE_INCLUDE_DIR}/exports/core_exports.h
-        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-    )
-
     set(CORE_SOURCE
         ${CORE_SOURCE}
         ${CMAKE_CURRENT_SOURCE_DIR}/platform/win32.cpp
@@ -30,6 +25,13 @@ elseif(APPLE)
 endif()
 
 add_library(core SHARED ${CORE_SOURCE})
+
+if(MSVC OR WIN32)
+    GENERATE_EXPORT_HEADER(core           
+        EXPORT_FILE_NAME ${CORE_INCLUDE_DIR}/exports/core_exports.h
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
+endif()
 
 # if the core library needs a higher standard than C++17 please update here
 set_property(TARGET core PROPERTY CXX_STANDARD 17)

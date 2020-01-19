@@ -10,34 +10,39 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "core/platform/win32.h"
 #include "core/types.h"
 
+// Standard Library Headers
+#include <stdexcept>
+#include <locale>
+
 using namespace std;
 
 string EXEC_PATH() {
-    wchar_t path[MAX_PATH] = { 0 };
-    memory_index mem = GetModuleFileNameW(NULL, path, MAX_PATH);
+    char path[MAX_PATH] = { 0 };
+    memory_index mem = GetModuleFileName(NULL, path, MAX_PATH);
     if(mem <= 0)
-        throw runtime_error("Unable to read path to calling binary");
+        throw runtime_error("EXEC_PATH Unable to read path to calling binary");
+    
     return string(path);
 }
 
 string CALL_PATH(void* func_path) {
     char path[MAX_PATH];
     HMODULE hm = NULL;
+    int err = 0;
 
     if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | 
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-            (LPCSTR) &func_path, &hm) == 0)
-    {
-        int ret = GetLastError();
-        fprintf(stderr, "GetModuleHandle failed, error = %d\n", ret);
-        // Return or however you want to handle an error.
-    }
-    if (GetModuleFileName(hm, path, sizeof(path)) == 0)
-    {
-        int ret = GetLastError();
-        fprintf(stderr, "GetModuleFileName failed, error = %d\n", ret);
-        // Return or however you want to handle an error.
+            (LPCSTR) func_path, &hm) == 0) {
+        err = GetLastError();
+        if(err != 0)
+            throw runtime_error("CALL_PATH Unable to get module handle");
     }
 
-    // The path variable should now contain the full filepath for this DLL.
+    if (GetModuleFileName(hm, path, sizeof(path)) == 0) {
+        err = GetLastError();
+        if(err != 0)
+            throw runtime_error("CALL_PATH Unable to get module path");
+    }
+
+    return string(path);
 }
