@@ -116,10 +116,10 @@ namespace ORPG {
          **/
         bool LOCATE_DATA() {
             // possible start paths (in the order we check them)
-            fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());
-            fs::path execPath(fs::path(EXEC_PATH().parent_path());
-            fs::path currPath(fs::current_path());
-            fs::path prefixPath(INSTALL_PREFIX);
+            fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());    // Path to the Core library binary
+            fs::path execPath(fs::path(EXEC_PATH().parent_path());                          // Path to the executable calling the Core library binary
+            fs::path currPath(fs::current_path());                                          // Path from which the executable is invoked
+            fs::path prefixPath(INSTALL_PREFIX);                                            // Path we should have been installed to
 
             // path tails to check
             fs::path sharePath("share/");
