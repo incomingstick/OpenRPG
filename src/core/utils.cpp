@@ -13,6 +13,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #include <vector>
 
 #include "core/config.h"
+#include "core/types.h"
 #include "core/utils.h"
 
 using namespace std;
@@ -116,50 +117,54 @@ namespace ORPG {
          **/
         bool LOCATE_DATA() {
             // possible start paths (in the order we check them)
+            // TODO do these need to be stored?
             fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());    // Path to the Core library binary
-            fs::path execPath(fs::path(EXEC_PATH().parent_path());                          // Path to the executable calling the Core library binary
+            fs::path execPath(fs::path(EXEC_PATH()).parent_path());                         // Path to the executable calling the Core library binary
             fs::path currPath(fs::current_path());                                          // Path from which the executable is invoked
             fs::path prefixPath(INSTALL_PREFIX);                                            // Path we should have been installed to
-
-            // path tails to check
-            fs::path sharePath("share/");
-            fs::path shareORPGPath(sharePath / "openrpg");
 
             // a list of locations to search for our data
             vector<fs::path> paths = {
                 callingPath,
-                callingPath / sharePath,
-                callingPath / shareORPGPath,
                 execPath,
-                execPath / sharePath,
-                execPath / shareORPGPath,
                 currPath,
-                currPath / sharePath,
-                currPath / shareORPGPath,
                 prefixPath,
-                prefixPath / sharePath,
-                prefixPath / shareORPGPath
             };
 
             // go through the list of directories to check
             for(auto it = paths.begin(); it != paths.end(); ++it) {
-                // check if our path exists before we check it's contents
-                // if it doesn't exist, check the next path in the list
-                while(!fs::exists(*it) && it != paths.end()) ++it;
+                /**
+                 * check if our path exists before we check it's contents
+                 * if it doesn't exist, check the next path in the list
+                 *
+                 * TODO look into implications of setting the error code to 0
+                 *  here when a file path does not exist
+                 **/
+                while(!fs::exists(*it, error_code(0, std::system_category())) && it != paths.end()) ++it;
                 if(it == paths.end()) break;
 
-                // check only immediate children of our path, we do not recurse down
-                for(auto dir = fs::directory_iterator(*it); dir != fs::directory_iterator();  ++dir) {
-                    const auto filename = dir->path().filename().string();
+                // used to traverse up a number of folders equal to tick
+                uint8 tick = 2;
 
-                    // TODO add a check to ensure this is OUR data folder
-                    // perhaps a JSON file that acts as a table of contents?
-                    if(filename == "data") {
-                        LOCATION = dir->path();
+                for(auto dir = fs::directory_iterator(*it); dir != fs::directory_iterator();) {
+                    auto file = dir->path();
+                    auto path = file.parent_path();
+                    const auto filename = file.filename().string();
+
+                    // we check only immediate children of our path, we do not recurse down
+                    // TODO expand on how the top openrpg.json can be used
+                    if(filename == "openrpg.json") {
+                        LOCATION = file.parent_path();
                         return true;
-                    } else if(filename == "openrpg.json") {
-                        LOCATION = dir->path().parent_path();
+                    } else if(filename == "data") {
+                        LOCATION = file;
                         return true;
+                    } else if(filename == "share") {
+                        dir = fs::directory_iterator(file / "share/");
+                    } else if(filename == "openrpg") {
+                        dir = fs::directory_iterator(file / "openrpg/");
+                    } else if(++dir == fs::directory_iterator() && tick-- != 0) {
+                        dir = fs::directory_iterator(path.parent_path());
                     }
                 }
             }

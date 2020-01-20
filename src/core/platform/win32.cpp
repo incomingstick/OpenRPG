@@ -44,5 +44,11 @@ string CALL_PATH(void* func_path) {
             throw runtime_error("CALL_PATH Unable to get module path");
     }
 
-    return string(path);
+    string retval(path);
+    string winPrePath("\\\\?\\");
+	size_t pos = retval.find(winPrePath);
+
+    if(pos != std::string::npos) retval.erase(pos, winPrePath.length());
+
+    return retval;
 }

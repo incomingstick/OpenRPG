@@ -287,5 +287,6 @@ int main(int argc, char* argv[]) {
             status = parse_input(in);
         }
     }
+    
     return status;
 }
