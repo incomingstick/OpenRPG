@@ -140,7 +140,7 @@ namespace ORPG {
                  * TODO look into implications of setting the error code to 0
                  *  here when a file path does not exist
                  **/
-                while(!fs::exists(*it, error_code(0, std::system_category())) && it != paths.end()) ++it;
+                while(!fs::exists(*it, *(new error_code())) && it != paths.end()) ++it;
                 if(it == paths.end()) break;
 
                 // used to traverse up a number of folders equal to tick
@@ -160,11 +160,17 @@ namespace ORPG {
                         LOCATION = file;
                         return true;
                     } else if(filename == "share") {
-                        dir = fs::directory_iterator(file / "share/");
+                        file = file / "share/";
+                        if(fs::exists(file, *(new error_code())))
+                            dir = fs::directory_iterator(file);
                     } else if(filename == "openrpg") {
-                        dir = fs::directory_iterator(file / "openrpg/");
+                        file = file / "openrpg/";
+                        if(fs::exists(file, *(new error_code())))
+                            dir = fs::directory_iterator(file / "openrpg/");
                     } else if(++dir == fs::directory_iterator() && tick-- != 0) {
-                        dir = fs::directory_iterator(path.parent_path());
+                        file = path.parent_path();
+                        if(fs::exists(file, *(new error_code())))
+                            dir = fs::directory_iterator(file);
                     }
                 }
             }
