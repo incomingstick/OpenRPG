@@ -4,23 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). However, note that all pre-v0.5.0 releases will have the suffix "-dev"
 
-## [0.5.3]
-### Added
-- Created cpp files for expanding platform dependent code and build them into the core library. If platform dependent code is needed, the module will need to compile against the Core library
-    - **NOTE**: This may end up as it's own platform library if it starts to get large
-
-### Fixed
-- A typo causing the `include/core/platform/unix.h` header to never be used
-- A bug in the Core libarary that was causing a crash on Windows and an infinite loop on Linux machines
-
 
 ## [0.5.2]
 ### Added
 - Added a openrpg.json file to our `data/` folder allowing us to better tell when we have found our data folder
+- Created cpp files for expanding platform dependent code and build them into the core library. If platform dependent code is needed, the module will need to compile against the Core library
+    - **NOTE**: This may end up as it's own platform library if it starts to get large
 
 ### Fixed
 - Added more check locations to both `export.js` as well as the `LOCATE_DATA()` function in the Utils module. The lack of these locations was causing OpenRPG to be unable to locate our `data/`
 - There is a bug in GCC-8 (used to compiled the prebuilts with TravisCI) that does not link to libraries correctly on Linux systems when using C++17, this has been resolved [here](https://github.com/nodejs/help/issues/2414) by switching GCC-8 to GCC-9 on TravisCI.
+- A typo causing the `include/core/platform/unix.h` header to never be used
+- A bug in the Core libarary that was causing a crash on Windows and an infinite loop on Linux machines
+
 
 ## [0.5.1]
 ### Added
