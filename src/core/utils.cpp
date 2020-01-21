@@ -159,15 +159,10 @@ namespace ORPG {
                     } else if(filename == "data") {
                         LOCATION = file;
                         return true;
-                    } else if(filename == "share") {
-                        file = file / "share/";
-                        if(fs::exists(file, *(new error_code())))
+                    } else if(filename == "share" ||
+                              filename == "openrpg") {
+                        if(fs::is_directory(file, *(new error_code())))
                             dir = fs::directory_iterator(file);
-                    } else if(filename == "openrpg") {
-                        // FIXME this ends up in an infinite loop!
-                        file = file / "openrpg/";
-                        if(fs::exists(file, *(new error_code())))
-                            dir = fs::directory_iterator(file / "openrpg/");
                     } else if(++dir == fs::directory_iterator() && tick-- != 0) {
                         file = path.parent_path();
                         if(fs::exists(file, *(new error_code())))
