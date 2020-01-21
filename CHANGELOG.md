@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 ### Added
 - Created cpp files for expanding platform dependent code and build them into the core library. If platform dependent code is needed, the module will need to compile against the Core library
+    - **NOTE**: This may end up as it's own platform library if it starts to get large
 
 ### Changed
 

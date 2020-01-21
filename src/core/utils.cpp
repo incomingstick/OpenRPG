@@ -164,6 +164,7 @@ namespace ORPG {
                         if(fs::exists(file, *(new error_code())))
                             dir = fs::directory_iterator(file);
                     } else if(filename == "openrpg") {
+                        // FIXME this ends up in an infinite loop!
                         file = file / "openrpg/";
                         if(fs::exists(file, *(new error_code())))
                             dir = fs::directory_iterator(file / "openrpg/");
