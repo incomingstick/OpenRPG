@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - A typo causing the `include/core/platform/unix.h` header to never be used
+- A bug in the Core libarary that was causing a crash on Windows and an infinite loop on Linux machines
 
 ### Removed
 
