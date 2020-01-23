@@ -116,6 +116,10 @@ namespace ORPG {
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
+            // define the error we may want to throw if a thing doesnt exist
+            // we have no need for this yet, so we just hide the error and continue
+            auto err = new error_code();
+
             // possible start paths (in the order we check them)
             // TODO do these need to be stored?
             fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());    // Path to the Core library binary
@@ -140,7 +144,7 @@ namespace ORPG {
                  * TODO look into implications of setting the error code to 0
                  *  here when a file path does not exist
                  **/
-                while(!fs::exists(*it, *(new error_code())) && it != paths.end()) ++it;
+                while(!fs::exists(*it, *err) && it != paths.end()) ++it;
                 if(it == paths.end()) break;
 
                 // used to traverse up a number of folders equal to tick
@@ -161,11 +165,13 @@ namespace ORPG {
                         return true;
                     } else if(filename == "share" ||
                               filename == "openrpg") {
-                        if(fs::is_directory(file, *(new error_code())))
+                        if(fs::is_directory(file, *err)) {
                             dir = fs::directory_iterator(file);
+                            tick++;
+                        }
                     } else if(++dir == fs::directory_iterator() && tick-- != 0) {
                         file = path.parent_path();
-                        if(fs::exists(file, *(new error_code())))
+                        if(fs::exists(file, *err))
                             dir = fs::directory_iterator(file);
                     }
                 }
