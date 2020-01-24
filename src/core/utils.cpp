@@ -121,7 +121,7 @@ namespace ORPG {
             auto err = new error_code();
 
             // possible start paths (in the order we check them)
-            // TODO do these need to be stored?
+            // TODO do these need to be stored in memory like this?
             fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());    // Path to the Core library binary
             fs::path execPath(fs::path(EXEC_PATH()).parent_path());                         // Path to the executable calling the Core library binary
             fs::path currPath(fs::current_path());                                          // Path from which the executable is invoked
@@ -154,6 +154,9 @@ namespace ORPG {
                     auto file = dir->path();
                     auto path = file.parent_path();
                     const auto filename = file.filename().string();
+                    const auto parentFilename = path.filename().string();
+
+                    cout << file << endl;
 
                     // we check only immediate children of our path, we do not recurse down
                     // TODO expand on how the top openrpg.json can be used
@@ -164,10 +167,10 @@ namespace ORPG {
                         LOCATION = file;
                         return true;
                     } else if(filename == "share" ||
-                              filename == "openrpg") {
+                             (parentFilename == "share" &&
+                              filename == "openrpg")) {
                         if(fs::is_directory(file, *err)) {
                             dir = fs::directory_iterator(file);
-                            tick++;
                         }
                     } else if(++dir == fs::directory_iterator() && tick-- != 0) {
                         file = path.parent_path();
