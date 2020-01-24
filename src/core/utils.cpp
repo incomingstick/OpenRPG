@@ -156,8 +156,6 @@ namespace ORPG {
                     const auto filename = file.filename().string();
                     const auto parentFilename = path.filename().string();
 
-                    cout << file << endl;
-
                     // we check only immediate children of our path, we do not recurse down
                     // TODO expand on how the top openrpg.json can be used
                     if(filename == "openrpg.json") {
@@ -169,9 +167,8 @@ namespace ORPG {
                     } else if(filename == "share" ||
                              (parentFilename == "share" &&
                               filename == "openrpg")) {
-                        if(fs::is_directory(file, *err)) {
+                        if(fs::is_directory(file, *err))
                             dir = fs::directory_iterator(file);
-                        }
                     } else if(++dir == fs::directory_iterator() && tick-- != 0) {
                         file = path.parent_path();
                         if(fs::exists(file, *err))
