@@ -35,7 +35,7 @@ notifications:
   email: false
 
 before_deploy:
-  - export ORPG_VERSION="0.5.2"
+  - export ORPG_VERSION="0.6.0"
   - export ELECTRON_VERSION="6.1.7"
   - export TRAVIS_TAG="v${ORPG_VERSION}"
   - export NODE_VERSION="$(node -v | tr -d v)"
