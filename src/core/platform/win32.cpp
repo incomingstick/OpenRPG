@@ -37,8 +37,6 @@ void InitPlatform() {
         err = GetLastError();
         if(err != 0) fprintf(stderr, "Unable to set console mode. Error Number: %i", err);
     }
-
-    return 0;
 }
 
 string EXEC_PATH() {

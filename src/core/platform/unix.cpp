@@ -22,7 +22,7 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 
 // TODO Unix platform initialization stuff here
-int InitPlatform() { return 0; }
+void InitPlatform() {}
 
 string EXEC_PATH() {
     char path[PATH_MAX] = { 0 };

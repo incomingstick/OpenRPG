@@ -21,7 +21,7 @@ There is NO WARRANTY, to the extent permitted by law.
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-int InitPlatform();
+void InitPlatform();
 
 std::string EXEC_PATH();
 std::string CALL_PATH(void* func_ptr);

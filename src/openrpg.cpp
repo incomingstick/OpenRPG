@@ -264,7 +264,7 @@ int parse_input(string in) {
  * @return int - an integer code following the C/C++ standard for program success
  **/
 int main(int argc, char* argv[]) {
-    // Initialize any platform specfic features such as windows terminal sequences
+    // Initialize any platform specfic features such as Windows terminal sequences
     InitPlatform();
 
     int status = parse_args(argc, argv); // may exit

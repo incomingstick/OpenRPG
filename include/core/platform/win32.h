@@ -26,7 +26,7 @@ There is NO WARRANTY, to the extent permitted by law.
 typedef DWORD CORE_EXPORT uint;
 typedef DWORDLONG CORE_EXPORT ulong;
 
-int CORE_EXPORT InitPlatform();
+void CORE_EXPORT InitPlatform();
 
 std::string CORE_EXPORT EXEC_PATH();
 std::string CORE_EXPORT CALL_PATH(void* func_ptr);
