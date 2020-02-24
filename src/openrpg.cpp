@@ -264,6 +264,9 @@ int parse_input(string in) {
  * @return int - an integer code following the C/C++ standard for program success
  **/
 int main(int argc, char* argv[]) {
+    // Initialize any platform specfic features such as windows terminal sequences
+    InitPlatform();
+
     int status = parse_args(argc, argv); // may exit
 
     if(status == CONTINUE_CODE) {
@@ -276,12 +279,7 @@ int main(int argc, char* argv[]) {
 
         // get user input
         while(status == CONTINUE_CODE) {
-#           ifndef _WIN32
-                printf("\33[4morpg\33[0m > ");
-#           else
-                // Windows does not currently support linux style terminal text editing
-                printf("orpg > ");
-#           endif
+            printf("\33[4morpg\33[0m > ");
 
             Utils::safeGetline(cin, in);
             status = parse_input(in);

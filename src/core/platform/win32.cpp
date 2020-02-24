@@ -16,6 +16,31 @@ There is NO WARRANTY, to the extent permitted by law.
 
 using namespace std;
 
+void InitPlatform() {
+    int err = 0;
+
+    // Set output mode to handle virtual terminal sequences
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut == INVALID_HANDLE_VALUE) {
+        err = GetLastError();
+        if(err != 0) fprintf(stderr, "Unable to open handel to terminal. Is this in a valid TTY shell? Error Number: %i", err);
+    }
+
+    DWORD dwMode = 0;
+    if (!GetConsoleMode(hOut, &dwMode)) {
+        err = GetLastError();
+        if(err != 0) fprintf(stderr, "Unable to get console mode. Error Number: %i", err);
+    }
+
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    if (!SetConsoleMode(hOut, dwMode)) {
+        err = GetLastError();
+        if(err != 0) fprintf(stderr, "Unable to set console mode. Error Number: %i", err);
+    }
+
+    return 0;
+}
+
 string EXEC_PATH() {
     char path[MAX_PATH] = { 0 };
     memory_index mem = GetModuleFileName(NULL, path, MAX_PATH);
