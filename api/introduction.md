@@ -2,7 +2,7 @@
 layout: docs
 title: Introduction
 description: Learn how to use and host OpenRPG API
-group: web-api
+group: api
 redirect_from: "/api/"
 ---
 <!-- Copied from README.md -->

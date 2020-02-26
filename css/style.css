@@ -232,6 +232,8 @@ footer a, .navbar a {
 .nav.navbar-nav > .nav-item > .nav-link {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    min-width: 4rem;
+    text-align: center;
 }
 
 .doc-sidenav {
@@ -550,7 +552,7 @@ pre {
     }
 
     .masthead {
-        padding-top: 8rem;
+        padding-top: 4rem;
         padding-bottom: 2rem;
     }
 

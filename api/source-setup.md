@@ -2,7 +2,7 @@
 layout: docs
 title: Source Setup
 description: Here is how to build from source
-group: web-api
+group: api
 ---
 
 # Pre-build steps

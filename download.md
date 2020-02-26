@@ -21,3 +21,4 @@ group: download
 **Want to compile OpenRPG with your project? Interested in contributing to OpenRPG?** Choose this option to download our source and documentation files. Requires a C++ compiler and [some setup]({{ site.baseurl }}/documentation/source-setup/).
 
 <a href="{{ site.download.source }}" class="btn btn-lg">Download source</a>
+<script src="/js/github.js"></script>

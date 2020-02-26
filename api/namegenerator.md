@@ -2,7 +2,7 @@
 layout: docs
 title: NameGenerator
 description: A simple route for running the name generation module.
-group: web-api
+group: api
 ---
 
 # Function Name: name_module

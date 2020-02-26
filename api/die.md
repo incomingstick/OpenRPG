@@ -2,7 +2,7 @@
 layout: docs
 title: Die
 description: A simple route for running the dice roll module.
-group: web-api
+group: api
 ---
 
 # Function Name: roll_module

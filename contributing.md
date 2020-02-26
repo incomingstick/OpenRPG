@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contributing
+title: Contributing to OpenRPG
 description: Learn how you can contribute to OpenRPG too
 group: contributing
 ---
