@@ -41,6 +41,7 @@
 [Bb]uild32/
 [Bb]uild64/
 .vscode
+.jekyll-cache/
 
 # Project Folders
 docs/
