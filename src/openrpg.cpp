@@ -278,12 +278,11 @@ int main(int argc, char* argv[]) {
         string in("");
 
         // get user input
-        while(status == CONTINUE_CODE) {
-            printf("\33[4morpg\33[0m > ");
+        do {
+            printf("\33[4morpg\33[0m > "); // orpg >
 
             Utils::safeGetline(cin, in);
-            status = parse_input(in);
-        }
+        } while ((status = parse_input(in)) == CONTINUE_CODE);
     }
     
     return status;

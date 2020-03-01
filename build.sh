@@ -5,7 +5,7 @@ buildVars=''
 makeFlags='-s'
 
 # TODO print a help output for this script.
-# This should not have to adhear to our help output standards
+# This should not have to adhear to our (the GNU, really) help output standards
 # as the only people really ever running this script are devs
 if [[ $1 == "help" || $1 == "-h" ]]; then
     echo "This option is not yet supported: $1"
