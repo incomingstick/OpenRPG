@@ -2,6 +2,7 @@
 cwd=$(pwd)
 
 buildVars=''
+makeFlags='-s'
 
 # TODO print a help output for this script.
 # This should not have to adhear to our help output standards
@@ -78,10 +79,10 @@ if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; t
             # Should we rebuild and then install, or install
             # using the last build on the system?
             if [[ $1 == "check" || $2 == "check" || $1 == "install" || $2 == "install" ]]; then
-                make check
+                make $makeFlags check
                 
                 if [[ $1 == "install" || $2 == "install" ]]; then
-                    sudo make install
+                    sudo make $makeFlags install
                 fi
                 
                 popd
@@ -90,9 +91,9 @@ if [[ $OSTYPE == "linux"* || $OSTYPE == "darwin"*  ||  $OSTYPE == "cygwin" ]]; t
             fi
 
             if [[ $1 == "package" || $2 == "package" ]]; then
-                make package
+                make $makeFlags package
             else
-                make
+                make $makeFlags
             fi
 
             popd
