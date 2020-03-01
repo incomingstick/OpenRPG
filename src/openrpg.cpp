@@ -153,14 +153,16 @@ int parse_input(string in) {
 
         if (words.size() > 0) {
             // TODO simple commands, must be expanded on based on command content
-            // NOTE add character-generator when it's finished
+            // TODO add character-generator when it's finished
             if(words[0] == "exit" || words[0] == "quit" || words[0] == "q") {
                 return EXIT_SUCCESS;
             } else if(words[0] == "generate" || words[0] == "gen" || words[0] == "ng") {
                 if(words.size() >= 2) {
                     NameGenerator name;
+
+                    /* e.g "ng human female", words.size() == 3
+                       e.g "ng human", words.size() == 2 */
                     if(words.size() >= 3) {
-                        // TODO add nonbinary genders (a la warforged) and/or shortcuts
                         if(words[1] == "male" || words[1] == "female") {
                             name.set_gender(words[1]);
                             name.set_race(words[2]);
@@ -194,9 +196,9 @@ int parse_input(string in) {
                     if(tree.set_expression(exp))
                         printf("%i\n", tree.parse_expression());
                 } else {
-                    printf("Missing arguments\n");
+                    Die d20;
 
-                    Roll::print_basic_help();
+                    printf("%i\n", d20.roll());
                 }
             } else if(words[0] == "help" || words[0] == "h" || words[0] == "H") {
                 /*

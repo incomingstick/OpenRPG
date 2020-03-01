@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- When invoking the roll command in the ORPG shell, it will default to 1d20 if no expression is given
 
 ### Changed
 
 ### Fixed
+- Die constructor can now take no arguments, and will default to a single `d20`
 
 ### Removed
 

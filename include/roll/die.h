@@ -25,7 +25,7 @@ namespace ORPG {
         protected:
             const int _MAX = 20;
         public:
-            Die(int max):_MAX(
+            Die(int max = 20):_MAX(
                     /* If max is less than 2, set MAX to 2; else set MAX to max.
                     * Ensures we don't have nonsense like a 1- or 0-sided die
                     * (or a negative-sided die) */
