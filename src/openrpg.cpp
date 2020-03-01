@@ -173,32 +173,30 @@ int parse_input(string in) {
                     } else {
                         fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
                     }
+
                     printf("%s\n", name.make_name().c_str());
-                    return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments!\n");
 
                     Names::print_basic_help();
-
-                    return CONTINUE_CODE;
                 }
             } else if(words[0] == "roll" || words[0] == "r") {
                 // TODO fix the roll command
                 if(words.size() > 1) {
                     string exp;
+                    
                     for (int i = 1; (unsigned) i < words.size(); i++) {
                         exp += words[i];
                     }
+
                     ExpressionTree tree;
+                    
                     if(tree.set_expression(exp))
                         printf("%i\n", tree.parse_expression());
-                    return CONTINUE_CODE;
                 } else {
                     printf("Missing arguments\n");
 
                     Roll::print_basic_help();
-
-                    return CONTINUE_CODE;
                 }
             } else if(words[0] == "help" || words[0] == "h" || words[0] == "H") {
                 /*
@@ -213,38 +211,26 @@ int parse_input(string in) {
                 if(words.size() > 1) {
                     if(words[1] == "roll" || words[1] == "r") {
                         Roll::print_basic_help();
-
-                        return CONTINUE_CODE;
                     } else if(words[1] == "generate" || words[1] == "gen" || words[1] == "ng") {
                         Names::print_basic_help();
-
-                        return CONTINUE_CODE;
                     } else {
                         Core::print_basic_help();
-
-                        return CONTINUE_CODE;
                     }
                 } else {
                     Core::print_basic_help();
-
-                    return CONTINUE_CODE;
                 }
             } else if (words[0] == "version" || words[0] == "ver" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
                 Core::print_basic_version();
-
-                return CONTINUE_CODE;
             } else {
                 printf("Command not recognized!\n");
-
-                return CONTINUE_CODE;
             } /* default case for words array */
             words = {};
         } else {
             printf("No command given!\n");
-
-            return CONTINUE_CODE;
         } /* END if (words.size() > 0) */
+
+        return CONTINUE_CODE;
     } else {
         printf("No command given!\n");
 
