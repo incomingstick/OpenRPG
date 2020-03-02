@@ -47,7 +47,7 @@ int parse_args(int argc, char* argv[], string* inputString) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            Roll::print_help_flag();
+            Roll::PRINT_HELP_FLAG();
         } break;
 
         /* -V --verbose */
@@ -58,13 +58,13 @@ int parse_args(int argc, char* argv[], string* inputString) {
 
         /* -v --version */
         case 'V': {
-            Roll::print_version_flag();
+            Roll::PRINT_VERSION_FLAG();
         } break;
             
         /* parsing error */
         case ':':
         case '?': {
-            Roll::print_help_flag();
+            Roll::PRINT_HELP_FLAG();
         } break;
         
         /* if we get here something very bad happened */

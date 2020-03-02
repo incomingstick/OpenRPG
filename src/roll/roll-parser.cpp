@@ -20,7 +20,7 @@ namespace ORPG {
          * @desc prints the current compiled version
          * @return void - always exits with status EXIT_SUCCESS
          */
-        void print_version_flag() {
+        void PRINT_VERSION_FLAG() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -33,7 +33,7 @@ namespace ORPG {
          * @desc prints the help and usage menu
          * @return void - always exits with status EXIT_SUCCESS
          */
-        void print_help_flag() {
+        void PRINT_HELP_FLAG() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -55,7 +55,7 @@ namespace ORPG {
          * @desc prints the current compiled version
          * @return void - always exits with status EXIT_SUCCESS
          */
-        void print_basic_version() {
+        void PRINT_BASIC_VERSION() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -67,7 +67,7 @@ namespace ORPG {
          * @desc prints the help and usage menu
          * @return void - always exits with status EXIT_SUCCESS
          */
-        void print_basic_help() {
+        void PRINT_BASIC_HELP() {
             fputs("roll (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"

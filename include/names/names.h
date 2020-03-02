@@ -22,26 +22,26 @@ namespace ORPG {
          * This adhears to the GNU standard for version printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void NAMES_EXPORT print_version_flag();
+        void NAMES_EXPORT PRINT_VERSION_FLAG();
 
         /**
          * @desc prints the version info when -V or --version is an argument to the command.
          * This adhears to the GNU standard for version printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void NAMES_EXPORT print_help_flag();
+        void NAMES_EXPORT PRINT_HELP_FLAG();
 
         /**
          * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void NAMES_EXPORT print_basic_version();
+        void NAMES_EXPORT PRINT_BASIC_VERSION();
 
         /**
          * @desc prints the help info when help, h, or H are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void NAMES_EXPORT print_basic_help();
+        void NAMES_EXPORT PRINT_BASIC_HELP();
     }
 
     /**

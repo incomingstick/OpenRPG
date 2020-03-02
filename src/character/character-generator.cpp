@@ -73,7 +73,7 @@ int parse_args(int argc, char* argv[], Character* &character) {
                 character = import_character((string)Core::optarg);
             } else {
                 fprintf(stderr, "Error: invalid number of args (expects 1)\n");
-                Core::print_help_flag();
+                Core::PRINT_HELP_FLAG();
             }
         } break;
 

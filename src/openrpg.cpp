@@ -54,7 +54,7 @@ int parse_args(int argc, char* argv[]) {
         switch (opt) {
 			/* -h --help */
 			case 'h': {
-				Core::print_help_flag();
+				Core::PRINT_HELP_FLAG();
 			} break;
 
 			/* -n --name */
@@ -73,7 +73,7 @@ int parse_args(int argc, char* argv[]) {
 					name.set_race((string)Core::optarg);
 				} else {
 					fprintf(stderr, "Error: invalid number of args (expects 1 or 2)\n");
-					Core::print_help_flag();
+					Core::PRINT_HELP_FLAG();
 				}
 				printf("%s\n", name.make_name().c_str());
 				exit(EXIT_SUCCESS);
@@ -101,12 +101,12 @@ int parse_args(int argc, char* argv[]) {
 
 			/* -V --version */
 			case 'V': {
-				Core::print_version_flag();
+				Core::PRINT_VERSION_FLAG();
 			} break;
 
 			case ':':
 			case '?': {
-				Core::print_help_flag();
+				Core::PRINT_HELP_FLAG();
 			} break;
 
 			/* if we get here something very bad happened */
@@ -180,7 +180,7 @@ int parse_input(string in) {
                 } else {
                     printf("Missing arguments!\n");
 
-                    Names::print_basic_help();
+                    Names::PRINT_BASIC_HELP();
                 }
             } else if(words[0] == "roll" || words[0] == "r") {
                 // TODO fix the roll command
@@ -212,18 +212,18 @@ int parse_input(string in) {
                  */
                 if(words.size() > 1) {
                     if(words[1] == "roll" || words[1] == "r") {
-                        Roll::print_basic_help();
+                        Roll::PRINT_BASIC_HELP();
                     } else if(words[1] == "generate" || words[1] == "gen" || words[1] == "ng") {
-                        Names::print_basic_help();
+                        Names::PRINT_BASIC_HELP();
                     } else {
-                        Core::print_basic_help();
+                        Core::PRINT_BASIC_HELP();
                     }
                 } else {
-                    Core::print_basic_help();
+                    Core::PRINT_BASIC_HELP();
                 }
             } else if (words[0] == "version" || words[0] == "ver" || words[0] == "v" || words[0] == "V") {
                 /* Prints print_version_string() without exiting */
-                Core::print_basic_version();
+                Core::PRINT_BASIC_VERSION();
             } else {
                 printf("Command not recognized!\n");
             } /* default case for words array */

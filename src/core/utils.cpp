@@ -26,7 +26,7 @@ namespace ORPG {
          * This adhears to the GNU standard for version printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void print_version_flag() {
+        void PRINT_VERSION_FLAG() {
             fputs("openrpg " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -40,7 +40,7 @@ namespace ORPG {
          * This adhears to the GNU standard for help printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void print_help_flag() {
+        void PRINT_HELP_FLAG() {
             fputs("openrpg " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -65,7 +65,7 @@ namespace ORPG {
          * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void print_basic_version() {
+        void PRINT_BASIC_VERSION() {
             fputs("openrpg " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -77,7 +77,7 @@ namespace ORPG {
          * @desc prints the help info when help, h, or H are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void print_basic_help() {
+        void PRINT_BASIC_HELP() {
             fputs("openrpg " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -102,26 +102,36 @@ namespace ORPG {
                 stdout);
         }
 
+        /**
+         * @desc returns a std::string of the preprocessor definition of VERSION
+         * 
+         * @return std::string - the preprocessor definition of VERSION
+         **/
+        std::string VERSION_STRING() {
+            return std::string(VERSION);
+        }
+
         bool VB_FLAG = false;
         bool QUIET_FLAG = false;
 
         fs::path LOCATION;
 
         /**
-         * @desc searches the following directories to find our data location, returning false if it is unable
-         * to locate the data, true otherwise.
+         * @desc searches a predefined list of directories to find our data location,
+         * returning false if it is unable to locate the data, true otherwise.
          * 
          * TODO fine ways to speed this up, it is SUPER slow according to Mocha tests
          * 
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool LOCATE_DATA() {
-            // define the error we may want to throw if a thing doesnt exist
-            // we have no need for this yet, so we just hide the error and continue
+            /* TODO define the error we may want to throw if a thing doesnt exist,
+                however we have no need for this yet, so we just hide the error and
+                continue */
             auto err = new error_code();
 
-            // possible start paths (in the order we check them)
-            // TODO do these need to be stored in memory like this?
+            /* possible start paths (in the order we check them)
+                TODO do these need to be stored in memory like this? */
             fs::path callingPath(fs::path(CALL_PATH((void*)LOCATE_DATA)).parent_path());    // Path to the Core library binary
             fs::path execPath(fs::path(EXEC_PATH()).parent_path());                         // Path to the executable calling the Core library binary
             fs::path currPath(fs::current_path());                                          // Path from which the executable is invoked

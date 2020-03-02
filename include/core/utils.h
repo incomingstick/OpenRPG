@@ -26,7 +26,7 @@ There is NO WARRANTY, to the extent permitted by law.
 #define VB_CODE         0
 #define ERROR_CODE      1
 
-// Any useful keycodes go here
+// Any potentially useful keycodes go here
 #define APOSTROPHE  39
 #define KEY_UP      72
 #define KEY_DOWN    80
@@ -40,45 +40,48 @@ namespace ORPG {
          * This adhears to the GNU standard for version printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void CORE_EXPORT print_version_flag();
+        void CORE_EXPORT PRINT_VERSION_FLAG();
 
         /**
          * @desc prints the help info when -h or --help is an argument to the command.
          * This adhears to the GNU standard for help printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void CORE_EXPORT print_help_flag();
+        void CORE_EXPORT PRINT_HELP_FLAG();
 
         /**
          * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void CORE_EXPORT print_basic_version();
+        void CORE_EXPORT PRINT_BASIC_VERSION();
 
         /**
          * @desc prints the help info when help, h, or H are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void CORE_EXPORT print_basic_help();
+        void CORE_EXPORT PRINT_BASIC_HELP();
 
         /**
          * @desc returns a std::string of the preprocessor definition of VERSION
          * 
          * @return std::string - the preprocessor definition of VERSION
          **/
-        std::string CORE_EXPORT version_string();
+        std::string CORE_EXPORT VERSION_STRING();
 
+        /**
+         * When set to true, OpenRPG will print extra output to stdout
+         **/
         extern bool CORE_EXPORT VB_FLAG;
+
+        /**
+         * When set to true, OpenRPG will hide non-vital output from stdout
+         **/
         extern bool CORE_EXPORT QUIET_FLAG;
 
         /**
-         * @desc searches the following directories to find our data location, returning false if it is unable
-         * to locate the data, true otherwise:
-         *      INSTALL_PREFIX,
-         *      INSTALL_PREFIX/usr/share/
-         *      INSTALL_PREFIX/usr/local/share/
-         *      fs::current_path()
-         *      fs::current_path().parent_path()
+         * @desc searches a predefined list of directories to find our data location,
+         * returning false if it is unable to locate the data, true otherwise.
+         * 
          * @return bool - returns false if unable to locate the data, true otherwise
          **/
         bool CORE_EXPORT LOCATE_DATA();

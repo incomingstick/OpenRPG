@@ -80,7 +80,7 @@ string rand_line_from_file(string filePath) {
 
 namespace ORPG {
     namespace Names {
-        void print_version_flag() {
+        void PRINT_VERSION_FLAG() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -89,7 +89,7 @@ namespace ORPG {
             exit(EXIT_SUCCESS);
         }
 
-        void print_help_flag() {
+        void PRINT_HELP_FLAG() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -107,7 +107,7 @@ namespace ORPG {
             exit(EXIT_SUCCESS);
         }
 
-        void print_basic_version() {
+        void PRINT_BASIC_VERSION() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"
@@ -115,7 +115,7 @@ namespace ORPG {
                 stdout);
         }
 
-        void print_basic_help() {
+        void PRINT_BASIC_HELP() {
             fputs("name-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
                 "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
                 "This is free software: you are free to change and redistribute it.\n"

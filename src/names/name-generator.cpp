@@ -50,7 +50,7 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
         switch (opt) {
         /* -h --help */
         case 'h': {
-            Names::print_help_flag();
+            Names::PRINT_HELP_FLAG();
          } break;
 
         /* -v --verbose*/
@@ -61,13 +61,13 @@ int parse_args(int argc, char* argv[], string* race, string* gender) {
 
         /* -V --version */
         case 'V': {
-            Names::print_version_flag();
+            Names::PRINT_VERSION_FLAG();
         } break;
 
         /* parsing error */
         case ':':
         case '?': {
-            Names::print_help_flag();
+            Names::PRINT_HELP_FLAG();
         } break;
 
         /* if we get here something very bad happened */
@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
     if(race.empty()) {
         printf("Error: race cannot be empty\n");
         status = EXIT_FAILURE;
-        Names::print_help_flag();
+        Names::PRINT_HELP_FLAG();
     }
 
     if(status == EXIT_SUCCESS) {
