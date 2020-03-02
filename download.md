@@ -4,7 +4,7 @@ title: Download
 description: Download OpenRPG to create exciting new worlds!
 group: download
 ---
-**OpenRPG v{{ site.current_version}}** is available for download.
+<p id="dl-version"></p>
 
 ## Contents
 
@@ -17,8 +17,7 @@ group: download
 
 <a href="{{ site.download.dist }}" class="btn btn-lg btn-bs">Download OpenRPG</a> -->
 
-## Source files
-**Want to compile OpenRPG with your project? Interested in contributing to OpenRPG?** Choose this option to download our source and documentation files. Requires a C++ compiler and [some setup]({{ site.baseurl }}/documentation/source-setup/).
+## OpenRPG Library
+**Want to custom compile OpenRPG with your project? Interested in contributing to OpenRPG?** Choose this option to download our source and documentation files. Requires a C++ compiler and [some setup]({{ site.baseurl }}/documentation/source-setup/).
 
-<a href="{{ site.download.source }}" class="btn btn-lg">Download source</a>
-<script src="/js/github.js"></script>
+<div id="lib-downloads"></div>

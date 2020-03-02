@@ -149,7 +149,7 @@ footer li {
     background-color: #2196F3;
 }
 
-.masthead .version {
+.masthead #version {
     margin-top: -0.5rem;
     margin-bottom: 2rem;
 }

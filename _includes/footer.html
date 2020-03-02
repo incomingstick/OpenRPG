@@ -8,8 +8,7 @@
       <li><a href="/about/history/">About</a></li>
     </ul>
 
-    <p>Currently v{{ site.current_version }}.</p>
-    <p>Copyright 2017 {{ site.authors }}</p>
+    <p>Copyright {{ 'now' | date: "%Y" }} {{ site.authors }}</p>
     <p>Distributed under the OpenRPG Software License - Version 1.0 - February 10th, 2017.
         (<a href="/about/license/">LICENSE</a>)</p>
   </div>
@@ -29,6 +28,7 @@
 
 <!-- Our custom javascript -->
 <script src="/js/openrpg.js"></script>
+<script src="/js/github.js"></script>s
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/js/ie10-viewport-bug-workaround.js"></script>
