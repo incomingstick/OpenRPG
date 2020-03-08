@@ -274,6 +274,8 @@ XMLDocument::~XMLDocument() {
  * TODO doc comments
  * FIXME this crashes with the following error
  *  Expression: cannot dereference string iterator because it is out of range (e.g. an end iterator)
+ * This error is occuring when it reaches the "<noteList>" tag, as the notes span multiple lines. We
+ * need to handle XMLAttribute data spanning multiple lines, as this is a very common things.
  **/
 bool XMLDocument::load_file(string filename) {
     //TODO load file
@@ -285,6 +287,7 @@ bool XMLDocument::load_file(string filename) {
         XMLElementClosingType closeType = XMLElementClosingType::DEFAULT;
         XMLElement* currElement = root;
 
+        // Do we want to zero index this and add 1 back after the fact, or just start at 1?
         currLine = 0;
 
         // begin parsing the XML document one line at a time
@@ -358,6 +361,7 @@ bool XMLDocument::load_file(string filename) {
                         /* TODO store this data */
                         string data = "";
 
+                        // TODO This only allows data to be a single line, what if it spans multiple lines?
                         while(ch != buffer.end() && *ch != '<') {
                             data += *ch++;
                         }

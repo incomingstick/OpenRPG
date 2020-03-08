@@ -126,6 +126,7 @@ int parse_args(int argc, char* argv[], Character* &character) {
  **/
 int main(int argc, char* argv[]) {
     Character* character = nullptr;
+    
     int status = parse_args(argc, argv, character); // may exit
 
     if(character == nullptr) {
