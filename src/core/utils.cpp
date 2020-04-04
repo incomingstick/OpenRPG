@@ -261,6 +261,10 @@ namespace ORPG {
         }
 
         // Taken from https://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
+        /**
+         * @desc reads from the input stream the next line, and normalizes possible line
+         * endings between empty, CR, LF, and CRLF
+         **/
         istream& safeGetline(istream& is, string& t) {
             t.clear();
 
@@ -270,8 +274,11 @@ namespace ORPG {
             // The sentry object performs various tasks,
             // such as thread synchronization and updating the stream state.
 
+            // TODO expand this function to read keypress as it happens 
+            // allowing the capture of arrow keys and meta-keys
+
             istream::sentry se(is, true);
-            auto sb = is.rdbuf();
+            auto sb = is.rdbuf(); // TODO write  this ourselves
 
             for(;;) {
                 int c = sb->sbumpc();

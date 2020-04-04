@@ -299,9 +299,7 @@ namespace ORPG {
             ret += last;
         }
 
-        if(ret.empty()) {
-            return "";
-        } else return ret;
+        return ret;
     }
 
     /**

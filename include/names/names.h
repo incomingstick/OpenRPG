@@ -81,20 +81,28 @@ namespace ORPG {
      **/
     class NAMES_EXPORT NameGenerator {
     private:
-        /* The toplevel location to use when building our namelist, and may
-            contain user input data */
+        /**
+         * The toplevel location to use when building our namelist, and may
+         *  contain user input data
+         **/
         std::string location;
 
-        /* The race to use when selecting our namelist, and may contain
-            user input data */
+        /**
+         * The race to use when selecting our namelist, and may contain
+         *  user input data
+         **/
         std::string race;
 
-        /* The cannonical name of the race file. raceFile will always
-            derrive from race */
+        /** 
+         * The cannonical name of the race file. raceFile will always
+         *  derrive from race
+         **/
         std::string raceFile;
 
-        /* The gender to use when selecting our namelist, and may contain
-            user input data */
+        /**
+         * The gender to use when selecting our namelist, and may contain
+         *  user input data
+         **/
         std::string gender;
 
         /**
