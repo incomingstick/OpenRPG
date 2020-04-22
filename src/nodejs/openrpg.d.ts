@@ -12,15 +12,15 @@ declare module 'openrpg-libs' {
     export function ORPG_VERSION(): string;
     
     export class Die {
-        public constructor(max: number);
+        public constructor(MAX: number);
 
         /**
-         * @desc randomly generate a integers between 1 and _MAX, where MAX is the value
+         * @desc randomly generate a integers between 1 and MAX, where MAX is the value
          * that was passed to the Die when it was constructed. The result is generated
          * by using a random_device to seed a Mersenne Twister engine that generates 
-         * uniformly distributed integers between 1 and _MAX.
-         * between 1 and _MAX
-         * @return number - a pesudo random integers between 1 and _MAX
+         * uniformly distributed integers between 1 and MAX.
+         * between 1 and MAX
+         * @return number - a pesudo random integers between 1 and MAX
          */
         public roll(): number;
 
@@ -118,25 +118,25 @@ declare module 'openrpg-libs' {
 
         /**
          * @desc Constructor for NameGenerator that is passed two optional
-         * arguments. It sets race equal to _race and sets gender to _gender.
+         * arguments. It sets race equal to `race` and sets gender to `gender`.
          *
-         * @param string _race = "dwarf" - the race to use. defaults to dwarf
-         * @param string _gender = "" - the gender of our race. defaults to
+         * @param string race = "dwarf" - the race to use. defaults to dwarf
+         * @param string gender = "" - the gender of our race. defaults to
          * empty
          **/
-        public constructor(_race: string, _gender: string);
+        public constructor(race: string, gender: string);
 
         /**
          * @desc Constructor for NameGenerator that is passed three arguments.
-         * It sets race equal to _race, gender to _gender, and location to
-         * _location
+         * It sets race equal to race, gender to gender, and location to
+         * location
          *
-         * @param string _race - the race to use
-         * @param string _gender - the gender of our race
-         * @param string _location - the toplevel location to check for lst files.
+         * @param string race - the race to use
+         * @param string gender - the gender of our race
+         * @param string location - the toplevel location to check for lst files.
          * note that /names will be appended to this location
          **/
-        public constructor(_race: string, _gender: string, _location: string);
+        public constructor(race: string, gender: string, location: string);
 
         /**
          * @desc Getter function for the race string of the NameGenerator
