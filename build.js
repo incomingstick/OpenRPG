@@ -75,10 +75,10 @@ if (args[0] !== 'download') {
         }
     };
 
-    var parentPackageJSON = loadMainPackageJSON();
+    const parentPackageJSON = loadMainPackageJSON();
 
-    var depVer = parentPackageJSON.dependencies.electron;
-    var devDepVer = parentPackageJSON.devDependencies.electron;
+    const depVer = parentPackageJSON.dependencies.electron;
+    const devDepVer = parentPackageJSON.devDependencies.electron;
 
     target = 'electron';
     targetVer = depVer !== undefined ? depVer : devDepVer;
@@ -92,7 +92,7 @@ if (args[0] !== 'download') {
     var base = 'OpenRPG-' + ver + targetString + '-' + osName;
     var filename = base + ext;
     var gitURL = repo + '/releases' + '/download' + '/v' + ver + '/' + filename;
-    var shaExt = '.sha512';
+    const shaExt = '.sha512';
 
     var download = path.join(tmpdir, filename);
 
