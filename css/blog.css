@@ -4,10 +4,6 @@ img {
     height: auto;
 }
 
-.pageheader.blog {
-    margin-bottom: 0rem;
-}
-
 #posts {
     list-style: none;
 }
