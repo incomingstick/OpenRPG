@@ -266,7 +266,7 @@ namespace ORPG {
             if(factory.has_options())
                 list = factory.current_options();
 
-            while(index < 0 || index > (signed)list.size()) {
+            while(index < 0 || index >= (signed)list.size()) {
 
                 int tick = 0;
 
