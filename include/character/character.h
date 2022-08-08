@@ -277,7 +277,7 @@ namespace ORPG {
      *
      * NOTE(incomingstick): This is intended to always round down. Data loss is acceptable.
      **/
-    inline int8 CHARACTER_EXPORT modifier(int abil) { return (abil - 10) / 2; };
+    inline int8 CHARACTER_EXPORT modifier(int abil) { return abil / 2 - 5; };
 
     // TODO take an in depth look at what should and should not be public here
     class CHARACTER_EXPORT Character {
