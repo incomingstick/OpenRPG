@@ -33,7 +33,8 @@ bool SHEET_FLAG = false;
  * @param char* argv[] - the arguments passed from the command line
  * @return int - an integer code following the C/C++ standard for program success
  **/
-int parse_args(int argc, char* argv[], Character* &character) {
+int parse_args(int argc, char *argv[], Character *&character)
+{
     int status = EXIT_SUCCESS;
 
     /* getopt_long stores the option and option index here */
@@ -44,68 +45,87 @@ int parse_args(int argc, char* argv[], Character* &character) {
 
     /* these are the long cla's and their corresponding chars */
     static struct Core::option long_opts[] = {
-        {"help",    no_argument,        0,  'h'},
-        {"import",  required_argument,  0,  'i'},
-        {"random",  no_argument,        0,  'r'},
-        {"sheet",   no_argument,        0,  's'},
-        {"verbose", no_argument,        0,  'v'},
-        {"version", no_argument,        0,  'V'},
+        {"help", no_argument, 0, 'h'},
+        {"import", required_argument, 0, 'i'},
+        {"random", no_argument, 0, 'r'},
+        {"sheet", no_argument, 0, 's'},
+        {"verbose", no_argument, 0, 'v'},
+        {"version", no_argument, 0, 'V'},
         /* NULL row to terminate struct */
-        {0,         0,                  0,   0}
-    };
+        {0, 0, 0, 0}};
 
     while ((opt = Core::getopt_long(argc, argv, "hi:rsvV",
-                               long_opts, &opt_ind)) != EOF &&
-                               status != EXIT_FAILURE) {
+                                    long_opts, &opt_ind)) != EOF &&
+           status != EXIT_FAILURE)
+    {
 
-        switch (opt) {
+        switch (opt)
+        {
         /* -h --help */
-        case 'h': {
+        case 'h':
+        {
             print_help_flag();
-        } break;
+        }
+        break;
 
         /* -i --import */
-        case 'i': {
-            if(Core::optind == argc) {
+        case 'i':
+        {
+            if (Core::optind == argc)
+            {
                 cout << "Importing... " << Core::optarg << endl;
 
-                //TODO(incomingstick): import a character sheet from a file given the provided path
+                // TODO(incomingstick): import a character sheet from a file given the provided path
                 character = import_character((string)Core::optarg);
-            } else {
+            }
+            else
+            {
                 fprintf(stderr, "Error: invalid number of args (expects 1)\n");
                 Core::PRINT_HELP_FLAG();
             }
-        } break;
+        }
+        break;
 
         /* -r --random */
-        case 'r': {
+        case 'r':
+        {
             RANDOM_FLAG = true;
-        } break;
+        }
+        break;
 
         /* -s --sheet */
-        case 's': {
+        case 's':
+        {
             SHEET_FLAG = true;
-        } break;
+        }
+        break;
 
         /* -v --verbose */
-        case 'v': {
+        case 'v':
+        {
             Core::VB_FLAG = true;
             Core::QUIET_FLAG = false;
-        } break;
+        }
+        break;
 
         /* -V --version */
-        case 'V': {
+        case 'V':
+        {
             print_version_flag();
-        } break;
+        }
+        break;
 
         /* parsing error */
         case ':':
-        case '?': {
+        case '?':
+        {
             print_help_flag();
-        } break;
+        }
+        break;
 
         /* if we get here something very bad happened */
-        default: {
+        default:
+        {
             printf("Aborting...\n");
             status = EXIT_FAILURE;
         }
@@ -124,37 +144,39 @@ int parse_args(int argc, char* argv[], Character* &character) {
  * @param string in - the users input to be parsed
  * @return int - an integer code following the C/C++ standard for program success
  **/
-int main(int argc, char* argv[]) {
-    Character* character = nullptr;
-    
+int main(int argc, char *argv[])
+{
+    Character *character = nullptr;
+
     int status = parse_args(argc, argv, character); // may exit
 
-    if(character == nullptr) {
+    if (character == nullptr)
+    {
         /* begin creating the character here */
         RANDOM_FLAG = RANDOM_FLAG ? RANDOM_FLAG : request_is_random();
 
-        auto race       = RANDOM_FLAG ? new_random_race() : request_race();
-        //TODO(incomingstick): randomly generate ability scores, not an empty set
-        auto scores     = RANDOM_FLAG ? new AbilityScores : request_scores();
-        auto bg         = RANDOM_FLAG ? random_bg_id() : request_background();
-        auto charClass  = RANDOM_FLAG ? new_random_character_class() : request_class();
-        auto skills     = RANDOM_FLAG ? new Skills : request_skills();
-        auto hp         = RANDOM_FLAG ? true : request_hitpoints(charClass);
-        auto equipment  = RANDOM_FLAG ? true : request_equipment();
-        auto name       = RANDOM_FLAG ? "" : request_name();
+        auto race = RANDOM_FLAG ? new_random_race() : request_race();
+        // TODO(incomingstick): randomly generate ability scores, not an empty set
+        auto scores = RANDOM_FLAG ? gen_rand_scores() : request_scores();
+        auto bg = RANDOM_FLAG ? random_bg_id() : request_background();
+        auto charClass = RANDOM_FLAG ? new_random_character_class() : request_class();
+        auto skills = RANDOM_FLAG ? new Skills : request_skills();
+        auto hp = RANDOM_FLAG ? true : request_hitpoints(charClass);
+        auto equipment = RANDOM_FLAG ? true : request_equipment();
+        auto name = RANDOM_FLAG ? "" : request_name();
 
         /* IMPORTANT(incomingstick): If this is not a pointer, it will segfault during GC... idk why */
         character = new Character(race, scores, charClass, bg, skills, name);
 
-        if(!hp && !equipment) {
+        if (!hp && !equipment)
+        {
             status = EXIT_FAILURE;
         }
     }
 
-    if(status != EXIT_FAILURE) {
-        SHEET_FLAG ? 
-            printf("%s", character->to_ascii_sheet().c_str()) :
-            printf("%s", character->to_string().c_str());
+    if (status != EXIT_FAILURE)
+    {
+        SHEET_FLAG ? printf("%s", character->to_ascii_sheet().c_str()) : printf("%s", character->to_string().c_str());
     }
 
     return status;

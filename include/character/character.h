@@ -10,9 +10,9 @@ There is NO WARRANTY, to the extent permitted by law.
 #define SRC_CHARACTER_H_
 
 #ifdef _WIN32
-#	include "exports/character_exports.h"
+#include "exports/character_exports.h"
 #else
-#	define CHARACTER_EXPORT
+#define CHARACTER_EXPORT
 #endif
 
 #include "ability-scores.h"
@@ -21,12 +21,14 @@ There is NO WARRANTY, to the extent permitted by law.
 #include "backgrounds.h"
 #include "classes.h"
 
-namespace ORPG {
+namespace ORPG
+{
     /* predefinition of Character class incase functions in the Characters
         namespace need it */
     class Character;
 
-    namespace Characters {
+    namespace Characters
+    {
         /**
          * @desc prints the version info when -V or --version is an argument to the command.
          * This adhears to the GNU standard for version printing, and immediately terminates
@@ -54,24 +56,27 @@ namespace ORPG {
         void CHARACTER_EXPORT print_basic_help();
 
         /**
-         * TODO comments 
+         * TODO comments
          * NOTE(incomingstick): This function is not exported because it does not yet need to be
          **/
-        class RaceSelector {
-        private: 
-            struct race_node {
+        class RaceSelector
+        {
+        private:
+            struct race_node
+            {
                 uint raceID;
                 bool required;
 
-                race_node* parent;
-                std::vector<race_node* > children;
+                race_node *parent;
+                std::vector<race_node *> children;
             };
 
-            race_node* head;
-            race_node* current;
-            race_node* allocate_node(uint raceID,
-                                    bool required,
-                                    race_node* parent);
+            race_node *head;
+            race_node *current;
+            race_node *allocate_node(uint raceID,
+                                     bool required,
+                                     race_node *parent);
+
         public:
             RaceSelector();
             ~RaceSelector();
@@ -87,12 +92,12 @@ namespace ORPG {
          * @desc Currently this function just checks to ensure the string contains
          * only digits, and returns true. It will return false otherwise.
          * If the provided string is empty, this function returns false.
-         * 
+         *
          * TODO(incomingstick): ensure we are at least coming in as an int32.
          *
          * NOTE(incomingsting): This could, and probably should, be improved
          * to also ensure we are within the bounds on the "question" being asked.
-         * 
+         *
          * NOTE(incomingstick): This function is not exported because it does not yet need to be
          *
          * @param: string check - this string to be checked
@@ -114,14 +119,14 @@ namespace ORPG {
          * @return auto - the selected input
          **/
         int request_selection(RaceSelector factory);
-        
+
         /**
          * @desc This function is build to work specifically in tandem with the Character
          * module. It prompts to stdout a request for user input, from stdin, to help determine
          * whether or not we should just randomly create the character
          *
          * TODO character creator switch ('-r' argv should ALSO handle this)
-         * 
+         *
          * @return bool - true if user wants to be random, false otherwise
          **/
         bool CHARACTER_EXPORT request_is_random();
@@ -131,10 +136,10 @@ namespace ORPG {
          * to first prompt to stdout the base race, requesting a corresponding number
          * via stdin. It repeats this process for the subrace, and will continue prompting
          * until no other race types could possibly be chosen.
-         * 
+         *
          * @return auto - the current race ID from the RaceSelector
          **/
-        CHARACTER_EXPORT Race* request_race();
+        CHARACTER_EXPORT Race *request_race();
 
         /**
          * @desc This function prompts the user, via stdout, for 6 numbers to
@@ -153,13 +158,20 @@ namespace ORPG {
          * @return AbilityScores - an AbilityScores object containing the users input
          * scores
          **/
-        CHARACTER_EXPORT AbilityScores* request_scores();
+        CHARACTER_EXPORT AbilityScores *request_scores();
+
+        /**
+         * @desc This function generates and returns random ability scores to be used in a character.
+         *
+         * @return AbilityScores* - an AbilityScores object containing random scores.
+         **/
+        CHARACTER_EXPORT AbilityScores *gen_rand_scores();
 
         /**
          * @desc This function prompts the user via stdout for a name, and reading
          * from stdin the input. We use the safeGetline function via the ORPG::Utils
          * namespace to ensure integrity across platforms.
-         * 
+         *
          * @return string - the user input string to be used as a name
          **/
         std::string CHARACTER_EXPORT request_name();
@@ -181,7 +193,7 @@ namespace ORPG {
          *
          * @return CharacterClass* - always will return a pointer to a Wizard
          **/
-        CHARACTER_EXPORT CharacterClass* request_class();
+        CHARACTER_EXPORT CharacterClass *request_class();
 
         /**
          * @desc prints "Skill select based on class\n" to stdout
@@ -190,7 +202,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        CHARACTER_EXPORT Skills* request_skills();
+        CHARACTER_EXPORT Skills *request_skills();
 
         /**
          * @desc prints "Hit points\n" to stdout
@@ -199,7 +211,7 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool CHARACTER_EXPORT request_hitpoints(CharacterClass* classPtr);
+        bool CHARACTER_EXPORT request_hitpoints(CharacterClass *classPtr);
 
         /**
          * @desc prints "Equipment\n" to stdout
@@ -216,10 +228,10 @@ namespace ORPG {
          * and attempts to load it as a character class. If a new Character is
          * able to be created from the file, it will return a pointer to that
          * character.
-         * 
+         *
          * @return Character* - a pointer to a character created via the file
          **/
-        CHARACTER_EXPORT Character* import_character(std::string file);
+        CHARACTER_EXPORT Character *import_character(std::string file);
     }
 
     /* NOTE: These are just the 5E character requirements */
@@ -227,10 +239,17 @@ namespace ORPG {
     /* an arrray that holds the EXP needed for each level */
     extern const int CHARACTER_EXPORT EXP[];
 
-    enum CHARACTER_EXPORT Alignment {
-        LawfulGood, 	NeutralGood, 	ChaoticGood,
-        LawfulNeutral, 	TrueNeutral, 	ChaoticNeutral,
-        LawfulEvil, 	NeutralEvil, 	ChaoticEvil
+    enum CHARACTER_EXPORT Alignment
+    {
+        LawfulGood,
+        NeutralGood,
+        ChaoticGood,
+        LawfulNeutral,
+        TrueNeutral,
+        ChaoticNeutral,
+        LawfulEvil,
+        NeutralEvil,
+        ChaoticEvil
     };
 
     /**
@@ -239,31 +258,35 @@ namespace ORPG {
      * NOTE(incomingstick): How far do we want to take this? We could
      * put ourselves in a tricky place if this is done wrong.
      **/
-    enum CHARACTER_EXPORT Gender {
+    enum CHARACTER_EXPORT Gender
+    {
         Male,
         Female,
         Agender
     };
 
-    enum CHARACTER_EXPORT Size {
-        Tiny,        // 2½ by 2½ ft.          [under 2 feet tall]
-        Small,       // 5 by 5 ft.            [2 to 4 feet tall]
-        Medium,      // 5 by 5 ft.            [4 to 8 feet tall]
-        Large,       // 10 by 10 ft.          [8 to 12 feet tall]
-        Huge,        // 15 by 15 ft.          [12 to 16 feet tall]
-        Gatgantuan   // 20 by 20 ft or larger [taller than 16 feet]
+    enum CHARACTER_EXPORT Size
+    {
+        Tiny,      // 2½ by 2½ ft.          [under 2 feet tall]
+        Small,     // 5 by 5 ft.            [2 to 4 feet tall]
+        Medium,    // 5 by 5 ft.            [4 to 8 feet tall]
+        Large,     // 10 by 10 ft.          [8 to 12 feet tall]
+        Huge,      // 15 by 15 ft.          [12 to 16 feet tall]
+        Gatgantuan // 20 by 20 ft or larger [taller than 16 feet]
     };
 
-    enum CHARACTER_EXPORT VisionType {
+    enum CHARACTER_EXPORT VisionType
+    {
         Normal,
         Blindsight,
         DarkVision,
         TrueSight
     };
 
-    struct CHARACTER_EXPORT Vision {
-        VisionType type;    // type of sight
-        int radius;         // radius of vision in feet (-1 == infinite IF unobstructed)
+    struct CHARACTER_EXPORT Vision
+    {
+        VisionType type; // type of sight
+        int radius;      // radius of vision in feet (-1 == infinite IF unobstructed)
     };
 
     /* Generates a stat > 1 && < 20 */
@@ -280,41 +303,41 @@ namespace ORPG {
     inline int8 CHARACTER_EXPORT modifier(int abil) { return abil / 2 - 5; };
 
     // TODO take an in depth look at what should and should not be public here
-    class CHARACTER_EXPORT Character {
+    class CHARACTER_EXPORT Character
+    {
     private:
-        Race* race;			                // The race of our character
-        AbilityScores* abils;               // struct of ability scores
-        CharacterClass* cClass;             // the characters class
-        Background* bg;                     // the characters background
-        Skills* skills;                     // struct of skill checks
-        Alignment alignment;                // the character alignment
-        Gender gender;                      // the characters gender
-        Size size;                          // the size type
-        struct Vision vision;               // information about the characters vision
-        std::string firstName;              // the characters first name
-        std::string lastName;               // the characters first name
-        int curr_hp;                        // current hit points
-        int temp_hp;                        // temporary hit points
-        int max_hp;                         // maximum hit points
-        int prof;                           // proficiency bonus
-        int level;                          // character level total
-        int curr_exp;                       // current experience
-        int max_exp;                        // experience needed for next level
-        std::vector<Language> langs;        // the array of known languages
-        uint8 age;                          // the age of the character
+        Race *race;                  // The race of our character
+        AbilityScores *abils;        // struct of ability scores
+        CharacterClass *cClass;      // the characters class
+        Background *bg;              // the characters background
+        Skills *skills;              // struct of skill checks
+        Alignment alignment;         // the character alignment
+        Gender gender;               // the characters gender
+        Size size;                   // the size type
+        struct Vision vision;        // information about the characters vision
+        std::string firstName;       // the characters first name
+        std::string lastName;        // the characters first name
+        int curr_hp;                 // current hit points
+        int temp_hp;                 // temporary hit points
+        int max_hp;                  // maximum hit points
+        int prof;                    // proficiency bonus
+        int level;                   // character level total
+        int curr_exp;                // current experience
+        int max_exp;                 // experience needed for next level
+        std::vector<Language> langs; // the array of known languages
+        uint8 age;                   // the age of the character
 
         void Initialize();
         std::string format_mod(int mod, int spaces);
 
     public:
-        Character(Race* racePtr = Characters::new_random_race(),
-                  AbilityScores* ab = new AbilityScores,
-                  CharacterClass* classPtr = Characters::new_random_character_class(),
+        Character(Race *racePtr = Characters::new_random_race(),
+                  AbilityScores *ab = new AbilityScores,
+                  CharacterClass *classPtr = Characters::new_random_character_class(),
                   const int bgID = -1,
-                  Skills* sk = new Skills,
+                  Skills *sk = new Skills,
                   std::string name = "");
         ~Character();
-
 
         void update_skills();
 

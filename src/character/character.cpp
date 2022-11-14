@@ -19,19 +19,22 @@ There is NO WARRANTY, to the extent permitted by law.
 using namespace std;
 using namespace ORPG;
 
-namespace ORPG {
-    namespace Characters {
+namespace ORPG
+{
+    namespace Characters
+    {
         /**
          * @desc prints the version info when -V or --version is an argument to the command.
          * This adhears to the GNU standard for version printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void print_version_flag() {
+        void print_version_flag()
+        {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-                "This is free software: you are free to change and redistribute it.\n"
-                "There is NO WARRANTY, to the extent permitted by law.\n\n",
-                stdout);
+                  "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
+                  "This is free software: you are free to change and redistribute it.\n"
+                  "There is NO WARRANTY, to the extent permitted by law.\n\n",
+                  stdout);
             exit(EXIT_SUCCESS);
         }
 
@@ -40,23 +43,24 @@ namespace ORPG {
          * This adhears to the GNU standard for help printing, and immediately terminates
          * the program with exit code EXIT_SUCCESS
          **/
-        void print_help_flag() {
+        void print_help_flag()
+        {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-                "This is free software: you are free to change and redistribute it.\n"
-                "There is NO WARRANTY, to the extent permitted by law.\n\n"
-                "Usage: character-generator [options] RACE GENDER\n"
-                        "\t-h --help                   Print this help screen.\n"
-                        "\t-r --random                 Skips the character creator and generates a fully random character.\n"
-                        "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
-                        "\t-v --verbose                Verbose program output.\n"
-                        "\t-V --version                Print version info.\n"
-                "\n"
-                "Long options may not be passed with a single dash.\n"
-                "OpenRPG home page: < https://www.openrpg.io >\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
-                "See 'man character-generator' for more information [TODO add man pages].\n",
-                stdout);
+                  "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
+                  "This is free software: you are free to change and redistribute it.\n"
+                  "There is NO WARRANTY, to the extent permitted by law.\n\n"
+                  "Usage: character-generator [options] RACE GENDER\n"
+                  "\t-h --help                   Print this help screen.\n"
+                  "\t-r --random                 Skips the character creator and generates a fully random character.\n"
+                  "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
+                  "\t-v --verbose                Verbose program output.\n"
+                  "\t-V --version                Print version info.\n"
+                  "\n"
+                  "Long options may not be passed with a single dash.\n"
+                  "OpenRPG home page: < https://www.openrpg.io >\n"
+                  "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
+                  "See 'man character-generator' for more information [TODO add man pages].\n",
+                  stdout);
             exit(EXIT_SUCCESS);
         }
 
@@ -64,39 +68,42 @@ namespace ORPG {
          * @desc prints the version info when version, ver, v, or V are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void print_basic_version() {
+        void print_basic_version()
+        {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-                "This is free software: you are free to change and redistribute it.\n"
-                "There is NO WARRANTY, to the extent permitted by law.\n\n",
-                stdout);
+                  "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
+                  "This is free software: you are free to change and redistribute it.\n"
+                  "There is NO WARRANTY, to the extent permitted by law.\n\n",
+                  stdout);
         }
 
         /**
          * @desc prints the help info when help, h, or H are called in the ORPG shell.
          * Because this is called from within our ORPG shell, the program will continue running.
          **/
-        void print_basic_help() {
+        void print_basic_help()
+        {
             fputs("character-generator (openrpg) " VERSION " - " COPYRIGHT "\n"
-                "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
-                "This is free software: you are free to change and redistribute it.\n"
-                "There is NO WARRANTY, to the extent permitted by law.\n\n"
-                "Usage: character-generator [options] RACE GENDER\n"
-                        "\t-h --help                   Print this help screen\n"
-                        "\t-r --random                 Skips the character creator and generates a fully random character\n"
-                        "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
-                        "\t-v --verbose                Verbose program output\n"
-                        "\t-V --version                Print version info\n"
-                "\n"
-                "Long options may not be passed with a single dash.\n"
-                "OpenRPG home page: < https://www.openrpg.io >\n"
-                "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
-                "See 'man character-generator' for more information [TODO add man pages].\n",
-                stdout);
+                  "OpenRPG Software License - Version 1.0 - February 10th, 2017 <https://openrpg.io/about/license/>\n"
+                  "This is free software: you are free to change and redistribute it.\n"
+                  "There is NO WARRANTY, to the extent permitted by law.\n\n"
+                  "Usage: character-generator [options] RACE GENDER\n"
+                  "\t-h --help                   Print this help screen\n"
+                  "\t-r --random                 Skips the character creator and generates a fully random character\n"
+                  "\t-s --sheet                  Prints a fancy character sheet when done building the character.\n"
+                  "\t-v --verbose                Verbose program output\n"
+                  "\t-V --version                Print version info\n"
+                  "\n"
+                  "Long options may not be passed with a single dash.\n"
+                  "OpenRPG home page: < https://www.openrpg.io >\n"
+                  "Report bugs to: < https://github.com/incomingstick/OpenRPG/issues >\n"
+                  "See 'man character-generator' for more information [TODO add man pages].\n",
+                  stdout);
         }
 
         // TODO Find cleaner way to do this factory, things get entered in too many places!!!
-        RaceSelector::RaceSelector() {
+        RaceSelector::RaceSelector()
+        {
             head = allocate_node(Race::ID, false, NULL);
 
             auto human = allocate_node(Human::ID, true, head);
@@ -108,32 +115,32 @@ namespace ORPG {
             auto highElf = allocate_node(HighElf::ID, true, elf);
 
             dwarf->children = {
-                hillDwarf
-            };
+                hillDwarf};
 
             elf->children = {
-                highElf
-            };
+                highElf};
 
             head->children = {
                 human,
                 dwarf,
-                elf
-            };
+                elf};
 
             current = head;
         }
 
-        RaceSelector::~RaceSelector() {
-            //TODO clean up here
+        RaceSelector::~RaceSelector()
+        {
+            // TODO clean up here
         }
 
-        RaceSelector::race_node* RaceSelector::allocate_node(uint raceID,
-                                                            bool required,
-                                                            race_node* parent) {
+        RaceSelector::race_node *RaceSelector::allocate_node(uint raceID,
+                                                             bool required,
+                                                             race_node *parent)
+        {
             auto node = new race_node;
 
-            if(node == NULL) {
+            if (node == NULL)
+            {
                 printf("out of memory");
                 exit(EXIT_FAILURE);
             }
@@ -145,32 +152,40 @@ namespace ORPG {
             return node;
         }
 
-        vector<string> RaceSelector::current_options() {
+        vector<string> RaceSelector::current_options()
+        {
             vector<string> ret;
 
-            for(auto node : current->children) {
-                switch(node->raceID) {
-                case Human::ID : {
+            for (auto node : current->children)
+            {
+                switch (node->raceID)
+                {
+                case Human::ID:
+                {
                     ret.push_back("Human");
                     break;
                 }
 
-                case Dwarf::ID : {
+                case Dwarf::ID:
+                {
                     ret.push_back("Dwarf");
                     break;
                 }
 
-                case HillDwarf::ID : {
+                case HillDwarf::ID:
+                {
                     ret.push_back("Hill Dwarf");
                     break;
                 }
 
-                case Elf::ID : {
+                case Elf::ID:
+                {
                     ret.push_back("Elf");
                     break;
                 }
 
-                case HighElf::ID : {
+                case HighElf::ID:
+                {
                     ret.push_back("High Elf");
                     break;
                 }
@@ -180,28 +195,35 @@ namespace ORPG {
             return ret;
         }
 
-        bool RaceSelector::has_options() {
-            if(!current) return false;
-            else if(!current->children.empty())
+        bool RaceSelector::has_options()
+        {
+            if (!current)
+                return false;
+            else if (!current->children.empty())
                 return true;
-            else return false;
+            else
+                return false;
         }
 
-        void RaceSelector::select_option(int8 index) {
-            if(current == NULL) return;
-
-            if(index < 0 || (size_t)index > current->children.size())
+        void RaceSelector::select_option(int8 index)
+        {
+            if (current == NULL)
                 return;
 
-            if(current->children[index] != NULL)
+            if (index < 0 || (size_t)index > current->children.size())
+                return;
+
+            if (current->children[index] != NULL)
                 current = current->children[index];
         }
 
-        uint RaceSelector::current_id() {
-            if(current != NULL) return current->raceID;
+        uint RaceSelector::current_id()
+        {
+            if (current != NULL)
+                return current->raceID;
             return -1;
         }
-    
+
         /**
          * @desc Currently this function just checks to ensure the string contains
          * only digits, and returns true. It will return false otherwise.
@@ -215,9 +237,12 @@ namespace ORPG {
          * @param: string check - this string to be checked
          * @return bool - returns true if check contains only numbers
          **/
-        bool safety_check_stoi(string check) {
-            for(auto c : check) {
-                if(!isdigit((unsigned)c)) return false;
+        bool safety_check_stoi(string check)
+        {
+            for (auto c : check)
+            {
+                if (!isdigit((unsigned)c))
+                    return false;
             }
 
             return check.empty() ? false : true;
@@ -228,18 +253,19 @@ namespace ORPG {
          * from within that array, gets the value of that index to return, and
          * removes it from the vector. Do note that the vectors size is reduced
          * by one.
-         * 
+         *
          * TODO(incomingstick): Make this generic and put it somewhere in the Utils
          * namespace
          *
          * @param vector<uint8> *arr - the pointer of the vectory array to operate on
          * @return auto - the extracted value from the randomly selected element
          **/
-        uint8 extract_random_element(vector<uint8>* arr) {
-            auto randIndex = Utils::randomInt(0, arr->size()-1);
+        uint8 extract_random_element(vector<uint8> *arr)
+        {
+            auto randIndex = Utils::randomInt(0, arr->size() - 1);
             auto ret = arr->at(randIndex);
 
-            arr->erase(arr->begin()+randIndex);
+            arr->erase(arr->begin() + randIndex);
 
             return ret;
         }
@@ -257,23 +283,27 @@ namespace ORPG {
          * @param: CharacterFactory factory - the factory to check and prompt from
          * @return auto - the selected input
          **/
-        int request_selection(RaceSelector factory) {
+        int request_selection(RaceSelector factory)
+        {
             int index = -1;
             string input;
 
             vector<string> list;
 
-            if(factory.has_options())
+            if (factory.has_options())
                 list = factory.current_options();
 
-            while(index < 0 || index >= (signed)list.size()) {
+            while (index < 0 || index >= (signed)list.size())
+            {
 
                 int tick = 0;
 
-                for(string str : list) {
+                for (string str : list)
+                {
                     cout << "\t" << (tick++) << ") " << str;
 
-                    if(tick % 3 == 0) cout << endl;
+                    if (tick % 3 == 0)
+                        cout << endl;
                 }
 
                 tick = 0;
@@ -281,15 +311,17 @@ namespace ORPG {
                 cout << "\n#? ";
                 Utils::safeGetline(cin, input);
 
-                if(safety_check_stoi(input)) {
+                if (safety_check_stoi(input))
+                {
                     index = stoi(input);
-                } else {
+                }
+                else
+                {
                     cout << "invalid input!" << endl;
                 }
 
                 cin.clear();
             }
-
 
             return index;
         }
@@ -300,10 +332,11 @@ namespace ORPG {
          * whether or not we should just randomly create the character
          *
          * TODO character creator switch ('-r' argv should ALSO handle this)
-         * 
+         *
          * @return bool - true if user wants to be random, false otherwise
          **/
-        bool request_is_random() {
+        bool request_is_random()
+        {
             printf("Use character creator (Y/n): ");
 
             string in;
@@ -313,11 +346,16 @@ namespace ORPG {
 
             cin.clear();
 
-            if(in == "y" || in == "ye" || in == "yes" || in.empty()) {
+            if (in == "y" || in == "ye" || in == "yes" || in.empty())
+            {
                 return false;
-            } else if(in == "n" || in == "no") {
+            }
+            else if (in == "n" || in == "no")
+            {
                 return true;
-            } else {
+            }
+            else
+            {
                 printf("Invalid input!\n");
                 return request_is_random();
             }
@@ -329,17 +367,19 @@ namespace ORPG {
          * to first prompt to stdout the base race, then requesting a corresponding number
          * via stdin. It repeats this process for the subrace, and will continue prompting
          * until no other race types could possibly be chosen.
-         * 
+         *
          * @return Race* - a pointer to a new Race determined by the RaceSelector
          **/
-        Race* request_race() {
+        Race *request_race()
+        {
             RaceSelector selector;
 
             printf("Choose Race:\n");
 
             selector.select_option(request_selection(selector));
 
-            if(selector.has_options()) {
+            if (selector.has_options())
+            {
                 printf("Choose Subrace:\n");
                 selector.select_option(request_selection(selector));
             }
@@ -364,121 +404,168 @@ namespace ORPG {
          * @return AbilityScores* - an AbilityScores object containing the users input
          * scores
          **/
-        AbilityScores* request_scores() {
+        AbilityScores *request_scores()
+        {
             printf("\n");
 
-            AbilityScores* ret = new AbilityScores;
+            AbilityScores *ret = new AbilityScores;
             string input;
             auto stats = ability_score_vector();
 
             printf("We rolled the following ability scores (2d6+6): \n");
 
-            for(auto num : stats) printf("%i (%i)\n", num, modifier(num));
+            for (auto num : stats)
+                printf("%i (%i)\n", num, modifier(num));
 
             printf("\n");
 
             printf("(leave blank to randomly assign from the list above)\n");
 
-            for(int8 i = 0; i < 6; i++) {
-                switch(i) {
-                case 0: {
+            for (int8 i = 0; i < 6; i++)
+            {
+                switch (i)
+                {
+                case 0:
+                {
                     printf("Set Strength\t (STR): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::STR, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::STR,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                         cin.clear();
                     }
-                } break;
+                }
+                break;
 
-                case 1: {
+                case 1:
+                {
                     printf("Set Dexterity\t (DEX): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::DEX, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::DEX,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                     }
-                } break;
+                }
+                break;
 
-                case 2: {
+                case 2:
+                {
                     printf("Set Constitution (CON): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::CON, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::CON,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                     }
-                } break;
+                }
+                break;
 
-                case 3: {
+                case 3:
+                {
                     printf("Set Intelligence (INT): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::INT, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::INT,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                     }
-                } break;
+                }
+                break;
 
-                case 4: {
+                case 4:
+                {
                     printf("Set Wisdom\t (WIS): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::WIS, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::WIS,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                     }
-                } break;
+                }
+                break;
 
-                case 5: {
+                case 5:
+                {
                     printf("Set Charisma\t (CHA): ");
 
                     Utils::safeGetline(cin, input);
 
-                    if(safety_check_stoi(input)) {
+                    if (safety_check_stoi(input))
+                    {
                         ret->set_score(EnumAbilityScore::CHA, stoi(input));
-                    } else if(input.empty()) {
+                    }
+                    else if (input.empty())
+                    {
                         ret->set_score(EnumAbilityScore::CHA,
-                                    extract_random_element(&stats));
-                    } else {
+                                       extract_random_element(&stats));
+                    }
+                    else
+                    {
                         i--;
                         cout << "invalid input!" << endl;
                     }
-                } break;
+                }
+                break;
 
-                default: {
+                default:
+                {
                     printf("should not have gotten here");
                     exit(EXIT_FAILURE);
                 }
@@ -493,13 +580,74 @@ namespace ORPG {
         }
 
         /**
+         * @desc This function generates and returns random ability scores to be used in a character.
+         *
+         * @return AbilityScores* - an AbilityScores object containing random scores.
+         **/
+        AbilityScores *gen_rand_scores()
+        {
+            AbilityScores *ret = new AbilityScores;
+            auto stats = ability_score_vector();
+
+            for (int8 i = 0; i < 6; i++)
+            {
+                switch (i)
+                {
+                case 0:
+                {
+                    ret->set_score(EnumAbilityScore::STR, stats.at(0));
+                }
+                break;
+
+                case 1:
+                {
+                    ret->set_score(EnumAbilityScore::DEX, stats.at(1));
+                }
+                break;
+
+                case 2:
+                {
+                    ret->set_score(EnumAbilityScore::CON, stats.at(2));
+                }
+                break;
+
+                case 3:
+                {
+                    ret->set_score(EnumAbilityScore::INT, stats.at(3));
+                }
+                break;
+
+                case 4:
+                {
+                    ret->set_score(EnumAbilityScore::WIS, stats.at(4));
+                }
+                break;
+
+                case 5:
+                {
+                    ret->set_score(EnumAbilityScore::CHA, stats.at(5));
+                }
+                break;
+
+                default:
+                {
+                    printf("should not have gotten here");
+                    exit(EXIT_FAILURE);
+                }
+                }
+            }
+            return ret;
+        }
+
+        /**
          * @desc This function prompts the user via stdout for a name, and reading
          * from stdin the input. We use the safeGetline funtion via the ORPG::Utils
          * namespace to ensure integrity across platforms.
-         * 
+         *
          * @return string - the user input string to be used as a name
          **/
-        string request_name() {
+        string request_name()
+        {
             printf("(leave blank for random name)\n");
             printf("Name: ");
 
@@ -519,7 +667,8 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        uint request_background() {
+        uint request_background()
+        {
             printf("Acolyte Background Automatically Chosen\n");
             return Acolyte::ID;
         }
@@ -532,7 +681,8 @@ namespace ORPG {
          *
          * @return CharacterClass* - always will return a pointer to a Wizard
          **/
-        CharacterClass* request_class() {
+        CharacterClass *request_class()
+        {
             printf("Wizard Class Automatically Chosen\n");
             return new Wizard;
         }
@@ -544,7 +694,8 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        Skills* request_skills() {
+        Skills *request_skills()
+        {
             printf("Skill select based on class\n");
             return new Skills;
         }
@@ -556,7 +707,8 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_hitpoints(CharacterClass* classPtr) {
+        bool request_hitpoints(CharacterClass *classPtr)
+        {
             printf("Hit points\n");
             return true;
         }
@@ -569,7 +721,8 @@ namespace ORPG {
          *
          * @return bool - always will return true
          **/
-        bool request_equipment() {
+        bool request_equipment()
+        {
             printf("Equipment\n\n");
             return true;
         }
@@ -579,19 +732,24 @@ namespace ORPG {
          * and attempts to load it as a character class. If a new Character is
          * able to be created from the file, it will return a pointer to that
          * character.
-         * 
+         *
          * @return Character* - a pointer to a character created via the file
          **/
-        Character* import_character(string file) {
-            if(file.empty()) return new Character;
+        Character *import_character(string file)
+        {
+            if (file.empty())
+                return new Character;
 
             // create the container for the XML file to be opened
             Core::XMLDocument document;
 
             // TODO(incomingstick): check whether the file is XML or not
-            if (document.load_file(file)) {
-                //TODO: create a character based on the imported XML file
-            } else {
+            if (document.load_file(file))
+            {
+                // TODO: create a character based on the imported XML file
+            }
+            else
+            {
                 /* TODO: Raise an exception here, if an asset file
                  cannot be opened then something serious has gone wrong. */
             }
@@ -602,25 +760,25 @@ namespace ORPG {
 
     /* an arrray that holds the EXP needed for each level */
     const int EXP[] = {
-        300,          // Level 2
-        900,          // Level 3
-        2700,         // Level 4
-        6500,         // Level 5
-        14000,        // Level 6
-        23000,        // Level 7
-        34000,        // Level 8
-        48000,        // Level 9
-        64000,        // Level 10
-        85000,        // Level 11
-        100000,       // Level 12
-        120000,       // Level 13
-        140000,       // Level 14
-        165000,       // Level 15
-        195000,       // Level 16
-        225000,       // Level 17
-        265000,       // Level 18
-        305000,       // Level 19
-        355000        // Level 20
+        300,    // Level 2
+        900,    // Level 3
+        2700,   // Level 4
+        6500,   // Level 5
+        14000,  // Level 6
+        23000,  // Level 7
+        34000,  // Level 8
+        48000,  // Level 9
+        64000,  // Level 10
+        85000,  // Level 11
+        100000, // Level 12
+        120000, // Level 13
+        140000, // Level 14
+        165000, // Level 15
+        195000, // Level 16
+        225000, // Level 17
+        265000, // Level 18
+        305000, // Level 19
+        355000  // Level 20
     };
 
     /**
@@ -629,7 +787,8 @@ namespace ORPG {
      *
      * both are chars to reduce memory usage
      **/
-    Skill::Skill() {
+    Skill::Skill()
+    {
         this->mod = 0;
         this->profBonus = 0;
     }
@@ -641,9 +800,9 @@ namespace ORPG {
      * @param int8 modifier - an int8 to set as the mod (modifier)
      * @param uint8 proficiencyBonus - a uint8 to set as the proficiency level
      **/
-    Skill::Skill(int8 modifier, uint8 proficiencyBonus):
-        mod(modifier),
-        profBonus(proficiencyBonus) {
+    Skill::Skill(int8 modifier, uint8 proficiencyBonus) : mod(modifier),
+                                                          profBonus(proficiencyBonus)
+    {
         /* Does nothing else currently */
     }
 
@@ -655,7 +814,8 @@ namespace ORPG {
      * @param int8 modifier - the int8 to set as the new mod
      * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
      **/
-    void Skill::set(int8 modifier, uint8 proficiencyBonus) {
+    void Skill::set(int8 modifier, uint8 proficiencyBonus)
+    {
         set_mod(modifier);
         set_prof_bonus(proficiencyBonus);
     }
@@ -665,7 +825,8 @@ namespace ORPG {
      *
      * @param int8 modifier - the int8 to set as the new mod
      **/
-    void Skill::set_mod(int8 modifier) {
+    void Skill::set_mod(int8 modifier)
+    {
         this->mod = modifier;
     }
 
@@ -674,7 +835,8 @@ namespace ORPG {
      *
      * @param uint8 newPoficiencyBonus - the uint8 to set as the new profBonus
      **/
-    void Skill::set_prof_bonus(uint8 newProficiencyBonus) {
+    void Skill::set_prof_bonus(uint8 newProficiencyBonus)
+    {
         this->profBonus = newProficiencyBonus;
     }
 
@@ -684,7 +846,8 @@ namespace ORPG {
      *
      * @return int8 - the modifier bonus of the queried skill
      **/
-    int8 Skill::get_mod() {
+    int8 Skill::get_mod()
+    {
         return this->mod;
     }
 
@@ -701,23 +864,26 @@ namespace ORPG {
      * @return uint8 - the proficiency bonus level that is used when calculating
      * the amount proficiency to add to this skills modifier bonus
      **/
-    unsigned char Skill::get_prof() {
+    unsigned char Skill::get_prof()
+    {
         return this->profBonus;
     }
 
     /**
      * @desc Converts this Skills data to std::string format. It is retruned in the
      * following format:
-     * 
+     *
      * (+/-)[value]
      * Example: "+3"
      *
-     * @return string - a string 
+     * @return string - a string
      **/
-    std::string Skill::to_string() {
+    std::string Skill::to_string()
+    {
         string ret = "";
 
-        if(mod > 0) ret = "+";
+        if (mod > 0)
+            ret = "+";
 
         return ret + std::to_string(mod);
     };
@@ -727,26 +893,27 @@ namespace ORPG {
      * their respective EnumSkill, with a modifier of 0 and proficiency
      * bonus level of 0.
      **/
-    Skills::Skills() {
+    Skills::Skills()
+    {
         this->skillsMap = {
-            { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
-            { ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
-            { ARC, new Skill(0, 0) },    // Arcana           (INT)
-            { ATH, new Skill(0, 0) },    // Athletics        (STR)
-            { DEC, new Skill(0, 0) },    // Deception        (CHA)
-            { HIS, new Skill(0, 0) },    // History          (INT)
-            { INS, new Skill(0, 0) },    // Insight          (WIS)
-            { ITM, new Skill(0, 0) },    // Intimidation     (CHA)
-            { INV, new Skill(0, 0) },    // Investigation    (INT)
-            { MED, new Skill(0, 0) },    // Medicine         (WIS)
-            { NAT, new Skill(0, 0) },    // Nature           (INT)
-            { PRC, new Skill(0, 0) },    // Perception       (WIS)
-            { PRF, new Skill(0, 0) },    // Performance      (CHA)
-            { PRS, new Skill(0, 0) },    // Persuasion       (CHA)
-            { REL, new Skill(0, 0) },    // Religion         (INT)
-            { SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
-            { STL, new Skill(0, 0) },    // Stealth          (DEX)
-            { SUR, new Skill(0, 0) }     // Survival         (WIS)
+            {ACR, new Skill(0, 0)}, // Acrobatics       (DEX)
+            {ANM, new Skill(0, 0)}, // Animal Handling  (WIS)
+            {ARC, new Skill(0, 0)}, // Arcana           (INT)
+            {ATH, new Skill(0, 0)}, // Athletics        (STR)
+            {DEC, new Skill(0, 0)}, // Deception        (CHA)
+            {HIS, new Skill(0, 0)}, // History          (INT)
+            {INS, new Skill(0, 0)}, // Insight          (WIS)
+            {ITM, new Skill(0, 0)}, // Intimidation     (CHA)
+            {INV, new Skill(0, 0)}, // Investigation    (INT)
+            {MED, new Skill(0, 0)}, // Medicine         (WIS)
+            {NAT, new Skill(0, 0)}, // Nature           (INT)
+            {PRC, new Skill(0, 0)}, // Perception       (WIS)
+            {PRF, new Skill(0, 0)}, // Performance      (CHA)
+            {PRS, new Skill(0, 0)}, // Persuasion       (CHA)
+            {REL, new Skill(0, 0)}, // Religion         (INT)
+            {SLE, new Skill(0, 0)}, // Sleight of Hand  (DEX)
+            {STL, new Skill(0, 0)}, // Stealth          (DEX)
+            {SUR, new Skill(0, 0)}  // Survival         (WIS)
         };
     };
 
@@ -755,26 +922,27 @@ namespace ORPG {
      * their respective EnumSkill, with a modifier of 0 and proficiency
      * bonus level of 0.
      **/
-    Skills::Skills(void* owner):container(owner) {
+    Skills::Skills(void *owner) : container(owner)
+    {
         this->skillsMap = {
-            { ACR, new Skill(0, 0) },    // Acrobatics       (DEX)
-            { ANM, new Skill(0, 0) },    // Animal Handling  (WIS)
-            { ARC, new Skill(0, 0) },    // Arcana           (INT)
-            { ATH, new Skill(0, 0) },    // Athletics        (STR)
-            { DEC, new Skill(0, 0) },    // Deception        (CHA)
-            { HIS, new Skill(0, 0) },    // History          (INT)
-            { INS, new Skill(0, 0) },    // Insight          (WIS)
-            { ITM, new Skill(0, 0) },    // Intimidation     (CHA)
-            { INV, new Skill(0, 0) },    // Investigation    (INT)
-            { MED, new Skill(0, 0) },    // Medicine         (WIS)
-            { NAT, new Skill(0, 0) },    // Nature           (INT)
-            { PRC, new Skill(0, 0) },    // Perception       (WIS)
-            { PRF, new Skill(0, 0) },    // Performance      (CHA)
-            { PRS, new Skill(0, 0) },    // Persuasion       (CHA)
-            { REL, new Skill(0, 0) },    // Religion         (INT)
-            { SLE, new Skill(0, 0) },    // Sleight of Hand  (DEX)
-            { STL, new Skill(0, 0) },    // Stealth          (DEX)
-            { SUR, new Skill(0, 0) }     // Survival         (WIS)
+            {ACR, new Skill(0, 0)}, // Acrobatics       (DEX)
+            {ANM, new Skill(0, 0)}, // Animal Handling  (WIS)
+            {ARC, new Skill(0, 0)}, // Arcana           (INT)
+            {ATH, new Skill(0, 0)}, // Athletics        (STR)
+            {DEC, new Skill(0, 0)}, // Deception        (CHA)
+            {HIS, new Skill(0, 0)}, // History          (INT)
+            {INS, new Skill(0, 0)}, // Insight          (WIS)
+            {ITM, new Skill(0, 0)}, // Intimidation     (CHA)
+            {INV, new Skill(0, 0)}, // Investigation    (INT)
+            {MED, new Skill(0, 0)}, // Medicine         (WIS)
+            {NAT, new Skill(0, 0)}, // Nature           (INT)
+            {PRC, new Skill(0, 0)}, // Perception       (WIS)
+            {PRF, new Skill(0, 0)}, // Performance      (CHA)
+            {PRS, new Skill(0, 0)}, // Persuasion       (CHA)
+            {REL, new Skill(0, 0)}, // Religion         (INT)
+            {SLE, new Skill(0, 0)}, // Sleight of Hand  (DEX)
+            {STL, new Skill(0, 0)}, // Stealth          (DEX)
+            {SUR, new Skill(0, 0)}  // Survival         (WIS)
         };
     }
 
@@ -782,8 +950,9 @@ namespace ORPG {
      * @desc Desctructor function for the Skills class that ensures
      * the internal std::map skillsMap is deleted
      **/
-    Skills::~Skills() {
-        delete[] &skillsMap;
+    Skills::~Skills()
+    {
+        delete[] & skillsMap;
     }
 
     /**
@@ -794,48 +963,127 @@ namespace ORPG {
      *
      * @return int8 - the modifier bonus of the queried skill
      **/
-    int8 Skills::get_mod(EnumSkill skill) {
+    int8 Skills::get_mod(EnumSkill skill)
+    {
         int finalProf = 0;
-        auto currProf = ((Character*)container)->get_proficiency_bonus();
+        auto currProf = ((Character *)container)->get_proficiency_bonus();
         auto profRank = skillsMap[skill]->get_prof();
 
-        if(profRank == PROFICIENT) finalProf = currProf;
-        else if(profRank == HALF_PROFICIENT) finalProf = currProf / 2;
-        else if(profRank == DOUBLE_PROFICIENT) finalProf = currProf * 2;
+        if (profRank == PROFICIENT)
+            finalProf = currProf;
+        else if (profRank == HALF_PROFICIENT)
+            finalProf = currProf / 2;
+        else if (profRank == DOUBLE_PROFICIENT)
+            finalProf = currProf * 2;
 
         return skillsMap[skill]->get_mod() + finalProf;
     };
 
     /* to_string method used internally for iterative purposes */
-    std::string Skills::internal_to_string(std::pair<EnumSkill, Skill*> skill) {
+    std::string Skills::internal_to_string(std::pair<EnumSkill, Skill *> skill)
+    {
         string ret = "";
         auto eskill = skill.first;
 
-        switch(eskill) {
-        case ACR: { ret = "ACR: "; } break;   // Acrobatics       (DEX)
-        case ANM: { ret = "ANM: "; } break;   // Animal Handling  (WIS)
-        case ARC: { ret = "ARC: "; } break;   // Arcana           (INT)
-        case ATH: { ret = "ATH: "; } break;   // Athletics        (STR)
-        case DEC: { ret = "DEC: "; } break;   // Deception        (CHA)
-        case HIS: { ret = "HIS: "; } break;   // History          (INT)
-        case INS: { ret = "INS: "; } break;   // Insight          (WIS)
-        case ITM: { ret = "ITM: "; } break;   // Intimidation     (CHA)
-        case INV: { ret = "INV: "; } break;   // Investigation    (INT)
-        case MED: { ret = "MED: "; } break;   // Medicine         (WIS)
-        case NAT: { ret = "NAT: "; } break;   // Nature           (INT)
-        case PRC: { ret = "PRC: "; } break;   // Perception       (WIS)
-        case PRF: { ret = "PRF: "; } break;   // Performance      (CHA)
-        case PRS: { ret = "PRS: "; } break;   // Persuasion       (CHA)
-        case REL: { ret = "REL: "; } break;   // Religion         (INT)
-        case SLE: { ret = "SLE: "; } break;   // Sleight of Hand  (DEX)
-        case STL: { ret = "STL: "; } break;   // Stealth          (DEX)
-        case SUR: { ret = "SUR: "; } break;   // Survival         (WIS)
-        default: {
+        switch (eskill)
+        {
+        case ACR:
+        {
+            ret = "ACR: ";
+        }
+        break; // Acrobatics       (DEX)
+        case ANM:
+        {
+            ret = "ANM: ";
+        }
+        break; // Animal Handling  (WIS)
+        case ARC:
+        {
+            ret = "ARC: ";
+        }
+        break; // Arcana           (INT)
+        case ATH:
+        {
+            ret = "ATH: ";
+        }
+        break; // Athletics        (STR)
+        case DEC:
+        {
+            ret = "DEC: ";
+        }
+        break; // Deception        (CHA)
+        case HIS:
+        {
+            ret = "HIS: ";
+        }
+        break; // History          (INT)
+        case INS:
+        {
+            ret = "INS: ";
+        }
+        break; // Insight          (WIS)
+        case ITM:
+        {
+            ret = "ITM: ";
+        }
+        break; // Intimidation     (CHA)
+        case INV:
+        {
+            ret = "INV: ";
+        }
+        break; // Investigation    (INT)
+        case MED:
+        {
+            ret = "MED: ";
+        }
+        break; // Medicine         (WIS)
+        case NAT:
+        {
+            ret = "NAT: ";
+        }
+        break; // Nature           (INT)
+        case PRC:
+        {
+            ret = "PRC: ";
+        }
+        break; // Perception       (WIS)
+        case PRF:
+        {
+            ret = "PRF: ";
+        }
+        break; // Performance      (CHA)
+        case PRS:
+        {
+            ret = "PRS: ";
+        }
+        break; // Persuasion       (CHA)
+        case REL:
+        {
+            ret = "REL: ";
+        }
+        break; // Religion         (INT)
+        case SLE:
+        {
+            ret = "SLE: ";
+        }
+        break; // Sleight of Hand  (DEX)
+        case STL:
+        {
+            ret = "STL: ";
+        }
+        break; // Stealth          (DEX)
+        case SUR:
+        {
+            ret = "SUR: ";
+        }
+        break; // Survival         (WIS)
+        default:
+        {
             cout << "Error! Unknown EnumSkill in Skills::internal_to_string(): " << eskill << endl;
         }
         }
 
-        ret += skill.second->to_string() +"\n";
+        ret += skill.second->to_string() + "\n";
 
         return ret;
     };
@@ -843,16 +1091,18 @@ namespace ORPG {
     /**
      * @desc Converts this Skills data to std::string format. It is retruned in the
      * following format:
-     * 
+     *
      * {Skill}: (+/-)[value]
      * Example: "ACR: +3"
      *
-     * @return string - a string 
+     * @return string - a string
      **/
-    string Skills::to_string() {
+    string Skills::to_string()
+    {
         string ret = "";
 
-        for (std::map<EnumSkill, Skill*>::iterator it = skillsMap.begin(); it != skillsMap.end(); ++it) {
+        for (std::map<EnumSkill, Skill *>::iterator it = skillsMap.begin(); it != skillsMap.end(); ++it)
+        {
             ret += internal_to_string(*it);
         }
 
@@ -864,7 +1114,8 @@ namespace ORPG {
      * It sets score equal to a randomly generated number between 8 and 18,
      * and sets is_prof to false.
      */
-    AbilityScore::AbilityScore() {
+    AbilityScore::AbilityScore()
+    {
         this->score = gen_stat();
         this->prof = false;
     }
@@ -877,7 +1128,8 @@ namespace ORPG {
      * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    AbilityScore::AbilityScore(uint8 score, bool is_prof) {
+    AbilityScore::AbilityScore(uint8 score, bool is_prof)
+    {
         this->score = score;
         this->prof = is_prof;
     }
@@ -886,7 +1138,8 @@ namespace ORPG {
      * @desc Deconstructor for AbilityScore that is passed no arguments.
      * Currently does nothing, and the compiler handles deconstruction.
      */
-    AbilityScore::~AbilityScore() {
+    AbilityScore::~AbilityScore()
+    {
         // TODO
     }
 
@@ -899,7 +1152,8 @@ namespace ORPG {
      * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScore::set(uint8 newScore, bool is_prof) {
+    void AbilityScore::set(uint8 newScore, bool is_prof)
+    {
         this->score = newScore;
         this->prof = is_prof;
     }
@@ -909,7 +1163,8 @@ namespace ORPG {
      *
      * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
-    void AbilityScore::set_score(uint8 score) {
+    void AbilityScore::set_score(uint8 score)
+    {
         this->score = score;
     }
 
@@ -921,7 +1176,8 @@ namespace ORPG {
      * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScore::set_is_prof(bool is_prof) {
+    void AbilityScore::set_is_prof(bool is_prof)
+    {
         this->prof = is_prof;
     }
 
@@ -930,7 +1186,8 @@ namespace ORPG {
      *
      * @return uint8 - an unsigned 8-bit integer of the AbilityScore's score
      */
-    uint8 AbilityScore::get_score() {
+    uint8 AbilityScore::get_score()
+    {
         return this->score;
     }
 
@@ -942,7 +1199,8 @@ namespace ORPG {
      *
      * @return int8 - an 8-bit integer of the AbilityScore's modifier
      */
-    int8 AbilityScore::get_mod() {
+    int8 AbilityScore::get_mod()
+    {
         return modifier(this->score);
     }
 
@@ -955,7 +1213,8 @@ namespace ORPG {
      * @return bool - a boolean value denoting whether or not a proficiency
      * bonus should be added to the save of this AbilityScore
      */
-    bool AbilityScore::is_prof() {
+    bool AbilityScore::is_prof()
+    {
         return this->prof;
     }
 
@@ -963,18 +1222,18 @@ namespace ORPG {
      * @desc Constructor for AbilityScores that is passed a uint8 to use as
      * the default Ability score value. If no argument is passed this function
      * sets all ability scores equal to 0. is_prof will always be set to false.
-     * 
+     *
      * @param uint8 def - the default value to use for all Ability scores
      */
-    AbilityScores::AbilityScores(uint8 def) {
+    AbilityScores::AbilityScores(uint8 def)
+    {
         this->scoresMap = {
-            { STR, new AbilityScore(def, false) },
-            { DEX, new AbilityScore(def, false) },
-            { CON, new AbilityScore(def, false) },
-            { INT, new AbilityScore(def, false) },
-            { WIS, new AbilityScore(def, false) },
-            { CHA, new AbilityScore(def, false) }
-        };
+            {STR, new AbilityScore(def, false)},
+            {DEX, new AbilityScore(def, false)},
+            {CON, new AbilityScore(def, false)},
+            {INT, new AbilityScore(def, false)},
+            {WIS, new AbilityScore(def, false)},
+            {CHA, new AbilityScore(def, false)}};
     }
 
     /**
@@ -986,37 +1245,32 @@ namespace ORPG {
      * @return AbilityScores& - an AbilityScores object containing the addition of
      * the calling object and the passed AbilityScores object
      **/
-    AbilityScores AbilityScores::operator+(AbilityScores obj) {
+    AbilityScores AbilityScores::operator+(AbilityScores obj)
+    {
         AbilityScores ret;
 
         ret.set(EnumAbilityScore::STR,
-                scoresMap[EnumAbilityScore::STR]->get_score()
-                + obj.get_score(EnumAbilityScore::STR),
+                scoresMap[EnumAbilityScore::STR]->get_score() + obj.get_score(EnumAbilityScore::STR),
                 scoresMap[EnumAbilityScore::STR]->is_prof() || obj.is_prof(EnumAbilityScore::STR));
 
         ret.set(EnumAbilityScore::DEX,
-                scoresMap[EnumAbilityScore::DEX]->get_score()
-                + obj.get_score(EnumAbilityScore::DEX),
+                scoresMap[EnumAbilityScore::DEX]->get_score() + obj.get_score(EnumAbilityScore::DEX),
                 scoresMap[EnumAbilityScore::DEX]->is_prof() || obj.is_prof(EnumAbilityScore::DEX));
 
         ret.set(EnumAbilityScore::CON,
-                scoresMap[EnumAbilityScore::CON]->get_score()
-                + obj.get_score(EnumAbilityScore::CON),
+                scoresMap[EnumAbilityScore::CON]->get_score() + obj.get_score(EnumAbilityScore::CON),
                 scoresMap[EnumAbilityScore::CON]->is_prof() || obj.is_prof(EnumAbilityScore::CON));
 
         ret.set(EnumAbilityScore::INT,
-                scoresMap[EnumAbilityScore::INT]->get_score()
-                + obj.get_score(EnumAbilityScore::INT),
+                scoresMap[EnumAbilityScore::INT]->get_score() + obj.get_score(EnumAbilityScore::INT),
                 scoresMap[EnumAbilityScore::INT]->is_prof() || obj.is_prof(EnumAbilityScore::INT));
 
         ret.set(EnumAbilityScore::WIS,
-                scoresMap[EnumAbilityScore::WIS]->get_score()
-                + obj.get_score(EnumAbilityScore::WIS),
+                scoresMap[EnumAbilityScore::WIS]->get_score() + obj.get_score(EnumAbilityScore::WIS),
                 scoresMap[EnumAbilityScore::WIS]->is_prof() || obj.is_prof(EnumAbilityScore::WIS));
 
         ret.set(EnumAbilityScore::CHA,
-                scoresMap[EnumAbilityScore::CHA]->get_score()
-                + obj.get_score(EnumAbilityScore::CHA),
+                scoresMap[EnumAbilityScore::CHA]->get_score() + obj.get_score(EnumAbilityScore::CHA),
                 scoresMap[EnumAbilityScore::CHA]->is_prof() || obj.is_prof(EnumAbilityScore::CHA));
 
         return ret;
@@ -1026,7 +1280,8 @@ namespace ORPG {
      * @desc Deconstructor for AbilityScores that is passed no arguments.
      * Currently does nothing, and the compiler handles deconstruction.
      */
-    AbilityScores::~AbilityScores() {
+    AbilityScores::~AbilityScores()
+    {
         // TODO
     }
 
@@ -1041,7 +1296,8 @@ namespace ORPG {
      * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScores::set(EnumAbilityScore ability, uint8 newScore, bool is_prof) {
+    void AbilityScores::set(EnumAbilityScore ability, uint8 newScore, bool is_prof)
+    {
         scoresMap[ability]->set(newScore, is_prof);
     }
 
@@ -1055,7 +1311,8 @@ namespace ORPG {
      * @return AbilityScore* - an pointer to the AbilityScore's denoted by
      * EnumAbilityScore ability
      */
-    AbilityScore* AbilityScores::get(EnumAbilityScore ability) {
+    AbilityScore *AbilityScores::get(EnumAbilityScore ability)
+    {
         return scoresMap[ability];
     }
 
@@ -1068,7 +1325,8 @@ namespace ORPG {
      * @param EnumAbilityScore ability - the AbilityScore score to query
      * @param uint8 score - the unsigned 8-bit integer score value to set.
      */
-    void AbilityScores::set_score(EnumAbilityScore ability, uint8 score) {
+    void AbilityScores::set_score(EnumAbilityScore ability, uint8 score)
+    {
         scoresMap[ability]->set_score(score);
     }
 
@@ -1082,7 +1340,8 @@ namespace ORPG {
      * @param bool is_prof - a boolean value denoting whether or not a
      * proficiency bonus should be added to the save of the given AbilityScore
      */
-    void AbilityScores::set_is_prof(EnumAbilityScore ability, bool is_prof) {
+    void AbilityScores::set_is_prof(EnumAbilityScore ability, bool is_prof)
+    {
         scoresMap[ability]->set_is_prof(is_prof);
     }
 
@@ -1094,23 +1353,27 @@ namespace ORPG {
      * Proficiency bonus that is added to any AbilityScore that has is_prof
      * set to true.
      */
-    void AbilityScores::set_current_prof(uint8 newProf) {
+    void AbilityScores::set_current_prof(uint8 newProf)
+    {
         curProf = newProf;
     }
 
     /**
      * NOTE(incomingstick): Should this be accessable to the library at large?
      **/
-    Background* background_selector(const int identifier = -1) {
-        const auto id = (identifier <= -1) ?
-            Characters::random_bg_id() : identifier;
+    Background *background_selector(const int identifier = -1)
+    {
+        const auto id = (identifier <= -1) ? Characters::random_bg_id() : identifier;
 
-        switch(id) {
-        case Acolyte::ID : {
+        switch (id)
+        {
+        case Acolyte::ID:
+        {
             return new Acolyte();
         }
 
-        default: {
+        default:
+        {
             return nullptr;
         }
         }
@@ -1119,32 +1382,38 @@ namespace ORPG {
     /**
      * NOTE(incomingstick): Should this be accessable to the library at large?
      **/
-    CharacterClass* class_selector(const int identifier = -1) {
-        const auto id = (identifier <= -1) ?
-            Characters::random_class_id() : identifier;
+    CharacterClass *class_selector(const int identifier = -1)
+    {
+        const auto id = (identifier <= -1) ? Characters::random_class_id() : identifier;
 
-        switch(id) {
-        case Wizard::ID : {
+        switch (id)
+        {
+        case Wizard::ID:
+        {
             return new Wizard();
         }
 
-        default: {
+        default:
+        {
             return nullptr;
         }
         }
     }
 
-    Character::Character(Race* racePtr, AbilityScores* ab, CharacterClass* classPtr,
-                        const int bgID, Skills* sk, std::string name):
-                        race(racePtr), abils(ab), cClass(classPtr), skills(sk) {
+    Character::Character(Race *racePtr, AbilityScores *ab, CharacterClass *classPtr,
+                         const int bgID, Skills *sk, std::string name) : race(racePtr), abils(ab), cClass(classPtr), skills(sk)
+    {
         bg = background_selector(bgID);
 
-        if(name.empty()) {
+        if (name.empty())
+        {
             NameGenerator ng(race->to_string());
 
             firstName = ng.make_first();
             lastName = ng.make_last();
-        } else {
+        }
+        else
+        {
             /* TODO make this work by parsing the name into a first and last */
             firstName = name;
             lastName = name;
@@ -1153,11 +1422,13 @@ namespace ORPG {
         Initialize();
     }
 
-    Character::~Character() {
+    Character::~Character()
+    {
         // TODO nothing yet
     }
 
-    void Character::Initialize() {
+    void Character::Initialize()
+    {
         race->applyRacialBonus(abils);
 
         /* Make some of our interals aware of who we are */
@@ -1170,95 +1441,100 @@ namespace ORPG {
         prof = 2;                                   // proficiency bonus
         level = 1;                                  // character level total
         curr_exp = 0;                               // current experience
-        max_exp = EXP[level-1];                     // experience needed for next level
+        max_exp = EXP[level - 1];                   // experience needed for next level
 
         // TODO Apply racial bonuses here? Or during the request process?
         update_skills();
     }
 
     // TODO(incomingstick): Make this more efficient
-    void Character::update_skills() {
-        skills->get(ACR)->set_mod(DEX_MOD());    // Acrobatics       (DEX)
-        skills->get(ANM)->set_mod(WIS_MOD());    // Animal Handling  (WIS)
-        skills->get(ARC)->set_mod(INT_MOD());    // Arcana           (INT)
-        skills->get(ATH)->set_mod(STR_MOD());    // Athletics        (STR)
-        skills->get(DEC)->set_mod(CHA_MOD());    // Deception        (CHA)
-        skills->get(HIS)->set_mod(INT_MOD());    // History          (INT)
-        skills->get(INS)->set_mod(WIS_MOD());    // Insight          (WIS)
-        skills->get(ITM)->set_mod(CHA_MOD());    // Intimidation     (CHA)
-        skills->get(INV)->set_mod(INT_MOD());    // Investigation    (INT)
-        skills->get(MED)->set_mod(WIS_MOD());    // Medicine         (WIS)
-        skills->get(NAT)->set_mod(INT_MOD());    // Nature           (INT)
-        skills->get(PRC)->set_mod(WIS_MOD());    // Perception       (WIS)
-        skills->get(PRF)->set_mod(CHA_MOD());    // Performance      (CHA)
-        skills->get(PRS)->set_mod(CHA_MOD());    // Persuasion       (CHA)
-        skills->get(REL)->set_mod(INT_MOD());    // Religion         (INT)
-        skills->get(SLE)->set_mod(DEX_MOD());    // Sleight of Hand  (DEX)
-        skills->get(STL)->set_mod(DEX_MOD());    // Stealth          (DEX)
-        skills->get(SUR)->set_mod(WIS_MOD());    // Survival         (WIS)
+    void Character::update_skills()
+    {
+        skills->get(ACR)->set_mod(DEX_MOD()); // Acrobatics       (DEX)
+        skills->get(ANM)->set_mod(WIS_MOD()); // Animal Handling  (WIS)
+        skills->get(ARC)->set_mod(INT_MOD()); // Arcana           (INT)
+        skills->get(ATH)->set_mod(STR_MOD()); // Athletics        (STR)
+        skills->get(DEC)->set_mod(CHA_MOD()); // Deception        (CHA)
+        skills->get(HIS)->set_mod(INT_MOD()); // History          (INT)
+        skills->get(INS)->set_mod(WIS_MOD()); // Insight          (WIS)
+        skills->get(ITM)->set_mod(CHA_MOD()); // Intimidation     (CHA)
+        skills->get(INV)->set_mod(INT_MOD()); // Investigation    (INT)
+        skills->get(MED)->set_mod(WIS_MOD()); // Medicine         (WIS)
+        skills->get(NAT)->set_mod(INT_MOD()); // Nature           (INT)
+        skills->get(PRC)->set_mod(WIS_MOD()); // Perception       (WIS)
+        skills->get(PRF)->set_mod(CHA_MOD()); // Performance      (CHA)
+        skills->get(PRS)->set_mod(CHA_MOD()); // Persuasion       (CHA)
+        skills->get(REL)->set_mod(INT_MOD()); // Religion         (INT)
+        skills->get(SLE)->set_mod(DEX_MOD()); // Sleight of Hand  (DEX)
+        skills->get(STL)->set_mod(DEX_MOD()); // Stealth          (DEX)
+        skills->get(SUR)->set_mod(WIS_MOD()); // Survival         (WIS)
     }
 
-    string Character::to_string() {
+    string Character::to_string()
+    {
         string ret("");
 
-        ret += "First: "+ (firstName.empty() || firstName == "NULL" ? "" : firstName) +"\n";
-        ret += "Last: " + (lastName.empty() || lastName == "NULL" ? "" : lastName) +"\n";
+        ret += "First: " + (firstName.empty() || firstName == "NULL" ? "" : firstName) + "\n";
+        ret += "Last: " + (lastName.empty() || lastName == "NULL" ? "" : lastName) + "\n";
 
-        ret += "Race: "+ race->to_string() +"\n";
-        ret += "Background: "+ bg->to_string() +"\n";
-        ret += "Class: "+ cClass->to_string() +"\n"; // TODO Multiclassing
+        ret += "Race: " + race->to_string() + "\n";
+        ret += "Background: " + bg->to_string() + "\n";
+        ret += "Class: " + cClass->to_string() + "\n"; // TODO Multiclassing
 
-        ret += "Level: "+ std::to_string(level) + "\n";
-        ret += "EXP: " + std::to_string(curr_exp) +"/"+ std::to_string(max_exp) + "\n";
+        ret += "Level: " + std::to_string(level) + "\n";
+        ret += "EXP: " + std::to_string(curr_exp) + "/" + std::to_string(max_exp) + "\n";
 
-        ret += "TempHP: "+ std::to_string(temp_hp) +"\n";        
-        ret += "HP:"+ std::to_string(curr_hp) +"/"+ std::to_string(max_hp) +"\n";
-        
-        ret += "Proficiency: "+ format_mod(prof, 0) +"\n";
+        ret += "TempHP: " + std::to_string(temp_hp) + "\n";
+        ret += "HP:" + std::to_string(curr_hp) + "/" + std::to_string(max_hp) + "\n";
 
-        ret += "STR: "+ std::to_string(STR()) + " (" + format_mod(STR_MOD(), 0) + ")\n";
-        ret += "DEX: "+ std::to_string(DEX()) + " (" + format_mod(DEX_MOD(), 0) + ")\n";
-        ret += "CON: "+ std::to_string(CON()) + " (" + format_mod(CON_MOD(), 0) + ")\n";
-        ret += "INT: "+ std::to_string(INT()) + " (" + format_mod(INT_MOD(), 0) + ")\n";
-        ret += "WIS: "+ std::to_string(WIS()) + " (" + format_mod(WIS_MOD(), 0) + ")\n";
-        ret += "CHA: "+ std::to_string(CHA()) + " (" + format_mod(CHA_MOD(), 0) + ")\n";
+        ret += "Proficiency: " + format_mod(prof, 0) + "\n";
+
+        ret += "STR: " + std::to_string(STR()) + " (" + format_mod(STR_MOD(), 0) + ")\n";
+        ret += "DEX: " + std::to_string(DEX()) + " (" + format_mod(DEX_MOD(), 0) + ")\n";
+        ret += "CON: " + std::to_string(CON()) + " (" + format_mod(CON_MOD(), 0) + ")\n";
+        ret += "INT: " + std::to_string(INT()) + " (" + format_mod(INT_MOD(), 0) + ")\n";
+        ret += "WIS: " + std::to_string(WIS()) + " (" + format_mod(WIS_MOD(), 0) + ")\n";
+        ret += "CHA: " + std::to_string(CHA()) + " (" + format_mod(CHA_MOD(), 0) + ")\n";
 
         ret += skills->to_string();
 
         return ret;
     }
 
-    string Character::format_mod(int mod, int spaces) {
+    string Character::format_mod(int mod, int spaces)
+    {
         string ret("");
-        if(mod > 0) {
+        if (mod > 0)
+        {
             ret += "+";
         }
 
         ret += std::to_string(mod);
         ret = Utils::rightpad(ret, spaces, ' ');
-        
+
         return ret;
     }
 
-    string Character::to_ascii_sheet() {
+    string Character::to_ascii_sheet()
+    {
         string ret("");
 
         const int SPACES_PER_MOD = 3;
 
         update_skills();
 
-        //TODO A couple magic numbers in this function, possibly replace later
+        // TODO A couple magic numbers in this function, possibly replace later
 
-        //Second argument is 23 because there are 23 allotted spaces for the first name
+        // Second argument is 23 because there are 23 allotted spaces for the first name
         string charFName = Utils::leftpad(firstName, 23, ' ');
 
-        //Second arg is 22 because thats how many spaces we alloted for last name
+        // Second arg is 22 because thats how many spaces we alloted for last name
         string charLName = Utils::leftpad(lastName, 22, ' ');
 
-        //Second arg is 12 because thats how many spaces we alloted for backgrounds
+        // Second arg is 12 because thats how many spaces we alloted for backgrounds
         string charBg = Utils::rightpad(bg->to_string(), 12, ' ');
 
-        //Second arg is 12 because thats how many spaces we alloted for the race
+        // Second arg is 12 because thats how many spaces we alloted for the race
         string charRace = Utils::rightpad(race->to_string(), 14, ' ');
 
         string charEXP = std::to_string(curr_exp) + '/' + std::to_string(max_exp);
@@ -1268,19 +1544,19 @@ namespace ORPG {
 
         string sSTR = Utils::rightpad(std::to_string(STR()), SPACES_PER_MOD, ' ');
         string sSTRMod = format_mod(STR_MOD(), SPACES_PER_MOD);
-        
+
         string sDEX = Utils::rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sDEXMod = format_mod(DEX_MOD(), SPACES_PER_MOD);
-        
+
         string sCON = Utils::rightpad(std::to_string(DEX()), SPACES_PER_MOD, ' ');
         string sCONMod = format_mod(CON_MOD(), SPACES_PER_MOD);
-        
+
         string sINT = Utils::rightpad(std::to_string(INT()), SPACES_PER_MOD, ' ');
         string sINTMod = format_mod(INT_MOD(), SPACES_PER_MOD);
-        
+
         string sWIS = Utils::rightpad(std::to_string(WIS()), SPACES_PER_MOD, ' ');
         string sWISMod = format_mod(WIS_MOD(), SPACES_PER_MOD);
-        
+
         string sCHA = Utils::rightpad(std::to_string(CHA()), SPACES_PER_MOD, ' ');
         string sCHAMod = format_mod(CHA_MOD(), SPACES_PER_MOD);
 
@@ -1305,64 +1581,64 @@ namespace ORPG {
 
         string passPRC = format_mod(passive_stat(skills->get_mod(SUR)), SPACES_PER_MOD);
 
-        //TODO pull this into its own files
-        //NOTE(var_username): To be fair, this is quite lazy on my part
+        // TODO pull this into its own files
+        // NOTE(var_username): To be fair, this is quite lazy on my part
         /* NOTE(incomingstick): this likely should be put in its own file with tags in the file as
-        * placeholders for the different variables. That would pull this out from cluttering the
-        * source code, as well as allowing for people to create their own styles with our predefined tags
-        */
+         * placeholders for the different variables. That would pull this out from cluttering the
+         * source code, as well as allowing for people to create their own styles with our predefined tags
+         */
 
         ret += "                         ╭────────────────────────────────────────────────────╮\n";
-        ret += " ────────────────────────┤                  "+ charBg +"                      │\n";
-        ret += " \\" + charFName +      "│Class & Level     Background      Player Name       │\n";
-        ret += "  \\"+ charLName +      "│                                                    │\n";
-        ret += "_ ───────────────────────┤"+ charRace +"                    "+charEXP+"        │\n";
+        ret += " ────────────────────────┤                  " + charBg + "                      │\n";
+        ret += " \\" + charFName + "│Class & Level     Background      Player Name       │\n";
+        ret += "  \\" + charLName + "│                                                    │\n";
+        ret += "_ ───────────────────────┤" + charRace + "                    " + charEXP + "        │\n";
         ret += "__\\  Character Name      │Race              Alignment       Experience Points │\n";
         ret += "                         ╰────────────────────────────────────────────────────╯\n";
         ret += "╭───╮╭─────────────────────────────────────────────────────────────────────────\n";
         ret += "│STR││╭───┬─────────────────╮╭───────────────────────╮╭───────────────────────╮\n";
-        ret += "│"+sSTR+"│││   │   Inspiration   ││  ╭───╮  ╭────╮  ╭───╮ ││╭─────────────────────╮│\n";
+        ret += "│" + sSTR + "│││   │   Inspiration   ││  ╭───╮  ╭────╮  ╭───╮ ││╭─────────────────────╮│\n";
         ret += "├───┤│╰───┴─────────────────╯│  │   │  │    │  │   │ │││                     ││\n";
-        ret += "│"+sSTRMod+"││                       │  ├───┤  ├────┤  ├───┤ │││                     ││\n";
+        ret += "│" + sSTRMod + "││                       │  ├───┤  ├────┤  ├───┤ │││                     ││\n";
         ret += "╰───╯│╭───┬─────────────────╮│  │ AC│  │Init│  │SPD│ │││                     ││\n";
-        ret += "     ││"+sProf+"│   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
+        ret += "     ││" + sProf + "│   Proficiency   ││  ╰───╯  ╰────╯  ╰───╯ │││                     ││\n";
         ret += "╭───╮│╰───┴─────────────────╯│                       │││                     ││\n";
         ret += "│DEX││                       │  ╭──────────────────╮ │││  Personality Traits ││\n";
-        ret += "│"+sDEX+"││╭─┬───┬───────────────╮│  │                  │ ││├─────────────────────┤│\n";
+        ret += "│" + sDEX + "││╭─┬───┬───────────────╮│  │                  │ ││├─────────────────────┤│\n";
         ret += "├───┤││ │   │      STR      ││  │                  │ │││                     ││\n";
-        ret += "│"+sDEXMod+"│││ │   │      DEX      ││  │     Curr. HP     │ │││                     ││\n";
+        ret += "│" + sDEXMod + "│││ │   │      DEX      ││  │     Curr. HP     │ │││                     ││\n";
         ret += "╰───╯││ │   │      CON      ││  ├──────────────────┤ │││        Ideals       ││\n";
         ret += "     ││ │   │      INT      ││  │                  │ ││├─────────────────────┤│\n";
         ret += "╭───╮││ │   │      WIS      ││  │     Temp. HP     │ │││                     ││\n";
         ret += "│CON│││ │   │      CHA      ││  ╰──────────────────╯ │││                     ││\n";
-        ret += "│"+sCON+"││├─┴───┴───────────────┤│                       │││        Bonds        ││\n";
+        ret += "│" + sCON + "││├─┴───┴───────────────┤│                       │││        Bonds        ││\n";
         ret += "├───┤││    Saving throws    ││ ╭────────╮ ╭────────╮ ││├─────────────────────┤│\n";
-        ret += "│"+sCONMod+"││╰─────────────────────╯│ │        │ │S O-O-O │ │││                     ││\n";
+        ret += "│" + sCONMod + "││╰─────────────────────╯│ │        │ │S O-O-O │ │││                     ││\n";
         ret += "╰───╯│                       │ ├────────┤ │F O-O-O │ │││                     ││\n";
         ret += "     │╭─┬───┬───────────────╮│ │Hit Dice│ │ Saves  │ │││        Flaws        ││\n";
-        ret += "╭───╮││ │"+sACR+"│Acrobatics     ││ ╰────────╯ ╰────────╯ ││╰─────────────────────╯│\n";
-        ret += "│INT│││ │"+sANM+"│Animal Handling│╰───────────────────────╯╰───────────────────────╯\n";
-        ret += "│"+sINT+"│││ │"+sARC+"│Arcana         │╭────────┬─────┬────────╮╭───────────────────────╮\n";
-        ret += "├───┤││ │"+sATH+"│Athletics      ││Name    │ ATK │DMG Type││                       │\n";
-        ret += "│"+sINTMod+"│││ │"+sDEC+"│Deception      ││        │     │        ││                       │\n";
-        ret += "╰───╯││ │"+sHIS+"│History        ││        │     │        ││                       │\n";
-        ret += "     ││ │"+sINS+"│Insight        ││        │     │        ││                       │\n";
-        ret += "╭───╮││ │"+sITM+"│Intimidation   │├────────┴─────┴────────┤│                       │\n";
-        ret += "│WIS│││ │"+sINV+"│Investigation  ││                       ││                       │\n";
-        ret += "│"+sWIS+"│││ │"+sWISMod+"│Medicine       ││                       ││                       │\n";
-        ret += "├───┤││ │"+sNAT+"│Nature         ││                       ││                       │\n";
-        ret += "│"+sWISMod+"│││ │"+sPRC+"│Perception     ││                       ││                       │\n";
-        ret += "╰───╯││ │"+sPRF+"│Performance    ││                       ││                       │\n";
-        ret += "     ││ │"+sPRS+"│Persuassion    ││                       ││                       │\n";
-        ret += "╭───╮││ │"+sREL+"│Religion       ││                       ││                       │\n";
-        ret += "│CHA│││ │"+sSLE+"│Sleight of Hand││                       ││                       │\n";
-        ret += "│"+sCHA+"│││ │"+sSTL+"│Stealth        ││                       ││                       │\n";
-        ret += "├───┤││ │"+sSUR+"│Survival       ││                       ││                       │\n";
-        ret += "│"+sCHAMod+"││├─┴───┴───────────────┤├───────────────────────┤│                       │\n";
+        ret += "╭───╮││ │" + sACR + "│Acrobatics     ││ ╰────────╯ ╰────────╯ ││╰─────────────────────╯│\n";
+        ret += "│INT│││ │" + sANM + "│Animal Handling│╰───────────────────────╯╰───────────────────────╯\n";
+        ret += "│" + sINT + "│││ │" + sARC + "│Arcana         │╭────────┬─────┬────────╮╭───────────────────────╮\n";
+        ret += "├───┤││ │" + sATH + "│Athletics      ││Name    │ ATK │DMG Type││                       │\n";
+        ret += "│" + sINTMod + "│││ │" + sDEC + "│Deception      ││        │     │        ││                       │\n";
+        ret += "╰───╯││ │" + sHIS + "│History        ││        │     │        ││                       │\n";
+        ret += "     ││ │" + sINS + "│Insight        ││        │     │        ││                       │\n";
+        ret += "╭───╮││ │" + sITM + "│Intimidation   │├────────┴─────┴────────┤│                       │\n";
+        ret += "│WIS│││ │" + sINV + "│Investigation  ││                       ││                       │\n";
+        ret += "│" + sWIS + "│││ │" + sWISMod + "│Medicine       ││                       ││                       │\n";
+        ret += "├───┤││ │" + sNAT + "│Nature         ││                       ││                       │\n";
+        ret += "│" + sWISMod + "│││ │" + sPRC + "│Perception     ││                       ││                       │\n";
+        ret += "╰───╯││ │" + sPRF + "│Performance    ││                       ││                       │\n";
+        ret += "     ││ │" + sPRS + "│Persuassion    ││                       ││                       │\n";
+        ret += "╭───╮││ │" + sREL + "│Religion       ││                       ││                       │\n";
+        ret += "│CHA│││ │" + sSLE + "│Sleight of Hand││                       ││                       │\n";
+        ret += "│" + sCHA + "│││ │" + sSTL + "│Stealth        ││                       ││                       │\n";
+        ret += "├───┤││ │" + sSUR + "│Survival       ││                       ││                       │\n";
+        ret += "│" + sCHAMod + "││├─┴───┴───────────────┤├───────────────────────┤│                       │\n";
         ret += "╰───╯││       Skills        ││  Attacks and Spells   ││                       │\n";
         ret += "─────╯╰─────────────────────╯╰───────────────────────╯│                       │\n";
         ret += "╭───┬───────────────────────╮╭──┬────┬───────────────╮│                       │\n";
-        ret += "│"+passPRC+"│    Passive Perception |│CP│    │               ││                       │\n";
+        ret += "│" + passPRC + "│    Passive Perception |│CP│    │               ││                       │\n";
         ret += "╰───┴───────────────────────╯│SP│    │               ││                       │\n";
         ret += "╭───────────────────────────╮│EP│    │               ││                       │\n";
         ret += "│                           ││GP│    │               ││                       │\n";
@@ -1379,7 +1655,8 @@ namespace ORPG {
         return ret;
     }
 
-    uint8 gen_stat() {
+    uint8 gen_stat()
+    {
         /*
          * TODO accept different types of stat generation
          * i.e 4d4+4 or 4d6h3+2
@@ -1392,10 +1669,14 @@ namespace ORPG {
 
     /* Generates a vector of ability scores base on the used type
         TODO allow multiple types of ability score generation */
-    vector<uint8> ability_score_vector() {
+    vector<uint8> ability_score_vector()
+    {
         vector<uint8> ret;
 
-        for(uint8 i = 0; i < 6; i++) { ret.push_back(gen_stat()); }
+        for (uint8 i = 0; i < 6; i++)
+        {
+            ret.push_back(gen_stat());
+        }
 
         return ret;
     }
